@@ -26,20 +26,20 @@
         body {
             margin: 0;
             padding: 40px 20px;
-            /* COULEUR DE BASE */
-            background-color: #d8c3a5; 
+            /* COULEUR DE BASE : Gris clair neutre */
+            background-color: #e3e3e3; 
             
-            /* SUPERPOSITION : 1. Texture / 2. Voile de clarté / 3. Image de fond */
+            /* SUPERPOSITION : On remplace le RGBA jaune par un gris (227, 227, 227) */
             background-image: 
                 url("clean-gray-paper.png"), 
-                linear-gradient(rgba(216, 195, 165, 0.9), rgba(216, 195, 165, 0.9)),
+                linear-gradient(rgba(227, 227, 227, 0.9), rgba(227, 227, 227, 0.9)),
                 url("fond-de-page-accueil.png");
             
             background-attachment: fixed;
             background-position: center;
             background-size: auto, cover, cover;
             background-repeat: repeat, no-repeat, no-repeat;
-            background-blend-mode: multiply;
+            background-blend-mode: multiply; /* Le mode multiply va assombrir légèrement le gris */
 
             font-family: 'Cormorant Garamond', serif;
             display: flex;
