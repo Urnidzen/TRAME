@@ -23,12 +23,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        body { 
+        body {
             margin: 0;
             padding: 40px 20px;
+            /* COULEUR DE BASE */
             background-color: #d8c3a5; 
-            background-image: url("clean-gray-paper.png");
+            
+            /* SUPERPOSITION : 
+               1. On met la texture parchemin en premier (elle sera devant)
+               2. On met ton image de fond en deuxième (elle sera derrière) */
+            background-image: url("clean-gray-paper.png"), url("fond-jdr.jpg");
+            
+            /* REGLAGES DE L'IMAGE DE FOND */
+            background-attachment: fixed; /* L'image ne bouge pas au scroll */
+            background-position: center;
+            background-size: auto, cover; /* Le parchemin garde sa taille, l'image couvre tout */
+            background-repeat: repeat, no-repeat;
+            
+            /* FUSION : 
+               On multiplie la texture avec l'image pour un effet "vieux dessin" */
             background-blend-mode: multiply;
+
             font-family: 'Cormorant Garamond', serif;
             display: flex;
             justify-content: center;
