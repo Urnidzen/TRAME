@@ -9,6 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* =========================================
+           ZONE DE RÉGLAGES (Changez les valeurs ici)
+           ========================================= */
+        :root {
+            /* 1. TRANSPARENCE DE LA PAGE (Le grand cadre beige) 
+               0 = Invisible | 1 = Totalement opaque (solide) */
+            --opacite-page: 0.3;
+
+            /* 2. TRANSPARENCE DES ONGLETS (Les barres de liens) 
+               Indépendant de la page. 
+               Essayez 0.1 pour subtil, 0.5 pour très visible. */
+            --opacite-onglets: 0.65; 
+        }
+
         body {
             margin: 0;
             padding: 20px;
@@ -35,16 +49,14 @@
             max-width: 500px;
             width: 100%;
             
-            /* Fond Beige "Papier" assez opaque pour être lisible */
-            background: rgba(235, 228, 215, 0.3); 
+            /* UTILISATION DE LA VARIABLE PAGE ICI */
+            background: rgba(235, 228, 215, var(--opacite-page)); 
             
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             padding: 25px 40px; 
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            
-            /* Bordure fine blanche pour délimiter le papier */
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -78,14 +90,11 @@
         li { 
             margin-bottom: 10px; 
             
-            /* CHANGEMENT MAJEUR ICI : 
-               Au lieu de remettre du blanc sur du blanc, on met une teinte "Ombre" très légère.
-               Cela donne l'impression que le texte est imprimé sur une ligne distincte. */
-            background: rgba(0, 0, 0, 0.04); 
+            /* UTILISATION DE LA VARIABLE ONGLETS ICI */
+            /* J'ai remis une base blanche (255,255,255) pour bien détacher du fond beige */
+            background: rgba(255, 255, 255, var(--opacite-onglets)); 
             
-            /* Bordure sombre très fine pour l'effet "encadré" */
             border: 1px solid rgba(0,0,0,0.05);
-            
             border-left: 4px solid #1c1917;
             transition: all 0.2s ease;
             border-radius: 0 4px 4px 0;
@@ -93,8 +102,8 @@
 
         li:hover { 
             transform: translateX(8px); 
-            /* Au survol, on passe en mode "Lumière" */
-            background: rgba(255, 255, 255, 0.6); 
+            /* Au survol, on devient plus opaque et lumineux */
+            background: rgba(255, 255, 255, 0.8); 
             border-color: rgba(255,255,255,0.8);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
@@ -120,7 +129,6 @@
             font-size: 0.85rem; 
             font-weight: 900; 
             color: #333;
-            /* Le badge version reste discret */
             background: rgba(0,0,0,0.06);
             padding: 4px 10px;
             border-radius: 4px;
