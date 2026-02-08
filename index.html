@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCS - Codex Officiel</title>
     <meta name="description" content="Accédez au Codex Officiel du Système de Création et de Simulation (SCCS).">
-    <link rel="icon" href="https://fav.farm/📜">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://fav.farm/ 📜">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400 ;700&display=swap" rel="stylesheet">
     
     <style>
         /* =========================================
@@ -29,7 +29,7 @@
 
         body {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #e3e3e3; 
             background-image: 
                 url("clean-gray-paper.png"), 
@@ -42,7 +42,7 @@
             background-blend-mode: multiply;
             font-family: 'Cormorant Garamond', serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* EMPILER VERTICALEMENT */
             align-items: center; 
             min-height: 100vh;
             box-sizing: border-box;
@@ -61,6 +61,8 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-top: 1px solid rgba(255, 255, 255, 0.6);
             border-left: 1px solid rgba(255, 255, 255, 0.6);
+            margin-top: 40px; /* Espace en haut */
+            margin-bottom: 20px;
         }
 
         .header {
@@ -143,6 +145,27 @@
             filter: brightness(1.2);
         }
 
+        /* FOOTER */
+        footer {
+            background: rgba(0, 0, 0, 0.85);
+            color: #aaa; 
+            text-align: center; 
+            padding: 15px; 
+            margin-top: auto; /* POUSSE LE FOOTER EN BAS */
+            width: 100%;
+            font-size: 0.75em; 
+            border-top: 1px solid #333;
+            box-sizing: border-box;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: underline;
+            padding: 0;
+            font-size: inherit;
+            display: inline;
+        }
+
         @media (max-width: 600px) {
             .container { padding: 20px; margin: 10px; width: auto; }
             h1 { font-size: 1.2rem; }
@@ -207,10 +230,10 @@
             </li>
         </ul>
     </div>
-<footer style="background: #1a1a1a; color: #888; text-align: center; 
-               padding: 15px; margin-top: 50px; border-top: 1px solid #333;
-               font-size: 0.75em;">
-  <p>© 2024 Urnidzen - SCCS | Licence CC BY-NC-SA 4.0 | Images générées par IA</p>
+
+<footer>
+  <p>© 2024 Urnidzen - SCCS | Licence <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> | Images générées par IA</p>
 </footer>
+
 </body>
 </html>
