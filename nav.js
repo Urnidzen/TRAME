@@ -1,188 +1,229 @@
-// nav.js - Barre de navigation globale SCCS
+// nav.js - Navigation globale SCCS (Latérale Droite)
 (function() {
     'use strict';
-    
-    // Configuration des livrets (ordre logique)
+
+    // Configuration des livrets
     const BOOKLETS = [
-        { id: 'fiche', file: 'Fiche de personnage.v0.86.html', label: '📋 Fiche', short: 'Fiche' },
-        { id: 'livret1', file: 'Livret1-Mecanismes.v0.84.html', label: 'I. Mécanismes', short: 'Mécanismes' },
-        { id: 'livret2', file: 'Livret2-Creation.v0.73.html', label: 'II. Création', short: 'Création' },
-        { id: 'livret3', file: 'Livret3-Equipement.v0.77.html', label: 'III. Équipement', short: 'Équipement' },
-        { id: 'livret4', file: 'Livret4-Rencontres.v0.79.html', label: 'IV. Rencontres', short: 'Rencontres' },
-        { id: 'livret5', file: 'Livret5-Bestiaire.v0.79.html', label: 'V. Bestiaire', short: 'Bestiaire' }
+        { id: 'fiche', file: 'Fiche%20de%20personnage.v0.86.html', label: 'Fiche', icon: '📋' },
+        { id: 'livret1', file: 'Livret1-Mecanismes.v0.84.html', label: 'Mécanismes', icon: '⚙️' },
+        { id: 'livret2', file: 'Livret2-Creation.v0.73.html', label: 'Création', icon: '🌱' },
+        { id: 'livret3', file: 'Livret3-Equipement.v0.77.html', label: 'Équipement', icon: '📜' },
+        { id: 'livret4', file: 'Livret4-Rencontres.v0.79.html', label: 'Rencontres', icon: '🐉' },
+        { id: 'livret5', file: 'Livret5-Bestiaire.v0.79.html', label: 'Bestiaire', icon: '🐾' }
     ];
 
-    // Détection automatique de la page actuelle si CURRENT_BOOKLET n'est pas défini
-    function detectCurrentBooklet() {
-        const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-        
-        // Cherche correspondance exacte
-        let found = BOOKLETS.find(b => b.file === currentFile);
-        
-        // Si pas trouvé (URL avec hash ou params), chercher partial
-        if (!found) {
-            found = BOOKLETS.find(b => currentFile.includes(b.file.split('.')[0]));
+    // Détection de la page courante
+    const currentFile = window.location.href.split('/').pop();
+    const currentBooklet = BOOKLETS.find(b => 
+        currentFile.includes(b.file.replace('%20', ' ')) || 
+        currentFile.includes(b.id)
+    ) || BOOKLETS[0];
+
+    // Injection CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Barre latérale droite */
+        .sccs-global-nav-right {
+            position: fixed;
+            right: 0;
+            top: 80px; /* Hauteur du header */
+            height: calc(100vh - 80px);
+            width: 50px;
+            background: linear-gradient(to left, rgba(44, 37, 32, 0.95), rgba(28, 25, 23, 0.98));
+            border-left: 3px solid #7c2d12;
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
         }
-        
-        return found ? found.id : null;
-    }
 
-    // Injection du CSS
-    function injectStyles() {
-        const css = `
-            .sccs-global-nav {
-                background: linear-gradient(180deg, rgba(28, 25, 23, 0.95) 0%, rgba(44, 37, 32, 0.98) 100%);
-                border-bottom: 2px solid #7c2d12;
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-                backdrop-filter: blur(10px);
-                font-family: 'Cinzel', serif;
+        .sccs-nav-container-vertical {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 1rem 0;
+            gap: 0.5rem;
+        }
+
+        .sccs-nav-container-vertical::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Style des onglets verticaux */
+        .sccs-nav-link-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #d8c3a5;
+            text-decoration: none;
+            padding: 1rem 0.4rem;
+            margin: 0 0.25rem;
+            border-radius: 4px 0 0 4px;
+            border: 1px solid rgba(124, 45, 18, 0.3);
+            border-right: none;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        /* Icône en haut de l'onglet */
+        .sccs-nav-link-vertical::before {
+            content: attr(data-icon);
+            writing-mode: horizontal-tb;
+            transform: rotate(180deg);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .sccs-nav-link-vertical:hover {
+            background: rgba(124, 45, 18, 0.4);
+            border-color: #7c2d12;
+            color: #fff;
+            width: 60px;
+            margin-right: 0;
+            padding-left: 0.6rem;
+            box-shadow: -4px 0 15px rgba(124, 45, 18, 0.4);
+        }
+
+        /* Onglet actif */
+        .sccs-nav-link-vertical.active {
+            background: #7c2d12;
+            color: #f4ecd8;
+            border-color: #9a3412;
+            width: 55px;
+            margin-right: 0;
+            box-shadow: -4px 0 20px rgba(124, 45, 18, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+            font-weight: 700;
+        }
+
+        /* Indicateur visuel subtil */
+        .sccs-nav-link-vertical.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 3px;
+            background: #d8c3a5;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Mobile : bascule en barre horizontale en bas */
+        @media (max-width: 1024px) {
+            .sccs-global-nav-right {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 60px;
+                border-left: none;
+                border-top: 3px solid #7c2d12;
+                flex-direction: row;
             }
-            
-            .sccs-nav-container {
-                max-width: 1400px;
-                margin: 0 auto;
-                display: flex;
+
+            .sccs-nav-container-vertical {
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding: 0.5rem;
+                gap: 0.5rem;
                 justify-content: center;
-                align-items: center;
-                gap: 0.3rem;
-                padding: 0.6rem 1rem;
-                flex-wrap: wrap;
             }
-            
-            .sccs-nav-link {
-                color: #d8c3a5;
-                text-decoration: none;
-                padding: 0.5rem 1rem;
+
+            .sccs-nav-link-vertical {
+                writing-mode: horizontal-tb;
+                transform: none;
+                min-height: auto;
+                min-width: 60px;
+                padding: 0.5rem;
                 border-radius: 4px;
-                font-size: 0.85rem;
-                font-weight: 600;
-                letter-spacing: 0.03em;
-                transition: all 0.3s ease;
-                border: 1px solid transparent;
-                position: relative;
-                white-space: nowrap;
+                border-right: 1px solid rgba(124, 45, 18, 0.3);
+                flex-direction: column;
+                font-size: 0.7rem;
             }
-            
-            .sccs-nav-link:hover {
-                background: rgba(124, 45, 18, 0.4);
-                border-color: #7c2d12;
-                color: #fff;
-                transform: translateY(-1px);
-                box-shadow: 0 2px 8px rgba(124, 45, 18, 0.3);
+
+            .sccs-nav-link-vertical::before {
+                transform: none;
+                margin-bottom: 0.2rem;
+                margin-right: 0;
+                font-size: 1rem;
             }
-            
-            .sccs-nav-link.active {
-                background: #7c2d12;
-                color: #f4ecd8;
-                border-color: #9a3412;
-                box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+
+            .sccs-nav-link-vertical:hover,
+            .sccs-nav-link-vertical.active {
+                width: auto;
+                padding-left: 0.5rem;
             }
-            
-            .sccs-nav-link.active::after {
-                content: '';
-                position: absolute;
-                bottom: -8px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 0;
-                height: 0;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-top: 6px solid #7c2d12;
+
+            .sccs-nav-link-vertical.active::after {
+                top: 0;
+                left: 20%;
+                width: 60%;
+                height: 3px;
             }
-            
-            /* Mobile : scroll horizontal */
-            @media (max-width: 768px) {
-                .sccs-global-nav {
-                    top: 0;
-                }
-                .sccs-nav-container {
-                    justify-content: flex-start;
-                    overflow-x: auto;
-                    flex-wrap: nowrap;
-                    -webkit-overflow-scrolling: touch;
-                    scrollbar-width: none;
-                    gap: 0.2rem;
-                    padding: 0.5rem;
-                }
-                .sccs-nav-container::-webkit-scrollbar {
-                    display: none;
-                }
-                .sccs-nav-link {
-                    font-size: 0.8rem;
-                    padding: 0.4rem 0.8rem;
-                    flex-shrink: 0;
-                }
-                .sccs-nav-link.active::after {
-                    display: none;
-                }
-            }
-            
-            /* Ajustement pour votre header existant */
+
+            /* Ajustement du body pour ne pas cacher le contenu */
             body {
-                padding-top: 0 !important;
+                padding-bottom: 70px;
             }
-        `;
-        
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = css;
-        document.head.appendChild(styleSheet);
-    }
+        }
 
-    // Création de la barre de navigation
-    function createNavigation() {
-        const currentId = (typeof CURRENT_BOOKLET !== 'undefined') ? CURRENT_BOOKLET : detectCurrentBooklet();
-        
-        const nav = document.createElement('nav');
-        nav.className = 'sccs-global-nav';
-        nav.setAttribute('role', 'navigation');
-        nav.setAttribute('aria-label', 'Navigation principale');
-        
-        const container = document.createElement('div');
-        container.className = 'sccs-nav-container';
-        
-        BOOKLETS.forEach(booklet => {
-            const link = document.createElement('a');
-            link.href = booklet.file;
-            link.className = 'sccs-nav-link';
-            link.textContent = window.innerWidth < 480 ? booklet.short : booklet.label;
-            
-            if (booklet.id === currentId) {
-                link.classList.add('active');
-                link.setAttribute('aria-current', 'page');
+        /* Très petit écran */
+        @media (max-width: 480px) {
+            .sccs-nav-link-vertical {
+                min-width: 50px;
+                font-size: 0.65rem;
             }
             
-            container.appendChild(link);
-        });
-        
-        nav.appendChild(container);
-        
-        // Insérer au début du body
-        document.body.insertBefore(nav, document.body.firstChild);
-    }
+            .sccs-nav-link-vertical span {
+                display: none; /* Cache le texte, garde seulement l'icône */
+            }
+        }
+    `;
+    document.head.appendChild(style);
 
-    // Initialisation
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            injectStyles();
-            createNavigation();
-        });
-    } else {
-        injectStyles();
-        createNavigation();
-    }
+    // Création de la navigation
+    const nav = document.createElement('nav');
+    nav.className = 'sccs-global-nav-right';
+    nav.setAttribute('aria-label', 'Navigation des Livrets');
     
-    // Recalcul des labels au redimensionnement (short vs full)
-    window.addEventListener('resize', () => {
-        const links = document.querySelectorAll('.sccs-nav-link');
-        const width = window.innerWidth;
-        links.forEach((link, index) => {
-            if (BOOKLETS[index]) {
-                link.textContent = width < 480 ? BOOKLETS[index].short : BOOKLETS[index].label;
-            }
-        });
+    let navHTML = '<div class="sccs-nav-container-vertical">';
+    
+    BOOKLETS.forEach(booklet => {
+        const isActive = booklet.id === currentBooklet.id;
+        const activeClass = isActive ? 'active' : '';
+        
+        navHTML += `
+            <a href="${booklet.file.replace('%20', ' ')}" 
+               class="sccs-nav-link-vertical ${activeClass}" 
+               data-booklet="${booklet.id}"
+               data-icon="${booklet.icon}"
+               title="${booklet.label}">
+                <span>${booklet.label}</span>
+            </a>
+        `;
     });
+    
+    navHTML += '</div>';
+    nav.innerHTML = navHTML;
+
+    // Insertion dans le DOM
+    document.body.appendChild(nav);
+
+    console.log('SCCS Navigation (Latérale Droite) loaded - Current:', currentBooklet.label);
 })();
