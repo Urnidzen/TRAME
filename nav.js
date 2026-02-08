@@ -1,6 +1,8 @@
-// nav.js - Navigation globale SCCS (Latérale Droite)
+// nav.js - Navigation globale SCCS (Latérale Droite) - VERSION CORRIGÉE
 (function() {
     'use strict';
+    
+    console.log('SCCS Nav: Initialisation...');
 
     // Configuration des livrets
     const BOOKLETS = [
@@ -13,194 +15,189 @@
     ];
 
     // Détection de la page courante
-    const currentFile = window.location.href.split('/').pop();
-    const currentBooklet = BOOKLETS.find(b => 
-        currentFile.includes(b.file.replace('%20', ' ')) || 
-        currentFile.includes(b.id)
-    ) || BOOKLETS[0];
+    const currentFile = window.location.pathname.split('/').pop() || window.location.href.split('/').pop();
+    console.log('SCCS Nav: Fichier actuel:', currentFile);
+    
+    const currentBooklet = BOOKLETS.find(b => {
+        const fileName = b.file.replace('%20', ' ');
+        return currentFile.includes(fileName) || currentFile.includes(b.id);
+    }) || BOOKLETS[0];
+    
+    console.log('SCCS Nav: Livret actuel:', currentBooklet.label);
 
-    // Injection CSS
+    // Injection CSS avec !important pour forcer l'affichage
     const style = document.createElement('style');
     style.textContent = `
-        /* Barre latérale droite */
         .sccs-global-nav-right {
-            position: fixed;
-            right: 0;
-            top: 80px; /* Hauteur du header */
-            height: calc(100vh - 80px);
-            width: 50px;
-            background: linear-gradient(to left, rgba(44, 37, 32, 0.95), rgba(28, 25, 23, 0.98));
-            border-left: 3px solid #7c2d12;
-            z-index: 40;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+            position: fixed !important;
+            right: 0 !important;
+            top: 80px !important;
+            height: calc(100vh - 80px) !important;
+            width: 50px !important;
+            background: linear-gradient(to left, #2c2520, #1c1917) !important;
+            border-left: 3px solid #7c2d12 !important;
+            z-index: 9999 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.5) !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .sccs-nav-container-vertical {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow-y: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding: 1rem 0;
-            gap: 0.5rem;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            padding: 10px 0 !important;
+            gap: 8px !important;
         }
 
         .sccs-nav-container-vertical::-webkit-scrollbar {
-            display: none;
+            display: none !important;
         }
 
-        /* Style des onglets verticaux */
         .sccs-nav-link-vertical {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            font-family: 'Cinzel', serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #d8c3a5;
-            text-decoration: none;
-            padding: 1rem 0.4rem;
-            margin: 0 0.25rem;
-            border-radius: 4px 0 0 4px;
-            border: 1px solid rgba(124, 45, 18, 0.3);
-            border-right: none;
-            background: rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            letter-spacing: 0.1em;
-        }
-
-        /* Icône en haut de l'onglet */
-        .sccs-nav-link-vertical::before {
-            content: attr(data-icon);
-            writing-mode: horizontal-tb;
-            transform: rotate(180deg);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.8;
+            writing-mode: vertical-rl !important;
+            text-orientation: mixed !important;
+            transform: rotate(180deg) !important;
+            font-family: 'Cinzel', serif !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            color: #d8c3a5 !important;
+            text-decoration: none !important;
+            padding: 12px 4px !important;
+            margin: 0 4px !important;
+            border-radius: 4px 0 0 4px !important;
+            border: 1px solid rgba(124, 45, 18, 0.5) !important;
+            border-right: none !important;
+            background: rgba(0,0,0,0.3) !important;
+            transition: all 0.3s ease !important;
+            min-height: 80px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            letter-spacing: 0.1em !important;
+            line-height: 1.2 !important;
+            cursor: pointer !important;
+            position: relative !important;
         }
 
         .sccs-nav-link-vertical:hover {
-            background: rgba(124, 45, 18, 0.4);
-            border-color: #7c2d12;
-            color: #fff;
-            width: 60px;
-            margin-right: 0;
-            padding-left: 0.6rem;
-            box-shadow: -4px 0 15px rgba(124, 45, 18, 0.4);
+            background: #7c2d12 !important;
+            color: #fff !important;
+            width: 60px !important;
+            margin-right: 0 !important;
+            margin-left: -10px !important;
+            padding-left: 10px !important;
+            z-index: 10000 !important;
         }
 
-        /* Onglet actif */
         .sccs-nav-link-vertical.active {
-            background: #7c2d12;
-            color: #f4ecd8;
-            border-color: #9a3412;
-            width: 55px;
-            margin-right: 0;
-            box-shadow: -4px 0 20px rgba(124, 45, 18, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-            font-weight: 700;
+            background: #7c2d12 !important;
+            color: #f4ecd8 !important;
+            border-color: #9a3412 !important;
+            box-shadow: -4px 0 15px rgba(124, 45, 18, 0.6) !important;
+            font-weight: 700 !important;
         }
 
-        /* Indicateur visuel subtil */
-        .sccs-nav-link-vertical.active::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 20%;
-            height: 60%;
-            width: 3px;
-            background: #d8c3a5;
-            border-radius: 0 2px 2px 0;
+        .sccs-nav-link-vertical.active::before {
+            content: '' !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: 20% !important;
+            height: 60% !important;
+            width: 3px !important;
+            background: #d8c3a5 !important;
+            border-radius: 0 2px 2px 0 !important;
         }
 
-        /* Mobile : bascule en barre horizontale en bas */
+        /* Icône */
+        .sccs-nav-icon {
+            font-size: 16px !important;
+            margin-bottom: 6px !important;
+            display: block !important;
+        }
+
+        /* Mobile */
         @media (max-width: 1024px) {
             .sccs-global-nav-right {
-                top: auto;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: 60px;
-                border-left: none;
-                border-top: 3px solid #7c2d12;
-                flex-direction: row;
+                top: auto !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                height: 60px !important;
+                border-left: none !important;
+                border-top: 3px solid #7c2d12 !important;
+                flex-direction: row !important;
             }
 
             .sccs-nav-container-vertical {
-                flex-direction: row;
-                overflow-x: auto;
-                overflow-y: hidden;
-                padding: 0.5rem;
-                gap: 0.5rem;
-                justify-content: center;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                padding: 5px !important;
+                gap: 5px !important;
+                justify-content: center !important;
             }
 
             .sccs-nav-link-vertical {
-                writing-mode: horizontal-tb;
-                transform: none;
-                min-height: auto;
-                min-width: 60px;
-                padding: 0.5rem;
-                border-radius: 4px;
-                border-right: 1px solid rgba(124, 45, 18, 0.3);
-                flex-direction: column;
-                font-size: 0.7rem;
+                writing-mode: horizontal-tb !important;
+                transform: none !important;
+                min-height: auto !important;
+                min-width: 70px !important;
+                padding: 8px 5px !important;
+                border-radius: 4px !important;
+                border-right: 1px solid rgba(124, 45, 18, 0.5) !important;
+                flex-direction: column !important;
+                font-size: 10px !important;
+                margin: 0 !important;
             }
 
-            .sccs-nav-link-vertical::before {
-                transform: none;
-                margin-bottom: 0.2rem;
-                margin-right: 0;
-                font-size: 1rem;
+            .sccs-nav-link-vertical:hover {
+                width: auto !important;
+                margin: 0 !important;
+                padding-left: 5px !important;
             }
 
-            .sccs-nav-link-vertical:hover,
-            .sccs-nav-link-vertical.active {
-                width: auto;
-                padding-left: 0.5rem;
+            .sccs-nav-icon {
+                margin-bottom: 2px !important;
+                margin-right: 0 !important;
+                font-size: 18px !important;
             }
-
-            .sccs-nav-link-vertical.active::after {
-                top: 0;
-                left: 20%;
-                width: 60%;
-                height: 3px;
-            }
-
-            /* Ajustement du body pour ne pas cacher le contenu */
+            
             body {
-                padding-bottom: 70px;
+                padding-bottom: 70px !important;
             }
         }
 
-        /* Très petit écran */
         @media (max-width: 480px) {
             .sccs-nav-link-vertical {
-                min-width: 50px;
-                font-size: 0.65rem;
+                min-width: 50px !important;
+                font-size: 9px !important;
             }
-            
-            .sccs-nav-link-vertical span {
-                display: none; /* Cache le texte, garde seulement l'icône */
+            .sccs-nav-link-vertical span:not(.sccs-nav-icon) {
+                display: none !important;
             }
         }
     `;
-    document.head.appendChild(style);
+    
+    try {
+        document.head.appendChild(style);
+        console.log('SCCS Nav: Styles injectés');
+    } catch(e) {
+        console.error('SCCS Nav: Erreur injection CSS:', e);
+    }
 
     // Création de la navigation
     const nav = document.createElement('nav');
     nav.className = 'sccs-global-nav-right';
     nav.setAttribute('aria-label', 'Navigation des Livrets');
+    nav.id = 'sccs-global-nav';
     
     let navHTML = '<div class="sccs-nav-container-vertical">';
     
@@ -212,8 +209,8 @@
             <a href="${booklet.file.replace('%20', ' ')}" 
                class="sccs-nav-link-vertical ${activeClass}" 
                data-booklet="${booklet.id}"
-               data-icon="${booklet.icon}"
                title="${booklet.label}">
+                <span class="sccs-nav-icon">${booklet.icon}</span>
                 <span>${booklet.label}</span>
             </a>
         `;
@@ -222,8 +219,28 @@
     navHTML += '</div>';
     nav.innerHTML = navHTML;
 
-    // Insertion dans le DOM
-    document.body.appendChild(nav);
+    // Insertion dans le DOM dès que possible
+    function insertNav() {
+        if (document.body) {
+            // Insère au début du body pour être sûr qu'elle soit au-dessus
+            document.body.insertBefore(nav, document.body.firstChild);
+            console.log('SCCS Nav: Navigation insérée dans le DOM');
+            
+            // Vérification visuelle
+            const computed = window.getComputedStyle(nav);
+            console.log('SCCS Nav: Position:', computed.position, 'Right:', computed.right, 'Display:', computed.display);
+        } else {
+            console.error('SCCS Nav: Body non trouvé, retry...');
+            setTimeout(insertNav, 100);
+        }
+    }
 
-    console.log('SCCS Navigation (Latérale Droite) loaded - Current:', currentBooklet.label);
+    // Si le DOM est déjà prêt
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', insertNav);
+    } else {
+        insertNav();
+    }
+
+    console.log('SCCS Nav: Initialisation terminée');
 })();
