@@ -122,7 +122,6 @@
             font-weight: bold;
         }
 
-        /* Ajustement responsive pour la sidebar sous la nouvelle nav */
         @media (max-width: 1024px) {
             .sidebar { display: none; }
         }
@@ -148,8 +147,8 @@
     </header>
 
     <div class="flex">
-        <!-- SIDEBAR RÉVISÉ - MODIFICATIONS ICI : top-[130px] et h-[calc(100vh-130px)] -->
-        <aside class="sidebar w-80 fixed top-[130px] h-[calc(100vh-130px)] overflow-y-auto p-6 hidden lg:block z-40">
+        <!-- SIDEBAR GAUCHE (Index interne du livret) -->
+        <aside class="sidebar w-80 fixed top-[80px] h-[calc(100vh-80px)] overflow-y-auto p-6 hidden lg:block z-40">
             <nav class="space-y-1">
                 <!-- SECTION 1 -->
                 <div class="nav-category">1. Philosophie</div>
@@ -212,8 +211,8 @@
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="flex-1 lg:ml-80 p-6 md:p-16 max-w-5xl">
+        <!-- MAIN CONTENT - AJOUT DE lg:mr-[50px] POUR LA NAV DROITE -->
+        <main class="flex-1 lg:ml-80 lg:mr-[50px] p-6 md:p-16 max-w-5xl">
 
             <p class="italic mb-8 searchable-item">Ce document contient toutes les règles de résolution, le combat, la magie et l'exploration technique.</p>
             
