@@ -2,15 +2,14 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <!-- Viewport corrigé : permet le zoom tactile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche SCCS - Lignes Manuscrites (v0.86 Mobile)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,700&family=Spectral:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Reset Box-sizing */
         * { box-sizing: border-box; }
 
-        /* Configuration A4 stricte */
         @page { size: A4 portrait; margin: 0; }
         
         body { 
@@ -20,22 +19,20 @@
             display: flex; 
             justify-content: center; 
             font-family: 'Cormorant Garamond', serif;
-            color: #000000; /* Noir strict */
+            color: #000000;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Wrapper pour le système d'onglets */
         .layout-wrapper {
             position: relative;
             display: flex;
             max-width: 100%;
         }
 
-        /* Conteneur principal A4 */
+        /* Conteneur A4 - taille fixe réelle */
         .sheet-container {
             width: 210mm; 
-            height: 297mm; /* Hauteur fixe A4 */
+            height: 297mm;
             padding: 10mm 15mm; 
             background-color: #c5a880;
             background-image: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
@@ -46,11 +43,9 @@
             display: flex;
             flex-direction: column;
             z-index: 10;
-            transform-origin: top center;
-            transition: transform 0.3s ease;
         }
 
-        /* --- SYSTÈME DE CLASSEUR (BINDER) --- */
+        /* Onglets du classeur */
         .binder-sidebar {
             position: absolute;
             right: -42px;
@@ -83,7 +78,7 @@
             font-family: 'Cinzel', serif;
             font-weight: 700;
             font-size: 10px;
-            color: #000000; /* Noir strict */
+            color: #000000;
             text-transform: uppercase;
             letter-spacing: 1px;
             user-select: none;
@@ -119,7 +114,7 @@
             transform: translateX(0);
         }
 
-        /* --- SIDEBAR NAVIGATION DOCUMENTS (AJOUT) --- */
+        /* Sidebar navigation documents */
         .sidebar-right {
             background: rgba(216, 195, 165, 0.98);
             background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
@@ -178,7 +173,7 @@
             font-weight: 600;
         }
 
-        /* Actions Header */
+        /* Header actions */
         .header-actions { display: flex; gap: 5px; }
         .btn-action {
             cursor: pointer; opacity: 0.4; transition: opacity 0.2s, color 0.2s;
@@ -206,9 +201,8 @@
                 box-shadow: none; margin: 0; width: 210mm !important; height: 297mm !important;
                 min-height: 297mm; position: absolute; top: 0; left: 0;
                 overflow: hidden; page-break-after: always; z-index: auto;
-                transform: none !important;
             }
-            .no-print, .binder-sidebar, .header-actions, .sidebar-right, .mobile-controls { display: none !important; }
+            .no-print, .binder-sidebar, .header-actions, .sidebar-right, .mobile-controls, .mobile-sheet-wrapper { display: none !important; }
         }
 
         /* Styles de base */
@@ -220,7 +214,6 @@
         ::placeholder { color: #000000 !important; opacity: 0.6; font-style: italic; }
         input, select { color: #000000; }
 
-        /* Inputs spécifiques */
         .stat-digit {
             font-family: 'Spectral', serif !important; font-weight: 700 !important; 
             font-size: 2.2rem !important; line-height: 1 !important;
@@ -250,7 +243,6 @@
         .identity-select { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.2rem; }
         .identity-input { font-family: 'Spectral', serif; font-weight: 700; font-size: 1.2rem; }
 
-        /* Checkbox */
         .check-box {
             width: 14px; height: 14px; border: 2px solid #000000;
             display: inline-flex; align-items: center; justify-content: center;
@@ -260,7 +252,6 @@
         .check-box.active { background: #000000; }
         .check-box.active::after { content: "✓"; color: #fff; font-size: 12px; line-height: 1; }
 
-        /* Containers */
         .area-textarea {
             background-color: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(0, 0, 0, 0.3);
@@ -286,7 +277,22 @@
             filter: sepia(0.2) contrast(1.1) brightness(0.9); mix-blend-mode: multiply;
         }
 
-        /* === CONTRÔLES MOBILES === */
+        /* ======= MOBILE CORRIGÉ ======= */
+        
+        /* Wrapper qui permet le scroll et le zoom */
+        .mobile-sheet-wrapper {
+            width: 100%;
+            height: 100vh;
+            overflow: auto; /* Permet scroll horizontal et vertical */
+            -webkit-overflow-scrolling: touch; /* Défilement fluide iOS */
+            display: flex;
+            justify-content: flex-start; /* Aligné à gauche pour scroll naturel */
+            align-items: flex-start;
+            padding: 20px;
+            background: #1a1a1a;
+        }
+
+        /* Contrôles flottants */
         .mobile-controls {
             display: none;
             position: fixed;
@@ -298,18 +304,24 @@
         }
 
         .mobile-btn {
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: #7c2d12;
             color: white;
             border: 2px solid #c5a880;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .mobile-btn:active {
+            transform: scale(0.95);
+            background: #5c1e0c;
         }
 
         .mobile-menu-overlay {
@@ -327,139 +339,68 @@
             display: block;
         }
 
-        /* === RESPONSIVE ADAPTATIONS === */
-
-        /* Tablette */
+        /* Responsive */
         @media (max-width: 1280px) and (min-width: 769px) {
-            .sidebar-right { 
-                display: none; 
-            }
-            .layout-wrapper {
-                margin-right: 0;
-            }
-            .sheet-container {
-                transform: scale(0.9);
-                margin-bottom: -30mm;
-            }
+            .sidebar-right { display: none; }
+            .layout-wrapper { margin-right: 0; }
         }
 
-        /* Mobile */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
-                background-color: #1a1a1a;
+                padding: 0;
+                overflow: hidden; /* Empêche le body de scroller, c'est le wrapper qui scrolle */
             }
 
             .layout-wrapper {
                 width: 100%;
-                overflow-x: auto;
-                overflow-y: hidden;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 20px;
+                height: 100vh;
+                position: relative;
             }
 
-            .sheet-container {
-                width: 210mm;
-                height: 297mm;
-                transform: scale(0.45);
-                transform-origin: top left;
-                margin-bottom: -160mm;
-                margin-right: -115mm;
-                box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            }
-
-            /* Cache le binder latéral sur mobile */
+            /* Cache le binder desktop sur mobile */
             .binder-sidebar {
                 display: none;
             }
 
-            /* Menu mobile pour les personnages */
+            /* Affiche le wrapper mobile */
             .mobile-controls {
                 display: flex;
             }
 
-            .mobile-sheet-wrapper {
-                width: 100%;
-                overflow-x: auto;
-                overflow-y: hidden;
-                -webkit-overflow-scrolling: touch;
-                padding: 10px;
-                background: #333;
-                border-radius: 8px;
+            /* La fiche garde sa taille A4 réelle (210mm) */
+            .sheet-container {
+                margin: 0;
+                box-shadow: 0 0 30px rgba(0,0,0,0.8);
+                /* Pas de transform: scale() ici ! */
             }
 
-            /* Adapter la sidebar pour mobile */
-            .sidebar-right {
-                width: 280px;
-                display: block;
-                transform: translateX(100%);
-                z-index: 95;
+            /* Inputs adaptés pour tactile */
+            input, select, textarea, button {
+                font-size: 16px; /* Empêche le zoom automatique iOS sur les inputs */
+                min-height: 44px;
             }
 
-            .sidebar-right.active {
-                transform: translateX(0);
-            }
-
-            /* Header actions plus grands pour touch */
             .btn-action {
                 min-width: 44px;
                 min-height: 44px;
-                font-size: 1.3rem;
-            }
-
-            /* Inputs plus grands sur mobile pour le touch */
-            input, select, textarea {
-                min-height: 44px;
-                font-size: 16px; /* Empêche le zoom iOS */
             }
         }
 
-        /* Petit mobile - Rotation suggérée */
-        @media (max-width: 480px) {
-            .sheet-container {
-                transform: scale(0.35);
-                margin-bottom: -190mm;
-                margin-right: -135mm;
-            }
-            
-            .mobile-rotate-hint {
-                display: block;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0,0,0,0.9);
-                color: #c5a880;
-                padding: 20px;
-                border-radius: 10px;
-                text-align: center;
-                z-index: 200;
-                font-family: 'Cinzel', serif;
-                border: 2px solid #c5a880;
-            }
-        }
-
-        @media (min-width: 481px) {
-            .mobile-rotate-hint {
-                display: none !important;
-            }
-        }
-
-        /* Navigation mobile horizontale pour les tabs */
+        /* Menu mobile des personnages */
         .mobile-binder-nav {
             display: none;
             position: fixed;
-            bottom: 80px;
+            bottom: 90px;
             left: 20px;
             right: 20px;
-            background: rgba(166, 139, 102, 0.95);
+            background: rgba(216, 195, 165, 0.98);
             border: 2px solid #000;
-            border-radius: 8px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 15px;
             z-index: 100;
-            max-height: 200px;
+            max-height: 50vh;
             overflow-y: auto;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
         }
 
         .mobile-binder-nav.active {
@@ -467,7 +408,7 @@
         }
 
         .mobile-binder-item {
-            padding: 10px;
+            padding: 12px;
             border-bottom: 1px solid rgba(0,0,0,0.2);
             cursor: pointer;
             font-family: 'Cinzel', serif;
@@ -475,16 +416,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.1rem;
         }
 
         .mobile-binder-item.active {
-            background: rgba(124, 45, 18, 0.3);
+            background: rgba(124, 45, 18, 0.2);
+            border-left: 4px solid #7c2d12;
+            padding-left: 8px;
+        }
+
+        .mobile-binder-item:last-child {
+            border-bottom: none;
         }
 
         @media (max-width: 768px) {
             footer {
                 font-size: 0.6em !important;
                 padding: 5px !important;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
             }
         }
     </style>
@@ -493,14 +444,7 @@
 </head>
 <body class="font-body text-black">
 
-    <!-- Hint pour rotation mobile -->
-    <div class="mobile-rotate-hint no-print" onclick="this.style.display='none'">
-        <div style="font-size: 2em; margin-bottom: 10px;">📱↔️</div>
-        <div>Pour une meilleure expérience,<br>passez en mode paysage<br>ou utilisez le zoom</div>
-        <div style="font-size: 0.8em; margin-top: 10px; opacity: 0.7;">(Cliquez pour fermer)</div>
-    </div>
-
-    <!-- Contrôles Mobiles -->
+    <!-- Contrôles Mobiles Flottants -->
     <div class="mobile-controls no-print">
         <button class="mobile-btn" onclick="toggleMobileMenu()" title="Menu Documents">📜</button>
         <button class="mobile-btn" onclick="toggleBinderMenu()" title="Personnages">👤</button>
@@ -510,16 +454,16 @@
     <!-- Overlay pour fermer les menus -->
     <div class="mobile-menu-overlay no-print" onclick="closeMobileMenus()"></div>
 
-    <!-- Menu Mobile des Personnages (Binder) -->
+    <!-- Menu Mobile des Personnages -->
     <div class="mobile-binder-nav no-print" id="mobileBinderNav">
-        <div style="font-family: 'Cinzel', serif; font-weight: 700; margin-bottom: 10px; border-bottom: 2px solid #000; padding-bottom: 5px;">
+        <div style="font-family: 'Cinzel', serif; font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 8px; font-size: 1.2rem;">
             Personnages
         </div>
         <div id="mobileBinderList">
             <!-- Rempli par JS -->
         </div>
-        <button onclick="createNewProfile()" style="width: 100%; margin-top: 10px; padding: 10px; background: #2b2b2b; color: #888; border: none; border-radius: 4px; font-family: 'Cinzel', serif; font-weight: 700; cursor: pointer;">
-            + Nouveau
+        <button onclick="createNewProfile()" style="width: 100%; margin-top: 15px; padding: 15px; background: #2b2b2b; color: #c5a880; border: none; border-radius: 8px; font-family: 'Cinzel', serif; font-weight: 700; cursor: pointer; font-size: 1.1rem;">
+            + Nouveau Personnage
         </button>
     </div>
 
@@ -527,7 +471,8 @@
         <div id="binder-sidebar" class="binder-sidebar"></div>
         <input type="file" id="file-upload" style="display:none" accept=".json" onchange="handleFileUpload(this)">
 
-        <div class="mobile-sheet-wrapper">
+        <!-- Wrapper Mobile : Permet le pinch-zoom et le scroll -->
+        <div class="mobile-sheet-wrapper" id="sheetWrapper">
             <div class="sheet-container">
                 <table style="width: 100%;">
                     
@@ -951,8 +896,8 @@
         }
 
         function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            document.querySelector('.mobile-sheet-wrapper').scrollTo({ left: 0, behavior: 'smooth' });
+            const wrapper = document.getElementById('sheetWrapper');
+            wrapper.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }
 
         function updateMobileBinderList() {
@@ -996,7 +941,6 @@
             }
         };
 
-        // --- GESTION DU CLASSEUR ET DE LA SAUVEGARDE ---
         const BINDER_STORAGE_KEY = 'sccs_binder_data_v4';
         let binderData = {
             activeId: null,
@@ -1179,20 +1123,17 @@
             const profile = binderData.profiles[id];
             if (!profile) return;
             
-            // Reset
             document.querySelectorAll('input, textarea').forEach(el => {
                 el.value = '';
             });
             document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
             document.querySelectorAll('input[type=number]').forEach(el => el.value = '0');
             
-            // Defaults
             if(document.getElementById('weapon-select-1')) document.getElementById('weapon-select-1').value = "Main Libre";
             if(document.getElementById('weapon-select-2')) document.getElementById('weapon-select-2').value = "Main Libre";
 
             const data = profile.data || {};
 
-            // Load
             Object.keys(data).forEach(key => {
                 if (key.startsWith('__clean_input_')) {
                     const idx = parseInt(key.replace('__clean_input_', ''));
@@ -1219,7 +1160,6 @@
                 updateRace(); 
             }
 
-            // Init dynamic lists
             updateOffhandOptions(1);
             updateOffhandOptions(2);
             updateUI();
@@ -1244,7 +1184,6 @@
             if (clearStorage) autoSaveCurrentProfile();
         }
 
-        // --- DONNÉES & RÈGLES ---
         const WEAPONS_DATA = {
             "Distance": { label: "Armes à Distance", stats: { init: "1/7", magie: -1 }, items: ["Arc", "Arbalète", "Fronde"] },
             "Focalisateur": { label: "Focalisateurs", stats: { init: "6", magie: 0 }, items: ["Grimoire", "Chapelet", "Bâton"] },
@@ -1304,7 +1243,6 @@
 
         function getWeaponStats(weaponName) {
             if (weaponName === "Grimoire" || weaponName === "Chapelet" || weaponName === "Bâton") return { init: "6", magie: 0 };
-
             for (const [key, category] of Object.entries(WEAPONS_DATA)) {
                 if (category.items.includes(weaponName)) return category.stats;
             }
@@ -1322,14 +1260,11 @@
             const weaponSelect = document.getElementById(`weapon-select-${index}`);
             const offhandSelect = document.getElementById(`offhand-select-${index}`);
             if (!weaponSelect || !offhandSelect) return;
-
             const weaponName = weaponSelect.value;
             const category = getWeaponCategory(weaponName);
             const currentOffhand = offhandSelect.value;
-            
             offhandSelect.innerHTML = ''; 
             offhandSelect.disabled = false;
-            
             let options = [];
             if (category === "Distance" || category === "Longue") {
                 options.push("Occupée");
@@ -1352,13 +1287,11 @@
                     if (wp !== "Main Libre" && wp !== "Torche" && wp !== "Bouclier (Offensif)") options.push(wp); 
                 });
             }
-
             options.forEach(opt => {
                 const el = document.createElement('option');
                 el.value = opt; el.textContent = opt;
                 offhandSelect.appendChild(el);
             });
-
             if (Array.from(offhandSelect.options).some(o => o.value === currentOffhand)) offhandSelect.value = currentOffhand;
             else offhandSelect.selectedIndex = 0;
         }
@@ -1394,50 +1327,34 @@
         }
 
         function updateUI() {
-            // Update Sets
             [1, 2].forEach(index => {
                 const weaponSelect = document.getElementById(`weapon-select-${index}`);
                 const offhandSelect = document.getElementById(`offhand-select-${index}`);
                 const initLabel = document.getElementById(`init-label-${index}`);
-                
                 if (weaponSelect && offhandSelect) {
                     const activeEl = document.activeElement;
                     if (activeEl === weaponSelect) updateOffhandOptions(index);
-                    
                     const weaponName = weaponSelect.value;
                     const offhandName = offhandSelect.value;
                     const weaponStats = getWeaponStats(weaponName);
                     const cat = getWeaponCategory(weaponName);
-                    
                     const isRightFree = weaponName === "Main Libre";
-                    const isLeftFree = offhandName && (
-                        offhandName.includes("Libre") || 
-                        offhandName === "Occupée" ||
-                        offhandName === "Occupée ou Libre"
-                    );
+                    const isLeftFree = offhandName && (offhandName.includes("Libre") || offhandName === "Occupée" || offhandName === "Occupée ou Libre");
                     const hasFreeHand = isRightFree || isLeftFree;
-                    
                     const isRightCatalyst = weaponName !== "Main Libre" && weaponName !== "Torche";
                     const isLeftCatalyst = offhandName && offhandName !== "Main Libre" && offhandName !== "Main Libre (Incantation)" && offhandName !== "Bouclier" && offhandName !== "Torche" && offhandName !== "Occupée" && offhandName !== "Occupée ou Libre";
-                    
                     const hasCatalyst = isRightCatalyst || isLeftCatalyst;
                     const canCast = hasFreeHand && hasCatalyst;
-
                     const initSpan = document.getElementById(`init-val-${index}`);
                     const rawInit = weaponStats.init;
-                    
                     if (initSpan) {
                         initSpan.className = "font-digit font-bold text-sm text-black"; 
-
                         if (canCast) {
                             if (initLabel) initLabel.style.display = 'none'; 
-                            
                             let weaponInitDisplay = rawInit;
-                            
                             if (weaponName === "Bâton") {
                                 weaponInitDisplay = `5 <span class="font-body font-bold text-[10px]">(1 main)</span> 4 <span class="font-body font-bold text-[10px]">(2 mains)</span>`;
                             }
-
                             initSpan.innerHTML = `
                                 <span class="font-title font-bold text-[8px] mr-1">INITIATIVE :</span>
                                 <span class="font-title font-bold text-[8px] mr-1">ARME</span>${weaponInitDisplay}
@@ -1446,7 +1363,6 @@
                             `;
                         } else {
                             if (initLabel) initLabel.style.display = 'inline'; 
-                            
                             let standardDisplay = rawInit;
                             if (rawInit.includes('/')) {
                                 const [v1, v2] = rawInit.split('/');
@@ -1455,11 +1371,9 @@
                             else if (weaponName === "Bâton") {
                                 standardDisplay = `5 <span class="font-body font-bold text-[10px]">(1 main)</span> 4 <span class="font-body font-bold text-[10px]">(2 mains)</span>`;
                             }
-                            
                             initSpan.innerHTML = standardDisplay;
                         }
                     }
-
                     const magicSpan = document.getElementById(`magic-malus-${index}`);
                     if(magicSpan) {
                         if (!hasFreeHand) {
@@ -1482,25 +1396,20 @@
                     }
                 }
             });
-
             const armorEl = document.getElementById('armor-select');
             if (armorEl) {
                 const armor = armorEl.value;
                 const armorData = RULES.ARMORS[armor];
                 const baseRes = armorData ? armorData.res : 0;
                 const headRes = armor.includes("_Heaume") ? baseRes : 0;
-                
                 document.getElementById('res-arm-tete').innerText = headRes;
                 document.getElementById('res-arm-tronc').innerText = baseRes;
                 document.getElementById('res-arm-membres').innerText = baseRes;
-
                 let malusArmure = 0;
                 if (armorData && armorData.malus && armorData.malus.includes("magie")) malusArmure = -1;
                 document.getElementById('magic-malus-armor').innerText = (malusArmure >= 0 ? "+" : "") + malusArmure;
-
                 const maxDur = armorData ? armorData.dur : 0;
                 document.getElementById('dur-display').innerText = `${maxDur}/${maxDur}`;
-
                 const container = document.getElementById('talents-container');
                 if (container) {
                     let html = `
@@ -1509,7 +1418,6 @@
                         <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.4);">
                             <td></td><td class="text-[8px] font-black uppercase text-black text-center"></td><td class="text-[8px] font-black uppercase text-black text-center">Arm.</td><td></td><td class="text-[8px] font-black uppercase text-black text-center">Tot.</td>
                         </tr>`;
-
                     talentsList.forEach(t => {
                         const isChecked = state.talents[t.id];
                         let baseScore = isChecked ? 1 : 0; 
@@ -1520,7 +1428,6 @@
                         }
                         let totalScore = baseScore + armorMalus;
                         const colorClass = 'text-black';
-
                         html += `
                         <tr style="cursor:pointer;" onclick="toggleTalent('${t.id}')" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.05)'" onmouseout="this.style.backgroundColor='transparent'">
                             <td style="padding:4px 0; border-bottom:1px solid rgba(0,0,0,0.2); vertical-align:middle;">
