@@ -31,21 +31,14 @@
             background-image: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
             background-blend-mode: multiply;
             position: relative; 
-            overflow: hidden; 
-            
-            /* CENTRAGE ET ORIGINE DU ZOOM */
-            margin: 0 auto; 
-            transform-origin: top center; /* Le zoom part du haut vers le bas */
-            transition: transform 0.1s ease-out; /* Fluidité légère */
+            /* Le centrage et le zoom sont désormais gérés 100% par le JS via transform */
+            transform-origin: 0 0; /* IMPORTANT : On zoome depuis le coin haut-gauche */
         }
 
         .layout-wrapper {
             width: 100%;
-            /* On laisse le JS gérer la hauteur via le zoom */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            overflow: hidden; /* Important pour cacher ce qui dépasserait avant le calcul */
+            /* Le display flex ici est supprimé/écrasé par le JS pour éviter les conflits */
+            display: block; 
         }
 
         /* --- STYLES INTERNES --- */
@@ -454,16 +447,20 @@
 
     <script>
     (function() {
+        // 1. Récupération de la "racine" du contexte
         const root = document.currentScript.closest('.sheet-wrapper-direct');
         if (!root) console.warn("Fiche ouverte hors du Codex ou erreur de contexte.");
+        // Si root n'existe pas (dev mode), on prend body
         const context = root || document.body;
 
+        // Helpers de sélection SCOPÉS
         const find = (id) => context.querySelector(`[data-id="${id}"]`);
         const findClass = (cls) => context.querySelector(`.${cls}`);
         const findAll = (selector) => context.querySelectorAll(selector);
 
         const currentUid = root ? root.getAttribute('data-uid') : null;
 
+        // --- RESSOURCES ---
         const CUSTOM_PORTRAITS_URLS = {
             "HUMAIN_MASCULIN": "portraits/portrait_homme_humain.png",
             "HUMAIN_FÉMININ": "portraits/portrait_femme_humain.png",
@@ -485,45 +482,53 @@
 
         // --- FONCTION DE ZOOM INTELLIGENT ---
         function adjustZoom() {
-            // 1. Trouver la fiche et son conteneur parent
+            // Cible : la fiche elle-même
             const sheet = findClass('zoom-target');
             if (!sheet || !root) return;
 
-            // Si on est en train d'imprimer (media print), on annule le zoom manuellement (sécurité)
+            // PRINT SAFETY : Si impression, on annule tout
             if (window.matchMedia('print').matches) {
                 sheet.style.transform = 'none';
                 root.style.height = 'auto';
+                root.style.overflow = 'visible';
+                root.style.display = 'block';
                 return;
             }
 
-            // 2. Mesurer l'espace disponible (Le parent injecté par index.html)
-            // On retire un peu de marge (ex: 20px) pour l'esthétique
-            const availableW = root.clientWidth; 
-            const availableH = window.innerHeight; // On utilise la hauteur écran pour que ça rentre sans scroll
+            // RESET PARENT pour calculs propres
+            // On force le parent à masquer ce qui dépasse (le "fantôme" de 794px)
+            root.style.overflow = 'hidden'; 
+            root.style.display = 'block'; // Tue le flex centering du parent
+            root.style.position = 'relative';
 
-            // 3. Dimensions cibles (A4 fixe)
+            // 1. MESURES
+            const availableW = root.clientWidth;
+            // On prend la hauteur fenêtre moins les marges du livre (header + padding + footer ~180px)
+            // Cela garantit que la fiche tient dans l'écran sans scroller
+            const availableH = window.innerHeight - 180; 
+
             const targetW = 794;
             const targetH = 1123;
 
-            // 4. Calcul du ratio (Le plus petit des deux pour que tout rentre)
-            // On ajoute une marge de sécurité (0.95) pour ne pas coller aux bords
-            const scaleW = availableW / targetW;
-            const scaleH = availableH / targetH;
-            const scale = Math.min(scaleW, scaleH) * 0.95;
+            // 2. RATIO (Le plus petit pour que tout rentre)
+            const scale = Math.min(
+                availableW / targetW, 
+                availableH / targetH
+            ) * 0.95; // Marge de sécurité 5%
 
-            // 5. Application du zoom
-            sheet.style.transform = `scale(${scale})`;
+            // 3. CENTRAGE
+            // La fiche fait visuellement (794 * scale). On centre le reste.
+            const visualW = targetW * scale;
+            const translateX = (availableW - visualW) / 2;
 
-            // 6. Ajustement de la hauteur du conteneur parent
-            // Comme le "scale" réduit visuellement la fiche mais garde la place d'origine dans le DOM,
-            // il faut réduire artificiellement la hauteur du conteneur pour supprimer le vide en bas.
-            const newHeight = targetH * scale;
-            root.style.height = Math.floor(newHeight + 50) + 'px'; // +50px pour un peu d'air en bas
+            // 4. APPLICATION
+            // On part de 0,0 (haut gauche), on décale (translate), puis on réduit (scale)
+            sheet.style.transformOrigin = '0 0';
+            sheet.style.transform = `translate(${translateX}px, 0) scale(${scale})`;
             
-            // Centrage vertical si nécessaire (Optionnel)
-            // root.style.display = 'flex';
-            // root.style.flexDirection = 'column';
-            // root.style.justifyContent = 'center';
+            // 5. HAUTEUR DU CONTENEUR
+            // On réduit la hauteur du conteneur pour qu'il colle à la fiche réduite
+            root.style.height = (targetH * scale) + 'px';
         }
 
         function init() {
@@ -554,6 +559,7 @@
             window.addEventListener('resize', adjustZoom);
         }
 
+        // --- DATA LOADING & LOGIC ---
         function loadFromRegistry(uid) {
             const profile = SCCS_Registre.getProfile(uid);
             if (!profile) return;
@@ -661,6 +667,7 @@
             document.body.removeChild(a);
         }
 
+        // --- LOGIQUE METIER ---
         const WEAPONS_DATA = {
             "Distance": { label: "Armes à Distance", stats: { init: "1/7", magie: -1 }, items: ["Arc", "Arbalète", "Fronde"] },
             "Focalisateur": { label: "Focalisateurs", stats: { init: "6", magie: 0 }, items: ["Grimoire", "Chapelet", "Bâton"] },
