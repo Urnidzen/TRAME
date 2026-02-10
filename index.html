@@ -298,53 +298,57 @@
 
         /* ===== AJOUT SPÉCIFIQUE IMPRESSION ===== */
         @media print {
-            /* 1. Réinitialisation structurelle pour voir tout le contenu verticalement */
+            /* 1. Réinitialisation structurelle */
             html, body, .main-container, .book-spreads-wrapper {
                 height: auto !important;
                 overflow: visible !important;
                 width: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: none !important; /* Économie d'encre optionnelle, supprimez si vous voulez le fond bois */
+                background: none !important;
             }
 
-            /* 2. Masquer l'interface de navigation */
+            /* 2. Masquer l'interface */
             .sidebar-container, .tab-handle, #searchInput, .new-char-btn {
                 display: none !important;
             }
 
-            /* 3. Reformatage des "Spreads" en pages verticales */
+            /* 3. Reformatage des "Spreads" */
             .book-spread {
-                display: block !important; /* Empile gauche et droite l'un sous l'autre */
+                display: block !important;
                 height: auto !important;
                 box-shadow: none !important;
-                page-break-inside: auto;
+                page-break-after: always; /* Force la coupure */
+                break-after: page;
             }
 
-            /* 4. Définition de la page papier */
+            /* 4. EXCEPTION : Pas de saut de page après le tout dernier bloc (évite la page blanche) */
+            .book-spread:last-child {
+                page-break-after: auto !important;
+                break-after: auto !important;
+            }
+
+            /* 5. Pages de contenu */
             .page {
                 height: auto !important;
-                min-height: 95vh; /* Assure que la page prend de la place */
+                min-height: 0 !important; /* SUPPRIME la hauteur forcée pour éviter les blancs */
                 width: 100% !important;
                 display: block !important;
-                page-break-after: always; /* Force la coupure papier après chaque page virtuelle */
-                break-after: page;
                 border: none !important;
                 box-shadow: none !important;
                 margin: 0 !important;
-                padding: 2cm !important; /* Marge standard papier */
+                padding: 1cm !important; /* Marges réduites pour l'impression */
             }
 
-            /* Gestion spécifique pour voir les deux pages */
             .page-left, .page-right {
                 display: block !important;
             }
 
-            /* Nettoyage des iframes pour impression */
+            /* Iframe */
             .char-sheet-frame {
-                transform: scale(1) !important; /* Remet à l'échelle normale si possible */
+                transform: scale(1) !important;
                 width: 100% !important;
-                height: 1000px !important; /* Force une hauteur pour être visible */
+                height: 1000px !important;
             }
         }
     </style>
