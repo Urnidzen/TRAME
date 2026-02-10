@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche SCCS - Module Codex</title>
+    <title>Fiche SCCS - Module Codex v0.87</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,700&family=Spectral:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="registre.js"></script>
+
     <style>
         /* === CONFIGURATION "FRAME ONLY" === */
         * { box-sizing: border-box; }
 
         body { 
             margin: 0; 
-            padding: 0; /* Plus de padding autour de la feuille */
-            background-color: transparent; /* Fond transparent pour se fondre dans l'iframe */
+            padding: 0; 
+            background-color: transparent; 
             font-family: 'Cormorant Garamond', serif;
             color: #000000;
             height: 100vh;
-            overflow: hidden; /* Pas de scrollbar interne, c'est une image fixe */
+            overflow: hidden; 
         }
 
         /* Conteneur A4 Fixe */
         .sheet-container {
-            width: 794px;  /* Largeur exacte A4 en pixels (96 DPI) */
-            height: 1123px; /* Hauteur exacte A4 */
+            width: 794px;  /* 210mm @ 96dpi */
+            height: 1123px; /* 297mm */
             padding: 10mm 15mm; 
             background-color: #c5a880;
             background-image: url("https://www.transparenttextures.com/patterns/clean-gray-paper.png");
             background-blend-mode: multiply;
             position: relative; 
-            overflow: hidden; /* Coupe tout ce qui dépasse */
+            overflow: hidden; 
         }
 
-        /* Wrapper simplifié */
         .layout-wrapper {
             width: 100%;
             height: 100%;
@@ -41,76 +43,7 @@
             align-items: flex-start;
         }
 
-        /* --- SYSTÈME DE CLASSEUR (BINDER) --- */
-        /* Ajusté pour être DANS la feuille (Overlay) pour ne pas être coupé par l'iframe */
-        .binder-sidebar {
-            position: absolute;
-            right: 0; /* Collé au bord droit interne */
-            top: 180px; /* Descendu un peu pour ne pas gêner le header */
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 50;
-            width: 40px;
-        }
-
-        .binder-tab {
-            width: 40px;
-            min-height: 40px;
-            background-color: #a68b66; 
-            background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            border-right: none; /* Collé au bord droit */
-            border-radius: 8px 0 0 8px; /* Arrondi vers l'intérieur */
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: -2px 2px 5px rgba(0,0,0,0.3);
-            transition: transform 0.2s, background-color 0.2s;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            padding: 10px 0;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 10px;
-            color: #000000;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            user-select: none;
-        }
-
-        .binder-tab:hover {
-            transform: translateX(-3px); /* Bouge vers la gauche */
-            background-color: #c5a880;
-        }
-
-        .binder-tab.active {
-            background-color: #c5a880; 
-            width: 45px;
-            margin-right: -5px; 
-            box-shadow: none; 
-            z-index: 51;
-            border-right: 1px solid #c5a880;
-        }
-
-        .binder-tab.add-tab {
-            height: 40px;
-            writing-mode: horizontal-tb;
-            font-size: 24px;
-            line-height: 1;
-            background-color: #2b2b2b;
-            color: #888;
-            border: 1px solid #444;
-            border-right: 1px solid #444;
-        }
-        .binder-tab.add-tab:hover {
-            color: #fff;
-            background-color: #444;
-            transform: translateX(0);
-        }
-
-        /* --- STYLES INTERNES (Inchangés pour le visuel) --- */
+        /* --- STYLES INTERNES --- */
         table { border-collapse: collapse; width: 100%; }
         td { vertical-align: top; }
         .font-title { font-family: 'Cinzel', serif; }
@@ -119,7 +52,6 @@
         ::placeholder { color: #000000 !important; opacity: 0.6; font-style: italic; }
         input, select { color: #000000; }
 
-        /* Actions Header */
         .header-actions { display: flex; gap: 5px; }
         .btn-action {
             cursor: pointer; opacity: 0.4; transition: opacity 0.2s, color 0.2s;
@@ -128,11 +60,9 @@
         }
         .btn-action:hover { opacity: 1; }
         .btn-reset:hover { color: #ea580c; }
-        .btn-delete:hover { color: #dc2626; }
         .btn-export:hover { color: #2563eb; }
         .btn-import:hover { color: #16a34a; }
 
-        /* Inputs spécifiques */
         .stat-digit {
             font-family: 'Spectral', serif !important; font-weight: 700 !important; 
             font-size: 2.2rem !important; line-height: 1 !important;
@@ -202,8 +132,6 @@
 
     <div class="layout-wrapper">
         <div class="sheet-container">
-            <div id="binder-sidebar" class="binder-sidebar"></div>
-            
             <input type="file" id="file-upload" style="display:none" accept=".json" onchange="handleFileUpload(this)">
 
             <table style="width: 100%;">
@@ -227,11 +155,9 @@
                                     <div class="flex items-center">
                                         <input type="text" id="char-name" class="w-full bg-transparent border-b-4 border-black/60 text-4xl font-black py-1 font-title outline-none text-black placeholder-black" placeholder="" oninput="updateProfileName(this.value)">
                                         <div class="header-actions ml-2">
-                                            <button onclick="resetSheet()" class="btn-action btn-reset" title="Vider">↺</button>
-                                            <button onclick="deleteCurrentProfile()" class="btn-action btn-delete" title="Supprimer">🗑️</button>
+                                            <button onclick="resetSheet()" class="btn-action btn-reset" title="Effacer le contenu">↺</button>
                                             <span style="color:#000; font-size:1.1rem; cursor:default;">|</span> 
-                                            <button onclick="exportBackup()" class="btn-action btn-export" title="Sauvegarder">💾</button>
-                                            <button onclick="triggerImport()" class="btn-action btn-import" title="Charger">📂</button>
+                                            <button onclick="exportSingleJSON()" class="btn-action btn-export" title="Sauvegarder JSON local">💾</button>
                                         </div>
                                     </div>
                                 </td>
@@ -503,6 +429,10 @@
     </div>
 
     <script>
+        // === LOGIQUE DE GESTION PAR "REGISTRE.JS" ===
+        let currentUid = null;
+
+        // Configuration visuelle
         const CUSTOM_PORTRAITS_URLS = {
             "HUMAIN_MASCULIN": "portraits/portrait_homme_humain.png",
             "HUMAIN_FÉMININ": "portraits/portrait_femme_humain.png",
@@ -522,186 +452,40 @@
             }
         };
 
-        const BINDER_STORAGE_KEY = 'sccs_binder_data_v4';
-        let binderData = { activeId: null, profiles: {} };
-
-        function initBinder() {
-            const stored = localStorage.getItem(BINDER_STORAGE_KEY);
-            if (stored) {
-                try { binderData = JSON.parse(stored); } catch(e) { console.error(e); }
-            }
-
-            if (Object.keys(binderData.profiles).length === 0) {
-                const defaultId = 'p_' + Date.now();
-                binderData.profiles[defaultId] = { name: "Nouveau", data: {} };
-                binderData.activeId = defaultId;
-                saveBinderData();
-            }
-
-            if (!binderData.profiles[binderData.activeId]) {
-                binderData.activeId = Object.keys(binderData.profiles)[0];
-                saveBinderData();
-            }
-
-            renderTabs();
-            loadProfile(binderData.activeId);
+        // --- INIT ---
+        window.onload = function() {
+            initWeaponSelect();
             
-            document.querySelectorAll('input, select, textarea').forEach(el => {
-                el.addEventListener('input', () => autoSaveCurrentProfile());
-                el.addEventListener('change', () => autoSaveCurrentProfile());
-            });
-        }
+            // Récupération de l'ID depuis l'URL (envoyé par le Livre)
+            const params = new URLSearchParams(window.location.search);
+            currentUid = params.get('uid');
 
-        function saveBinderData() {
-            localStorage.setItem(BINDER_STORAGE_KEY, JSON.stringify(binderData));
-        }
-
-        function renderTabs() {
-            const sidebar = document.getElementById('binder-sidebar');
-            sidebar.innerHTML = ''; 
-            
-            Object.keys(binderData.profiles).forEach(id => {
-                const profile = binderData.profiles[id];
-                const isActive = (id === binderData.activeId);
-                const tab = document.createElement('div');
-                tab.className = `binder-tab ${isActive ? 'active' : ''}`;
-                tab.innerText = profile.name || "Nouveau";
-                tab.onclick = () => handleTabClick(id, isActive);
-                sidebar.appendChild(tab);
-            });
-            
-            const addBtn = document.createElement('div');
-            addBtn.className = "binder-tab add-tab";
-            addBtn.innerText = "+";
-            addBtn.title = "Créer un nouveau personnage";
-            addBtn.onclick = createNewProfile;
-            sidebar.appendChild(addBtn);
-        }
-
-        function handleTabClick(id, isActive) {
-            if (isActive) return;
-            autoSaveCurrentProfile();
-            binderData.activeId = id;
-            saveBinderData();
-            renderTabs();
-            loadProfile(id);
-        }
-
-        function createNewProfile() {
-            const newId = 'p_' + Date.now();
-            autoSaveCurrentProfile();
-            binderData.profiles[newId] = { name: "Nouveau", data: {} };
-            binderData.activeId = newId;
-            saveBinderData();
-            renderTabs();
-            resetSheet(false);
-            document.getElementById('char-name').value = "Nouveau";
-            autoSaveCurrentProfile();
-        }
-
-        function deleteCurrentProfile() {
-            if (Object.keys(binderData.profiles).length <= 1) {
-                if(confirm("C'est votre dernière fiche. Voulez-vous la vider complétement ?")) {
-                   resetSheet(true);
-                   document.getElementById('char-name').value = "Nouveau";
-                   autoSaveCurrentProfile();
-                }
-                return;
+            if (currentUid && typeof SCCS_Registre !== 'undefined') {
+                loadFromRegistry(currentUid);
+                // Activer l'écouteur de changement global
+                setupAutoSave();
+            } else {
+                console.warn("Fiche ouverte sans ID ou Registre manquant.");
             }
-            const currentName = binderData.profiles[binderData.activeId].name;
-            if (!confirm(`Voulez-vous vraiment supprimer définitivement "${currentName}" ?`)) return;
-            const idToDelete = binderData.activeId;
-            delete binderData.profiles[idToDelete];
-            binderData.activeId = Object.keys(binderData.profiles)[0];
-            saveBinderData();
-            renderTabs();
-            loadProfile(binderData.activeId);
-        }
+        };
 
-        function exportBackup() {
-            autoSaveCurrentProfile();
-            const dataStr = JSON.stringify(binderData, null, 2);
-            const blob = new Blob([dataStr], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            const date = new Date().toISOString().split('T')[0];
-            a.download = `sccs_backup_${date}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function triggerImport() { document.getElementById('file-upload').click(); }
-
-        function handleFileUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (!importedData.profiles || !importedData.activeId) {
-                        alert("Erreur : Ce fichier ne semble pas être une sauvegarde valide.");
-                        return;
-                    }
-                    if (confirm("ATTENTION : Charger un fichier va REMPLACER tous les personnages actuels par ceux du fichier.\n\nVoulez-vous continuer ?")) {
-                        binderData = importedData;
-                        saveBinderData(); 
-                        renderTabs();
-                        loadProfile(binderData.activeId);
-                        alert("Sauvegarde chargée avec succès !");
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert("Erreur lors de la lecture du fichier : " + err.message);
-                }
-            };
-            reader.readAsText(file);
-            input.value = ''; 
-        }
-
-        function autoSaveCurrentProfile() {
-            if (!binderData.activeId) return;
-            const data = {};
-            document.querySelectorAll('input[id], select[id], textarea[id]').forEach(el => {
-                if(el.type === 'checkbox') data[el.id] = el.checked;
-                else data[el.id] = el.value;
-            });
-            document.querySelectorAll('.clean-input:not([id])').forEach((el, index) => {
-                data[`__clean_input_${index}`] = el.value;
-            });
-             document.querySelectorAll('.area-textarea:not([id])').forEach((el, index) => {
-                data[`__area_${index}`] = el.value;
-            });
-            data.__state_talents = state.talents;
-            binderData.profiles[binderData.activeId].data = data;
-            const nameVal = document.getElementById('char-name').value;
-            if (nameVal) binderData.profiles[binderData.activeId].name = nameVal;
-            else binderData.profiles[binderData.activeId].name = "Sans nom";
-            
-            const currentTabName = document.querySelector('.binder-tab.active')?.innerText;
-            if (binderData.profiles[binderData.activeId].name !== currentTabName) {
-                renderTabs();
-            }
-            saveBinderData();
-        }
-
-        function updateProfileName(val) { autoSaveCurrentProfile(); }
-
-        function loadProfile(id) {
-            const profile = binderData.profiles[id];
+        // --- CHARGEMENT ---
+        function loadFromRegistry(uid) {
+            const profile = SCCS_Registre.getProfile(uid);
             if (!profile) return;
+
+            const data = profile.content || {};
             
+            // Remplissage des champs
             document.querySelectorAll('input, textarea').forEach(el => { el.value = ''; });
             document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
             document.querySelectorAll('input[type=number]').forEach(el => el.value = '0');
+
+            // Valeurs par défaut armes
             if(document.getElementById('weapon-select-1')) document.getElementById('weapon-select-1').value = "Main Libre";
             if(document.getElementById('weapon-select-2')) document.getElementById('weapon-select-2').value = "Main Libre";
 
-            const data = profile.data || {};
-
+            // Injection des données
             Object.keys(data).forEach(key => {
                 if (key.startsWith('__clean_input_')) {
                     const idx = parseInt(key.replace('__clean_input_', ''));
@@ -722,26 +506,62 @@
                 }
             });
 
+            // Restauration Talents
             if (data.__state_talents) {
                 state.talents = JSON.parse(JSON.stringify(data.__state_talents));
             } else {
-                updateRace(); 
+                updateRace(); // Défaut
             }
 
+            // Mise à jour visuelle
             updateOffhandOptions(1);
             updateOffhandOptions(2);
             updateUI();
             updatePortrait();
         }
 
-        function resetSheet(clearStorage = true) {
-            if (clearStorage && !confirm("Voulez-vous vraiment vider tous les champs ?")) return;
+        // --- SAUVEGARDE AUTOMATIQUE ---
+        function setupAutoSave() {
+            document.querySelectorAll('input, select, textarea').forEach(el => {
+                el.addEventListener('input', triggerSave);
+                el.addEventListener('change', triggerSave);
+            });
+        }
+
+        function triggerSave() {
+            if (!currentUid || typeof SCCS_Registre === 'undefined') return;
+
+            const data = {};
+            // Collecte des IDs
+            document.querySelectorAll('input[id], select[id], textarea[id]').forEach(el => {
+                if(el.type === 'checkbox') data[el.id] = el.checked;
+                else data[el.id] = el.value;
+            });
+            // Collecte des champs sans IDs
+            document.querySelectorAll('.clean-input:not([id])').forEach((el, index) => {
+                data[`__clean_input_${index}`] = el.value;
+            });
+             document.querySelectorAll('.area-textarea:not([id])').forEach((el, index) => {
+                data[`__area_${index}`] = el.value;
+            });
+            
+            data.__state_talents = state.talents;
+
+            // Récupération du nom pour le sommaire
+            const nameVal = document.getElementById('char-name').value || "Sans Nom";
+
+            // Envoi au Cerveau
+            SCCS_Registre.updateProfile(currentUid, data, nameVal);
+        }
+
+        // --- ACTIONS LOCALES ---
+        function updateProfileName(val) { triggerSave(); }
+
+        function resetSheet() {
+            if (!confirm("Voulez-vous vider les champs de cette fiche ?")) return;
             document.querySelectorAll('input, textarea').forEach(el => { el.value = ''; });
             document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
             document.querySelectorAll('input[type=number]').forEach(el => el.value = '0');
-            if(document.getElementById('weapon-select-1')) document.getElementById('weapon-select-1').value = "Main Libre";
-            if(document.getElementById('weapon-select-2')) document.getElementById('weapon-select-2').value = "Main Libre";
-            
             state.talents = {
                 athletisme: false, acrobatie: false, mecanique: false,
                 subtilite: false, perception: false, survie: false,
@@ -749,9 +569,26 @@
             };
             updateUI();
             updatePortrait();
-            if (clearStorage) autoSaveCurrentProfile();
+            triggerSave();
         }
 
+        function exportSingleJSON() {
+            if (!currentUid) return;
+            const profile = SCCS_Registre.getProfile(currentUid);
+            if (!profile) return;
+            
+            const dataStr = JSON.stringify(profile, null, 2);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `SCCS_Heros_${profile.name.replace(/\s+/g, '_')}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // --- LOGIQUE MÉTIER (RÈGLES JDR) ---
         const WEAPONS_DATA = {
             "Distance": { label: "Armes à Distance", stats: { init: "1/7", magie: -1 }, items: ["Arc", "Arbalète", "Fronde"] },
             "Focalisateur": { label: "Focalisateurs", stats: { init: "6", magie: 0 }, items: ["Grimoire", "Chapelet", "Bâton"] },
@@ -889,13 +726,13 @@
             if (RULES.RACES[race]) RULES.RACES[race].forEach(tid => state.talents[tid] = true);
             const saisieField = document.getElementById('stat-att-saisie');
             if(saisieField) saisieField.value = (race === "ORQUE") ? 1 : 0;
-            autoSaveCurrentProfile();
+            triggerSave();
             updateUI();
         }
 
         function toggleTalent(id) {
             state.talents[id] = !state.talents[id];
-            autoSaveCurrentProfile(); 
+            triggerSave();
             updateUI();
         }
 
@@ -1033,13 +870,6 @@
                 }
             }
         }
-
-        window.onload = function() {
-            try {
-                initWeaponSelect();
-                initBinder();
-            } catch (e) { console.error("Erreur d'initialisation:", e); }
-        };
     </script>
 </body>
 </html>
