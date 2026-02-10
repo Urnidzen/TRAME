@@ -523,7 +523,13 @@
 
         function adjustZoom() {
             const sheet = findClass('zoom-target');
-            if (!sheet || !root) return;
+            if (!sheet) return;
+
+            // Détection iframe : si dans le Codex, l'index gère le zoom
+            if (window.self !== window.top || !root) {
+                sheet.style.transform = 'none';
+                return;
+            }
 
             if (window.matchMedia('print').matches) {
                 sheet.style.transform = 'none';
