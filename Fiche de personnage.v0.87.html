@@ -80,26 +80,31 @@
         }
         
         .value-cell {
-            padding: 0 5px 0 0; 
+            padding: 0 !important; 
             border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             vertical-align: baseline; 
-            width: 35px;
+            width: 35px !important;
             text-align: center;
         }
         
         .clean-input {
-            width: 30px !important; 
-            background: transparent; 
-            border: none; 
-            outline: none;
+            width: 30px !important;
+            min-width: 30px !important;
+            max-width: 30px !important;
+            height: 30px !important;
+            background: transparent !important; 
+            border: none !important; 
+            outline: none !important;
             text-align: center !important; 
-            font-weight: 700; 
-            font-size: 1.4rem;
-            font-family: 'Spectral', serif; 
-            padding: 0; 
-            margin: 0; 
-            line-height: 1.2; 
-            vertical-align: baseline;
+            font-weight: 700 !important; 
+            font-size: 1.4rem !important;
+            font-family: 'Spectral', serif !important; 
+            padding: 0 !important; 
+            margin: 0 auto !important; 
+            line-height: 30px !important; 
+            vertical-align: middle !important;
+            display: block !important;
+            box-sizing: border-box !important;
         }
         
         .identity-select, .identity-input {
