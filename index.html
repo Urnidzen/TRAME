@@ -14,16 +14,9 @@
             --page-height: 297mm;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+        html, body { height: 100%; overflow: hidden; }
 
         body {
             background-color: #2c2520;
@@ -33,26 +26,19 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, h4, .font-cinzel {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 0.05em;
-        }
+        h1, h2, h3, h4, .font-cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
 
         /* ===== SIDEBAR ===== */
         .sidebar-container {
             position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
+            left: 0; top: 0; height: 100vh;
             z-index: 100;
             display: flex;
             transform: translateX(0);
             transition: transform 0.3s ease;
         }
 
-        .sidebar-container.closed {
-            transform: translateX(-320px);
-        }
+        .sidebar-container.closed { transform: translateX(-320px); }
 
         .sidebar {
             width: 320px;
@@ -67,8 +53,7 @@
 
         /* ===== TAB HANDLE ===== */
         .tab-handle {
-            width: 40px;
-            height: 120px;
+            width: 40px; height: 120px;
             background: #f5f5f0;
             border: 2px solid #1c1917;
             border-left: none;
@@ -83,10 +68,7 @@
             margin-left: -2px;
         }
 
-        .tab-handle:hover {
-            background: #ffffff;
-            width: 45px;
-        }
+        .tab-handle:hover { background: #ffffff; width: 45px; }
 
         .tab-text {
             writing-mode: vertical-rl;
@@ -118,20 +100,11 @@
             font-size: 1rem;
         }
 
-        .search-input:focus {
-            outline: none;
-            border-color: #7c2d12;
-        }
-
         /* ===== DOCUMENTS LIST ===== */
-        .doc-item {
-            margin-bottom: 8px;
-        }
+        .doc-item { margin-bottom: 8px; }
 
         .doc-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             padding: 12px;
             background: rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.1);
@@ -140,140 +113,66 @@
             transition: all 0.2s;
         }
 
-        .doc-header:hover {
-            background: rgba(124, 45, 18, 0.1);
-        }
+        .doc-header:hover { background: rgba(124, 45, 18, 0.1); }
+        .doc-header.active { background: rgba(124, 45, 18, 0.2); border-left: 4px solid #7c2d12; }
 
-        .doc-header.active {
-            background: rgba(124, 45, 18, 0.2);
-            border-left: 4px solid #7c2d12;
-        }
-
-        .doc-icon {
-            font-size: 1.2rem;
-        }
-
-        .doc-title {
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .doc-subtitle {
-            font-size: 0.75rem;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
+        .doc-icon { font-size: 1.2rem; }
+        .doc-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem; }
+        .doc-subtitle { font-size: 0.75rem; opacity: 0.7; margin-top: 2px; }
 
         /* ===== INDEX / TOC ===== */
         .doc-index {
-            margin-top: 8px;
-            margin-left: 10px;
-            padding-left: 15px;
+            margin-top: 8px; margin-left: 10px; padding-left: 15px;
             border-left: 2px solid rgba(0,0,0,0.1);
             display: none;
         }
 
-        .doc-index.expanded {
-            display: block;
-        }
+        .doc-index.expanded { display: block; }
 
         .index-item {
-            padding: 8px 10px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-            margin-bottom: 4px;
+            padding: 8px 10px; font-size: 0.85rem; cursor: pointer;
+            border-radius: 4px; transition: all 0.2s; margin-bottom: 4px;
         }
 
-        .index-item:hover {
-            background: rgba(124, 45, 18, 0.1);
-            padding-left: 15px;
-        }
-
-        .index-item.level-2 {
-            padding-left: 20px;
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
+        .index-item:hover { background: rgba(124, 45, 18, 0.1); padding-left: 15px; }
 
         /* ===== MAIN CONTENT AREA ===== */
         .main-container {
-            margin-left: 320px;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-            overflow-y: auto;
-            transition: margin-left 0.3s;
+            margin-left: 320px; height: 100vh;
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 20px; overflow-y: auto; transition: margin-left 0.3s;
         }
 
-        .main-container.sidebar-closed {
-            margin-left: 0;
-        }
+        .main-container.sidebar-closed { margin-left: 0; }
 
-        /* ===== BOOK SPREAD ===== */
         .book-spread {
-            display: flex;
-            gap: 0;
-            min-height: calc(100vh - 40px);
-            width: 100%;
-            max-width: none;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            display: flex; gap: 0; min-height: calc(100vh - 40px);
+            width: 100%; box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
         .page {
-            flex: 1;
-            width: auto;
-            max-width: none;
-            min-height: var(--page-height);
+            flex: 1; min-height: var(--page-height);
             background: #f4ecd8;
             background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
-            padding: 40px;
-            position: relative;
+            padding: 40px; position: relative;
         }
 
-        .page-left {
-            border-right: 1px solid rgba(0,0,0,0.1);
-            box-shadow: inset -10px 0 20px rgba(0,0,0,0.05);
-        }
+        .page-left { border-right: 1px solid rgba(0,0,0,0.1); box-shadow: inset -10px 0 20px rgba(0,0,0,0.05); }
+        .page-right { box-shadow: inset 10px 0 20px rgba(0,0,0,0.05); }
 
-        .page-right {
-            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05);
-        }
+        .content-wrapper { column-count: 1; column-gap: 40px; width: 100%; }
 
-        /* ===== CONTENT STYLES ===== */
-        .content-wrapper {
-            column-count: 1;
-            column-gap: 40px;
-            width: 100%;
-        }
-
-        .content-section {
-            margin-bottom: 2rem;
-        }
-
-        .content-section h2 {
-            font-size: 1.5rem;
-            border-bottom: 2px solid #1c1917;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
+        .content-section { margin-bottom: 2rem; }
+        .content-section h2 { font-size: 1.5rem; border-bottom: 2px solid #1c1917; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        
         .content-card {
             background: rgba(255, 255, 255, 0.3);
             border: 1px solid rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
+            padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 4px;
         }
 
-        .italic { font-style: italic; }
-        .mt-4 { margin-top: 1rem; }
+        .rule-box { border-left: 4px solid #7c2d12; background: rgba(124, 45, 18, 0.05); padding: 1rem; margin: 1.5rem 0; }
 
-        /* MOBILE STYLES */
         @media (max-width: 1024px) {
             .sidebar-container { transform: translateX(-320px); }
             .sidebar-container.open { transform: translateX(0); }
@@ -311,7 +210,8 @@
     <script>
         // ===== CONFIGURATION =====
         const documents = [
-            { id: 'intro', file: null, icon: '📜', title: 'Introduction', subtitle: 'Bienvenue au Codex' },
+            // Le fichier introduction est maintenant un fichier externe
+            { id: 'intro', file: 'introduction.0.01.html', icon: '📜', title: 'Introduction', subtitle: 'Bienvenue au Codex' },
             { id: 'livret1', file: 'Livret1-Mecanismes.v0.85.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
             { id: 'livret2', file: 'Livret2-Creation.v0.74.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },
             { id: 'livret3', file: 'Livret3-Equipement.v0.78.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Équipement' },
@@ -322,7 +222,7 @@
 
         // ===== STATE =====
         let currentDoc = 'intro';
-        let expandedId = null; // Gère quel livret est déplié dans la sidebar
+        let expandedId = null; 
         let sidebarOpen = true;
         let isMobile = window.innerWidth <= 1024;
         let currentIndex = [];
@@ -341,10 +241,7 @@
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
                 const isExpanded = doc.id === expandedId;
-                
-                const matchesSearch = !searchTerm || 
-                    doc.title.toLowerCase().includes(searchTerm) || 
-                    doc.subtitle.toLowerCase().includes(searchTerm);
+                const matchesSearch = !searchTerm || doc.title.toLowerCase().includes(searchTerm);
 
                 if (!matchesSearch && !isActive) return '';
 
@@ -358,8 +255,8 @@
                             </div>
                         </div>
                         <div class="doc-index ${isExpanded ? 'expanded' : ''}">
-                            ${currentIndex && isActive ? currentIndex.map(item => `
-                                <div class="index-item level-${item.level}" onclick="scrollToSection('section-${item.id}', event)">
+                            ${(currentIndex.length > 0 && isActive) ? currentIndex.map(item => `
+                                <div class="index-item" onclick="scrollToSection('section-${item.id}', event)">
                                     ${item.title}
                                 </div>
                             `).join('') : ''}
@@ -370,12 +267,11 @@
         }
 
         async function selectDocument(docId) {
-            // Si on clique sur le document déjà ouvert, on ferme/ouvre juste son index
             if (currentDoc === docId) {
                 expandedId = (expandedId === docId) ? null : docId;
             } else {
                 currentDoc = docId;
-                expandedId = docId; // On ouvre l'index du nouveau document
+                expandedId = docId;
                 await loadDocument(docId);
             }
             renderDocumentsList();
@@ -385,38 +281,22 @@
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
 
-            // CAS INTRODUCTION (Contenu vide ou statique)
-            if (doc.id === 'intro' || !doc.file) {
-                const introHTML = `
-                    <div class="content-section">
-                        <h2>Bienvenue dans le Codex Officiel</h2>
-                        <div class="content-card">
-                            <p>Le Codex est la base de données centrale du SCCS. Utilisez le menu à gauche pour naviguer à travers les différents livrets de règles.</p>
-                            <p class="mt-4 italic">Sélectionnez un ouvrage pour commencer la consultation.</p>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('contentLeft').innerHTML = introHTML;
-                document.getElementById('contentRight').innerHTML = '';
-                currentIndex = [];
-                return;
-            }
-
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
                 const parser = new DOMParser();
                 const docElement = parser.parseFromString(html, 'text/html');
 
-                // Index
+                // Gestion de l'index (si présent dans le fichier)
                 const indexScript = docElement.getElementById('doc-index');
                 currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
 
-                // Content cleaning
+                // Nettoyage du contenu
                 const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = docElement.body.innerHTML;
-                const scripts = tempDiv.querySelectorAll('script, .sidebar, header, nav');
-                scripts.forEach(el => el.remove());
+                tempDiv.innerHTML = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
+                
+                const toRemove = tempDiv.querySelectorAll('script, .sidebar, header, nav');
+                toRemove.forEach(el => el.remove());
                 
                 const cleanContent = tempDiv.innerHTML;
 
@@ -427,18 +307,24 @@
                     splitContent(cleanContent);
                 }
             } catch (error) {
-                console.error('Erreur:', error);
+                console.error('Erreur chargement:', error);
+                document.getElementById('contentLeft').innerHTML = "<p>Erreur lors du chargement du fichier.</p>";
             }
         }
 
         function splitContent(html) {
             const temp = document.createElement('div');
             temp.innerHTML = html;
-            const children = Array.from(temp.children);
-            const mid = Math.ceil(children.length / 2);
+            const sections = Array.from(temp.children);
             
-            document.getElementById('contentLeft').innerHTML = children.slice(0, mid).map(c => c.outerHTML).join('');
-            document.getElementById('contentRight').innerHTML = children.slice(mid).map(c => c.outerHTML).join('');
+            if (sections.length <= 1) {
+                document.getElementById('contentLeft').innerHTML = html;
+                document.getElementById('contentRight').innerHTML = '';
+            } else {
+                const mid = Math.ceil(sections.length / 2);
+                document.getElementById('contentLeft').innerHTML = sections.slice(0, mid).map(s => s.outerHTML).join('');
+                document.getElementById('contentRight').innerHTML = sections.slice(mid).map(s => s.outerHTML).join('');
+            }
         }
 
         function scrollToSection(id, e) {
@@ -450,7 +336,6 @@
         function toggleSidebar() {
             sidebarOpen = !sidebarOpen;
             document.getElementById('sidebarContainer').classList.toggle('closed', !sidebarOpen);
-            document.getElementById('sidebarContainer').classList.toggle('open', sidebarOpen);
             document.getElementById('mainContainer').classList.toggle('sidebar-closed', !sidebarOpen);
         }
 
