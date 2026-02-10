@@ -39,6 +39,7 @@
             letter-spacing: 0.05em;
         }
 
+        /* ===== SIDEBAR ===== */
         .sidebar-container {
             position: fixed;
             left: 0;
@@ -65,6 +66,7 @@
             box-shadow: 5px 0 15px rgba(0,0,0,0.3);
         }
 
+        /* ===== EXCROISSANCE ===== */
         .tab-handle {
             width: 40px;
             height: 120px;
@@ -100,6 +102,7 @@
             line-height: 1.2;
         }
 
+        /* ===== SEARCH ===== */
         .search-container {
             margin-bottom: 20px;
             padding-bottom: 15px;
@@ -121,6 +124,7 @@
             border-color: #7c2d12;
         }
 
+        /* ===== DOCUMENTS LIST ===== */
         .doc-item {
             margin-bottom: 8px;
         }
@@ -162,6 +166,7 @@
             margin-top: 2px;
         }
 
+        /* ===== INDEX / TOC ===== */
         .doc-index {
             margin-top: 8px;
             margin-left: 10px;
@@ -194,6 +199,7 @@
             opacity: 0.9;
         }
 
+        /* ===== MAIN CONTENT AREA ===== */
         .main-container {
             margin-left: 320px;
             height: 100vh;
@@ -209,6 +215,7 @@
             margin-left: 0;
         }
 
+        /* ===== BOOK SPREAD ===== */
         .book-spread {
             display: flex;
             gap: 0;
@@ -245,10 +252,12 @@
             pointer-events: none;
         }
 
+        /* ===== CONTENT STYLES ===== */
         .content-wrapper {
             column-count: 2;
             column-gap: 40px;
             column-fill: auto;
+            height: 100%;
         }
 
         .content-section {
@@ -280,6 +289,7 @@
             break-inside: avoid;
         }
 
+        /* Styles spécifiques pour Livret 2 et contenu injecté */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -313,41 +323,76 @@
             break-inside: avoid;
         }
 
+        /* Listes */
+        ol.decimal, ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
         ul.dash-list {
             list-style: none;
             padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        ul.dash-list > li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         ul.dash-list > li::before {
             content: "• ";
             font-weight: bold;
-            margin-right: 5px;
+            position: absolute;
+            left: 0;
         }
 
-        ol.decimal {
-            padding-left: 1.5rem;
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
         }
 
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        /* ===== MOBILE STYLES ===== */
         @media (max-width: 1024px) {
             .sidebar-container {
                 transform: translateX(-320px);
             }
-            
+
             .sidebar-container.open {
                 transform: translateX(0);
             }
-            
+
             .main-container {
                 margin-left: 0 !important;
                 padding: 10px;
                 align-items: flex-start;
             }
-            
+
             .book-spread {
                 flex-direction: column;
                 width: 100%;
             }
-            
+
             .page {
                 width: 100%;
                 max-width: var(--page-width);
@@ -355,78 +400,92 @@
                 height: auto;
                 padding: 20px;
             }
-            
+
             .page-left {
                 border-right: none;
                 border-bottom: 1px solid rgba(0,0,0,0.1);
             }
-            
+
             .page-right {
                 display: none;
             }
-            
+
             .content-wrapper {
                 column-count: 1;
             }
         }
 
+        /* ===== PRINT STYLES ===== */
         @media print {
             body {
                 background: white;
             }
-            
+
             .sidebar-container,
             .tab-handle {
                 display: none !important;
             }
-            
+
             .main-container {
                 margin-left: 0 !important;
                 padding: 0;
             }
-            
+
             .book-spread {
                 display: block;
                 box-shadow: none;
             }
-            
+
             .page {
                 width: 210mm;
                 min-height: 297mm;
                 box-shadow: none;
                 page-break-after: always;
             }
-            
+
             .page-right {
                 display: block !important;
             }
-            
+
             .content-wrapper {
                 column-count: 1;
             }
+        }
+
+        .hidden-item {
+            display: none !important;
         }
     </style>
 </head>
 <body>
 
+    <!-- SIDEBAR WITH TAB HANDLE -->
     <div class="sidebar-container" id="sidebarContainer">
         <div class="sidebar">
+            <!-- Search -->
             <div class="search-container">
                 <input type="text" id="searchInput" class="search-input" placeholder="Rechercher...">
             </div>
+
+            <!-- Documents List -->
             <div id="documentsList"></div>
         </div>
-        
+
+        <!-- Tab Handle -->
         <div class="tab-handle" id="tabHandle">
             <span class="tab-text">Documents<br>et Index</span>
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <div class="main-container" id="mainContainer">
         <div class="book-spread" id="bookSpread">
+            <!-- Left Page -->
             <div class="page page-left" id="pageLeft">
                 <div class="content-wrapper" id="contentLeft"></div>
             </div>
+
+            <!-- Right Page -->
             <div class="page page-right" id="pageRight">
                 <div class="content-wrapper" id="contentRight"></div>
             </div>
@@ -434,37 +493,49 @@
     </div>
 
     <script>
-        // ATTENTION : J'ai mis à jour le nom avec v0.74
+        // ===== CONFIGURATION CORRIGÉE =====
         const documents = [
-            { id: 'livret2', file: 'Livret2-Creation.v0.74.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' }
-            // Ajoutez les autres livrets ici quand ils seront prêts
+            { id: 'livret1', file: 'Livret1-Mecanismes.v0.84.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
+            { id: 'livret2', file: 'Livret2-Creation.v0.74.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },  // CORRIGÉ: v0.74
+            { id: 'livret3', file: 'Livret3-Equipement.v0.77.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Équipement' },
+            { id: 'livret4', file: 'Livret4-Rencontres.v0.79.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
+            { id: 'livret5', file: 'Livret5-Bestiaire.v0.79.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
+            { id: 'fiche', file: 'Fiche de personnage.v0.86.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' }
         ];
 
+        // ===== STATE =====
         let currentDoc = 'livret2';
         let sidebarOpen = true;
         let isMobile = window.innerWidth <= 1024;
         let currentIndex = [];
 
+        // ===== INITIALIZATION =====
         function init() {
             renderDocumentsList();
             loadDocument(currentDoc);
             setupEventListeners();
             checkMobile();
+            checkHash();
         }
 
+        // ===== RENDER DOCUMENTS LIST =====
         function renderDocumentsList() {
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
+
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
                 const matchesSearch = !searchTerm || 
                     doc.title.toLowerCase().includes(searchTerm) || 
                     doc.subtitle.toLowerCase().includes(searchTerm) ||
                     currentIndex.some(item => item.title.toLowerCase().includes(searchTerm));
-                
-                if (!matchesSearch) return '';
-                
+
+                if (!matchesSearch && isActive && searchTerm) {
+                    // Keep active doc visible even if not matching
+                } else if (!matchesSearch) {
+                    return '';
+                }
+
                 return `
                     <div class="doc-item" data-id="${doc.id}">
                         <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
@@ -486,111 +557,184 @@
             }).join('');
         }
 
+        // ===== SELECT DOCUMENT =====
         async function selectDocument(docId) {
             currentDoc = docId;
             await loadDocument(docId);
             renderDocumentsList();
-            window.location.hash = docId;
+            updateHash(docId);
         }
 
+        // ===== LOAD DOCUMENT CONTENT =====
         async function loadDocument(docId) {
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
 
             try {
                 const response = await fetch(doc.file);
-                if (!response.ok) throw new Error(`Fichier non trouvé: ${doc.file}`);
-                
                 const html = await response.text();
-                
+
+                // Parse the HTML
                 const parser = new DOMParser();
                 const docElement = parser.parseFromString(html, 'text/html');
-                
+
+                // Extract index from JSON
                 const indexScript = docElement.getElementById('doc-index');
                 if (indexScript) {
-                    const indexData = JSON.parse(indexScript.textContent);
-                    currentIndex = indexData.index || [];
+                    try {
+                        const indexData = JSON.parse(indexScript.textContent);
+                        currentIndex = indexData.index || [];
+                    } catch(e) {
+                        currentIndex = [];
+                    }
                 } else {
                     currentIndex = [];
                 }
+
+                // Extract content
+                let cleanContent;
                 
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = docElement.body.innerHTML;
-                const scriptTag = tempDiv.querySelector('#doc-index');
-                if (scriptTag) scriptTag.remove();
-                
-                const cleanContent = tempDiv.innerHTML;
-                
+                // Si le document a un body avec du contenu, on prend le body
+                if (docElement.body && docElement.body.innerHTML.trim().length > 0) {
+                    // Pour Livret 2 qui est un fragment sans structure HTML complète
+                    if (docId === 'livret2') {
+                        // Enlever le script JSON du contenu
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = docElement.body.innerHTML;
+                        const scriptEl = tempDiv.querySelector('#doc-index');
+                        if (scriptEl) scriptEl.remove();
+                        cleanContent = tempDiv.innerHTML;
+                    } else {
+                        // Pour les autres livrets qui ont des sidebars, on doit nettoyer
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = docElement.body.innerHTML;
+                        
+                        // Supprimer les sidebars et headers fixes des livrets
+                        const sidebars = tempDiv.querySelectorAll('.sidebar, .sidebar-right, header, nav, footer');
+                        sidebars.forEach(el => el.remove());
+                        
+                        // Supprimer les scripts pour éviter les conflits
+                        const scripts = tempDiv.querySelectorAll('script');
+                        scripts.forEach(el => el.remove());
+                        
+                        cleanContent = tempDiv.innerHTML;
+                    }
+                } else {
+                    cleanContent = html;
+                }
+
                 if (isMobile) {
                     document.getElementById('contentLeft').innerHTML = cleanContent;
                     document.getElementById('contentRight').innerHTML = '';
                 } else {
                     splitContentAcrossPages(cleanContent);
                 }
-                
+
             } catch (error) {
-                console.error('Erreur:', error);
-                document.getElementById('contentLeft').innerHTML = 
-                    `<div class="content-section"><h2>Erreur</h2><p>Impossible de charger ${doc.file}. Vérifiez que le fichier est bien à la racine du dépôt.</p></div>`;
+                console.error('Erreur de chargement:', error);
+                const errorMsg = `<div class="content-section"><h2>Erreur de chargement</h2><p>Impossible de charger ${doc.file}</p><p>Vérifiez que le fichier existe bien sur GitHub Pages.</p></div>`;
+                document.getElementById('contentLeft').innerHTML = errorMsg;
                 document.getElementById('contentRight').innerHTML = '';
                 currentIndex = [];
             }
         }
 
+        // ===== SPLIT CONTENT ACROSS PAGES =====
         function splitContentAcrossPages(htmlContent) {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = htmlContent;
-            
-            const sections = Array.from(tempDiv.children).filter(el => el.classList && el.classList.contains('content-section'));
-            
+
+            const sections = Array.from(tempDiv.children).filter(el => 
+                el.classList && (el.classList.contains('content-section') || el.tagName === 'SECTION')
+            );
+
             if (sections.length === 0) {
-                document.getElementById('contentLeft').innerHTML = htmlContent;
-                document.getElementById('contentRight').innerHTML = '';
+                // Si pas de sections délimitées, on divise par grands titres h2
+                const allContent = tempDiv.innerHTML;
+                const h2Split = allContent.split(/<h2[^>]*>/i);
+                
+                if (h2Split.length > 2) {
+                    const mid = Math.floor(h2Split.length / 2);
+                    const leftContent = h2Split.slice(0, mid).join('<h2>');
+                    const rightContent = h2Split.slice(mid).join('<h2>');
+                    
+                    document.getElementById('contentLeft').innerHTML = leftContent;
+                    document.getElementById('contentRight').innerHTML = rightContent;
+                } else {
+                    document.getElementById('contentLeft').innerHTML = allContent;
+                    document.getElementById('contentRight').innerHTML = '<div style="height: 50px;"></div>';
+                }
                 return;
             }
-            
+
             const midPoint = Math.ceil(sections.length / 2);
             const leftSections = sections.slice(0, midPoint).map(s => s.outerHTML).join('');
             const rightSections = sections.slice(midPoint).map(s => s.outerHTML).join('');
-            
+
             document.getElementById('contentLeft').innerHTML = leftSections;
-            document.getElementById('contentRight').innerHTML = rightSections || '';
+            document.getElementById('contentRight').innerHTML = rightSections || '<div style="height: 50px;"></div>';
         }
 
+        // ===== SCROLL TO SECTION =====
         function scrollToSection(sectionId, event) {
             if (event) event.stopPropagation();
+
+            // Nettoyer l'ID (enlever section- si présent)
+            const cleanId = sectionId.replace('section-', '');
             
-            const element = document.getElementById(sectionId);
+            // Chercher l'élément par ID
+            let element = document.getElementById(cleanId);
+            
+            // Si pas trouvé, chercher avec le préfixe section-
+            if (!element) {
+                element = document.getElementById('section-' + cleanId);
+            }
+            
+            // Si toujours pas trouvé, chercher par texte ou autre méthode
+            if (!element) {
+                // Pour Livret 2 qui utilise des div avec id="section-xxx"
+                const allElements = document.querySelectorAll('[id^="section-"]');
+                allElements.forEach(el => {
+                    if (el.id.includes(cleanId)) {
+                        element = el;
+                    }
+                });
+            }
+
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            
+
             if (isMobile && sidebarOpen) {
                 toggleSidebar();
             }
         }
 
+        // ===== TOGGLE SIDEBAR =====
         function toggleSidebar() {
             sidebarOpen = !sidebarOpen;
             const container = document.getElementById('sidebarContainer');
             const main = document.getElementById('mainContainer');
-            
+
             if (sidebarOpen) {
                 container.classList.remove('closed');
+                container.classList.add('open');
                 main.classList.remove('sidebar-closed');
             } else {
                 container.classList.add('closed');
+                container.classList.remove('open');
                 main.classList.add('sidebar-closed');
             }
         }
 
+        // ===== CHECK MOBILE =====
         function checkMobile() {
             const newIsMobile = window.innerWidth <= 1024;
             if (newIsMobile !== isMobile) {
                 isMobile = newIsMobile;
                 loadDocument(currentDoc);
             }
-            
+
             if (isMobile && sidebarOpen) {
                 toggleSidebar();
             } else if (!isMobile && !sidebarOpen) {
@@ -600,12 +744,26 @@
             }
         }
 
+        // ===== HASH MANAGEMENT =====
+        function updateHash(docId) {
+            window.location.hash = docId;
+        }
+
+        function checkHash() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && documents.find(d => d.id === hash) && hash !== currentDoc) {
+                selectDocument(hash);
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
         function setupEventListeners() {
             document.getElementById('tabHandle').addEventListener('click', toggleSidebar);
             document.getElementById('searchInput').addEventListener('input', renderDocumentsList);
-            
+
             window.addEventListener('resize', checkMobile);
-            
+            window.addEventListener('hashchange', checkHash);
+
             document.getElementById('mainContainer').addEventListener('click', (e) => {
                 if (isMobile && sidebarOpen) {
                     toggleSidebar();
@@ -613,6 +771,7 @@
             });
         }
 
+        // ===== START =====
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
