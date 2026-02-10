@@ -136,7 +136,7 @@
 
         .index-item:hover { background: rgba(124, 45, 18, 0.1); padding-left: 15px; }
 
-        /* ===== MAIN CONTAINER (Scroll Snap System) ===== */
+        /* ===== MAIN CONTAINER ===== */
         .main-container {
             margin-left: 320px; 
             height: 100vh;
@@ -152,7 +152,6 @@
         .main-container::-webkit-scrollbar { display: none; }
         .main-container.sidebar-closed { margin-left: 0; width: 100%; }
 
-        /* Wrappers */
         .book-spreads-wrapper {
             display: flex; flex-direction: column; width: 100%;
         }
@@ -168,9 +167,10 @@
             flex: 1; height: 100vh;
             background: #f4ecd8;
             background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
-            /* Padding Bottom augmenté à 85px pour laisser place aux mentions légales */
+            /* Padding ajusté pour pied de page */
             padding: 50px 60px 120px 60px; 
             position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-start;
         }
 
         .page-left { 
@@ -186,7 +186,7 @@
             display: flex; flex-direction: column;
         }
 
-        /* ===== CONTENU ===== */
+        /* ===== CONTENU TEXTE ===== */
         .content-section { margin-bottom: 1.5rem; }
         .content-section h2 { font-size: 1.5rem; border-bottom: 2px solid #1c1917; padding-bottom: 0.5rem; margin-bottom: 1rem; }
         
@@ -202,7 +202,34 @@
             max-width: 100%; height: auto; display: block;
         }
 
-        /* Pied de page et Mentions légales */
+        /* ===== STYLE SPÉCIAL FICHE PERSO (IFRAME) ===== */
+        #sheetContainer {
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 0; /* On gère le padding manuellement pour le centrage */
+            overflow: hidden;
+        }
+
+        #charSheetFrame {
+            border: none;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            /* La taille A4 exacte en pixels (96dpi) */
+            width: 794px; /* 210mm */
+            height: 1123px; /* 297mm */
+            transform-origin: center center;
+            background: #fff; /* Fond blanc au cas où */
+        }
+
+        .sheet-placeholder-text {
+            font-family: 'Cinzel', serif; 
+            text-align: center; 
+            color: #7c2d12;
+            margin-top: 30vh;
+            padding: 0 40px;
+        }
+
+        /* ===== FOOTER ===== */
         .legal-notice {
             position: absolute;
             bottom: 40px;
@@ -215,6 +242,7 @@
             pointer-events: none;
             line-height: 1.4;
             padding: 0 20px;
+            z-index: 10;
         }
 
         .page-number {
@@ -227,6 +255,7 @@
             color: rgba(28, 25, 23, 0.5);
             left: 0;
             pointer-events: none;
+            z-index: 10;
         }
 
         @media (max-width: 1024px) {
@@ -236,6 +265,10 @@
             .book-spread { flex-direction: column; }
             .page { padding: 30px 20px 120px 20px; width: 100%; }
             .page-right { display: none; }
+            
+            /* Pour la fiche en mobile, on force l'affichage de la page droite si active */
+            .book-spread.sheet-mode .page-left { display: none; }
+            .book-spread.sheet-mode .page-right { display: flex; width: 100%; height: 100vh; }
         }
     </style>
 </head>
@@ -247,6 +280,9 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Rechercher...">
             </div>
             <div id="documentsList"></div>
+            <div style="margin-top: auto; padding-top: 20px; text-align: center; font-size: 0.6rem; opacity: 0.6; font-family: 'Cinzel', serif;">
+                © 2024 Urnidzen - SCCS<br>CC BY-NC-SA 4.0
+            </div>
         </div>
         <div class="tab-handle" id="tabHandle">
             <span class="tab-text">Documents<br>et Index</span>
@@ -269,7 +305,7 @@
             { id: 'livret3', file: 'Livret3-Equipement.v0.78.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Équipement' },
             { id: 'livret4', file: 'Livret4-Rencontres.v0.80.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.80.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
-            { id: 'fiche', file: 'Fiche de personnage.v0.87.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
+            { id: 'fiche', file: 'Fiche de personnage.v0.86.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le SCCS" }
         ];
 
@@ -281,7 +317,6 @@
         let currentIndex = [];
         let rawContentCache = ""; 
 
-        // Mentions légales à insérer partout
         const LEGAL_HTML = `
             <div class="legal-notice">
                 Copiez, modifiez, enrichissez ! seul le commerce est interdit.<br>
@@ -296,7 +331,6 @@
             checkMobile();
         }
 
-        // ===== LOGIQUE DE CHARGEMENT =====
         function renderDocumentsList() {
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -317,7 +351,7 @@
                             </div>
                         </div>
                         <div class="doc-index ${isExpanded ? 'expanded' : ''}">
-                            ${(currentIndex.length > 0 && isActive) ? currentIndex.map(item => `
+                            ${(currentIndex.length > 0 && isActive && doc.id !== 'fiche') ? currentIndex.map(item => `
                                 <div class="index-item" onclick="scrollToElement('section-${item.id}')">
                                     ${item.title}
                                 </div>
@@ -343,8 +377,16 @@
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
 
-            document.getElementById('bookSpreadsWrapper').innerHTML = '<div style="padding:40px; text-align:center; color:#7c2d12;">Chargement du manuscrit...</div>';
+            const wrapper = document.getElementById('bookSpreadsWrapper');
+            wrapper.innerHTML = '<div style="padding:40px; text-align:center; color:#7c2d12;">Chargement...</div>';
 
+            // === CAS SPÉCIAL : FICHE DE PERSONNAGE ===
+            if (docId === 'fiche') {
+                renderSheetFrame(doc.file);
+                return;
+            }
+
+            // === CAS STANDARD : LIVRES & TEXTES ===
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
@@ -363,11 +405,96 @@
 
             } catch (error) {
                 console.error('Erreur:', error);
-                document.getElementById('bookSpreadsWrapper').innerHTML = "<p class='page'>Erreur lors du chargement ou fichier introuvable.</p>";
+                wrapper.innerHTML = "<p class='page'>Erreur lors du chargement.</p>";
             }
         }
 
-        // ===== MOTEUR DE PAGINATION (Hybrid Block/Atom) =====
+        // ===== MOTEUR D'AFFICHAGE FICHE (IFRAME ZOOM) =====
+        function renderSheetFrame(fileUrl) {
+            const wrapper = document.getElementById('bookSpreadsWrapper');
+            wrapper.innerHTML = '';
+            currentIndex = []; // Pas d'index textuel pour la fiche
+
+            // On crée une double page spéciale
+            const spread = document.createElement('div');
+            spread.className = 'book-spread sheet-mode';
+
+            // Page Gauche : Explicative (ou vide décorative)
+            const leftContent = `
+                <div class="page page-left">
+                    <div class="content-wrapper" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                        <div class="sheet-placeholder-text">
+                            <h2 style="font-size:2rem; margin-bottom:1rem;">Registre des Héros</h2>
+                            <p>Utilisez la feuille ci-contre pour consigner les détails de votre aventure.</p>
+                            <p style="font-size:0.8rem; margin-top:2rem; opacity:0.7;">
+                                Note : Vos données sont sauvegardées automatiquement dans votre navigateur.
+                            </p>
+                        </div>
+                    </div>
+                    ${LEGAL_HTML}
+                    <div class="page-number">- I -</div>
+                </div>
+            `;
+
+            // Page Droite : L'Iframe
+            const rightContent = `
+                <div class="page page-right" id="sheetContainer">
+                    <iframe id="charSheetFrame" src="${fileUrl}"></iframe>
+                    ${LEGAL_HTML} <div class="page-number">- II -</div>
+                </div>
+            `;
+
+            spread.innerHTML = isMobile ? rightContent : (leftContent + rightContent);
+            wrapper.appendChild(spread);
+
+            // Attendre le chargement pour ajuster le zoom et masquer la sidebar interne
+            const iframe = document.getElementById('charSheetFrame');
+            iframe.onload = () => {
+                resizeSheet();
+                // Essayer de masquer la sidebar interne de la fiche pour éviter les doublons
+                try {
+                    const iDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const style = iDoc.createElement('style');
+                    // On cache la navigation interne (.sidebar-right) mais on garde les onglets classeur (.binder-sidebar)
+                    style.textContent = `
+                        .sidebar-right, .no-print { display: none !important; }
+                        body { background: transparent !important; }
+                    `;
+                    iDoc.head.appendChild(style);
+                } catch(e) {
+                    console.log("Cross-origin restriction (local test): " + e);
+                }
+            };
+        }
+
+        function resizeSheet() {
+            const container = document.getElementById('sheetContainer');
+            const iframe = document.getElementById('charSheetFrame');
+            if(!container || !iframe) return;
+
+            // Dimensions cibles (A4 pixels à 96 DPI)
+            const targetW = 794; 
+            const targetH = 1123;
+
+            // Espace disponible (hauteur - marges)
+            // On prend une marge de sécurité pour ne pas toucher le footer
+            const availableH = container.clientHeight - 130; 
+            const availableW = container.clientWidth - 40;
+
+            // Calcul du scale (priorité à la hauteur pour tout voir)
+            let scale = availableH / targetH;
+            
+            // Si même avec ce scale ça dépasse en largeur (cas rare mobile très étroit), on réduit encore
+            if (targetW * scale > availableW) {
+                scale = availableW / targetW;
+            }
+
+            // Application
+            iframe.style.transform = `scale(${scale})`;
+        }
+
+
+        // ===== MOTEUR DE PAGINATION (TEXTE) =====
         let pgnState = {
             wrapper: null,
             currentSpread: null,
@@ -447,10 +574,8 @@
             let node = element.cloneNode(true);
             pgnState.currentPageContent.appendChild(node);
 
-            // Vérification de l'overflow (tient compte du padding augmenté)
             if (isOverflowing(pgnState.currentPageContent)) {
                 pgnState.currentPageContent.removeChild(node);
-
                 const isPageEmpty = pgnState.currentPageContent.children.length === 0;
 
                 if (!isPageEmpty) {
@@ -464,7 +589,6 @@
 
         function handleGiantBlock(element) {
             const tagName = element.tagName.toLowerCase();
-            // Cas atomique : Scroll interne
             if (['img', 'table', 'video', 'iframe', 'svg'].includes(tagName) || element.classList.contains('atomic')) {
                 let node = element.cloneNode(true);
                 node.style.maxHeight = "100%";
@@ -474,15 +598,12 @@
                 advancePage();
                 return;
             }
-
-            // Cas conteneur : Démembrement
             const children = Array.from(element.children);
             if (children.length > 0) {
                 for (let i = children.length - 1; i >= 0; i--) {
                     pgnState.elementsQueue.unshift(children[i]);
                 }
             } else {
-                // Texte géant seul
                 let node = element.cloneNode(true);
                 node.style.maxHeight = "100%";
                 node.style.overflowY = "auto";
@@ -510,16 +631,22 @@
             document.getElementById('sidebarContainer').classList.toggle('closed', !sidebarOpen);
             document.getElementById('mainContainer').classList.toggle('sidebar-closed', !sidebarOpen);
             
-            if (!isMobile) {
-                setTimeout(() => { if(rawContentCache) paginateContent(rawContentCache); }, 350);
-            }
+            // Recalcul en différé
+            setTimeout(() => { 
+                if (currentDoc === 'fiche') resizeSheet();
+                else if (rawContentCache) paginateContent(rawContentCache); 
+            }, 350);
         }
 
         function checkMobile() {
             const wasMobile = isMobile;
             isMobile = window.innerWidth <= 1024;
             if (isMobile && sidebarOpen && !wasMobile) toggleSidebar();
-            if (wasMobile !== isMobile && rawContentCache) paginateContent(rawContentCache);
+            
+            if (wasMobile !== isMobile) {
+                 if (currentDoc === 'fiche') loadDocument('fiche'); // Recharger la structure pour mobile/desktop
+                 else if (rawContentCache) paginateContent(rawContentCache);
+            }
         }
 
         let resizeTimeout;
@@ -527,7 +654,8 @@
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 checkMobile();
-                if (rawContentCache) paginateContent(rawContentCache);
+                if (currentDoc === 'fiche') resizeSheet();
+                else if (rawContentCache) paginateContent(rawContentCache);
             }, 300);
         });
 
