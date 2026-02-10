@@ -65,7 +65,7 @@
             box-shadow: 5px 0 15px rgba(0,0,0,0.3);
         }
 
-        /* ===== EXCROISSANCE ===== */
+        /* ===== TAB HANDLE ===== */
         .tab-handle {
             width: 40px;
             height: 120px;
@@ -244,30 +244,15 @@
             box-shadow: inset 10px 0 20px rgba(0,0,0,0.05);
         }
 
-        .page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            box-shadow: inset 0 0 60px rgba(0,0,0,0.05);
-            pointer-events: none;
-        }
-
         /* ===== CONTENT STYLES ===== */
         .content-wrapper {
             column-count: 1;
             column-gap: 40px;
-            column-fill: auto;
-            height: 100%;
             width: 100%;
         }
 
         .content-section {
-            break-inside: avoid;
             margin-bottom: 2rem;
-            width: 100%;
         }
 
         .content-section h2 {
@@ -275,14 +260,6 @@
             border-bottom: 2px solid #1c1917;
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
-            break-after: avoid;
-        }
-
-        .content-section h3 {
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            break-after: avoid;
         }
 
         .content-card {
@@ -291,237 +268,40 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             border-radius: 4px;
-            break-inside: avoid;
         }
 
-        /* Styles spécifiques pour Livret 2 et contenu injecté */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: rgba(255, 255, 255, 0.2);
-            font-size: 0.9rem;
-            break-inside: avoid;
-        }
+        .italic { font-style: italic; }
+        .mt-4 { margin-top: 1rem; }
 
-        th {
-            background: rgba(0,0,0,0.07);
-            text-align: left;
-            padding: 10px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
-            border: 1px solid rgba(0,0,0,0.2);
-            text-transform: uppercase;
-        }
-
-        td {
-            padding: 10px;
-            border: 1px solid rgba(0,0,0,0.1);
-            vertical-align: top;
-        }
-
-        .rule-box {
-            border-left: 4px solid #7c2d12;
-            background: rgba(124, 45, 18, 0.05);
-            padding: 1rem;
-            margin: 1.5rem 0;
-            break-inside: avoid;
-        }
-
-        /* ===== CORRECTIONS POUR ÉTIRER LE CONTENU SUR TOUTE LA LARGEUR ===== */
-        /* Boîtes blanches et conteneurs : pleine largeur de la colonne */
-        .content-wrapper .content-card,
-        .content-wrapper .rule-box {
-            width: 100%;
-            max-width: none;
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        /* Texte (paragraphes, listes, titres) : pleine largeur */
-        .content-wrapper p,
-        .content-wrapper ul,
-        .content-wrapper ol,
-        .content-wrapper h2,
-        .content-wrapper h3 {
-            width: 100%;
-            max-width: none;
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        /* Tableaux : taille naturelle, pas d'étirement excessif */
-        .content-wrapper table {
-            width: auto;
-            max-width: 100%;
-            margin-left: 0;
-            margin-right: auto;
-        }
-
-        /* Listes */
-        ol.decimal, ol {
-            padding-left: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        ul.dash-list {
-            list-style: none;
-            padding-left: 0;
-            margin: 1rem 0;
-        }
-
-        ul.dash-list > li {
-            position: relative;
-            padding-left: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        ul.dash-list > li::before {
-            content: "• ";
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .space-y-2 > * + * {
-            margin-top: 0.5rem;
-        }
-
-        .mb-4 {
-            margin-bottom: 1rem;
-        }
-
-        .mt-4 {
-            margin-top: 1rem;
-        }
-
-        .italic {
-            font-style: italic;
-        }
-
-        .font-bold {
-            font-weight: 700;
-        }
-
-        strong {
-            font-weight: 700;
-        }
-
-        /* ===== MOBILE STYLES ===== */
+        /* MOBILE STYLES */
         @media (max-width: 1024px) {
-            .sidebar-container {
-                transform: translateX(-320px);
-            }
-
-            .sidebar-container.open {
-                transform: translateX(0);
-            }
-
-            .main-container {
-                margin-left: 0 !important;
-                padding: 10px;
-                align-items: flex-start;
-            }
-
-            .book-spread {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .page {
-                width: 100%;
-                min-height: auto;
-                height: auto;
-                padding: 20px;
-            }
-
-            .page-left {
-                border-right: none;
-                border-bottom: 1px solid rgba(0,0,0,0.1);
-            }
-
-            .page-right {
-                display: none;
-            }
-
-            .content-wrapper {
-                column-count: 1;
-                width: 100%;
-            }
-        }
-
-        /* ===== PRINT STYLES ===== */
-        @media print {
-            body {
-                background: white;
-            }
-
-            .sidebar-container,
-            .tab-handle {
-                display: none !important;
-            }
-
-            .main-container {
-                margin-left: 0 !important;
-                padding: 0;
-            }
-
-            .book-spread {
-                display: block;
-                box-shadow: none;
-            }
-
-            .page {
-                width: 210mm;
-                min-height: 297mm;
-                box-shadow: none;
-                page-break-after: always;
-            }
-
-            .page-right {
-                display: block !important;
-            }
-
-            .content-wrapper {
-                column-count: 1;
-            }
-        }
-
-        .hidden-item {
-            display: none !important;
+            .sidebar-container { transform: translateX(-320px); }
+            .sidebar-container.open { transform: translateX(0); }
+            .main-container { margin-left: 0 !important; }
+            .book-spread { flex-direction: column; }
+            .page-right { display: none; }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
-    <!-- SIDEBAR WITH TAB HANDLE -->
     <div class="sidebar-container" id="sidebarContainer">
         <div class="sidebar">
-            <!-- Search -->
             <div class="search-container">
                 <input type="text" id="searchInput" class="search-input" placeholder="Rechercher...">
             </div>
-
-            <!-- Documents List -->
             <div id="documentsList"></div>
         </div>
-
-        <!-- Tab Handle -->
         <div class="tab-handle" id="tabHandle">
             <span class="tab-text">Documents<br>et Index</span>
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="main-container" id="mainContainer">
         <div class="book-spread" id="bookSpread">
-            <!-- Left Page -->
             <div class="page page-left" id="pageLeft">
                 <div class="content-wrapper" id="contentLeft"></div>
             </div>
-
-            <!-- Right Page -->
             <div class="page page-right" id="pageRight">
                 <div class="content-wrapper" id="contentRight"></div>
             </div>
@@ -529,10 +309,11 @@
     </div>
 
     <script>
-        // ===== CONFIGURATION CORRIGÉE =====
+        // ===== CONFIGURATION =====
         const documents = [
+            { id: 'intro', file: null, icon: '📜', title: 'Introduction', subtitle: 'Bienvenue au Codex' },
             { id: 'livret1', file: 'Livret1-Mecanismes.v0.85.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
-            { id: 'livret2', file: 'Livret2-Creation.v0.74.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },  // CORRIGÉ: v0.74
+            { id: 'livret2', file: 'Livret2-Creation.v0.74.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },
             { id: 'livret3', file: 'Livret3-Equipement.v0.78.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Équipement' },
             { id: 'livret4', file: 'Livret4-Rencontres.v0.80.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.80.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
@@ -540,40 +321,35 @@
         ];
 
         // ===== STATE =====
-        let currentDoc = 'livret2';
+        let currentDoc = 'intro';
+        let expandedId = null; // Gère quel livret est déplié dans la sidebar
         let sidebarOpen = true;
         let isMobile = window.innerWidth <= 1024;
         let currentIndex = [];
 
-        // ===== INITIALIZATION =====
         function init() {
             renderDocumentsList();
             loadDocument(currentDoc);
             setupEventListeners();
             checkMobile();
-            checkHash();
         }
 
-        // ===== RENDER DOCUMENTS LIST =====
         function renderDocumentsList() {
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
 
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
+                const isExpanded = doc.id === expandedId;
+                
                 const matchesSearch = !searchTerm || 
                     doc.title.toLowerCase().includes(searchTerm) || 
-                    doc.subtitle.toLowerCase().includes(searchTerm) ||
-                    currentIndex.some(item => item.title.toLowerCase().includes(searchTerm));
+                    doc.subtitle.toLowerCase().includes(searchTerm);
 
-                if (!matchesSearch && isActive && searchTerm) {
-                    // Keep active doc visible even if not matching
-                } else if (!matchesSearch) {
-                    return '';
-                }
+                if (!matchesSearch && !isActive) return '';
 
                 return `
-                    <div class="doc-item" data-id="${doc.id}">
+                    <div class="doc-item">
                         <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
                             <span class="doc-icon">${doc.icon}</span>
                             <div>
@@ -581,233 +357,114 @@
                                 <div class="doc-subtitle">${doc.subtitle}</div>
                             </div>
                         </div>
-                        <div class="doc-index ${isActive ? 'expanded' : ''}" id="index-${doc.id}">
-                            ${currentIndex.map(item => `
+                        <div class="doc-index ${isExpanded ? 'expanded' : ''}">
+                            ${currentIndex && isActive ? currentIndex.map(item => `
                                 <div class="index-item level-${item.level}" onclick="scrollToSection('section-${item.id}', event)">
                                     ${item.title}
                                 </div>
-                            `).join('')}
+                            `).join('') : ''}
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        // ===== SELECT DOCUMENT =====
         async function selectDocument(docId) {
-            currentDoc = docId;
-            await loadDocument(docId);
+            // Si on clique sur le document déjà ouvert, on ferme/ouvre juste son index
+            if (currentDoc === docId) {
+                expandedId = (expandedId === docId) ? null : docId;
+            } else {
+                currentDoc = docId;
+                expandedId = docId; // On ouvre l'index du nouveau document
+                await loadDocument(docId);
+            }
             renderDocumentsList();
-            updateHash(docId);
         }
 
-        // ===== LOAD DOCUMENT CONTENT =====
         async function loadDocument(docId) {
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
 
+            // CAS INTRODUCTION (Contenu vide ou statique)
+            if (doc.id === 'intro' || !doc.file) {
+                const introHTML = `
+                    <div class="content-section">
+                        <h2>Bienvenue dans le Codex Officiel</h2>
+                        <div class="content-card">
+                            <p>Le Codex est la base de données centrale du SCCS. Utilisez le menu à gauche pour naviguer à travers les différents livrets de règles.</p>
+                            <p class="mt-4 italic">Sélectionnez un ouvrage pour commencer la consultation.</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('contentLeft').innerHTML = introHTML;
+                document.getElementById('contentRight').innerHTML = '';
+                currentIndex = [];
+                return;
+            }
+
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
-
-                // Parse the HTML
                 const parser = new DOMParser();
                 const docElement = parser.parseFromString(html, 'text/html');
 
-                // Extract index from JSON
+                // Index
                 const indexScript = docElement.getElementById('doc-index');
-                if (indexScript) {
-                    try {
-                        const indexData = JSON.parse(indexScript.textContent);
-                        currentIndex = indexData.index || [];
-                    } catch(e) {
-                        currentIndex = [];
-                    }
-                } else {
-                    currentIndex = [];
-                }
+                currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
 
-                // Extract content
-                let cleanContent;
+                // Content cleaning
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = docElement.body.innerHTML;
+                const scripts = tempDiv.querySelectorAll('script, .sidebar, header, nav');
+                scripts.forEach(el => el.remove());
                 
-                // Si le document a un body avec du contenu, on prend le body
-                if (docElement.body && docElement.body.innerHTML.trim().length > 0) {
-                    // Pour Livret 2 qui est un fragment sans structure HTML complète
-                    if (docId === 'livret2') {
-                        // Enlever le script JSON du contenu
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = docElement.body.innerHTML;
-                        const scriptEl = tempDiv.querySelector('#doc-index');
-                        if (scriptEl) scriptEl.remove();
-                        cleanContent = tempDiv.innerHTML;
-                    } else {
-                        // Pour les autres livrets qui ont des sidebars, on doit nettoyer
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = docElement.body.innerHTML;
-                        
-                        // Supprimer les sidebars et headers fixes des livrets
-                        const sidebars = tempDiv.querySelectorAll('.sidebar, .sidebar-right, header, nav, footer');
-                        sidebars.forEach(el => el.remove());
-                        
-                        // Supprimer les scripts pour éviter les conflits
-                        const scripts = tempDiv.querySelectorAll('script');
-                        scripts.forEach(el => el.remove());
-                        
-                        cleanContent = tempDiv.innerHTML;
-                    }
-                } else {
-                    cleanContent = html;
-                }
+                const cleanContent = tempDiv.innerHTML;
 
                 if (isMobile) {
                     document.getElementById('contentLeft').innerHTML = cleanContent;
                     document.getElementById('contentRight').innerHTML = '';
                 } else {
-                    splitContentAcrossPages(cleanContent);
+                    splitContent(cleanContent);
                 }
-
             } catch (error) {
-                console.error('Erreur de chargement:', error);
-                const errorMsg = `<div class="content-section"><h2>Erreur de chargement</h2><p>Impossible de charger ${doc.file}</p><p>Vérifiez que le fichier existe bien sur GitHub Pages.</p></div>`;
-                document.getElementById('contentLeft').innerHTML = errorMsg;
-                document.getElementById('contentRight').innerHTML = '';
-                currentIndex = [];
+                console.error('Erreur:', error);
             }
         }
 
-        // ===== SPLIT CONTENT ACROSS PAGES =====
-        function splitContentAcrossPages(htmlContent) {
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = htmlContent;
-
-            const sections = Array.from(tempDiv.children).filter(el => 
-                el.classList && (el.classList.contains('content-section') || el.tagName === 'SECTION')
-            );
-
-            if (sections.length === 0) {
-                // Si pas de sections délimitées, on divise par grands titres h2
-                const allContent = tempDiv.innerHTML;
-                const h2Split = allContent.split(/<h2[^>]*>/i);
-                
-                if (h2Split.length > 2) {
-                    const mid = Math.floor(h2Split.length / 2);
-                    const leftContent = h2Split.slice(0, mid).join('<h2>');
-                    const rightContent = h2Split.slice(mid).join('<h2>');
-                    
-                    document.getElementById('contentLeft').innerHTML = leftContent;
-                    document.getElementById('contentRight').innerHTML = rightContent;
-                } else {
-                    document.getElementById('contentLeft').innerHTML = allContent;
-                    document.getElementById('contentRight').innerHTML = '<div style="height: 50px;"></div>';
-                }
-                return;
-            }
-
-            const midPoint = Math.ceil(sections.length / 2);
-            const leftSections = sections.slice(0, midPoint).map(s => s.outerHTML).join('');
-            const rightSections = sections.slice(midPoint).map(s => s.outerHTML).join('');
-
-            document.getElementById('contentLeft').innerHTML = leftSections;
-            document.getElementById('contentRight').innerHTML = rightSections || '<div style="height: 50px;"></div>';
+        function splitContent(html) {
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const children = Array.from(temp.children);
+            const mid = Math.ceil(children.length / 2);
+            
+            document.getElementById('contentLeft').innerHTML = children.slice(0, mid).map(c => c.outerHTML).join('');
+            document.getElementById('contentRight').innerHTML = children.slice(mid).map(c => c.outerHTML).join('');
         }
 
-        // ===== SCROLL TO SECTION =====
-        function scrollToSection(sectionId, event) {
-            if (event) event.stopPropagation();
-
-            // Nettoyer l'ID (enlever section- si présent)
-            const cleanId = sectionId.replace('section-', '');
-            
-            // Chercher l'élément par ID
-            let element = document.getElementById(cleanId);
-            
-            // Si pas trouvé, chercher avec le préfixe section-
-            if (!element) {
-                element = document.getElementById('section-' + cleanId);
-            }
-            
-            // Si toujours pas trouvé, chercher par texte ou autre méthode
-            if (!element) {
-                // Pour Livret 2 qui utilise des div avec id="section-xxx"
-                const allElements = document.querySelectorAll('[id^="section-"]');
-                allElements.forEach(el => {
-                    if (el.id.includes(cleanId)) {
-                        element = el;
-                    }
-                });
-            }
-
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-
-            if (isMobile && sidebarOpen) {
-                toggleSidebar();
-            }
+        function scrollToSection(id, e) {
+            e.stopPropagation();
+            const el = document.getElementById(id) || document.getElementById(id.replace('section-', ''));
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ===== TOGGLE SIDEBAR =====
         function toggleSidebar() {
             sidebarOpen = !sidebarOpen;
-            const container = document.getElementById('sidebarContainer');
-            const main = document.getElementById('mainContainer');
-
-            if (sidebarOpen) {
-                container.classList.remove('closed');
-                container.classList.add('open');
-                main.classList.remove('sidebar-closed');
-            } else {
-                container.classList.add('closed');
-                container.classList.remove('open');
-                main.classList.add('sidebar-closed');
-            }
+            document.getElementById('sidebarContainer').classList.toggle('closed', !sidebarOpen);
+            document.getElementById('sidebarContainer').classList.toggle('open', sidebarOpen);
+            document.getElementById('mainContainer').classList.toggle('sidebar-closed', !sidebarOpen);
         }
 
-        // ===== CHECK MOBILE =====
         function checkMobile() {
-            const newIsMobile = window.innerWidth <= 1024;
-            if (newIsMobile !== isMobile) {
-                isMobile = newIsMobile;
-                loadDocument(currentDoc);
-            }
-
-            if (isMobile && sidebarOpen) {
-                toggleSidebar();
-            } else if (!isMobile && !sidebarOpen) {
-                sidebarOpen = true;
-                document.getElementById('sidebarContainer').classList.remove('closed');
-                document.getElementById('mainContainer').classList.remove('sidebar-closed');
-            }
+            isMobile = window.innerWidth <= 1024;
+            if (isMobile && sidebarOpen) toggleSidebar();
         }
 
-        // ===== HASH MANAGEMENT =====
-        function updateHash(docId) {
-            window.location.hash = docId;
-        }
-
-        function checkHash() {
-            const hash = window.location.hash.replace('#', '');
-            if (hash && documents.find(d => d.id === hash) && hash !== currentDoc) {
-                selectDocument(hash);
-            }
-        }
-
-        // ===== EVENT LISTENERS =====
         function setupEventListeners() {
             document.getElementById('tabHandle').addEventListener('click', toggleSidebar);
             document.getElementById('searchInput').addEventListener('input', renderDocumentsList);
-
             window.addEventListener('resize', checkMobile);
-            window.addEventListener('hashchange', checkHash);
-
-            document.getElementById('mainContainer').addEventListener('click', (e) => {
-                if (isMobile && sidebarOpen) {
-                    toggleSidebar();
-                }
-            });
         }
 
-        // ===== START =====
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
