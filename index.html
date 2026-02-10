@@ -318,12 +318,12 @@
                 display: block !important;
                 height: auto !important;
                 box-shadow: none !important;
-                page-break-after: always; /* Force la coupure */
-                break-after: page;
+                page-break-after: always !important; /* Force la coupure */
+                break-after: page !important;
             }
 
-            /* 4. EXCEPTION : Pas de saut de page après le tout dernier bloc (évite la page blanche) */
-            .book-spread:last-child {
+            /* 4. EXCEPTION : Pas de saut de page après le tout dernier bloc */
+            .book-spread:last-of-type {
                 page-break-after: auto !important;
                 break-after: auto !important;
             }
@@ -331,13 +331,25 @@
             /* 5. Pages de contenu */
             .page {
                 height: auto !important;
-                min-height: 0 !important; /* SUPPRIME la hauteur forcée pour éviter les blancs */
+                /* C'est ICI le correctif : on force une hauteur minimale d'une page complète */
+                /* Cela empêche le contenu suivant de remonter sur la même feuille */
+                min-height: 99vh !important; 
                 width: 100% !important;
                 display: block !important;
                 border: none !important;
                 box-shadow: none !important;
                 margin: 0 !important;
                 padding: 1cm !important; /* Marges réduites pour l'impression */
+                
+                page-break-inside: avoid !important;
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+
+            /* Pour éviter la page blanche finale si la dernière page est un .page */
+            .page:last-of-type {
+                page-break-after: auto !important;
+                break-after: auto !important;
             }
 
             .page-left, .page-right {
