@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCCS - Codex Officiel (Edition Feuillet)</title>
+    <title>SCCS - Codex Officiel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -11,19 +11,17 @@
             --parchment: #f4ecd8;
             --dark-ink: #1c1917;
             --accent: #7c2d12;
-            --page-padding: 40px;
-            --spread-gap: 0px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         html, body { 
             height: 100%; 
-            overflow: hidden; /* Empêche le scroll du body */
+            overflow: hidden;
+            background-color: #2c2520;
         }
 
         body {
-            background-color: #2c2520;
             background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
             font-family: 'Cormorant Garamond', serif;
             color: var(--dark-ink);
@@ -70,23 +68,16 @@
             align-items: center;
             justify-content: center;
             box-shadow: 3px 0 10px rgba(0,0,0,0.4);
-            transition: all 0.2s;
             margin-left: -2px;
         }
-
-        .tab-handle:hover { background: #ffffff; width: 45px; }
 
         .tab-text {
             writing-mode: vertical-rl;
             text-orientation: mixed;
-            color: #1c1917;
             font-family: 'Cinzel', serif;
             font-weight: 700;
             font-size: 0.8rem;
-            letter-spacing: 0.05em;
             transform: rotate(180deg);
-            text-align: center;
-            line-height: 1.2;
         }
 
         .search-container {
@@ -105,8 +96,6 @@
             font-size: 1rem;
         }
 
-        .doc-item { margin-bottom: 8px; }
-
         .doc-header {
             display: flex; align-items: center; gap: 10px;
             padding: 12px;
@@ -114,174 +103,109 @@
             border: 1px solid rgba(0,0,0,0.1);
             border-radius: 6px;
             cursor: pointer;
+            margin-bottom: 8px;
             transition: all 0.2s;
         }
 
         .doc-header:hover { background: rgba(124, 45, 18, 0.1); }
         .doc-header.active { background: rgba(124, 45, 18, 0.2); border-left: 4px solid #7c2d12; }
 
-        .doc-icon { font-size: 1.2rem; }
-        .doc-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem; }
-        .doc-subtitle { font-size: 0.75rem; opacity: 0.7; margin-top: 2px; }
-
-        .doc-index {
-            margin-top: 8px; margin-left: 10px; padding-left: 15px;
-            border-left: 2px solid rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .doc-index.expanded { display: block; }
-
-        .index-item {
-            padding: 8px 10px; font-size: 0.85rem; cursor: pointer;
-            border-radius: 4px; transition: all 0.2s; margin-bottom: 4px;
-        }
-
-        .index-item:hover { background: rgba(124, 45, 18, 0.1); padding-left: 15px; }
-
-        /* ===== MAIN SCROLL CONTAINER (SNAP) ===== */
+        /* ===== MAIN CONTAINER & SCROLL ===== */
         #mainContainer {
             margin-left: 320px;
             height: 100vh;
-            overflow-y: scroll; /* Scroll vertical uniquement ici */
+            width: calc(100% - 320px);
+            overflow-y: scroll;
             overflow-x: hidden;
-            scroll-snap-type: y mandatory; /* Snap obligatoire sur l'axe Y */
+            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
-            transition: margin-left 0.3s;
-            background: #1a1a1a; /* Fond sombre entre les feuillets */
+            background: #2c2520;
+            transition: margin-left 0.3s, width 0.3s;
         }
 
-        #mainContainer.sidebar-closed { margin-left: 0; }
-
-        /* ===== BOOK SPREAD (FEUILLET) ===== */
-        .book-spread {
-            height: 100vh; /* Exactement la hauteur de l'écran */
+        #mainContainer.sidebar-closed { 
+            margin-left: 0; 
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr;
+        }
+
+        /* ===== BOOK SPREAD ===== */
+        .book-spread {
+            height: 100vh;
+            width: 100%;
+            display: flex;
             position: relative;
-            scroll-snap-align: start; /* Point d'accroche pour le snap */
-            flex-shrink: 0;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
-            border-bottom: 2px solid #1c1917;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            background: #f4ecd8;
+            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            margin-bottom: 0;
         }
 
         .page {
-            background: #f4ecd8;
-            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+            flex: 1;
+            height: 100%;
+            padding: 40px;
+            overflow: hidden;
             position: relative;
-            overflow: hidden; /* Cache le débordement, le contenu est dans content-flow */
         }
 
         .page-left { 
-            border-right: 1px solid rgba(0,0,0,0.1); 
-            box-shadow: inset -10px 0 20px rgba(0,0,0,0.05); 
+            border-right: 2px solid rgba(0,0,0,0.1); 
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.05);
         }
 
         .page-right { 
-            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05); 
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05);
         }
 
-        /* ===== CONTENT FLOW (Colonnes) ===== */
-        .content-flow {
-            position: absolute;
-            top: var(--page-padding);
-            left: var(--page-padding);
-            right: var(--page-padding);
-            bottom: var(--page-padding);
-            columns: 2;
-            column-gap: calc(var(--page-padding) * 2); /* Espace entre les deux pages */
-            overflow: hidden; /* Cache le contenu qui déborde (irait dans la 3ème colonne) */
-            z-index: 10;
+        .content-area {
+            height: 100%;
+            overflow: hidden;
+            column-count: 2;
+            column-gap: 80px;
+            text-align: justify;
+            hyphens: auto;
         }
 
-        .content-flow > * {
-            break-inside: avoid; /* Empêche de couper un élément entre deux colonnes */
+        .content-area > * {
+            break-inside: avoid;
             margin-bottom: 1rem;
-            orphans: 3;
-            widows: 3;
         }
 
-        /* Éléments spéciaux */
-        .content-section { margin-bottom: 1.5rem; }
-        .content-section h2 { 
-            font-size: 1.5rem; 
-            border-bottom: 2px solid #1c1917; 
-            padding-bottom: 0.5rem; 
-            margin-bottom: 1rem;
-            break-after: avoid; /* Garde le titre avec le contenu suivant */
-        }
-        
-        .content-card {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 1.5rem; 
-            margin-bottom: 1.5rem; 
-            border-radius: 4px;
-            break-inside: avoid;
+        h1, h2, h3 {
+            break-after: avoid;
+            margin-top: 0;
         }
 
-        .rule-box { 
-            border-left: 4px solid #7c2d12; 
-            background: rgba(124, 45, 18, 0.05); 
-            padding: 1rem; 
-            margin: 1.5rem 0; 
-            break-inside: avoid;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            break-inside: avoid;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            break-inside: avoid;
-        }
-
-        /* Numérotation des pages (optionnel) */
         .page-number {
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: rgba(0,0,0,0.4);
         }
-        .page-left .page-number { right: 20px; }
-        .page-right .page-number { left: 20px; }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar-container { transform: translateX(-320px); }
-            .sidebar-container.open { transform: translateX(0); }
-            #mainContainer { margin-left: 0 !important; }
-            
-            /* En mobile : une seule colonne par feuillet */
-            .book-spread {
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr;
-            }
-            .page-left { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
-            .content-flow {
-                columns: 1;
-                overflow-y: auto; /* Permet le scroll interne si nécessaire sur mobile */
-            }
-        }
+        .page-left .page-number { right: 30px; }
+        .page-right .page-number { left: 30px; }
 
-        /* Indicateur de chargement */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* État vide */
+        .empty-state {
             height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f4ecd8;
             font-family: 'Cinzel', serif;
             font-size: 1.5rem;
-            color: var(--parchment);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar-container { transform: translateX(-320px); }
+            #mainContainer { margin-left: 0; width: 100%; }
+            .book-spread { flex-direction: column; }
+            .page-left { border-right: none; border-bottom: 2px solid rgba(0,0,0,0.1); }
+            .content-area { column-count: 1; }
         }
     </style>
 </head>
@@ -295,16 +219,15 @@
             <div id="documentsList"></div>
         </div>
         <div class="tab-handle" id="tabHandle">
-            <span class="tab-text">Documents<br>et Index</span>
+            <span class="tab-text">Documents</span>
         </div>
     </div>
 
     <div id="mainContainer">
-        <div class="loading">Chargement du Codex...</div>
+        <div class="empty-state">Sélectionnez un document</div>
     </div>
 
     <script>
-        // ===== CONFIGURATION =====
         const documents = [
             { id: 'intro', file: 'introduction.v0.01.html', icon: '📜', title: 'Introduction', subtitle: 'Bienvenue au Codex' },
             { id: 'livret1', file: 'Livret1-Mecanismes.v0.85.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
@@ -313,23 +236,19 @@
             { id: 'livret4', file: 'Livret4-Rencontres.v0.80.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.80.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'fiche', file: 'Fiche de personnage.v0.87.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
-            { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le SCCS et contactez l'auteur" }
+            { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discussions', subtitle: "Échangez sur le SCCS" }
         ];
 
-        // ===== STATE =====
-        let currentDoc = 'intro';
-        let expandedId = null; 
+        let currentDoc = null;
         let sidebarOpen = true;
-        let isMobile = window.innerWidth <= 1024;
-        let currentIndex = [];
-        let rawContentHTML = ''; // Stockage du contenu brut pour repagination
-        let resizeTimeout;
+        let spreadCount = 0;
 
         function init() {
             renderDocumentsList();
-            loadDocument(currentDoc);
             setupEventListeners();
-            checkMobile();
+            
+            // Charger le premier document par défaut
+            selectDocument('intro');
         }
 
         function renderDocumentsList() {
@@ -338,26 +257,18 @@
 
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
-                const isExpanded = doc.id === expandedId;
-                const matchesSearch = !searchTerm || doc.title.toLowerCase().includes(searchTerm) || doc.subtitle.toLowerCase().includes(searchTerm);
+                const matchesSearch = !searchTerm || 
+                    doc.title.toLowerCase().includes(searchTerm) || 
+                    doc.subtitle.toLowerCase().includes(searchTerm);
 
-                if (!matchesSearch && !isActive) return '';
+                if (!matchesSearch) return '';
 
                 return `
-                    <div class="doc-item">
-                        <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
-                            <span class="doc-icon">${doc.icon}</span>
-                            <div>
-                                <div class="doc-title">${doc.title}</div>
-                                <div class="doc-subtitle">${doc.subtitle}</div>
-                            </div>
-                        </div>
-                        <div class="doc-index ${isExpanded ? 'expanded' : ''}">
-                            ${(currentIndex.length > 0 && isActive) ? currentIndex.map(item => `
-                                <div class="index-item" onclick="scrollToSection('section-${item.id}', event)">
-                                    ${item.title}
-                                </div>
-                            `).join('') : ''}
+                    <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
+                        <span style="font-size: 1.2rem;">${doc.icon}</span>
+                        <div>
+                            <div style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem;">${doc.title}</div>
+                            <div style="font-size: 0.75rem; opacity: 0.7;">${doc.subtitle}</div>
                         </div>
                     </div>
                 `;
@@ -365,196 +276,181 @@
         }
 
         async function selectDocument(docId) {
-            if (currentDoc === docId) {
-                expandedId = (expandedId === docId) ? null : docId;
-                renderDocumentsList();
-            } else {
-                currentDoc = docId;
-                expandedId = docId;
-                await loadDocument(docId);
-                renderDocumentsList();
-            }
-        }
-
-        async function loadDocument(docId) {
+            if (currentDoc === docId) return;
+            
+            currentDoc = docId;
+            renderDocumentsList();
+            
+            const mainContainer = document.getElementById('mainContainer');
+            mainContainer.innerHTML = '<div class="empty-state">Chargement...</div>';
+            
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
 
-            const mainContainer = document.getElementById('mainContainer');
-            mainContainer.innerHTML = '<div class="loading">Chargement du document...</div>';
-
             try {
                 const response = await fetch(doc.file);
+                if (!response.ok) throw new Error('Fichier non trouvé');
+                
                 const html = await response.text();
                 const parser = new DOMParser();
                 const docElement = parser.parseFromString(html, 'text/html');
-
-                // Extraction de l'index si présent
-                const indexScript = docElement.getElementById('doc-index');
-                currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
-
-                // Nettoyage du contenu
+                
+                // Nettoyer le contenu
                 const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
+                tempDiv.innerHTML = docElement.body.innerHTML || html;
                 
-                const toRemove = tempDiv.querySelectorAll('script, .sidebar, header, nav, style');
-                toRemove.forEach(el => el.remove());
+                // Supprimer scripts et styles existants pour éviter les conflits
+                tempDiv.querySelectorAll('script, style, link[rel="stylesheet"]').forEach(el => el.remove());
                 
-                rawContentHTML = tempDiv.innerHTML;
+                // Distribuer le contenu dans des spreads
+                distributeContent(tempDiv.innerHTML);
                 
-                // Pagination dynamique
-                paginateContent(rawContentHTML);
-
             } catch (error) {
-                console.error('Erreur chargement:', error);
-                mainContainer.innerHTML = `<div style="padding: 40px; color: #f4ecd8;"><h2>Erreur de chargement</h2><p>Impossible de charger le fichier ${doc.file}.</p></div>`;
+                mainContainer.innerHTML = `
+                    <div class="empty-state" style="flex-direction: column; gap: 20px;">
+                        <div>Erreur de chargement</div>
+                        <div style="font-size: 1rem; font-family: 'Cormorant Garamond', serif;">
+                            Impossible de charger ${doc.file}<br>
+                            ${error.message}
+                        </div>
+                    </div>
+                `;
             }
         }
 
-        function paginateContent(html) {
-            const container = document.getElementById('mainContainer');
-            container.innerHTML = '';
+        function distributeContent(htmlContent) {
+            const mainContainer = document.getElementById('mainContainer');
+            mainContainer.innerHTML = '';
+            spreadCount = 0;
             
-            // Création d'un parseur temporaire
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            const elements = Array.from(tempDiv.children);
+            // Créer un conteneur temporaire pour parser le contenu
+            const tempContainer = document.createElement('div');
+            tempContainer.innerHTML = htmlContent;
+            
+            // Récupérer tous les éléments de premier niveau
+            const elements = Array.from(tempContainer.children);
             
             if (elements.length === 0) {
-                container.innerHTML = '<div class="loading">Document vide</div>';
+                mainContainer.innerHTML = '<div class="empty-state">Document vide</div>';
                 return;
             }
-
-            let currentSpread = null;
-            let contentFlow = null;
-            let pageCount = 0;
             
-            // Fonction pour créer un nouveau feuillet (double-page)
-            const createNewSpread = () => {
-                pageCount++;
+            let currentElements = [];
+            
+            // Fonction pour créer un spread avec le contenu actuel
+            const createSpread = (contentHTML) => {
+                spreadCount++;
                 const spread = document.createElement('div');
                 spread.className = 'book-spread';
                 
                 spread.innerHTML = `
                     <div class="page page-left">
-                        <span class="page-number">${(pageCount * 2) - 1}</span>
+                        <div class="content-area" id="content-${spreadCount}-left"></div>
+                        <span class="page-number">${(spreadCount * 2) - 1}</span>
                     </div>
                     <div class="page page-right">
-                        <span class="page-number">${pageCount * 2}</span>
+                        <div class="content-area" id="content-${spreadCount}-right"></div>
+                        <span class="page-number">${spreadCount * 2}</span>
                     </div>
-                    <div class="content-flow"></div>
                 `;
                 
-                container.appendChild(spread);
-                currentSpread = spread;
-                contentFlow = spread.querySelector('.content-flow');
+                mainContainer.appendChild(spread);
                 
-                // Ajout d'un ID pour navigation par index
-                spread.id = `spread-${pageCount}`;
+                // Injecter le contenu dans le spread
+                const leftCol = spread.querySelector(`#content-${spreadCount}-left`);
+                const rightCol = spread.querySelector(`#content-${spreadCount}-right`);
                 
-                return contentFlow;
+                // Utiliser une seule zone de contenu qui coule sur 2 colonnes
+                const contentArea = spread.querySelector('.page-left .content-area');
+                contentArea.innerHTML = contentHTML;
+                
+                // Vérifier si le contenu déborde (crée une 3ème colonne virtuelle)
+                // En mesurant si la hauteur du contenu dépasse la hauteur disponible
+                return spread;
             };
-
-            // Initialiser le premier feuillet
-            createNewSpread();
-
-            // Distribution des éléments
-            elements.forEach((element, index) => {
-                // Ajouter l'élément au flux actuel
-                const clone = element.cloneNode(true);
-                contentFlow.appendChild(clone);
+            
+            // Approche : on ajoute les éléments un par un et on vérifie si ça déborde
+            let pendingElements = [...elements];
+            
+            while (pendingElements.length > 0) {
+                // Créer un nouveau spread
+                spreadCount++;
+                const spread = document.createElement('div');
+                spread.className = 'book-spread';
                 
-                // Vérifier si on a dépassé la capacité (création d'une 3ème colonne virtuelle)
-                // On utilise scrollWidth vs clientWidth pour détecter le débordement horizontal
-                if (contentFlow.scrollWidth > contentFlow.clientWidth + 5) { // 5px de marge pour éviter les erreurs d'arrondi
-                    // L'élément déborde, il faut créer un nouveau feuillet
-                    // On retire l'élément du flux actuel
-                    contentFlow.removeChild(clone);
+                spread.innerHTML = `
+                    <div class="page page-left">
+                        <div class="content-area spread-content"></div>
+                        <span class="page-number">${(spreadCount * 2) - 1}</span>
+                    </div>
+                    <div class="page page-right">
+                        <span class="page-number">${spreadCount * 2}</span>
+                    </div>
+                `;
+                
+                mainContainer.appendChild(spread);
+                const contentArea = spread.querySelector('.spread-content');
+                
+                // Ajouter des éléments jusqu'à ce que ça déborde
+                let lastValidIndex = 0;
+                
+                for (let i = 0; i < pendingElements.length; i++) {
+                    const el = pendingElements[i];
+                    contentArea.appendChild(el.cloneNode(true));
                     
-                    // On crée un nouveau feuillet et on y ajoute l'élément
-                    createNewSpread();
-                    contentFlow.appendChild(clone);
+                    // Vérifier le débordement après un petit délai pour le rendu
+                    // Utilisation de offsetHeight vs scrollHeight
+                    if (contentArea.scrollHeight > contentArea.clientHeight + 10) {
+                        // Ça déborde, retirer le dernier élément ajouté
+                        contentArea.removeChild(contentArea.lastChild);
+                        break;
+                    } else {
+                        lastValidIndex = i + 1;
+                    }
                 }
                 
-                // Ajout des IDs pour l'index navigation
-                if (clone.id || element.id) {
-                    clone.id = element.id || `section-${index}`;
-                }
-            });
-
-            // Ajustement final : si le dernier feuillet est vide (peut arriver avec certains calculs), on le supprime
-            if (contentFlow && contentFlow.children.length === 0 && container.children.length > 1) {
-                container.removeChild(currentSpread);
+                // Retirer les éléments traités de la liste
+                pendingElements = pendingElements.slice(lastValidIndex);
             }
             
-            // Scroll au début du document
-            container.scrollTop = 0;
-        }
-
-        function scrollToSection(id, e) {
-            e.stopPropagation();
-            // Trouver l'élément dans les feuillets paginés
-            const target = document.getElementById(id) || document.querySelector(`#${id}`);
-            if (target) {
-                // Trouver le feuillet parent
-                const spread = target.closest('.book-spread');
-                if (spread) {
-                    spread.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
+            // Scroll au début
+            mainContainer.scrollTop = 0;
         }
 
         function toggleSidebar() {
             sidebarOpen = !sidebarOpen;
             document.getElementById('sidebarContainer').classList.toggle('closed', !sidebarOpen);
             document.getElementById('mainContainer').classList.toggle('sidebar-closed', !sidebarOpen);
-            
-            // Repagination après transition pour ajuster à la nouvelle largeur
-            setTimeout(() => {
-                if (rawContentHTML) paginateContent(rawContentHTML);
-            }, 350);
-        }
-
-        function checkMobile() {
-            const newIsMobile = window.innerWidth <= 1024;
-            if (newIsMobile !== isMobile) {
-                isMobile = newIsMobile;
-                if (isMobile && sidebarOpen) {
-                    toggleSidebar();
-                }
-                // Repagination pour ajuster le nombre de colonnes (1 vs 2)
-                if (rawContentHTML) paginateContent(rawContentHTML);
-            }
         }
 
         function setupEventListeners() {
             document.getElementById('tabHandle').addEventListener('click', toggleSidebar);
             document.getElementById('searchInput').addEventListener('input', renderDocumentsList);
             
-            // Gestion du redimensionnement avec debounce
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    checkMobile();
-                    // Repagination dynamique si la hauteur change significativement
-                    if (rawContentHTML) {
-                        paginateContent(rawContentHTML);
-                    }
-                }, 250);
-            });
-            
-            // Gestion des touches clavier pour navigation
+            // Navigation clavier
             document.addEventListener('keydown', (e) => {
                 const container = document.getElementById('mainContainer');
                 const spreadHeight = window.innerHeight;
                 
-                if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
                     e.preventDefault();
                     container.scrollBy({ top: spreadHeight, behavior: 'smooth' });
                 } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                     e.preventDefault();
                     container.scrollBy({ top: -spreadHeight, behavior: 'smooth' });
                 }
+            });
+            
+            // Redimensionnement
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (currentDoc) {
+                        const doc = documents.find(d => d.id === currentDoc);
+                        if (doc) selectDocument(currentDoc);
+                    }
+                }, 500);
             });
         }
 
