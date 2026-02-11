@@ -23,6 +23,47 @@
 }
 </script>
 
+<style>
+    .table-races {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+    
+    .table-races th, .table-races td {
+        padding: 8px;
+        vertical-align: top;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .table-races th:nth-child(1), .table-races td:nth-child(1) {
+        width: 20%;
+    }
+    
+    .table-races th:nth-child(2), .table-races td:nth-child(2) {
+        width: 30%;
+    }
+    
+    .table-races th:nth-child(3), .table-races td:nth-child(3) {
+        width: 30%;
+    }
+    
+    .table-races th:nth-child(4), .table-races td:nth-child(4) {
+        width: 20%;
+    }
+    
+    .table-races th {
+        text-align: left;
+        border-bottom: 2px solid #1c1917;
+    }
+    
+    .table-races td {
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+</style>
+
 <!-- CONTENU HTML -->
 <div class="content-section" id="section-talents">
     <h2>1. Talents et Statistiques de combat</h2>
@@ -59,7 +100,7 @@
     <h3 id="section-espece">Étape 1 : Choisissez une espèce</h3>
     <p class="mb-4">Vous débutez en ayant hérité des facultés innées de vos ancêtres:</p>
 
-    <table>
+    <table class="table-races">
         <thead>
             <tr>
                 <th>Race</th>
