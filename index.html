@@ -226,6 +226,7 @@
             justify-content: center;
             padding: 0; 
             overflow: hidden;
+            position: relative;
         }
 
         .char-sheet-frame {
@@ -233,7 +234,6 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
             width: 794px; /* A4 Largeur (96dpi) */
             height: 1123px; /* A4 Hauteur */
-            transform-origin: center center;
             background: #fff;
         }
 
@@ -669,16 +669,16 @@
                 const container = iframe.parentElement;
                 if(!container) return;
 
-                const targetW = 794; 
-                const targetH = 1123;
-                const availableH = container.clientHeight; 
-                const availableW = container.clientWidth;
+                const scale = Math.min(
+                    availableH / targetH, 
+                    availableW / targetW
+                );
 
-                let scale = availableH / targetH;
-                if (targetW * scale > availableW) {
-                    scale = availableW / targetW;
-                }
-                iframe.style.transform = `scale(${scale})`;
+                // CRUCIAL : Sortir du flux + centrer parfaitement
+                iframe.style.position = 'absolute';
+                iframe.style.top = '50%';
+                iframe.style.left = '50%';
+                iframe.style.transform = `translate(-50%, -50%) scale(${scale})`;
             });
         }
 
