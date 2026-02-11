@@ -291,6 +291,26 @@
             font-family: 'Cinzel', serif;
             letter-spacing: 0.05em;
         }
+
+        /* Réduction drastique des marges en mode fiche */
+        .book-spread.sheet-mode .page-right {
+            padding-top: 5px !important;      /* Au lieu de 50px */
+            padding-bottom: 40px !important;  /* Au lieu de 120px */
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+
+        /* Alignement en haut avec léger décalage plutôt que centré */
+        .book-spread.sheet-mode .sheet-container-frame {
+            align-items: flex-start !important; /* Supprime le centrage vertical */
+            justify-content: center;
+            padding-top: 0; /* La fiche commence tout en haut */
+        }
+
+        /* Si vous préférez garder un léger centrage mais remonté */
+        .book-spread.sheet-mode .char-sheet-frame {
+            margin-top: -20px; /* Compense visuellement le padding résiduel */
+        }
         
         @media (max-width: 1024px) {
             .sidebar-container { transform: translateX(-320px); }
@@ -672,19 +692,17 @@
 
                 const targetW = 794; 
                 const targetH = 1123;
-                // Avant : -130 et -40, maintenant presque tout l'espace
-                const availableH = container.clientHeight - 20;  // Marge minimale
+                // On utilise presque toute la hauteur disponible (-30px de marge de sécurité)
+                const availableH = container.clientHeight - 30;
                 const availableW = container.clientWidth - 20;
 
-                let scale = Math.min(availableH / targetH, availableW / targetW);
-        
-                // Empêcher l'échelle trop petite sur mobile
-                scale = Math.min(scale, 1.0); 
-        
+                const scale = Math.min(
+                    availableW / targetW,
+                    availableH / targetH
+                ) * 0.98; /* Léger breathing room */
+
                 iframe.style.transform = `scale(${scale})`;
-                // Important : fixer la taille réelle pour éviter les barres de défilement
-                iframe.style.width = `${targetW}px`;
-                iframe.style.height = `${targetH}px`;
+                // Supprimez margin-top négatif si vous utilisez flex-start
             });
         }
 
