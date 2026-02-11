@@ -33,6 +33,33 @@
 }
 </script>
 
+<style>
+    .table-types, .table-cibles {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+    
+    .table-types th, .table-types td,
+    .table-cibles th, .table-cibles td {
+        width: 33.33%;
+        padding: 8px;
+        vertical-align: top;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .table-types th, .table-cibles th {
+        text-align: left;
+        border-bottom: 2px solid #1c1917;
+    }
+    
+    .table-types td, .table-cibles td {
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+</style>
+
 <div class="content-section" id="section-philosophie">
     <h2>1. Philosophie du Système (SCCS)</h2>
     <p class="mb-4 italic">Version 0.85</p>
@@ -51,7 +78,7 @@
     <div class="content-card">
         <h4>A. Le Type</h4>
         <p class="mb-4">L'attaque est caractérisée par son mode d'exécution.</p>
-        <table>
+        <table class="table-types">
             <thead>
                 <tr>
                     <th>Type</th>
@@ -81,7 +108,7 @@
 
     <div class="content-card" id="section-cible">
         <h4>B. La Cible</h4>
-        <table>
+        <table class="table-cibles">
             <thead>
                 <tr>
                     <th>Cible</th>
