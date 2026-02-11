@@ -294,10 +294,14 @@
 
         /* Réduction drastique des marges en mode fiche */
         .book-spread.sheet-mode .page-right {
-            padding-top: 5px !important;      /* Au lieu de 50px */
+            padding-top: 0px !important;      /* Au lieu de 50px */
             padding-bottom: 40px !important;  /* Au lieu de 120px */
             padding-left: 10px !important;
             padding-right: 10px !important;
+
+            /* Alignement en HAUT pour le vertical, CENTRÉ pour l'horizontal */
+            justify-content: flex-start !important; /* Annule le center vertical */
+            align-items: center !important;         /* Garde le center horizontal */
         }
 
         /* Alignement en haut avec léger décalage plutôt que centré */
@@ -305,11 +309,12 @@
             align-items: flex-start !important; /* Supprime le centrage vertical */
             justify-content: center;
             padding-top: 0; /* La fiche commence tout en haut */
+            height: 100%;
         }
 
         /* Si vous préférez garder un léger centrage mais remonté */
         .book-spread.sheet-mode .char-sheet-frame {
-            margin-top: -20px; /* Compense visuellement le padding résiduel */
+            margin-top: -40px; /* Compense visuellement le padding résiduel */
         }
         
         @media (max-width: 1024px) {
