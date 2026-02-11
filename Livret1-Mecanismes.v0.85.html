@@ -34,28 +34,52 @@
 </script>
 
 <style>
-    .table-types, .table-cibles {
+    /* Base forcée sur tous les tableaux du document */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+    
+    /* Styles spécifiques aux tableaux Types et Cibles */
+    .content-wrapper .table-types,
+    .content-wrapper .table-cibles {
         width: 100% !important;
         table-layout: fixed !important;
         border-collapse: collapse !important;
     }
     
-    .table-types th, .table-types td,
-    .table-cibles th, .table-cibles td {
+    /* Cellules du tableau Types */
+    .content-wrapper .table-types th,
+    .content-wrapper .table-types td {
         width: 33.33% !important;
         padding: 8px !important;
         vertical-align: top !important;
         word-wrap: break-word !important;
-        overflow-wrap: break-word;
+        overflow-wrap: break-word !important;
         hyphens: auto !important;
     }
     
-    .table-types th, .table-cibles th {
+    /* Cellules du tableau Cibles */
+    .content-wrapper .table-cibles th,
+    .content-wrapper .table-cibles td {
+        width: 33.33% !important;
+        padding: 8px !important;
+        vertical-align: top !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    
+    /* En-têtes */
+    .content-wrapper .table-types th,
+    .content-wrapper .table-cibles th {
         text-align: left !important;
         border-bottom: 2px solid #1c1917 !important;
     }
     
-    .table-types td, .table-cibles td {
+    /* Cellules de données */
+    .content-wrapper .table-types td,
+    .content-wrapper .table-cibles td {
         border-bottom: 1px solid rgba(0,0,0,0.1) !important;
     }
 </style>
@@ -317,4 +341,5 @@
     <h2>8. Résolution Sociale</h2>
     <p>Le MJ est le seul juge de la crédibilité. Pas de jet technique, mais jugement situationnel.</p>
 </div>
+
 
