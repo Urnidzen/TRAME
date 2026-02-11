@@ -493,22 +493,56 @@
                 const indexScript = docElement.getElementById('doc-index');
                 currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
 
+                // Injection des styles dans le head principal (pas dans le contenu paginé)
+                const styles = docElement.querySelectorAll('style');
+                styles.forEach(style => {
+                    const styleId = style.id || `injected-style-${docId}`;
+                    if (!document.getElementById(styleId)) {
+                        const clone = style.cloneNode(true);
+                        clone.id = styleId;
+                        document.head.appendChild(clone);
+                    }
+                });
+
+                // Préparation du contenu à paginer
                 const tempDiv = document.createElement('div');
-                const styleContent = docElement.querySelector('style') ? docElement.querySelector('style').outerHTML : '';
                 const bodyContent = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
-                tempDiv.innerHTML = styleContent + bodyContent;
-                tempDiv.querySelectorAll('script, .sidebar, header, nav').forEach(el => el.remove());
+                tempDiv.innerHTML = bodyContent;
                 
-                rawContentCache = tempDiv.innerHTML;
-                // Réinitialiser la pagination pour que chaque livret commence sur une page de gauche
-                pgnState.pageCount = 1;
-                pgnState.isRightPage = false;
+                // Suppression des éléments techniques du flux de pagination
+                tempDiv.querySelectorAll('script, style, link[rel="stylesheet"], meta, title, base, noscript').forEach(el => el.remove());
+                
+                rawContentCache = cleanHtmlContent(tempDiv.innerHTML);
                 paginateContent(rawContentCache);
 
             } catch (error) {
                 console.error('Erreur:', error);
                 wrapper.innerHTML = "<p class='page'>Erreur lors du chargement.</p>";
             }
+        }
+
+        function cleanHtmlContent(html) {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            
+            // Supprimer les commentaires HTML
+            const removeComments = (node) => {
+                for (let i = node.childNodes.length - 1; i >= 0; i--) {
+                    const child = node.childNodes[i];
+                    if (child.nodeType === 8) { // Commentaire HTML
+                        node.removeChild(child);
+                    } else if (child.nodeType === 1) { // Élément
+                        removeComments(child);
+                        // Supprimer les divs vides sans classe ni id
+                        if (child.tagName === 'DIV' && !child.className && !child.id && child.innerText.trim() === '') {
+                            node.removeChild(child);
+                        }
+                    }
+                }
+            };
+            removeComments(div);
+            
+            return div.innerHTML;
         }
 
         // ===== MOTEUR D'AFFICHAGE DU REGISTRE (MULTIPLES IFRAMES) =====
@@ -640,12 +674,27 @@
             pgnState.isRightPage = false; 
 
             createNewSpread();
-            pgnState.elementsQueue = Array.from(staging.children);
+            
+            // Filtrer les éléments non-visuels et vides
+            pgnState.elementsQueue = Array.from(staging.children).filter(el => {
+                // Ignorer les balises techniques
+                if (['SCRIPT', 'STYLE', 'LINK', 'META', 'NOSCRIPT', 'TITLE', 'BASE'].includes(el.tagName)) {
+                    return false;
+                }
+                // Ignorer les éléments sans contenu visible (texte, images, tableaux)
+                const hasVisibleContent = el.innerText.trim().length > 0 || 
+                                          el.querySelectorAll('img, table, canvas, svg, iframe').length > 0 ||
+                                          ['IMG', 'TABLE', 'CANVAS', 'SVG', 'IFRAME'].includes(el.tagName);
+                return hasVisibleContent;
+            });
 
             while (pgnState.elementsQueue.length > 0) {
                 let element = pgnState.elementsQueue.shift();
                 processElement(element);
             }
+            
+            // Nettoyer les spreads vides créés par erreur
+            removeEmptySpreads();
         }
 
         function createNewSpread() {
@@ -662,6 +711,17 @@
             pgnState.currentSpread = spread;
             pgnState.currentPageContent = spread.querySelector('.page-left .content-wrapper');
             pgnState.isRightPage = false;
+        }
+
+        function removeEmptySpreads() {
+            const spreads = document.querySelectorAll('.book-spread');
+            spreads.forEach(spread => {
+                const wrappers = spread.querySelectorAll('.content-wrapper');
+                const isEmpty = Array.from(wrappers).every(w => w.children.length === 0 || w.innerText.trim().length === 0);
+                if (isEmpty) {
+                    spread.remove();
+                }
+            });
         }
 
         function advancePage() {
