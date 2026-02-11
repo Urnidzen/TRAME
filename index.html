@@ -17,6 +17,23 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+       .sheet-container-frame {
+    position: relative;
+}
+
+.sheet-container-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 130px; /* Soustrait la marge verticale utilisée dans le calcul */
+    border: 4px solid black;
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 1000;
+} 
+        
         .page-right {
     border: 4px solid black !important;
     box-sizing: border-box !important;
