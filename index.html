@@ -448,6 +448,28 @@
             checkMobile();
         }
 
+        function renderHeroesList() {
+            const profiles = SCCS_Registre.getAllProfiles();
+            let html = '';
+    
+            // Bouton créer en haut
+            html += `<div class="index-item" onclick="createNewHero()" style="font-style:italic; opacity:0.8; border-bottom:1px solid rgba(0,0,0,0.2); margin-bottom:5px;">
+                <span style="color:#7c2d12; font-weight:bold; margin-right:5px;">+</span> Inscrire un nouveau héros
+            </div>`;
+    
+            // Liste des héros
+            profiles.forEach((profile, index) => {
+                html += `
+                    <div class="index-item" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span onclick="scrollToHero(${index})" style="flex-grow:1; cursor:pointer;">${profile.name || 'Sans Nom'}</span>
+                        <span onclick="deleteHeroFromSidebar('${profile.id}')" style="cursor:pointer; opacity:0.4; padding:0 5px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4">🗑️</span>
+                    </div>
+                `;
+            });
+    
+            return html;
+        }
+        
         function renderDocumentsList() {
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -479,6 +501,26 @@
             }).join('');
         }
 
+        function scrollToHero(index) {
+            // Chaque spread contient 2 héros (0-1, 2-3, etc.)
+            const spreadIndex = Math.floor(index / 2);
+            const spreads = document.querySelectorAll('.book-spread');
+            if (spreads[spreadIndex]) {
+                const mainContainer = document.getElementById('mainContainer');
+                mainContainer.scrollTo({
+                    top: spreads[spreadIndex].offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function deleteHeroFromSidebar(id) {
+            if(confirm("Êtes-vous certain de vouloir brûler cette page ? Cette action est irréversible.")) {
+                SCCS_Registre.deleteProfile(id);
+                loadDocument('fiche'); // Recharge tout
+            }
+        }
+        
         async function selectDocument(docId) {
             if (currentDoc === docId) {
                 expandedId = (expandedId === docId) ? null : docId;
@@ -565,83 +607,74 @@
         function renderRegistryChapter(baseFileUrl) {
             const wrapper = document.getElementById('bookSpreadsWrapper');
             wrapper.innerHTML = '';
-            currentIndex = []; // Pas d'index textuel
+            currentIndex = []; // Pas d'index textuel pour cette méthode
 
-            // 1. Récupérer tous les héros depuis le Registre (Systeme.js)
             const profiles = SCCS_Registre.getAllProfiles();
 
-            // 2. Générer une double-page pour chaque héros existant
-            profiles.forEach((profile, index) => {
+            // Boucle par pas de 2 pour créer des spreads avec 2 fiches
+            for (let i = 0; i < profiles.length; i += 2) {
                 const spread = document.createElement('div');
                 spread.className = 'book-spread sheet-mode';
-                
-                // URL unique avec l'ID
-                const uniqueUrl = `${baseFileUrl}?uid=${profile.id}`;
-
+        
+                // Fiche de gauche (toujours présente)
+                const leftProfile = profiles[i];
+                const leftUrl = `${baseFileUrl}?uid=${leftProfile.id}`;
+        
                 const leftContent = `
-                    <div class="page page-left">
-                        <div class="content-wrapper" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                            <div class="sheet-placeholder-text">
-                                <h2 style="font-size:2rem; margin-bottom:0.5rem;">${profile.name || "Héros Inconnu"}</h2>
-                                <p style="font-size:0.9rem; opacity:0.7;">Fiche d'identité N° ${index + 1}</p>
-                                <div style="width:50px; height:2px; background:#7c2d12; margin:20px auto;"></div>
-                                <p>Modifiez la fiche ci-contre.<br>L'archiviste sauvegardera chaque lettre.</p>
-                                <button onclick="deleteHero('${profile.id}')" style="margin-top:40px; border:none; background:none; color:#dc2626; opacity:0.6; cursor:pointer; font-family:'Cinzel', serif; font-size:0.8rem;">[ Supprimer ce registre ]</button>
+                    <div class="page page-left sheet-container-frame">
+                        <iframe class="char-sheet-frame" src="${leftUrl}"></iframe>
+                    </div>
+                `;
+        
+                // Fiche de droite (si existe)
+                let rightContent = '';
+                if (profiles[i + 1]) {
+                    const rightProfile = profiles[i + 1];
+                    const rightUrl = `${baseFileUrl}?uid=${rightProfile.id}`;
+                    rightContent = `
+                        <div class="page page-right sheet-container-frame">
+                            <iframe class="char-sheet-frame" src="${rightUrl}"></iframe>
+                        </div>
+                    `;
+                } else {
+                    // Page vide avec bouton créer si nombre impair
+                    rightContent = `
+                        <div class="page page-right" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                            <div style="text-align:center; font-family:'Cinzel', serif; color:#7c2d12;">
+                                <p style="margin-bottom:20px; opacity:0.6;">Page vierge</p>
+                                <button onclick="createNewHero()" style="background:transparent; border:2px solid #7c2d12; color:#7c2d12; padding:15px 30px; font-family:'Cinzel', serif; cursor:pointer;">
+                                    <span style="font-size:1.5rem; display:block; margin-bottom:5px;">+</span>
+                                    Inscrire un nouveau héros
+                                </button>
                             </div>
                         </div>
-                        ${LEGAL_HTML}
-                        <div class="page-number">- ${ (index * 2) + 1 } -</div>
-                    </div>
-                `;
-
-                const rightContent = `
-                    <div class="page page-right sheet-container-frame">
-                        <iframe class="char-sheet-frame" src="${uniqueUrl}"></iframe>
-                        ${LEGAL_HTML}
-                        <div class="page-number">- ${ (index * 2) + 2 } -</div>
-                    </div>
-                `;
-
-                spread.innerHTML = isMobile ? rightContent : (leftContent + rightContent);
+                    `;
+                }
+        
+                spread.innerHTML = isMobile ? leftContent : (leftContent + rightContent);
                 wrapper.appendChild(spread);
-            });
-
-            // 3. Ajouter la page "Nouvelle Inscription" à la fin
-            const newSpread = document.createElement('div');
-            newSpread.className = 'book-spread';
-            const pageNum = (profiles.length * 2) + 1;
-
-            const newPageContent = `
-                <div class="page" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
-                    <div style="text-align:center;">
-                        <h2 style="font-size:2rem; margin-bottom:1rem;">Fin du Registre</h2>
-                        <p>Il reste des pages vierges dans ce tome.</p>
-                        
-                        <button onclick="createNewHero()" class="new-char-btn">
-                            <span class="big-plus">+</span>
-                            <span>Inscrire un nouveau héros</span>
-                        </button>
-                    </div>
-                    ${LEGAL_HTML}
-                    <div class="page-number">- ${pageNum} -</div>
-                </div>
-            `;
-            
-            // Sur desktop on met ça à droite ou centré ? Centrons-le sur une page simple (gauche) pour finir
-            // Ou une double page vide à droite. Disons double page avec contenu à gauche.
-            if (isMobile) {
-                newSpread.innerHTML = newPageContent;
-            } else {
-                newSpread.innerHTML = newPageContent + `<div class="page page-right"></div>`;
             }
-            
-            wrapper.appendChild(newSpread);
 
-            // 4. Lancer le resize des iframes une fois chargées
-            const frames = document.querySelectorAll('.char-sheet-frame');
-            frames.forEach(frame => {
-                frame.onload = () => resizeAllSheets();
-            });
+            // Si aucun héros, afficher une seule page avec bouton créer
+            if (profiles.length === 0) {
+                const spread = document.createElement('div');
+                spread.className = 'book-spread';
+                spread.innerHTML = `
+                    <div class="page" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                        <div style="text-align:center;">
+                            <h2 style="font-family:'Cinzel', serif; font-size:2rem; margin-bottom:1rem; color:#7c2d12;">Registre Vide</h2>
+                            <button onclick="createNewHero()" class="new-char-btn">
+                                <span class="big-plus">+</span>
+                                <span>Inscrire un premier héros</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                wrapper.appendChild(spread);
+            }
+
+            // Resize après chargement
+            setTimeout(resizeAllSheets, 100);
         }
 
         // Actions du Registre
