@@ -816,15 +816,15 @@
         }
 
         function updatePortrait() {
-            const race = find('race-select')?.value;
-            const gender = find('gender-select')?.value;
+            const race = find('race-select')?.value || "HUMAIN";
+            const gender = find('gender-select')?.value || "MASCULIN";
             const container = find('portrait-container');
-            if(!race || !gender || !container) return;
+            if(!container) return;
             const key = `${race}_${gender}`;
             if (CUSTOM_PORTRAITS_URLS[key]) {
                 container.innerHTML = `<img src="${CUSTOM_PORTRAITS_URLS[key]}" class="portrait-img-custom" alt="Portrait">`;
             } else {
-                container.innerHTML = `<div style="text-transform:uppercase; font-size:10px; font-weight:bold; letter-spacing:0.1em; color:rgba(0,0,0, 0.8);">PORTRAIT</div>`;
+                container.innerHTML = `<img src="${CUSTOM_PORTRAITS_URLS["HUMAIN_MASCULIN"]}" class="portrait-img-custom" alt="Portrait">`;
             }
         }
 
