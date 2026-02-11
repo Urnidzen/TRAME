@@ -693,8 +693,8 @@
 
                 const targetW = 794; 
                 const targetH = 1123;
-                const availableH = container.clientHeight - 130; 
-                const availableW = container.clientWidth - 40;
+                const availableH = container.clientHeight; 
+                const availableW = container.clientWidth;
 
                 let scale = availableH / targetH;
                 if (targetW * scale > availableW) {
