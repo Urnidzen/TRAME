@@ -574,11 +574,6 @@
                 return;
             }
 
-            if (docId === 'contact') {
-                renderContactPage(doc.file);
-                return;
-            }
-
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
