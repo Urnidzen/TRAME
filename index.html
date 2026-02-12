@@ -575,6 +575,7 @@
             }
 
             if (docId === 'contact') {
+                rawContentCache = ""; // Vider le cache pour éviter le bug de rafraîchissement
                 renderContactPage(doc.file);
                 return;
             }
@@ -639,10 +640,11 @@
 
             const spread = document.createElement('div');
             spread.className = 'book-spread';
+            spread.style.overflowX = 'hidden'; // Empêche tout débordement horizontal
             
             const content = `
-                <div class="page page-left" style="flex: 1; min-width: 0; padding: 20px; overflow-x: hidden; overflow-y: auto;">
-                    <iframe src="${fileUrl}" style="width: 100%; height: 100%; border: none; background: transparent; display: block;"></iframe>
+                <div class="page page-left" style="flex: 1; min-width: 0; padding: 20px; overflow-x: hidden; overflow-y: auto; box-sizing: border-box;">
+                    <iframe src="${fileUrl}" style="width: 100%; height: 100%; border: none; background: transparent; display: block; min-width: 0;"></iframe>
                 </div>
             `;
             
@@ -901,7 +903,7 @@
             document.getElementById('mainContainer').classList.toggle('sidebar-closed', !sidebarOpen);
             setTimeout(() => { 
                 if (currentDoc === 'fiche') resizeAllSheets();
-                else if (rawContentCache) paginateContent(rawContentCache); 
+                else if (rawContentCache && currentDoc !== 'contact') paginateContent(rawContentCache); 
             }, 350);
         }
 
