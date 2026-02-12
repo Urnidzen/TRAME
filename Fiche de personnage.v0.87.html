@@ -218,6 +218,7 @@
                                     <div class="flex items-center">
                                         <input type="text" data-id="char-name" class="w-full bg-transparent border-b-4 border-black/60 text-4xl font-black py-1 font-title outline-none text-black placeholder-black" placeholder="">
                                         <div class="header-actions ml-2 sheet-ui-controls">
+                                            <button data-action="delete" class="btn-action btn-delete" title="Supprimer ce personnage">🗑️</button>
                                             <button data-action="reset" class="btn-action btn-reset" title="Effacer le contenu">↺</button>
                                             <span style="color:#000; font-size:1.1rem; cursor:default;">|</span> 
                                             <button data-action="export" class="btn-action btn-export" title="Sauvegarder JSON local">💾</button>
@@ -571,6 +572,19 @@
                 loadFromRegistry(currentUid);
                 setupAutoSave();
             }
+
+           const btnDelete = context.querySelector('[data-action="delete"]');
+            if(btnDelete) btnDelete.onclick = () => {
+                if(confirm("Êtes-vous certain de vouloir supprimer ce personnage ? Cette action est irréversible.")) {
+                    if (currentUid && typeof SCCS_Registre !== 'undefined') {
+                    SCCS_Registre.deleteProfile(currentUid);
+                    // Rediriger vers le parent pour rafraîchir
+                    if(window.parent && window.parent !== window) {
+                    window.parent.postMessage({action: 'characterDeleted'}, '*');
+                    }
+                }
+            }
+        };
 
             adjustZoom();
             window.addEventListener('resize', adjustZoom);
