@@ -444,10 +444,13 @@
         // Écouter les messages des iframes (fiches de personnage)
         window.addEventListener('message', (e) => {
             if(e.data.action === 'refreshSidebar') {
-                renderDocumentsList(); // Rafraîchit la sidebar
+                SCCS_Registre.reload();          // Recharge les données depuis le LocalStorage
+                renderDocumentsList();           // Rafraîchit l'index avec les nouvelles données
             }
             if(e.data.action === 'characterDeleted') {
-                loadDocument('fiche'); // Recharge tout le chapitre
+                SCCS_Registre.reload();          // Recharge les données (suppression faite par l'iframe)
+                loadDocument('fiche');           // Recharge le contenu principal
+                renderDocumentsList();           // Rafraîchit explicitement la sidebar
             }
         });
         
