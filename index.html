@@ -692,16 +692,13 @@
                         </div>
                     `;
                 } else {
-                    // Page vide avec bouton créer si nombre impair
+                    // Créer automatiquement une nouvelle fiche sur la page de droite
+                    const newId = SCCS_Registre.createProfile();
+                    const rightUrl = `${baseFileUrl}?uid=${newId}`;
+                    
                     rightContent = `
-                        <div class="page page-right" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
-                            <div style="text-align:center; font-family:'Cinzel', serif; color:#7c2d12;">
-                                <p style="margin-bottom:20px; opacity:0.6;">Page vierge</p>
-                                <button onclick="createNewHero()" style="background:transparent; border:2px solid #7c2d12; color:#7c2d12; padding:15px 30px; font-family:'Cinzel', serif; cursor:pointer;">
-                                    <span style="font-size:1.5rem; display:block; margin-bottom:5px;">+</span>
-                                    Inscrire un nouveau héros
-                                </button>
-                            </div>
+                        <div class="page page-right sheet-container-frame">
+                            <iframe class="char-sheet-frame" src="${rightUrl}"></iframe>
                         </div>
                     `;
                 }
