@@ -552,6 +552,15 @@
 
         function init() {
             initWeaponSelect();
+
+            // Cacher la poubelle si c'est le dernier personnage (fiche vierge permanente)
+            if (typeof SCCS_Registre !== 'undefined') {
+                const allProfiles = SCCS_Registre.getAllProfiles();
+                if (allProfiles.length <= 1) {
+                    const btnDelete = context.querySelector('[data-action="delete"]');
+                    if (btnDelete) btnDelete.style.display = 'none';
+                }
+            }
             
             const raceSel = find('race-select');
             if(raceSel) raceSel.onchange = () => { updateRace(); updatePortrait(); };
