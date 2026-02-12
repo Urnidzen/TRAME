@@ -469,6 +469,28 @@
     
             return html;
         }
+
+        function renderCharactersList() {
+            const profiles = SCCS_Registre.getAllProfiles();
+            let html = '';
+    
+            // Bouton ajouter en haut
+            html += `<div class="index-item" onclick="createNewHero()" style="font-style:italic; opacity:0.8; border-bottom:1px solid rgba(0,0,0,0.2); margin-bottom:5px; padding-bottom:8px;">
+                <span style="color:#7c2d12; font-weight:bold; margin-right:5px;">+</span> Ajouter un nouveau personnage
+            </div>`;
+    
+            // Liste des personnages
+            profiles.forEach((profile, index) => {
+                html += `
+                    <div class="index-item" style="display:flex; justify-content:space-between; align-items:center; padding-right:5px;">
+                        <span onclick="scrollToCharacter(${index})" style="flex-grow:1; cursor:pointer;">${profile.name || 'Sans Nom'}</span>
+                        <span onclick="deleteCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4">🗑️</span>
+                    </div>
+                `;
+            });
+    
+            return html;
+        }
         
         function renderDocumentsList() {
             const container = document.getElementById('documentsList');
@@ -490,7 +512,7 @@
                             </div>
                         </div>
                         <div class="doc-index ${isExpanded ? 'expanded' : ''}">
-                            ${(currentIndex.length > 0 && isActive && doc.id !== 'fiche') ? currentIndex.map(item => `
+                            ${(isActive && doc.id === 'fiche') ? renderCharactersList() : (currentIndex.length > 0 && isActive) ? currentIndex.map(item => `
                                 <div class="index-item" onclick="scrollToElement('section-${item.id}')">
                                     ${item.title}
                                 </div>
@@ -501,6 +523,26 @@
             }).join('');
         }
 
+        function scrollToCharacter(index) {
+            const spreadIndex = Math.floor(index / 2);
+            const spreads = document.querySelectorAll('.book-spread');
+            if (spreads[spreadIndex]) {
+                const mainContainer = document.getElementById('mainContainer');
+                mainContainer.scrollTo({
+                    top: spreads[spreadIndex].offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function deleteCharacter(id) {
+            if(confirm("Êtes-vous certain de vouloir supprimer ce personnage ? Cette action est irréversible.")) {
+                SCCS_Registre.deleteProfile(id);
+                renderDocumentsList(); // Rafraîchit la sidebar
+                loadDocument('fiche'); // Rafraîchit le livre
+            }
+        }
+        
         function scrollToHero(index) {
             // Chaque spread contient 2 héros (0-1, 2-3, etc.)
             const spreadIndex = Math.floor(index / 2);
