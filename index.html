@@ -422,6 +422,174 @@
             </div>
         `;
 
+        // === INDEXATION ET RECHERCHE FULL-TEXT ===
+        const searchIndex = new Map();
+        let isIndexingComplete = false;
+        let searchTimeout;
+
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^\w\s]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        function extractTextContent(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            doc.querySelectorAll('script, style, nav, .header-actions').forEach(el => el.remove());
+            return doc.body.innerText || doc.body.textContent || '';
+        }
+
+        async function indexDocument(doc) {
+            if (searchIndex.has(doc.id)) return;
+            try {
+                const response = await fetch(doc.file);
+                const html = await response.text();
+                const text = extractTextContent(html);
+                const normalized = normalizeText(text);
+                
+                const parser = new DOMParser();
+                const docEl = parser.parseFromString(html, 'text/html');
+                const sections = [];
+                
+                docEl.querySelectorAll('[id^="section-"], h2, h3').forEach(el => {
+                    if (el.id || el.textContent) {
+                        sections.push({
+                            id: el.id || '',
+                            title: el.textContent.trim(),
+                            normalized: normalizeText(el.textContent)
+                        });
+                    }
+                });
+                
+                searchIndex.set(doc.id, {
+                    ...doc,
+                    rawText: text,
+                    normalizedText: normalized,
+                    sections: sections
+                });
+            } catch (e) {
+                console.warn(`Impossible d'indexer ${doc.file}:`, e);
+            }
+        }
+
+        async function buildSearchIndex() {
+            if (isIndexingComplete) return;
+            await Promise.all(documents.map(doc => indexDocument(doc)));
+            isIndexingComplete = true;
+        }
+
+        function performSearch(query) {
+            if (!query || query.length < 2) return [];
+            const normalizedQuery = normalizeText(query);
+            if (!normalizedQuery) return [];
+            
+            const results = [];
+            searchIndex.forEach((docData, docId) => {
+                const idx = docData.normalizedText.indexOf(normalizedQuery);
+                if (idx !== -1) {
+                    const start = Math.max(0, idx - 50);
+                    const end = Math.min(docData.rawText.length, idx + normalizedQuery.length + 50);
+                    let snippet = docData.rawText.substring(start, end);
+                    if (start > 0) snippet = '...' + snippet;
+                    if (end < docData.rawText.length) snippet = snippet + '...';
+                    
+                    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                    snippet = snippet.replace(regex, '<mark style="background:rgba(124,45,18,0.3);font-weight:bold;">$1</mark>');
+                    
+                    results.push({
+                        docId: docId,
+                        docTitle: docData.title,
+                        docIcon: docData.icon,
+                        snippet: snippet,
+                        position: idx
+                    });
+                }
+                
+                docData.sections.forEach(section => {
+                    if (section.normalized.includes(normalizedQuery)) {
+                        const exists = results.find(r => r.docId === docId && r.sectionId === section.id);
+                        if (!exists) {
+                            results.push({
+                                docId: docId,
+                                docTitle: docData.title,
+                                docIcon: docData.icon,
+                                sectionId: section.id,
+                                sectionTitle: section.title,
+                                snippet: `<strong>Section :</strong> ${section.title}`,
+                                isSection: true
+                            });
+                        }
+                    }
+                });
+            });
+            return results.slice(0, 20);
+        }
+
+        async function navigateToResult(docId, sectionId = null) {
+            if (currentDoc !== docId) {
+                await selectDocument(docId);
+            }
+            setTimeout(() => {
+                if (sectionId) {
+                    scrollToElement(sectionId);
+                } else {
+                    highlightSearchTerm(document.getElementById('searchInput').value);
+                }
+            }, 300);
+        }
+
+        function highlightSearchTerm(term) {
+            if (!term) return;
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                el.outerHTML = el.innerHTML;
+            });
+            
+            const walker = document.createTreeWalker(
+                document.getElementById('bookSpreadsWrapper'),
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const normalizedTerm = normalizeText(term);
+            const textNodes = [];
+            let node;
+            
+            while (node = walker.nextNode()) {
+                if (normalizeText(node.textContent).includes(normalizedTerm)) {
+                    textNodes.push(node);
+                }
+            }
+            
+            textNodes.forEach(node => {
+                const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                const parts = node.textContent.split(regex);
+                
+                parts.forEach((part, i) => {
+                    if (normalizeText(part) === normalizedTerm) {
+                        const mark = document.createElement('mark');
+                        mark.className = 'search-highlight';
+                        mark.style.cssText = 'background-color:rgba(124,45,18,0.4);color:#1c1917;font-weight:bold;border-radius:2px;';
+                        mark.textContent = part;
+                        node.parentNode.insertBefore(mark, node);
+                    } else {
+                        node.parentNode.insertBefore(document.createTextNode(part), node);
+                    }
+                });
+                node.parentNode.removeChild(node);
+            });
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            renderDocumentsList();
+        }
+
         window.addEventListener('message', (e) => {
             if(e.data.action === 'refreshSidebar') {
                 SCCS_Registre.reload();
@@ -439,6 +607,12 @@
             loadDocument(currentDoc);
             setupEventListeners();
             checkMobile();
+            
+            buildSearchIndex().then(() => {
+                if (document.getElementById('searchInput').value.length > 2) {
+                    renderDocumentsList();
+                }
+            });
         }
 
         function renderHeroesList() {
@@ -483,14 +657,47 @@
         
         function renderDocumentsList() {
             const container = document.getElementById('documentsList');
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            
+            if (searchTerm.length > 2) {
+                const results = performSearch(searchTerm);
+                
+                if (results.length === 0) {
+                    container.innerHTML = `
+                        <div style="padding:20px; text-align:center; color:#7c2d12; font-style:italic;">
+                            Aucun résultat pour "${searchTerm}"<br>
+                            <small style="opacity:0.7;">La recherche ignore les accents et majuscules</small>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div style="padding:10px; margin-bottom:10px; background:rgba(124,45,18,0.1); border-radius:4px; font-size:0.85em;">
+                            <strong>${results.length}</strong> résultat(s) pour "${searchTerm}"
+                            <button onclick="clearSearch()" style="float:right; background:none; border:none; cursor:pointer; color:#7c2d12; font-weight:bold;">×</button>
+                        </div>
+                        ${results.map(r => `
+                            <div class="doc-item" style="margin-bottom:12px;">
+                                <div class="index-item" onclick="navigateToResult('${r.docId}', '${r.sectionId || ''}')" 
+                                     style="cursor:pointer; border-left:3px solid #7c2d12; padding-left:10px;">
+                                    <div style="font-weight:bold; color:#1c1917; margin-bottom:4px;">
+                                        ${r.docIcon} ${r.docTitle}
+                                        ${r.sectionTitle ? '› ' + r.sectionTitle : ''}
+                                    </div>
+                                    <div style="font-size:0.85em; color:#444; line-height:1.4; opacity:0.9;">
+                                        ${r.snippet}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    `;
+                }
+                return;
+            }
+            
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
                 const isExpanded = doc.id === expandedId;
-                const matchesSearch = !searchTerm || doc.title.toLowerCase().includes(searchTerm);
-                if (!matchesSearch && !isActive) return '';
-
+                
                 return `
                     <div class="doc-item">
                         <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
@@ -575,7 +782,7 @@
             }
 
             if (docId === 'contact') {
-                rawContentCache = ""; // Vider le cache pour éviter le bug de rafraîchissement
+                rawContentCache = "";
                 renderContactPage(doc.file);
                 return;
             }
@@ -640,7 +847,7 @@
 
             const spread = document.createElement('div');
             spread.className = 'book-spread';
-            spread.style.overflowX = 'hidden'; // Empêche tout débordement horizontal
+            spread.style.overflowX = 'hidden';
             
             const content = `
                 <div class="page page-left" style="flex: 1; min-width: 0; padding: 20px; overflow-x: hidden; overflow-y: auto; box-sizing: border-box;">
@@ -929,7 +1136,12 @@
 
         function setupEventListeners() {
             document.getElementById('tabHandle').addEventListener('click', toggleSidebar);
-            document.getElementById('searchInput').addEventListener('input', renderDocumentsList);
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    renderDocumentsList();
+                }, 300);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', init);
