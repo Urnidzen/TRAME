@@ -1021,8 +1021,6 @@
             currentIndex = [];
 
             const profiles = SCCS_Registre.getAllProfiles();
-    
-            // Détection en temps réel de la taille d'écran
             const isMobileView = window.innerWidth <= 1024;
 
             if (profiles.length === 0) {
@@ -1031,22 +1029,25 @@
             }
 
             if (isMobileView) {
-                // Mode mobile/étroit : une fiche par spread, placée dans .page-right
-                // car votre CSS cache .page-left en mode .sheet-mode sur mobile
+                // Mode mobile : structure imbriquée pour un centrage correct
                 profiles.forEach((profile) => {
                     const spread = document.createElement('div');
                     spread.className = 'book-spread sheet-mode';
                     const url = `${baseFileUrl}?uid=${profile.id}`;
             
+                    // IMPORTANT : On imbrique sheet-container-frame DANS .page
+                    // et non pas on fusionne les classes
                     spread.innerHTML = `
-                        <div class="page page-right sheet-container-frame">
-                            <iframe class="char-sheet-frame" src="${url}"></iframe>
+                        <div class="page page-right">
+                            <div class="sheet-container-frame">
+                                <iframe class="char-sheet-frame" src="${url}"></iframe>
+                            </div>
                         </div>
                     `;
                     wrapper.appendChild(spread);
                 });
             } else {
-                // Mode desktop : deux fiches par spread (gauche + droite)
+                // Mode desktop : on garde la structure côte-à-côte
                 for (let i = 0; i < profiles.length; i += 2) {
                     const spread = document.createElement('div');
                     spread.className = 'book-spread sheet-mode';
