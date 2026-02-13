@@ -665,26 +665,6 @@
             });
         }
 
-        function renderHeroesList() {
-            const profiles = SCCS_Registre.getAllProfiles();
-            let html = '';
-   
-            profiles.forEach((profile, index) => {
-                html += `
-                    <div class="index-item" style="display:flex; justify-content:space-between; align-items:center;">
-                        <span onclick="scrollToHero(${index})" style="flex-grow:1; cursor:pointer;">${profile.name || 'Sans Nom'}</span>
-                        <span onclick="deleteHeroFromSidebar('${profile.id}')" style="cursor:pointer; opacity:0.4; padding:0 5px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4">🗑️</span>
-                    </div>
-                `;
-            });
-            
-            html += `<div class="index-item" onclick="createNewHero()" style="font-style:italic; opacity:0.8; border-bottom:1px solid rgba(0,0,0,0.2); margin-bottom:5px;">
-                <span style="color:#7c2d12; font-weight:bold; margin-right:5px;">+</span> Inscrire un nouveau héros
-            </div>`;
-    
-            return html;
-        }
-
         // MODIFICATION : Ajout des boutons d'action dans la liste des personnages
         function renderCharactersList() {
             const profiles = SCCS_Registre.getAllProfiles();
@@ -927,25 +907,6 @@
             if(confirm("Êtes-vous certain de vouloir supprimer ce personnage ? Cette action est irréversible.")) {
                 SCCS_Registre.deleteProfile(id);
                 renderDocumentsList();
-                loadDocument('fiche');
-            }
-        }
-        
-        function scrollToHero(index) {
-            const spreadIndex = Math.floor(index / 2);
-            const spreads = document.querySelectorAll('.book-spread');
-            if (spreads[spreadIndex]) {
-                const mainContainer = document.getElementById('mainContainer');
-                mainContainer.scrollTo({
-                    top: spreads[spreadIndex].offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        function deleteHeroFromSidebar(id) {
-            if(confirm("Êtes-vous certain de vouloir brûler cette page ? Cette action est irréversible.")) {
-                SCCS_Registre.deleteProfile(id);
                 loadDocument('fiche');
             }
         }
