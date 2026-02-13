@@ -717,37 +717,58 @@
                             </button>
                         </div>
                     `;
-                } else {
-                    let html = `
-                        <div style="padding:10px; margin-bottom:15px; background:rgba(124,45,18,0.1); border-radius:4px; font-size:0.85em; display:flex; justify-content:space-between; align-items:center;">
-                            <span><strong>${results.reduce((acc, r) => acc + r.sections.length, 0)}</strong> occurrence(s) dans <strong>${results.length}</strong> document(s)</span>
-                            <button onclick="clearSearch()" style="background:none; border:none; cursor:pointer; color:#7c2d12; font-weight:bold; font-size:1.2rem;" title="Effacer la recherche">×</button>
-                        </div>
-                    `;
-                    
-                    results.forEach(docResult => {
+            } else {
+                let html = `
+                    <div style="padding:10px; margin-bottom:15px; background:rgba(124,45,18,0.1); border-radius:4px; font-size:0.85em; display:flex; justify-content:space-between; align-items:center;">
+                        <span><strong>${results.reduce((acc, r) => acc + r.sections.length, 0)}</strong> résultat(s)</span>
+                        <button onclick="clearSearch()" style="background:none; border:none; cursor:pointer; color:#7c2d12; font-weight:bold; font-size:1.2rem;" title="Effacer la recherche">×</button>
+                    </div>
+                `;
+        
+                let compteurPage = 0;
+        
+                results.forEach(docResult => {
+                    docResult.sections.forEach(sec => {
+                        compteurPage++;
+                        const numeroPage = compteurPage; // Chaque résultat = environ une page
+                
+                        // Construire le chemin : Document > Parent > Titre
+                        let chemin = [];
+                
+                        // 1. Le nom du document (Livret 1, Fiche, etc.)
+                        chemin.push(`${docResult.docIcon} ${docResult.docTitle}`);
+                
+                        // 2. Le chapitre parent (s'il existe et est différent du titre du doc)
+                        if (sec.parentTitle && sec.parentTitle !== docResult.docTitle) {
+                            chemin.push(sec.parentTitle);
+                        }
+                
+                        // 3. Le titre exact de la section trouvée
+                        chemin.push(`<strong>${sec.section.title}</strong>`);
+                
+                        // Assembler avec des flèches
+                        const ligneComplete = chemin.join(' <span style="color:#ccc; margin:0 3px;">›</span> ');
+                
                         html += `
-                            <div style="margin-bottom:20px; border-left:3px solid #7c2d12; padding-left:12px;">
-                                <div style="font-family:'Cinzel',serif; font-weight:bold; font-size:1rem; color:#1c1917; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
-                                    <span>${docResult.docIcon}</span>
-                                    <span>${docResult.docTitle}</span>
-                                </div>
-                                <div style="margin-left:5px;">
-                                    ${docResult.sections.map(sec => `
-                                        <div class="index-item" onclick="navigateToResult('${docResult.docId}', '${sec.section.id}')" 
-                                             style="cursor:pointer; padding:6px 10px; margin-bottom:4px; border-radius:4px; font-size:0.85rem; line-height:1.4; border-left:2px solid rgba(124,45,18,0.3); margin-left:5px;">
-                                            <div style="font-weight:600; color:#7c2d12;">${sec.section.title}</div>
-                                            ${sec.parentTitle && sec.parentTitle !== docResult.docTitle ? 
-                                                `<div style="font-size:0.75rem; color:#666; margin-top:2px;">dans ${sec.parentTitle}</div>` : ''}
-                                        </div>
-                                    `).join('')}
+                            <div onclick="navigateToResult('${docResult.docId}', '${sec.section.id}')" 
+                                 style="cursor:pointer; padding:8px; border-left:3px solid #7c2d12; 
+                                        background:rgba(0,0,0,0.03); margin-bottom:4px; border-radius:0 4px 4px 0;
+                                        font-size:0.85rem; line-height:1.4;"
+                                 onmouseover="this.style.background='rgba(124,45,18,0.1)'; this.style.paddingLeft='12px';"
+                                 onmouseout="this.style.background='rgba(0,0,0,0.03)'; this.style.paddingLeft='8px';">
+                                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+                                    <span style="color:#1c1917;">${ligneComplete}</span>
+                                    <span style="color:#999; font-size:0.75em; font-family:'Cinzel',serif; white-space:nowrap; margin-top:2px;">
+                                        p.${numeroPage}
+                                    </span>
                                 </div>
                             </div>
                         `;
                     });
-                    
-                    container.innerHTML = html;
-                }
+                });
+        
+                container.innerHTML = html;
+            }
                 return;
             }
             
