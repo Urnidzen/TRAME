@@ -89,6 +89,34 @@
     .github-info a:hover {
         text-decoration: underline;
     }
+    
+    /* Nouveau style pour la note de gestion */
+    .manage-note {
+        background: rgba(124, 45, 18, 0.05);
+        border: 1px solid rgba(124, 45, 18, 0.2);
+        border-left: 4px solid #7c2d12;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 15px 0;
+        font-size: 0.95rem;
+    }
+    
+    .manage-note ul {
+        margin: 8px 0;
+        padding-left: 20px;
+    }
+    
+    .manage-note li {
+        margin: 5px 0;
+        line-height: 1.4;
+    }
+    
+    .manage-note small {
+        display: block;
+        margin-top: 8px;
+        opacity: 0.8;
+        font-style: italic;
+    }
 
     .giscus-container {
         margin-top: 20px;
@@ -126,6 +154,16 @@
             <strong>ℹ️ Comment participer ?</strong><br>
             Les commentaires utilisent les Discussions GitHub. C'est gratuit et cela prend 2 minutes :<br>
             <a href="https://github.com/signup" target="_blank">Créer un compte GitHub</a> (si vous n'en avez pas déjà un), puis revenez ici pour commenter ci-dessous.
+        </div>
+
+        <!-- Nouvelle section ajoutée ici -->
+        <div class="manage-note">
+            <strong>📝 Modifier ou supprimer un commentaire</strong>
+            <ul>
+                <li><strong>Directement ici :</strong> Cliquez sur les trois petits points (⋯) à droite de votre commentaire dans le cadre ci-dessous, puis choisissez « Edit » ou « Delete »</li>
+                <li><strong>Via GitHub :</strong> Rendez-vous sur <a href="https://github.com/Urnidzen/SCCS/discussions" target="_blank">la page Discussions du dépôt</a> et retrouvez votre message dans la catégorie « Commentaires Site Web »</li>
+            </ul>
+            <small>⚠️ Vous devez être connecté avec le même compte GitHub que celui utilisé pour poster le commentaire initial</small>
         </div>
 
         <div class="giscus-container" id="giscus-container">
