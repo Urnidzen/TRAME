@@ -204,7 +204,10 @@
             overflow: hidden;
             width: 100%;
             height: 100%;
-        }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+         }
 
         .char-sheet-frame {
             background: transparent;
@@ -1102,7 +1105,7 @@
 
                 const targetW = 794; 
                 const targetH = 1123;
-        
+
                 const availableH = container.clientHeight; 
                 const availableW = container.clientWidth;
 
@@ -1111,16 +1114,11 @@
                     availableW / targetW
                 );
 
-                iframe.style.position = 'absolute';
-                iframe.style.top = '50%';
-                iframe.style.left = '50%';
                 iframe.style.width = targetW + 'px';
                 iframe.style.height = targetH + 'px';
-                iframe.style.transform = `translate(-50%, -50%) scale(${scale})`;
-                iframe.style.transformOrigin = 'center center';
+                iframe.style.transform = `scale(${scale})`;
             });
         }
-
         let pgnState = { wrapper: null, currentSpread: null, currentPageContent: null, isRightPage: false, pageCount: 1, elementsQueue: [] };
 
         function paginateContent(htmlContent) {
