@@ -554,25 +554,20 @@
         async function navigateToResult(docId, sectionId) {
             if (currentDoc !== docId) {
                 await selectDocument(docId);
-                // Attendre que le DOM soit stable (2 frames pour mobile)
-                await new Promise(resolve => {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(resolve);
-                    });
-                });
+                // Attendre que la pagination soit terminée
+                await new Promise(resolve => setTimeout(resolve, 100));
             }
             
-            // S'assurer que l'élément existe avant de scroller
-            const attemptScroll = (retries = 5) => {
-                const target = document.getElementById(sectionId.replace('section-', ''));
-                if (target) {
+            // Attendre le prochain cycle de rendu pour s'assurer que le DOM est prêt
+            requestAnimationFrame(() => {
+                if (sectionId) {
                     scrollToElement(sectionId);
-                    highlightSearchTerm(document.getElementById('searchInput').value);
-                } else if (retries > 0) {
-                    setTimeout(() => attemptScroll(retries - 1), 200);
                 }
-            };
-            attemptScroll();
+                const searchTerm = document.getElementById('searchInput').value;
+                if (searchTerm) {
+                    highlightSearchTerm(searchTerm);
+                }
+            });
         }
 
         function highlightSearchTerm(term) {
@@ -1295,50 +1290,64 @@
         function isOverflowing(container) { return container.scrollHeight > container.clientHeight + 2; }
 
         function scrollToElement(id) {
-            const mainContainer = document.getElementById('mainContainer');
             const cleanId = id.replace('section-', '');
-            const target = document.getElementById(cleanId);
-            
-            if (!target) return;
-            
-            const spread = target.closest('.book-spread');
-            if (!spread) return;
+            // Attendre que le DOM soit stable
+            requestAnimationFrame(() => {
+                const target = document.getElementById(cleanId) || document.getElementById(id);
+                if (!target) {
+                    console.warn(`Élément introuvable: #${id}`);
+                    return;
+                }
         
-            // Désactiver le snap temporairement
-            mainContainer.style.scrollSnapType = 'none';
-            
-            mainContainer.scrollTo({
-                top: spread.offsetTop,
-                behavior: 'smooth'
+                const spread = target.closest('.book-spread');
+                if (!spread) return;
+        
+                const mainContainer = document.getElementById('mainContainer');
+                mainContainer.scrollTo({
+                    top: spread.offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Optionnel : surligner brièvement la section trouvée
+                target.style.backgroundColor = 'rgba(124,45,18,0.2)';
+                setTimeout(() => {
+                    target.style.backgroundColor = '';
+                }, 2000);
             });
-            
-            // Réactiver le snap après le scroll
-            setTimeout(() => {
-                mainContainer.style.scrollSnapType = 'y mandatory';
-            }, 1000);
         }
 
         function toggleSidebar() {
+            // Sauvegarder la position actuelle avant toute modification
             const mainContainer = document.getElementById('mainContainer');
-            
-            // Sauvegarder la position actuelle
-            const currentScroll = mainContainer.scrollTop;
-            const currentSpread = Math.round(currentScroll / window.innerHeight);
+            const currentScrollTop = mainContainer.scrollTop;
+            const currentSpread = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2)?.closest('.book-spread');
+            const spreadIndex = currentSpread ? Array.from(document.querySelectorAll('.book-spread')).indexOf(currentSpread) : 0;
             
             sidebarOpen = !sidebarOpen;
             document.getElementById('sidebarContainer').classList.toggle('closed', !sidebarOpen);
+            document.getElementById('mainContainer').classList.toggle('sidebar-closed', !sidebarOpen);
             
-            // Sur mobile, ne pas repaginer si on est déjà en mode mobile (évite le reset)
-            if (currentDoc !== 'fiche' && rawContentCache && currentDoc !== 'contact') {
-                if (window.innerWidth > 1024) { // Seulement si on passe de desktop à autre chose
+            setTimeout(() => { 
+                if (currentDoc === 'fiche') {
+                    resizeAllSheets();
+                } else if (rawContentCache && currentDoc !== 'contact') {
                     paginateContent(rawContentCache);
+                    
+                    // RESTAURER LA POSITION APRÈS REPAGINATION
+                    requestAnimationFrame(() => {
+                        const spreads = document.querySelectorAll('.book-spread');
+                        if (spreads[spreadIndex]) {
+                            mainContainer.scrollTo({
+                                top: spreads[spreadIndex].offsetTop,
+                                behavior: 'instant' // 'instant' évite l'animation de scroll
+                            });
+                        } else {
+                            // Fallback sur la position approximative
+                            mainContainer.scrollTo({ top: currentScrollTop, behavior: 'instant' });
+                        }
+                    });
                 }
-            }
-            
-            // Restaurer la position immédiatement
-            requestAnimationFrame(() => {
-                mainContainer.scrollTop = currentScroll;
-            });
+            }, 350);
         }
 
         function checkMobile() {
