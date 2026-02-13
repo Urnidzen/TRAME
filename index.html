@@ -1018,40 +1018,61 @@
             currentIndex = [];
 
             const profiles = SCCS_Registre.getAllProfiles();
-
-            for (let i = 0; i < profiles.length; i += 2) {
-                const spread = document.createElement('div');
-                spread.className = 'book-spread sheet-mode';
-        
-                const leftProfile = profiles[i];
-                const leftUrl = `${baseFileUrl}?uid=${leftProfile.id}`;
-        
-                const leftContent = `
-                    <div class="page page-left sheet-container-frame">
-                        <iframe class="char-sheet-frame" src="${leftUrl}"></iframe>
-                    </div>
-                `;
-        
-                let rightContent = '';
-                if (profiles[i + 1]) {
-                    const rightProfile = profiles[i + 1];
-                    const rightUrl = `${baseFileUrl}?uid=${rightProfile.id}`;
-                    rightContent = `
-                        <div class="page page-right sheet-container-frame">
-                            <iframe class="char-sheet-frame" src="${rightUrl}"></iframe>
-                        </div>
-                    `;
-                } else {
-                    rightContent = `<div class="page page-right"></div>`;
-                }
-        
-                spread.innerHTML = isMobile ? leftContent : (leftContent + rightContent);
-                wrapper.appendChild(spread);
-            }
+    
+            // Détection en temps réel de la taille d'écran
+            const isMobileView = window.innerWidth <= 1024;
 
             if (profiles.length === 0) {
                 SCCS_Registre.createProfile();
                 return renderRegistryChapter(baseFileUrl);
+            }
+
+            if (isMobileView) {
+                // Mode mobile/étroit : une fiche par spread, placée dans .page-right
+                // car votre CSS cache .page-left en mode .sheet-mode sur mobile
+                profiles.forEach((profile) => {
+                    const spread = document.createElement('div');
+                    spread.className = 'book-spread sheet-mode';
+                    const url = `${baseFileUrl}?uid=${profile.id}`;
+            
+                    spread.innerHTML = `
+                        <div class="page page-right sheet-container-frame">
+                            <iframe class="char-sheet-frame" src="${url}"></iframe>
+                        </div>
+                    `;
+                    wrapper.appendChild(spread);
+                });
+            } else {
+                // Mode desktop : deux fiches par spread (gauche + droite)
+                for (let i = 0; i < profiles.length; i += 2) {
+                    const spread = document.createElement('div');
+                    spread.className = 'book-spread sheet-mode';
+    
+                    const leftProfile = profiles[i];
+                    const leftUrl = `${baseFileUrl}?uid=${leftProfile.id}`;
+    
+                    const leftContent = `
+                        <div class="page page-left sheet-container-frame">
+                            <iframe class="char-sheet-frame" src="${leftUrl}"></iframe>
+                        </div>
+                    `;
+    
+                    let rightContent = '';
+                    if (profiles[i + 1]) {
+                        const rightProfile = profiles[i + 1];
+                        const rightUrl = `${baseFileUrl}?uid=${rightProfile.id}`;
+                        rightContent = `
+                            <div class="page page-right sheet-container-frame">
+                                <iframe class="char-sheet-frame" src="${rightUrl}"></iframe>
+                            </div>
+                        `;
+                    } else {
+                        rightContent = `<div class="page page-right"></div>`;
+                    }
+    
+                    spread.innerHTML = leftContent + rightContent;
+                    wrapper.appendChild(spread);
+                }
             }
 
             setTimeout(resizeAllSheets, 100);
