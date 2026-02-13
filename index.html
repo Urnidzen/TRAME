@@ -554,20 +554,27 @@
         async function navigateToResult(docId, sectionId) {
             if (currentDoc !== docId) {
                 await selectDocument(docId);
-                // Attendre que la pagination soit terminée
-                await new Promise(resolve => setTimeout(resolve, 100));
+                
+                // SUR MOBILE : Attendre que la pagination soit vraiment terminée
+                if (isMobile) {
+                    await new Promise(resolve => {
+                        const checkExist = setInterval(() => {
+                            const el = document.getElementById(sectionId.replace('section-', ''));
+                            if (el) {
+                                clearInterval(checkExist);
+                                resolve();
+                            }
+                        }, 100);
+                        // Timeout de sécurité après 3 secondes
+                        setTimeout(() => clearInterval(checkExist), 3000);
+                    });
+                }
             }
             
-            // Attendre le prochain cycle de rendu pour s'assurer que le DOM est prêt
-            requestAnimationFrame(() => {
-                if (sectionId) {
-                    scrollToElement(sectionId);
-                }
-                const searchTerm = document.getElementById('searchInput').value;
-                if (searchTerm) {
-                    highlightSearchTerm(searchTerm);
-                }
-            });
+            scrollToElement(sectionId);
+            
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm) highlightSearchTerm(searchTerm);
         }
 
         function highlightSearchTerm(term) {
