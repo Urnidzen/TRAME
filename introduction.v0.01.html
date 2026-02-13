@@ -7,9 +7,9 @@
     background-repeat: no-repeat;
   }
   
-  /* Rend les pages transparentes pour voir l'image derrière */
+  /* Rend les pages semi-transparentes pour voir l'image derrière tout en gardant la lisibilité */
   #bookSpreadsWrapper > .book-spread:first-child .page {
-    background: transparent;
+    background: rgba(0, 0, 0, 0.25); /* Voile noir léger pour aider la lecture */
     box-shadow: none;
     color: #ffffff;
   }
@@ -17,37 +17,45 @@
   /* Assure que tous les textes sont en blanc avec ombre pour la lisibilité */
   #bookSpreadsWrapper > .book-spread:first-child .page * {
     color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    text-shadow: 1px 1px 4px rgba(0,0,0,1);
   }
   
   /* Style spécifique pour les titres */
   #bookSpreadsWrapper > .book-spread:first-child .page h2 {
     color: #ffffff;
-    border-bottom-color: rgba(255,255,255,0.6);
-    text-shadow: 2px 2px 6px rgba(0,0,0,1);
+    border-bottom: 2px solid rgba(255,255,255,0.8); /* Bordure blanche visible */
+    text-shadow: 2px 2px 8px rgba(0,0,0,1);
     font-weight: 700;
   }
   
-  /* Cartes de contenu avec fond semi-transparent pour améliorer la lisibilité sur l'image */
+  /* Cartes de contenu avec fond semi-transparent */
   #bookSpreadsWrapper > .book-spread:first-child .content-card {
-    background: rgba(0, 0, 0, 0.45);
-    border: 1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(4px);
     padding: 1.5rem;
     border-radius: 8px;
+  }
+  
+  /* RELIURE - Trait de séparation visible entre les deux pages (page de gauche) */
+  #bookSpreadsWrapper > .book-spread:first-child .page-left {
+    border-right: 3px solid rgba(255,255,255,0.6); /* Trait blanc visible */
+    box-shadow: 
+      inset -15px 0 25px rgba(0,0,0,0.4),  /* Ombre intérieure côté reliure */
+      8px 0 15px rgba(0,0,0,0.6);          /* Ombre portée de la reliure */
+  }
+  
+  /* Ombre intérieure côté droit pour symétrie */
+  #bookSpreadsWrapper > .book-spread:first-child .page-right {
+    box-shadow: inset 15px 0 25px rgba(0,0,0,0.4);
   }
   
   /* Adaptation des mentions légales et numéros de page */
   #bookSpreadsWrapper > .book-spread:first-child .legal-notice,
   #bookSpreadsWrapper > .book-spread:first-child .page-number {
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 4px rgba(0,0,0,1);
     font-weight: 600;
-  }
-  
-  /* Suppression de la bordure verticale entre les deux pages pour un effet plus immersif */
-  #bookSpreadsWrapper > .book-spread:first-child .page-left {
-    border-right: none;
   }
 </style>
 
