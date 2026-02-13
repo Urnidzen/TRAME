@@ -300,18 +300,30 @@
             .sidebar-container { transform: translateX(-320px); }
             .sidebar-container:not(.closed) { transform: translateX(0); }
             .main-container { margin-left: 0 !important; width: 100% !important; }
+            
             .book-spread {
-                width: calc(100% - 20px);      /* Marges réduites sur mobile */
-                height: auto;
-                min-height: calc(100vh - 20px);
-                margin: 10px auto;
+                width: calc(100% - 20px);        /* Marge visible */
+                height: calc(100vh - 20px);      /* Hauteur fixe moins les marges */
+                margin: 10px auto;               /* 10px de marge tout autour */
                 border-radius: 4px;
+                /* PAS de min-height ici */
             }
-            .page { padding: 30px 20px 120px 20px; width: 100%; height: auto; min-height: unset; }
+            
+            .page { 
+                padding: 30px 20px 10px 20px;     /* Padding bottom réduit */
+                width: 100%; 
+                height: 100%;                     /* Remplit le spread (100% de calc(100vh - 20px)) */
+                /* PAS de min-height: unset qui pose problème */
+            }
+            
             .page-right { display: none; }
             
             .book-spread.sheet-mode .page-left { display: none; }
-            .book-spread.sheet-mode .page-right { display: flex; width: 100%; height: 100%; }
+            .book-spread.sheet-mode .page-right { 
+                display: flex; 
+                width: 100%; 
+                height: 100%;                     /* Même chose ici */
+            }
         }
 
         @media print {
