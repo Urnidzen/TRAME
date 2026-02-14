@@ -2,50 +2,64 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>https://urnidzen.github.io/TRAME/introduction.v0.02.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>  
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/Livret1-Mecanismes.v0.84.html</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/Livret1-Mecanismes.v0.86.html</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/Livret2-Creation.v0.73.html</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/Livret2-Creation.v0.74.html</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/Livret3-Equipement.v0.77.html</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/Livret3-Equipement.v0.78.html</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/Livret4-Rencontres.v0.79.html</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/Livret4-Rencontres.v0.80.html</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/Livret5-Bestiaire.v0.79.html</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/Livret5-Bestiaire.v0.80.html</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://urnidzen.github.io/SCCS/Fiche%20de%20personnage.v0.86.html</loc>
-    <lastmod>2024-02-09</lastmod>
+    <loc>https://urnidzen.github.io/TRAME/Fiche%20de%20personnage.v0.87.html</loc>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://urnidzen.github.io/TRAME/contact.html</loc>
+    <lastmod>2026-02-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
