@@ -1084,6 +1084,7 @@
                 tempDiv.querySelectorAll('script, style, link[rel="stylesheet"], meta, title, base, noscript').forEach(el => el.remove());
                 
                 rawContentCache = cleanHtmlContent(tempDiv.innerHTML);
+                await document.fonts.ready;
                 paginateContent(rawContentCache);
 
             } catch (error) {
@@ -1427,6 +1428,7 @@
                     // CORRECTION : Sur mobile, pas besoin de repaginer car la sidebar est en overlay
                     // La largeur ne change pas (déjà 100%), donc on évite de détruire les highlights
                     if (!isMobile) {
+                        await document.fonts.ready;
                         paginateContent(rawContentCache);
                         
                         requestAnimationFrame(() => {
