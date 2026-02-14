@@ -1043,7 +1043,7 @@
         async function loadDocument(docId) {
             document.querySelectorAll('style[id^="injected-style-"]').forEach(el => el.remove());
             const doc = documents.find(d => d.id === docId);
-            if (!doc) return;D
+            if (!doc) return;
 
             const wrapper = document.getElementById('bookSpreadsWrapper');
             wrapper.innerHTML = '<div style="padding:40px; text-align:center; color:#7c2d12;">Chargement...</div>';
