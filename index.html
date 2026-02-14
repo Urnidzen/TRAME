@@ -1041,8 +1041,9 @@
         }
 
         async function loadDocument(docId) {
+            document.querySelectorAll('style[id^="injected-style-"]').forEach(el => el.remove());
             const doc = documents.find(d => d.id === docId);
-            if (!doc) return;
+            if (!doc) return;D
 
             const wrapper = document.getElementById('bookSpreadsWrapper');
             wrapper.innerHTML = '<div style="padding:40px; text-align:center; color:#7c2d12;">Chargement...</div>';
@@ -1379,7 +1380,7 @@
             }
         }
 
-        function isOverflowing(container) { return container.scrollHeight > container.clientHeight + 5; }
+        function isOverflowing(container) { return container.scrollHeight > container.clientHeight + 2; }
 
         function scrollToElement(id) {
             const cleanId = id.replace('section-', '');
