@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche SCCS - Module Codex v0.88</title>
+    <title>Fiche TRAME - Module Codex v0.88</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,700&family=Spectral:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="registre.js"></script>
@@ -567,8 +567,8 @@
             initWeaponSelect();
 
             // Cacher la poubelle si c'est le dernier personnage (fiche vierge permanente)
-            if (typeof SCCS_Registre !== 'undefined') {
-                const allProfiles = SCCS_Registre.getAllProfiles();
+            if (typeof TRAME_Registre !== 'undefined') {
+                const allProfiles = TRAME_Registre.getAllProfiles();
                 if (allProfiles.length <= 1) {
                     const btnDelete = context.querySelector('[data-action="delete"]');
                     if (btnDelete) btnDelete.style.display = 'none';
@@ -597,7 +597,7 @@
                 if(fileInput) fileInput.click();
             };
 
-            if (currentUid && typeof SCCS_Registre !== 'undefined') {
+            if (currentUid && typeof TRAME_Registre !== 'undefined') {
                 loadFromRegistry(currentUid);
                 setupAutoSave();
             }
@@ -660,8 +660,8 @@
            const btnDelete = context.querySelector('[data-action="delete"]');
             if(btnDelete) btnDelete.onclick = () => {
                 if(confirm("Êtes-vous certain de vouloir supprimer ce personnage ? Cette action est irréversible.")) {
-                    if (currentUid && typeof SCCS_Registre !== 'undefined') {
-                    SCCS_Registre.deleteProfile(currentUid);
+                    if (currentUid && typeof TRAME_Registre !== 'undefined') {
+                    TRAME_Registre.deleteProfile(currentUid);
                     // Rediriger vers le parent pour rafraîchir
                     if(window.parent && window.parent !== window) {
                     window.parent.postMessage({action: 'characterDeleted'}, '*');
@@ -676,7 +676,7 @@
         }
 
         function loadFromRegistry(uid) {
-            const profile = SCCS_Registre.getProfile(uid);
+            const profile = TRAME_Registre.getProfile(uid);
             if (!profile) return;
 
             const data = profile.content || {};
@@ -728,7 +728,7 @@
         }
 
         function triggerSave() {
-            if (!currentUid || typeof SCCS_Registre === 'undefined') return;
+            if (!currentUid || typeof TRAME_Registre === 'undefined') return;
 
             const data = {};
             findAll('input[data-id], select[data-id], textarea[data-id]').forEach(el => {
@@ -747,7 +747,7 @@
             data.__state_talents = state.talents;
 
             const nameVal = find('char-name').value || "Sans Nom";
-            SCCS_Registre.updateProfile(currentUid, data, nameVal);
+            TRAME_Registre.updateProfile(currentUid, data, nameVal);
 
             if(window.parent && window.parent !== window) {
                 window.parent.postMessage({action: 'refreshSidebar'}, '*');
@@ -773,14 +773,14 @@
 
         function exportSingleJSON() {
             if (!currentUid) return;
-            const profile = SCCS_Registre.getProfile(currentUid);
+            const profile = TRAME_Registre.getProfile(currentUid);
             if (!profile) return;
             const dataStr = JSON.stringify(profile, null, 2);
             const blob = new Blob([dataStr], { type: "application/json" });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `SCCS_Heros_${profile.name.replace(/\s+/g, '_')}.json`;
+            a.download = `TRAME_Heros_${profile.name.replace(/\s+/g, '_')}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
