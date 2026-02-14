@@ -743,7 +743,7 @@
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.trim();
             
-            // MODE RECHERCHE ACTIF (code identique à l'original)
+            // MODE RECHERCHE ACTIF (votre code original inchangé)
             if (searchTerm.length > 2) {
                 const results = performSearch(searchTerm);
                 
@@ -809,7 +809,7 @@
                 return;
             }
             
-            // MODE NORMAL - STRUCTURE EXACTEMENT COMME VOTRE ORIGINAL
+            // MODE NORMAL - CORRIGÉ (remis section-${item.id})
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
                 const isExpanded = doc.id === expandedId;
@@ -833,7 +833,7 @@
                                 return `
                                     <div class="index-item level-${item.level}" data-level="${item.level}" style="padding-left: ${8 + (item.level - 1) * 12}px; display:flex; align-items:center;">
                                         ${arrow}
-                                        <span onclick="scrollToElement('${item.id}')" style="cursor:pointer; flex:1;">
+                                        <span onclick="scrollToElement('section-${item.id}')" style="cursor:pointer; flex:1;">
                                             ${item.title}
                                         </span>
                                     </div>
