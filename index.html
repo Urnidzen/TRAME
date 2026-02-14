@@ -809,10 +809,32 @@
                 return;
             }
             
-            // MODE NORMAL (seule partie modifiée : ajout des flèches et niveaux)
+            // MODE NORMAL - VERSION AVEC PARENTHÈSES EXPLICITES
             container.innerHTML = documents.map(doc => {
                 const isActive = doc.id === currentDoc;
                 const isExpanded = doc.id === expandedId;
+                
+                // Construction de l'index avec accordéon (parenthèses explicites)
+                let indexContent = '';
+                if (isActive && doc.id === 'fiche') {
+                    indexContent = renderCharactersList();
+                } else if (currentIndex.length > 0 && isActive) {
+                    indexContent = currentIndex.map((item, idx, arr) => {
+                        const hasChildren = arr[idx + 1] && arr[idx + 1].level > item.level;
+                        const arrow = hasChildren ? 
+                            `<span class="acc-arrow" onclick="toggleAccordion(this, event)" style="cursor:pointer; display:inline-block; width:12px; margin-right:4px; font-size:10px; user-select:none;">▼</span>` : 
+                            `<span style="display:inline-block; width:12px; margin-right:4px;"></span>`;
+                        
+                        return `
+                            <div class="index-item level-${item.level}" data-level="${item.level}" style="padding-left: ${8 + (item.level - 1) * 12}px; display:flex; align-items:center;">
+                                ${arrow}
+                                <span onclick="scrollToElement('${item.id}')" style="cursor:pointer; flex:1; font-size:${0.9 - (item.level * 0.05)}rem;">
+                                    ${item.title}
+                                </span>
+                            </div>
+                        `;
+                    }).join('');
+                }
                 
                 return `
                     <div class="doc-item">
@@ -824,21 +846,7 @@
                             </div>
                         </div>
                         <div class="doc-index ${isExpanded ? 'expanded' : ''}">
-                            ${(isActive && doc.id === 'fiche') ? renderCharactersList() : (currentIndex.length > 0 && isActive) ? currentIndex.map((item, idx, arr) => {
-                                const hasChildren = arr[idx + 1] && arr[idx + 1].level > item.level;
-                                const arrow = hasChildren ? 
-                                    `<span class="acc-arrow" onclick="toggleAccordion(this, event)" style="cursor:pointer; display:inline-block; width:12px; margin-right:4px; font-size:10px; user-select:none;">▼</span>` : 
-                                    `<span style="display:inline-block; width:12px; margin-right:4px;"></span>`;
-                                
-                                return `
-                                    <div class="index-item level-${item.level}" data-level="${item.level}" style="padding-left: ${8 + (item.level - 1) * 12}px; display:flex; align-items:center;">
-                                        ${arrow}
-                                        <span onclick="scrollToElement('${item.id}')" style="cursor:pointer; flex:1; font-size:${0.9 - (item.level * 0.05)}rem;">
-                                            ${item.title}
-                                        </span>
-                                    </div>
-                                `;
-                            }).join('') : ''}
+                            ${indexContent}
                         </div>
                     </div>
                 `;
@@ -846,31 +854,20 @@
         }
         
         function toggleAccordion(arrow, event) {
-            // Empêche le clic de se propager au document (qui fermerait le menu)
             event.stopPropagation();
-            
-            // Récupère la ligne cliquée
             const item = arrow.closest('.index-item');
             const currentLevel = parseInt(item.dataset.level);
-            
-            // Vérifie si on est déjà replié (flèche vers la droite)
             const isCollapsed = arrow.textContent === '▶';
             
-            // Change la flèche
             arrow.textContent = isCollapsed ? '▼' : '▶';
             
-            // Parcourt tous les éléments suivants
             let sibling = item.nextElementSibling;
             while (sibling) {
                 const siblingLevel = parseInt(sibling.dataset.level);
-                
-                // Stop si on retombe sur un niveau supérieur ou égal (fin de la section)
                 if (siblingLevel <= currentLevel) break;
                 
-                // Affiche ou cache
                 sibling.style.display = isCollapsed ? 'flex' : 'none';
                 
-                // Si on ferme, on remet aussi les sous-flèches à l'état fermé (optionnel mais propre)
                 if (!isCollapsed) {
                     const subArrow = sibling.querySelector('.acc-arrow');
                     if (subArrow) subArrow.textContent = '▶';
