@@ -8,7 +8,7 @@
         {"id": "partie-1", "title": "1. Combattre", "level": 1},
         {"id": "section-actions", "title": "Actions", "level": 2},
         {"id": "section-deroulement", "title": "Déroulement", "level": 2},
-        {"id": "section-obligation", "title": "L'obligation d'agir", "level": 3},
+        {"id": "section-obligation", "title": "Les Tours de combats", "level": 3},
         {"id": "section-initiative", "title": "La hiérarchie de l'Initiative", "level": 3},
         {"id": "section-egalite-priorite", "title": "Résolution des égalités", "level": 3},
         {"id": "section-matrice", "title": "Compétences", "level": 2},
@@ -228,30 +228,30 @@
         <h3>Déroulement</h3>
         
         <div id="section-obligation">
-            <h4>L'obligation d'agir</h4>
+            <h4>Les Tours de combats</h4>
             <div class="content-card">    
-                <p>Chaque scène de combat est découpée en tours qui représentent une séquence d'actions où chaque combattant agit à son tour, comme si tous agissaient en même temps dans l'univers fictionnel, mais séquentiellement à la table de jeu pour permettre aux joueurs de réfléchir et d'intervenir.</p>
-                <p>Durant chaque tour, le Maître du Jeu (MJ) doit s'assurer que tous les acteurs (Personnages Joueurs, PNJ, créatures) qui ne sont pas hors de combat (mort, KO) aient agit avant de passer au tour suivant</p>
+                <p>Chaque scène de combat est découpée en Tours qui représentent une séquence d'actions où chaque combattant agit à son tour, comme si tous agissaient en même temps dans l'univers fictionnel, mais séquentiellement à la table de jeu pour permettre aux joueurs de réfléchir et d'intervenir.</p>
+                <p>Durant chaque tour, le Maître du Jeu (MJ) doit s'assurer que tous les acteurs (Personnages Joueurs, PNJ, créatures) qui ne sont pas hors de combat (mort, KO) aient agit avant de passer au tour suivant.</p>
             </div>
         </div>    
 
-        <div class="rule-box" id="section-initiative">
-            <h4>La hiérarchie de l'Initiative (Les Priorités)</h4>
-            <p class="mb-2">L'ordre de passage n'est pas déterminé par un jet de dé systématique, mais par une priorité technique liée à l'équipement et à la situation.</p>
-            
-            <p class="italic mb-4"><strong>Note sur le Déplacement :</strong> Toute action de combat inclut par défaut un déplacement stratégique ou une charge sur une distance raisonnable (jugée par le MJ). Cette distance peut être augmentée avec un talent d'Athlétisme (+1) et, si le terrain est complexe, nécessite aussi Acrobatie (+1). L'utilisation du talent Acrobatie est requise pour se désengager sauf circonstance particulière (désavantage de l'adversaire ou avantage tactique).</p>
-            
-            <p class="mb-2"><strong>L'ordre est le suivant:</strong></p>
-            <ol class="decimal space-y-2">
-                <li><strong>Priorité 1 : Le Tir (ou Lancer) à Distance</strong> – Armes à Distance (ex : Arcs, Arbalètes, Armes de jet), uniquement si le tireur n'est engagé par aucun adversaire au corps-à-corps.</li>
-                <li><strong>Priorité 2 : La Magie « Libre » (Soutien)</strong> – Sortilèges et Prières, uniquement si le lanceur n'est engagé par aucun adversaire au corps-à-corps. Nécessite un catalyseur et d'avoir une main libre.</li>
-                <li><strong>Priorité 3 : Le Sprint</strong> – Se déplacer pour s'éloigner ou rejoindre un lieu (nombre de tours à l'appréciation du MJ). Une acrobatie peut être nécessaire pour se désengager.</li>
-                <li><strong>Priorité 4 : Allonge Longue (La Mêlée)</strong> – Armes à deux mains (ex : Lances, Espadons, Masses, Haches).</li>
-                <li><strong>Priorité 5 : Allonge Moyenne (La Mêlée)</strong> – Armes à une main (ex : Épées, Haches).</li>
-                <li><strong>Priorité 6 : Allonge Courte (La Mêlée)</strong> – ex : Dagues, Poings, Saisies.</li>
-                <li><strong>Priorité 7 : Le Tir (ou Lancer) en Mêlée</strong> – Armes à Distance alors que le tireur est engagé par au moins un adversaire au corps-à-corps.</li>
-                <li><strong>Priorité 8 : La Magie « Sous Pression »</strong> – Sortilèges et Prières si le lanceur a au moins un adversaire au corps-à-corps.</li>
-            </ol>
+        <div id="section-initiative">
+            <h4>La hiérarchie de l'initiative</h4>
+            <div class="content-card">
+                <p class="mb-2">L'ordre de passage durant un Tour n'est pas déterminé par un jet de dé systématique, mais par une priorité technique liée à l'équipement et à la situation.</p>
+                <p class="mb-2"><strong>L'ordre est le suivant:</strong></p>
+                <ul class="dash-list space-y-2">
+                    <li><strong>Priorité 1 : Le Tir (ou Lancer) à Distance</strong> – Armes à Distance (ex : Arcs, Arbalètes, Armes de jet), uniquement si le tireur n'est engagé par aucun adversaire au corps-à-corps.</li>
+                    <li><strong>Priorité 2 : La Magie « Libre » (Soutien)</strong> – Sortilèges et Prières, uniquement si le lanceur n'est engagé par aucun adversaire au corps-à-corps. Nécessite un catalyseur et d'avoir une main libre.</li>
+                    <li><strong>Priorité 3 : Le Sprint</strong> – Se déplacer pour s'éloigner ou rejoindre un lieu (nombre de tours à l'appréciation du MJ). Une acrobatie peut être nécessaire pour se désengager.</li>
+                    <li><strong>Priorité 4 : Allonge Longue (La Mêlée)</strong> – Armes à deux mains (ex : Lances, Espadons, Masses, Haches).</li>
+                    <li><strong>Priorité 5 : Allonge Moyenne (La Mêlée)</strong> – Armes à une main (ex : Épées, Haches).</li>
+                    <li><strong>Priorité 6 : Allonge Courte (La Mêlée)</strong> – ex : Dagues, Poings, Saisies.</li>
+                    <li><strong>Priorité 7 : Le Tir (ou Lancer) en Mêlée</strong> – Armes à Distance alors que le tireur est engagé par au moins un adversaire au corps-à-corps.</li>
+                    <li><strong>Priorité 8 : La Magie « Sous Pression »</strong> – Sortilèges et Prières si le lanceur a au moins un adversaire au corps-à-corps.</li>
+                </ul>
+                <p class="italic mb-4"><strong>Note sur le Déplacement :</strong> Toute action de combat inclut par défaut un déplacement stratégique ou une charge sur une distance raisonnable (jugée par le MJ). Cette distance peut être augmentée avec un talent d'Athlétisme (+1) et, si le terrain est complexe, nécessite aussi Acrobatie (+1). L'utilisation du talent Acrobatie est requise pour se désengager sauf circonstance particulière (désavantage de l'adversaire ou avantage tactique).</p>
+            </div>  
         </div>
 
         <div class="content-card" id="section-egalite-priorite">
@@ -575,6 +575,7 @@
     <h2>3. INTERACTIONS SOCIALES</h2>
     <p>Le MJ est le seul juge de l'ingéniosité et de la crédibilité des actions sociales, c'est à lui de juger si le PJ est convaincant en fonction de la situation et des antécédents.</p>
 </div>
+
 
 
 
