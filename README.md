@@ -25,7 +25,7 @@ TRAME abandonne les Points de Vie (PV) traditionnels au profit d'une logique d'*
 
 ## 📜 Licence et Droits d'auteur
 
-**© 2024 Urnidzen**
+**© 2026 Urnidzen**
 
 Ce système de jeu est mis à disposition sous licence **Creative Commons Attribution - Pas d'Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr)).
 
