@@ -413,7 +413,7 @@
             <h4>L'opposition</h4>      
             <div class="content-card">
                 <p class="mb-4">Lorsqu'un acteur déclare une action d'attaque, il annonce un Type et une Cible (ex : « Attaque Directe au Tronc »). Le MJ compare le Score Total d'Attaque (type + cible) au Score Total de Protection (défense + résistance).</p>
-                <ul class="decimal space-y-2">
+                <ul class="dash-list space-y-2">
                     <li><strong>Calcul de l'Attaque :</strong> Score du Type utilisé + Score de la Cible visée.</li>
                     <li><strong>Calcul de la Protection :</strong> Score de Défense contre ce Type + Score de Résistance de la Cible visée.</li>
                     <li><strong>Comparaison :</strong> On compare les deux totaux.</li>
@@ -455,7 +455,7 @@
                 <ul class="dash-list space-y-2">
                     <li><strong>Jet de 1D6 (Durée sans Malus) :</strong> Le lanceur effectue un jet de 1D6. Le résultat indique le nombre de tours (le <em>Compteur de Maintien</em>) durant lesquels le sort est maintenu <strong>sans aucun malus</strong>.</li>
                     <li><strong>Contrecoup (Malus de Maintien) :</strong> Une fois le Compteur de Maintien arrivé (à 0), le sort reste actif, mais le lanceur subit le Malus de Maintien :
-                        <ul class="dash-list space-y-2 mt-2 ml-3">
+                        <ul class="dash-list space-y-2 mt-2">
                             <li>Malus de <strong>-1 à TOUTES ses statistiques</strong> jusqu'à l'annulation du sort (Rupture ou Annulation Tactique) ou un repos complet.</li>
                             <li><strong>La Rupture (Le Talon d'Achille) :</strong> Si le lanceur subit un <strong>Impact ou une Saisie</strong>, alors qu'il est sous l'effet d'un contrecoup, le sort cesse immédiatement (le Buff disparaît, la créature s'évapore).</li>
                         </ul>
@@ -483,39 +483,43 @@
             <h4>Malus et Conditions de Lancement des sorts</h4>
             <div class="content-card">
                 <p>Le malus d'armure ne s'applique qu'aux sorts ciblant/incluant un ou des ennemis. Le malus lié à l'utilisation d'une arme manufacturée ou d'un objet, non listé dans la catégorie des focalisateurs magiques (cf. livret 3 chapitre B, Armes) s'applique dans tous les cas.</p>
-                <p class="mt-2">Pour lancer un sort (hors capacités innées), le personnage doit impérativement avoir <strong>au moins une main libre</strong> (pour les somatiques) <strong>ET</strong> tenir un focalisateur ou une arme (catalyseur). Une arme tenue à deux mains peut être lâchée d'une main instantanément pour satisfaire cette condition.</p>
+                <p class="mt-2">Pour lancer un sort (hors capacités innées), le personnage doit impérativement avoir <strong>au moins une main libre</strong> (pour les somatiques) <strong>ET</strong> tenir <strong>un focalisateur magique ou une arme manufacturée</strong>. Une arme tenue à deux mains peut être lâchée d'une main instantanément pour satisfaire cette condition.</p>
             </div>
          </div>
 
-        <div class="rule-box" id="section-sorts-sans-opposant">
+        <div id="section-sorts-sans-opposant">
             <h4>Sorts sans opposant</h4>
-            <p>Pour les sorts sans opposant, la résolution se fait par comparaison des Stats (2 stats au maximum) du lanceur impliquées par l'effet voulu du sort à la Difficulté :</p>
-            <ul class="dash-list space-y-2">
-                <li><strong>Difficulté 0 (Initié) :</strong> Sort simple. La majorité des sorts sans opposant.</li>
-                <li><strong>Difficulté 2 (Expert) :</strong> Sort complexe pouvant affecter une petite zone ou ayant des effets puissants.</li>
-                <li><strong>Difficulté 4 (Maître) :</strong> Sort extrêmement complexe pouvant affecter une grande zone ou ayant des effets extrêmement puissants.</li>
-                <li><strong>Difficulté 7 (Mythique) :</strong> Sort nécessitant généralement un Maître de haut niveau et un rituel pour être lancé, peut impacter un région significativement.</li>
-            </ul>
+            <div class="content-card">
+                <p>Pour les sorts sans opposant, la résolution se fait par comparaison des Stats (2 stats au maximum) du lanceur impliquées par l'effet voulu du sort à la Difficulté :</p>
+                <ul class="dash-list space-y-2">
+                    <li><strong>Difficulté 0 (Initié) :</strong> Sort simple. La majorité des sorts sans opposant.</li>
+                    <li><strong>Difficulté 2 (Expert) :</strong> Sort complexe pouvant affecter une petite zone ou ayant des effets puissants.</li>
+                    <li><strong>Difficulté 4 (Maître) :</strong> Sort extrêmement complexe pouvant affecter une grande zone ou ayant des effets extrêmement puissants.</li>
+                    <li><strong>Difficulté 7 (Mythique) :</strong> Sort nécessitant généralement un Maître de haut niveau et un rituel pour être lancé, peut impacter un région significativement.</li>
+                </ul>
             
             <p class="mt-2"><strong>Cas particuliers :</strong></p>
-            <ul class="dash-list space-y-2">
-                <li><strong>Métamorphose ou Invocation :</strong> La difficulté est égale à la Dangerosité de la créature +1 par créature additionnelle.</li>
-                <li><strong>Bonus aux caracs, talents ou actions :</strong> La difficulté est fixée à 2 pour un +1 global et ne semble pas pouvoir avoir un effet plus important même en augmentant la difficulté.</li>
-            </ul>
+                <ul class="dash-list space-y-2">
+                    <li><strong>Métamorphose ou Invocation :</strong> La difficulté est égale à la Dangerosité de la créature +1 par créature additionnelle.</li>
+                    <li><strong>Bonus aux caracs, talents ou actions :</strong> La difficulté est fixée à 2 pour un +1 global et ne semble pas pouvoir avoir un effet plus important même en augmentant la difficulté.</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="content-card" id="section-restauration">
+        <div id="section-restauration">
             <h4>La Magie de Restauration (Soins)</h4>
-            <p>La magie de soin <strong>ne remplit pas de PV</strong>. Un sort de réparation ou de soin :</p>
-            <ul class="dash-list space-y-2">
-                <li>Restaure <strong>1 Point de Durabilité</strong> (Armure ou Résistance Naturelle)</li>
-                <li><strong>OU</strong> supprime le <strong>désavantage de -1</strong> en traitant l'effet narratif associé (Saignement, Aveuglement, Fracture, etc.).</li>
-            </ul>
+            <div class="content-card">
+                <p>La magie de soin <strong>ne remplit pas de PV</strong>. Un sort de réparation ou de soin, peut :</p>
+                <ul class="dash-list space-y-2">
+                    <li>Restaurer <strong>1 Point de Durabilité</strong> (Armure ou Résistance Naturelle)</li>
+                    <li>Supprimer un <strong>désavantage de -1</strong> en traitant l'effet narratif associé (Saignement, Aveuglement, Fracture, etc.).</li>
+                    <li>Guérir entièrement une blessure corporelle ou mentale</li>
+                </ul>
+            </div>
         </div>
 
         <div id="section-armure">
             <h4>La protection des armures</h4>
-            
             <div class="content-card">
                 <p class="mt-4"><strong>Conséquence : Le Sacrifice de l'Armure :</strong> Si le Malus d'Érosion réduit le score de Protection au point de créer une Infériorité (Attaque > Protection), mais que le bonus de Résistance de l'armure permet de maintenir une Égalité ou une Supériorité : L'attaque est parée/encaissée (Pas de conséquence physique).</p>
                 <p class="mt-2"><strong>Règle d'Usure :</strong> L'Armure perd immédiatement 1 Point de Durabilité (car elle a été nécessaire pour compenser l'érosion).</p>
@@ -525,7 +529,7 @@
         <h4 id="section-resultats">Résultats de la Comparaison</h4>
         
         <div class="content-card" style="border-left: 4px solid #166534;">
-            <h5>Cas A : Supériorité (Attaque > protection)</h5>
+            <h5><strong>Cas A : Supériorité (Attaque > protection)</strong></h5>
             <ul class="dash-list space-y-2">
                 <li><strong>Condition :</strong> Le total de l'attaquant est strictement supérieur à celui qui se protège.</li>
                 <li><strong>Résultat :</strong> IMPACT IMMÉDIAT. (Voir section Conséquences de l'Impact).</li>
@@ -533,7 +537,7 @@
         </div>
 
         <div class="content-card" style="border-left: 4px solid #991b1b;">
-            <h5>Cas B : Infériorité (Attaque < Protection)</h5>
+            <h5><strong>Cas B : Infériorité (Attaque < Protection)</strong></h5>
             <ul class="dash-list space-y-2">
                 <li><strong>Condition :</strong> Le total de l'attaquant est strictement inférieur à celui qui se protège.</li>
                 <li><strong>Résultat :</strong> ÉCHEC AUTOMATIQUE.</li>
@@ -542,7 +546,7 @@
         </div>
 
         <div class="content-card" style="border-left: 4px solid #d97706;">
-            <h5>Cas C : Égalité (Attaque = Protection)</h5>
+            <h5><strong>Cas C : Égalité (Attaque = Protection)</strong></h5>
             <ul class="dash-list space-y-2">
                 <li><strong>Condition :</strong> Les deux totaux sont identiques.</li>
                 <li><strong>Résultat :</strong> TEST DE COMPTEUR (D6).</li>
@@ -612,6 +616,7 @@
     <h2>3. INTERACTIONS SOCIALES</h2>
     <p>Le MJ est le seul juge de l'ingéniosité et de la crédibilité des actions sociales, c'est à lui de juger si le PJ est convaincant en fonction de la situation et des antécédents.</p>
 </div>
+
 
 
 
