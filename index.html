@@ -331,7 +331,16 @@
             font-family: 'Cinzel', serif;
             letter-spacing: 0.05em;
         }
+
+        .index-item.expanded {
+            background: rgba(124, 45, 18, 0.15);
+            font-weight: 600;
+        }
         
+        .index-item:hover {
+            background: rgba(124, 45, 18, 0.1);
+        }
+
         @media (max-width: 1024px) {
             .sidebar-container { transform: translateX(-320px); }
             .sidebar-container:not(.closed) { transform: translateX(0); }
@@ -524,7 +533,8 @@
         ];
 
         let currentDoc = 'intro';
-        let expandedId = null; 
+        let expandedId = null;
+        let expandedSections = new Set();
         let sidebarOpen = true;
         let searchStateBackup = {
             html: '',
@@ -895,26 +905,33 @@
                             const jsEscapedId = String(item.id).replace(/'/g, "\\'");
                             const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                             
-                            // Détection si cet item a des enfants
                             const nextItem = arr[idx + 1];
                             const hasChildren = item.level && nextItem && nextItem.level > item.level;
                             
-                            // PAR DÉFAUT : Seul le niveau 1 est visible, niveaux 2 et 3 sont cachés
-                            const isVisible = item.level === 1;
+                            // Calcul de visibilité : niveau 1 toujours visible, les autres seulement si leur parent est expanded
+                            let isVisible = item.level === 1;
+                            if (item.level > 1) {
+                                // Chercher le parent immédiat en remontant
+                                for (let j = idx - 1; j >= 0; j--) {
+                                    if (arr[j].level === item.level - 1) {
+                                        isVisible = expandedSections.has(arr[j].id);
+                                        break;
+                                    }
+                                    if (arr[j].level < item.level - 1) break;
+                                }
+                            }
+                            
                             const displayStyle = isVisible ? 'flex' : 'none';
-                            
-                            // Flèche ▶ (fermée) par défaut si enfants existent
-                            const arrow = hasChildren ? 
-                                `<span onclick="toggleSection('${jsEscapedId}', event)" style="cursor:pointer; display:inline-block; width:12px; margin-right:4px; font-size:10px;">▶</span>` : 
-                                `<span style="display:inline-block; width:12px; margin-right:4px;"></span>`;
-                            
+                            const isExpanded = expandedSections.has(originalId);
                             const paddingLeft = item.level ? (8 + (item.level-1)*12) : 8;
                             
                             return `
-                                <div class="index-item" data-section="${originalId}" data-level="${item.level || 0}"
-                                     style="padding-left:${paddingLeft}px; display:${displayStyle}; align-items:center;">
-                                    ${arrow}
-                                    <span onclick="scrollToElement('${jsEscapedId}')" style="cursor:pointer; flex:1;">
+                                <div class="index-item ${isExpanded ? 'expanded' : ''}" 
+                                     data-section="${originalId}" 
+                                     data-level="${item.level || 0}"
+                                     style="padding-left:${paddingLeft}px; display:${displayStyle}; cursor: pointer;"
+                                     onclick="toggleIndexItem('${jsEscapedId}', ${hasChildren})">
+                                    <span style="flex:1;">
                                         ${safeTitle}
                                     </span>
                                 </div>
@@ -940,45 +957,19 @@
             }).join('');
         }
         
-        function toggleSection(parentId, event) {
-            event.stopPropagation();
-            const parent = document.querySelector(`[data-section="${parentId}"]`);
-            if (!parent) return;
+        function toggleIndexItem(id, hasChildren) {
+            // Toujours scroller vers la section
+            scrollToElement(id);
             
-            const parentLevel = parseInt(parent.dataset.level);
-            const arrow = parent.querySelector('span[onclick^="toggleSection"]');
-            let sibling = parent.nextElementSibling;
-            let isOpening = false;
-            
-            // Détecter si on ouvre ou ferme (vérifier l'état du premier enfant)
-            if (sibling) {
-                const siblingLevel = parseInt(sibling.dataset.level);
-                if (siblingLevel > parentLevel) {
-                    isOpening = sibling.style.display === 'none';
-                }
-            }
-            
-            // Modifier tous les enfants (niveau + 1 uniquement quand on ouvre, tout quand on ferme)
-            while (sibling) {
-                const siblingLevel = parseInt(sibling.dataset.level);
-                if (siblingLevel <= parentLevel) break;
-                
-                if (isOpening) {
-                    // On ouvre : on montre seulement le niveau immédiatement inférieur
-                    if (siblingLevel === parentLevel + 1) {
-                        sibling.style.display = 'flex';
-                    }
+            // Si l'élément a des enfants, toggle son état développé
+            if (hasChildren) {
+                if (expandedSections.has(id)) {
+                    expandedSections.delete(id);
                 } else {
-                    // On ferme : on cache tout et on remet les flèches des enfants à ▶
-                    sibling.style.display = 'none';
-                    const childArrow = sibling.querySelector('span[onclick^="toggleSection"]');
-                    if (childArrow) childArrow.textContent = '▶';
+                    expandedSections.add(id);
                 }
-                sibling = sibling.nextElementSibling;
+                renderDocumentsList(); // Re-render pour mettre à jour la visibilité des enfants
             }
-            
-            // Changer la flèche du parent (▼ si ouvert, ▶ si fermé)
-            if (arrow) arrow.textContent = isOpening ? '▼' : '▶';
         }
 
         function scrollToCharacter(index) {
@@ -1108,6 +1099,7 @@
         }
 
         async function loadDocument(docId) {
+            expandedSections.clear();
             document.querySelectorAll('style[id^="injected-style-"]').forEach(el => el.remove());
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
