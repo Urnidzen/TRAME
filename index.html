@@ -1317,6 +1317,16 @@
             }
             
             removeEmptySpreads();
+    
+            // Mise à jour finale des numéros au format "p. X/Y"
+            const allPages = document.querySelectorAll('.book-spread .page');
+            const totalPages = allPages.length;
+            allPages.forEach((page, index) => {
+                const numEl = page.querySelector('.page-number');
+                if (numEl) {
+                    numEl.textContent = `p. ${index + 1}/${totalPages}`;
+                }
+            });
         }
 
         function injectGiscus() {
@@ -1347,8 +1357,8 @@
             const spread = document.createElement('div');
             spread.className = 'book-spread';
             
-            const htmlLeft = `<div class="page page-left"><div class="content-wrapper"></div>${LEGAL_HTML}<div class="page-number">- ${pgnState.pageCount} -</div></div>`;
-            const htmlRight = `<div class="page page-right"><div class="content-wrapper"></div>${LEGAL_HTML}<div class="page-number">- ${pgnState.pageCount + 1} -</div></div>`;
+            const htmlLeft = `<div class="page page-left"><div class="content-wrapper"></div>${LEGAL_HTML}<div class="page-number">p. ${pgnState.pageCount}/—</div></div>`;
+            const htmlRight = `<div class="page page-right"><div class="content-wrapper"></div>${LEGAL_HTML}<div class="page-number">p. ${pgnState.pageCount + 1}/—</div></div>`;
 
             if (isMobile) spread.innerHTML = htmlLeft;
             else spread.innerHTML = htmlLeft + htmlRight;
