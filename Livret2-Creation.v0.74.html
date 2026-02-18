@@ -67,26 +67,121 @@
 <!-- CONTENU HTML -->
 <div class="content-section" id="section-talents">
     <h2>1. Talents et Compétences</h2>
+    <p><strong>Rappel des mécaniques du Livret 1 :</strong> Avant de créer votre personnage, voici un récapitulatif des capacités disponibles. Ces éléments déterminent tout ce que votre héros peut entreprendre, aussi bien en combat que hors combat.</p>
     
-    <div id="section-talents-list">
-    <h3>Les Valeurs des Talents</h3>
-        <div class="content-card">
-            <p>Chaque Talent à +1 permet de réussir automatiquement les épreuves faciles (Difficulté 0) et de tenter les épreuves ardues (Difficulté 1).</p>
-        </div>
+    <div id="section-talents-detail">
+    <h3>Les Talents (Limités à +1)</h3>
+    <div class="content-card">
+        <p class="mb-4"><strong>Progression maximale :</strong> Sans l'aide d'objets magiques, de bénédictions surnaturelles ou d'artefacts légendaires, aucun Talent ne peut dépasser la valeur de <strong>+1</strong>. Cette limite représente l'apogée des capacités naturelles et de l'entraînement mortel.</p>
+        
+        <p class="mb-4">Les Talents couvrent toutes les actions ne relevant pas du combat direct, de la magie ni des interactions sociales — ou liées à une attaque (feinte) :</p>
+        
+        <ul class="dash-list space-y-2">
+            <li>
+                <strong>Athlétisme :</strong> Force et endurance.<br>
+                Efforts prolongés ou puissants (soulever, briser, sprinter, nager). Ne couvre pas l'agilité ni l'équilibre. Exemples : escalade en force (pas en finesse), sauter, courir, tenir une porte fermée, charger un blessé.
+            </li>
+            <li>
+                <strong>Aptitude Féline :</strong> Équilibre et discrétion.<br>
+                Mouvements du corps nécessitant souplesse et contrôle. Inclut le déplacement silencieux, se cacher et les désengagements. Exemples : se faufiler, chute contrôlée, marcher en équilibre sur un sol instable, escalade en finesse, accrobatie.
+            </li>
+            <li>
+                <strong>Mécanique :</strong> Outils et ingénierie.<br>
+                Confection ou interaction avec des objets ou mécanismes physiques inanimés et non organiques. Exemples : crocheter, forger, évaluation de la solidité d'une structure.
+            </li>
+            <li>
+                <strong>Fourberie :</strong> Vol et feinte.<br>
+                Actions frauduleuses reposant sur la distraction ou la motricité fine. Ne couvre pas se cacher ni le déplacement silencieux ni crocheter. Peut s'utiliser avec une Attaque pour feinter. Exemples : vol à la tire, cacher un objet sur soi.
+            </li>
+            <li>
+                <strong>Perception :</strong> Sens et détection.<br>
+                Détection immédiate de stimuli. Distinction avec Survie : Perception voit (embuscade, objet caché), Survie interprète des traces (pistage) découvertes avec la Perception. Exemples : détection d'embuscades, fouille rapide, ouïe fine.
+            </li>
+            <li>
+                <strong>Survie :</strong> Nature et pistage.<br>
+                Connaissance pratique du milieu naturel. Couvre la survie (se nourrir, s'abriter, trouver de l'eau), la connaissance de la flore et de la faune, le dépeçage et le tannage. Exemples : orientation (non magique), herboristerie, pistage (lecture de traces au sol), dressage.
+            </li>
+            <li>
+                <strong>Savoir Académique :</strong> Théorie et histoire.<br>
+                Savoirs livresques et logique abstraite. Exemples : décrypter (pas crocheter), identifier un symbole historique, médecine, navigation astronomique.
+            </li>
+        </ul>
+    </div>
     </div>
 
-    <div id="section-valeurs">
-    <h3>Les Valeurs des Compétences</h3>
-        <div class="content-card">
-            <p class="mb-4">Au nombre de 12 (6 attaques : 3 Types (Direct, Circulaire, Saisie) et 3 Cibles  (Tête, Tronc, Membres) et 6 protections : 3 Défenses (vs Direct, vs Circulaire, vs Saisie) et 3 Résistances (Tête, Tronc, Membres) leur valeur représente vos aptitudes au combat, mettant en avant vos faiblesses et vos point fort :</p>
-            <ul class="dash-list space-y-2">
-                <li><strong>0 (Non-initié):</strong> Valeur par défaut.</li>
-                <li><strong>+1 (Initié):</strong> Entraînement de base.</li>
-                <li><strong>+2 (Expert):</strong> Aventurier expérimenté.</li>
-                <li><strong>+3 (Maître):</strong> Élite.</li>
-            </ul>
-        </div>
+    <div id="section-competences-detail">
+    <h3>Les Compétences (Progression Illimitée)</h3>
+    <div class="content-card">
+        <p class="mb-4"><strong>Progression sans plafond :</strong> Contrairement aux Talents, les Compétences de combat ne connaissent pas de limite naturelle. Au-delà du Maître (+3), les rangs suivants sont accessibles aux héros les plus exceptionnels :</p>
+        <ul class="dash-list space-y-2 mb-4">
+            <li><strong>+4 :</strong> Grand Maître</li>
+            <li><strong>+5 :</strong> Légendaire</li>
+            <li><strong>+6 :</strong> Mythique</li>
+            <li><strong>+7 :</strong> Demi-Dieu</li>
+            <li><strong>+8 :</strong> Divin (Premier Cercle)</li>
+            <li><strong>+9 et au-delà :</strong> Divin (Cercles supérieurs)</li>
+        </ul>
+        
+        <p class="mb-4">Les <strong>12 Compétences</strong> se divisent en deux catégories : <strong>6 Attaques</strong> (3 Types × 3 Cibles) et <strong>6 Protections</strong> (3 Défenses + 3 Résistances) :</p>
+        
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong>A. Les Types d'Attaque (Mode d'exécution)</strong></h4>
+        <ul class="dash-list space-y-2">
+            <li><strong>Direct :</strong> Estoc, Jab, Tir, Lancé, Projectile magique, Rayon, flux linéaire...</li>
+            <li><strong>Circulaire :</strong> Taille, Coup de pied circulaire, Crochet, Balayage, Disque magique, Demi-lune...</li>
+            <li><strong>Saisie :</strong> Clé, Projection, Écrasement, Constriction, Télékinésie, Entrave, Manipulation...</li>
+        </ul>
+        
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong>B. Les Cibles (Points visés)</strong></h4>
+        <ul class="dash-list space-y-2">
+            <li><strong>Tête :</strong> Tête, Cou, Yeux, Cheveux, Esprit, Mental, Sens, Illusions...</li>
+            <li><strong>Tronc :</strong> Plexus, Foie, Cœur, Poumons, Côtes, Altération du corps entier, Vie, Chair, Création...</li>
+            <li><strong>Membres :</strong> Bras, Jambes, Pattes, Déplacement, Équilibre, Motricité...</li>
+        </ul>
+        
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong>C. Les Défenses (Parade & Esquive)</strong></h4>
+        <ul class="dash-list space-y-2">
+            <li>Défense vs Direct</li>
+            <li>Défense vs Circulaire</li>
+            <li>Défense vs Saisie</li>
+        </ul>
+        
+        <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong>D. Les Résistances (Encaissement & Armure)</strong></h4>
+        <ul class="dash-list space-y-2">
+            <li>Résistance Tête</li>
+            <li>Résistance Tronc</li>
+            <li>Résistance Membres</li>
+        </ul>
+        
+        <p class="mt-4 italic"><strong>Résolution :</strong> Score d'Attaque = Type + Cible vs Score de Protection = Défense correspondante + Résistance correspondante.</p>
     </div>
+    </div>
+
+    <div id="section-valeurs-progression">
+    <h3>Tableau Récapitulatif des Valeurs</h3>
+    <div class="content-card">
+        <h4>Talents (Maximum naturel : +1)</h4>
+        <ul class="dash-list space-y-2">
+            <li><strong>0 (Non-initié) :</strong> Valeur par défaut. Pas de jet possible pour les tâches ardues.</li>
+            <li><strong>+1 (Expert) :</strong> Entraînement poussé. Permet de réussir automatiquement les tâches faciles (Difficulté 0) et de tenter les tâches ardues (Difficulté 1).</li>
+        </ul>
+        <p class="mt-2 italic text-sm">Note : Seuls les objets magiques ou bénédictions peuvent dépasser ce plafond naturel.</p>
+        
+        <h4 style="margin-top: 1.5rem;">Compétences (Échelle ouverte)</h4>
+        <ul class="dash-list space-y-2">
+            <li><strong>0 :</strong> Non-initié</li>
+            <li><strong>+1 :</strong> Initié</li>
+            <li><strong>+2 :</strong> Expert (Aventurier expérimenté)</li>
+            <li><strong>+3 :</strong> Maître (Élite)</li>
+            <li><strong>+4 :</strong> Grand Maître</li>
+            <li><strong>+5 :</strong> Légendaire</li>
+            <li><strong>+6 :</strong> Mythique</li>
+            <li><strong>+7 :</strong> Demi-Dieu</li>
+            <li><strong>+8 :</strong> Divin (Premier Cercle)</li>
+            <li><strong>+9+ :</strong> Divin (Cercles supérieurs)</li>
+        </ul>
+    </div>
+    </div>
+</div>
 
 <div class="page-break"></div>
 
@@ -183,6 +278,7 @@
         <p>L'amélioration doit être justifiée soit par une pratique marquante lors de la séance précédente, soit par un mentorat durant un temps mort.</p>
     </div>
 </div>
+
 
 
 
