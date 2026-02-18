@@ -1,69 +1,3 @@
-<!-- LIVRET 2 - CRÉATION & ÉVOLUTION -->
-<!-- Index JSON pour navigation -->
-<script type="application/json" id="doc-index">
-{
-    "id": "livret2",
-    "icon": "📖",
-    "title": "Livret 2",
-    "subtitle": "Création & Évolution",
-    "index": [
-        {"id": "section-talents", "title": "1. Talents et Compétences", "level": 1},
-        {"id": "section-talents-list", "title": "Valeurs des Talents", "level": 2},
-        {"id": "section-valeurs", "title": "Valeurs des Compétences", "level": 2},
-        {"id": "section-creation", "title": "2. Création de personnage", "level": 1},
-        {"id": "section-espece", "title": "Étape 1 : Espèce", "level": 2},
-        {"id": "section-genre", "title": "Étape 2 : Genre", "level": 2},
-        {"id": "section-nom", "title": "Étape 3 : Nom", "level": 2},
-        {"id": "section-apparence", "title": "Étape 4 : Apparence", "level": 2},
-        {"id": "section-depart", "title": "Étape 5 : Équipement", "level": 2},
-        {"id": "section-progression", "title": "3. Progression", "level": 1},
-        {"id": "section-pa", "title": "Points d'Amélioration", "level": 2},
-        {"id": "section-usage", "title": "Règle de l'Usage", "level": 2}
-    ]
-}
-</script>
-
-<style>
-    .table-races {
-        width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
-    }
-    
-    .table-races th, .table-races td {
-        padding: 8px;
-        vertical-align: top;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
-    }
-    
-    .table-races th:nth-child(1), .table-races td:nth-child(1) {
-        width: 20%;
-    }
-    
-    .table-races th:nth-child(2), .table-races td:nth-child(2) {
-        width: 30%;
-    }
-    
-    .table-races th:nth-child(3), .table-races td:nth-child(3) {
-        width: 30%;
-    }
-    
-    .table-races th:nth-child(4), .table-races td:nth-child(4) {
-        width: 20%;
-    }
-    
-    .table-races th {
-        text-align: left;
-        border-bottom: 2px solid #1c1917;
-    }
-    
-    .table-races td {
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-</style>
-
 <!-- CONTENU HTML -->
 <!-- LIVRET 2 - CRÉATION & ÉVOLUTION -->
 <!-- Index JSON pour navigation -->
@@ -75,8 +9,8 @@
     "subtitle": "Création & Évolution",
     "index": [
         {"id": "section-talents", "title": "1. Talents et Compétences", "level": 1},
-        {"id": "section-talents-list", "title": "Valeurs des Talents", "level": 2},
-        {"id": "section-valeurs", "title": "Valeurs des Compétences", "level": 2},
+        {"id": "section-talents-details", "title": "Talents", "level": 2},
+        {"id": "section-competences-details", "title": "Compétences", "level": 2},
         {"id": "section-creation", "title": "2. Création de personnage", "level": 1},
         {"id": "section-espece", "title": "Étape 1 : Espèce", "level": 2},
         {"id": "section-genre", "title": "Étape 2 : Genre", "level": 2},
@@ -136,7 +70,7 @@
     <h2>1. Talents et Compétences</h2>
     <p><strong>Rappel des mécaniques du Livret 1 :</strong> Avant de créer votre personnage, voici un récapitulatif des capacités disponibles. Ces éléments déterminent tout ce que votre héros peut entreprendre, aussi bien en combat que hors combat.</p>
     
-    <div id="section-talents-detail">
+    <div id="section-talents-details">
     <h3>Les Talents</h3>
         <p class="mb-4">Les <strong>Talents</strong> couvrent toutes les actions ne relevant pas du combat direct, de la magie ni des interactions sociales — ou liées à une attaque (ex. feinte) :</p>
         <p class="mb-4"><strong>Progression maximale :</strong> Sans l'aide d'objets magiques ou de capacités surnaturelles, aucun Talent ne peut dépasser la valeur de <strong>+1</strong>. Cette limite représente l'apogée des capacités naturelles et de l'entraînement mortel.</p>
@@ -175,12 +109,13 @@
     </div>
     </div>
 
-    <div id="section-competences-detail">
-    <h3>Les Compétences (Progression Illimitée)</h3>
+    <div id="section-competences-details">
+    <h3>Les Compétences</h3>
     <div class="content-card">
         <p class="mb-4">Les <strong>Compétences</strong> couvrent toutes les actions de combat, aussi bien offensives que défensives — ainsi que l'incantation magique et la résistance aux assauts physiques et mystiques.</p>
 
         <p class="mb-4"><strong>Progression sans plafond :</strong> Contrairement aux Talents, les Compétences de combat ne connaissent pas de limite naturelle. Au-delà du Maître (+3), les rangs suivants sont accessibles aux héros les plus exceptionnels :</p>
+        <div class="content-card">
         <ul class="dash-list space-y-2 mb-4">
             <li><strong>0 :</strong> Non-initié</li>
             <li><strong>+1 :</strong> Initié</li>
@@ -193,7 +128,10 @@
             <li><strong>+8 :</strong> Divin (Premier Cercle)</li>
             <li><strong>+9 et au-delà :</strong> Divin (Cercles supérieurs)</li>
         </ul>
+        </div>
 
+        <div class="page-break"></div>
+        
         <p class="mb-4">Les <strong>12 Compétences</strong> se divisent en deux catégories : <strong>6 Attaques</strong> (3 Types × 3 Cibles) et <strong>6 Protections</strong> (3 Défenses x 3 Résistances) :</p>
         
         <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong>A. Les Types d'Attaque (Mode d'exécution)</strong></h4>
@@ -323,5 +261,6 @@
         <p>L'amélioration doit être justifiée soit par une pratique marquante lors de la séance précédente, soit par un mentorat durant un temps mort.</p>
     </div>
 </div>
+
 
 
