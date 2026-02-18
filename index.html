@@ -1401,12 +1401,10 @@
         }
 
         function splitTextElement(element, maxHeight) {
-            // Clone pour manipulation
             const clone = element.cloneNode(true);
             const originalText = element.textContent;
             let low = 0, high = originalText.length;
             
-            // Binary search pour trouver la longueur exacte qui rentre
             while (low < high) {
                 const mid = Math.ceil((low + high) / 2);
                 clone.textContent = originalText.substring(0, mid);
@@ -1420,13 +1418,11 @@
                 pgnState.currentPageContent.removeChild(clone);
             }
             
-            // Coupe finale
             const text1 = originalText.substring(0, low);
             const text2 = originalText.substring(low).trim();
             
-            if (text2.length === 0) return null; // Tout rentre finalement
+            if (text2.length === 0) return null;
             
-            // Crée les deux éléments
             const part1 = element.cloneNode(true);
             part1.textContent = text1;
             
@@ -1436,52 +1432,85 @@
             return { part1, part2 };
         }
         
+        // === NOUVELLE FONCTION 2 ===
+        function splitContentCard(element) {
+            const allText = element.innerText || element.textContent;
+            if (!allText || allText.length < 20) return null;
+            
+            const mid = Math.floor(allText.length / 2);
+            let splitIndex = mid;
+            while (splitIndex > 0 && allText[splitIndex] !== ' ') splitIndex--;
+            if (splitIndex === 0) splitIndex = mid;
+            
+            const text1 = allText.substring(0, splitIndex);
+            const text2 = allText.substring(splitIndex).trim();
+            
+            const part1 = element.cloneNode(true);
+            part1.innerHTML = `<p style="margin:0;">${text1}</p>`;
+            
+            const part2 = element.cloneNode(true);
+            part2.innerHTML = `<p style="margin:0;">${text2}</p>`;
+            
+            return { part1, part2 };
+        }
+        
         function processElement(element) {
             // FORCER UN SAUT DE PAGE si l'élément a la classe 'page-break'
             if (element.classList && element.classList.contains('page-break')) {
                 advancePage();
-                return; // On ne traite pas cet élément (c'est juste un marqueur)
+                return;
             }
             
             let node = element.cloneNode(true);
             pgnState.currentPageContent.appendChild(node);
+            
             if (isOverflowing(pgnState.currentPageContent)) {
-                // NOUVEAU : Page de gauche + élément texte simple
+                // === DÉBUT MODIFICATIONS ===
+                const container = pgnState.currentPageContent;
+                const availableHeight = container.clientHeight - (container.scrollHeight - node.scrollHeight);
+                const pageHeight = container.clientHeight;
+                const availablePercent = availableHeight / pageHeight;
+                
+                // Retirer le nœud qui déborde (on le remettra si on coupe, ou on le remet en queue si on ne coupe pas)
+                container.removeChild(node);
+                
+                // CAS 1 : Content-card sur page de gauche avec >40% d'espace
                 if (!pgnState.isRightPage && 
-                    (element.tagName === 'P' || element.tagName === 'LI') && 
-                    !element.querySelector('img, table, div')) {
+                    element.classList && element.classList.contains('content-card') && 
+                    availablePercent > 0.40) {
                     
-                    const container = pgnState.currentPageContent;
-                    const availableHeight = container.clientHeight - (container.scrollHeight - node.scrollHeight);
-                    
-                    // Retire le nœud qui déborde
-                    container.removeChild(node);
-                    
-                    // Tente de remplir l'espace restant
-                    const split = splitTextElement(element, availableHeight);
-                    
-                    if (split && split.part1.textContent.length > 10) { // Minimum 10 caractères
-                        // Met la partie 1 sur la gauche (remplit l'espace)
+                    const split = splitContentCard(element);
+                    if (split) {
                         container.appendChild(split.part1);
-                        
-                        // Remet la partie 2 dans la queue pour la page suivante
                         pgnState.elementsQueue.unshift(split.part2);
-                        
-                        // Passe à la page droite normalement
                         advancePage();
                         return;
                     }
                 }
                 
-                // Ancienne logique (inchangée)
-                pgnState.currentPageContent.removeChild(node);
-                const isPageEmpty = pgnState.currentPageContent.children.length === 0;
+                // CAS 2 : Texte simple (P ou LI) sur page de gauche
+                if (!pgnState.isRightPage && 
+                    (element.tagName === 'P' || element.tagName === 'LI') && 
+                    !element.querySelector('img, table, div')) {
+                    
+                    const split = splitTextElement(element, availableHeight);
+                    if (split && split.part1.textContent.length > 10) {
+                        container.appendChild(split.part1);
+                        pgnState.elementsQueue.unshift(split.part2);
+                        advancePage();
+                        return;
+                    }
+                }
+                
+                // CAS PAR DÉFAUT (logique originale conservée)
+                const isPageEmpty = container.children.length === 0;
                 if (!isPageEmpty) {
                     advancePage();
                     pgnState.elementsQueue.unshift(element); 
                 } else {
                     handleGiantBlock(element);
                 }
+                // === FIN MODIFICATIONS ===
             }
         }
 
