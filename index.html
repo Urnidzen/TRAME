@@ -1434,70 +1434,59 @@
         
         // === NOUVELLE FONCTION 2 ===
         function splitContentCard(element) {
-            // Vérifier si c'est une liste ou contient une liste
             const isList = element.tagName === 'UL' || element.tagName === 'OL';
             const list = isList ? element : element.querySelector('ul, ol');
             
-            if (list) {
-                const items = Array.from(list.children).filter(child => child.tagName === 'LI');
-                if (items.length < 2) return null; // Pas assez d'items pour couper
-                
-                // Binary search pour trouver combien d'items rentrent dans l'espace restant
-                let low = 0, high = items.length;
-                const container = pgnState.currentPageContent;
-                
-                while (low < high) {
-                    const mid = Math.ceil((low + high) / 2);
-                    const testClone = element.cloneNode(true);
-                    const testList = isList ? testClone : testClone.querySelector('ul, ol');
-                    
-                    // Garder seulement les 'mid' premiers items
-                    const testItems = testList.querySelectorAll('li');
-                    for (let i = testItems.length - 1; i >= mid; i--) {
-                        testItems[i].remove();
-                    }
-                    
-                    container.appendChild(testClone);
-                    if (isOverflowing(container)) {
-                        high = mid - 1;
-                    } else {
-                        low = mid;
-                    }
-                    container.removeChild(testClone);
+            if (!list) return null; // Pas de liste trouvée
+            
+            const items = Array.from(list.children).filter(child => child.tagName === 'LI');
+            if (items.length < 2) return null;
+            
+            // Trouve où couper (combien d'items rentrent dans la page)
+            let low = 0, high = items.length;
+            const container = pgnState.currentPageContent;
+            
+            while (low < high) {
+                const mid = Math.ceil((low + high) / 2);
+                const testClone = element.cloneNode(true);
+                const testList = isList ? testClone : testClone.querySelector('ul, ol');
+                const testItems = testList.querySelectorAll('li');
+                for (let i = testItems.length - 1; i >= mid; i--) {
+                    testItems[i].remove();
                 }
-                
-                // Si on ne peut rien mettre ou tout mettre, abandonner le découpage
-                if (low === 0 || low >= items.length) return null;
-                
-                // Créer les deux parties
-                const part1 = element.cloneNode(true);
-                const part2 = element.cloneNode(true);
-
-                if (!isList) {
-                    const title = part2.querySelector('h1, h2, h3, h4, h5, h6, strong');
-                    if (title) title.remove();
-                    const introText = part2.querySelector('p');
-                    if (introText) introText.remove();
+                container.appendChild(testClone);
+                if (isOverflowing(container)) {
+                    high = mid - 1;
+                } else {
+                    low = mid;
                 }
-                
-                const list1 = isList ? part1 : part1.querySelector('ul, ol');
-                const list2 = isList ? part2 : part2.querySelector('ul, ol');
-                
-                const items1 = list1.querySelectorAll('li');
-                const items2 = list2.querySelectorAll('li');
-                
-                // Partie 1 : garder uniquement les items 0 à low-1
-                for (let i = items1.length - 1; i >= low; i--) {
-                    items1[i].remove();
-                }
-                
-                // Partie 2 : garder uniquement les items low à fin
-                for (let i = low - 1; i >= 0; i--) {
-                    items2[i].remove();
-                }
-                
-                return { part1, part2 };
+                container.removeChild(testClone);
             }
+            
+            if (low === 0 || low >= items.length) return null;
+            
+            // Partie 1 (première page) : clone avec début de liste
+            const part1 = element.cloneNode(true);
+            const list1 = isList ? part1 : part1.querySelector('ul, ol');
+            const items1 = list1.querySelectorAll('li');
+            for (let i = items1.length - 1; i >= low; i--) {
+                items1[i].remove();
+            }
+            
+            // Partie 2 (page suivante) : SEULEMENT la suite de la liste, sans titre
+            const part2 = document.createElement(element.tagName);
+            part2.className = element.className;
+            
+            // Crée une liste vide et ajoute seulement les items restants
+            const newList = document.createElement(list.tagName);
+            newList.className = list.className;
+            for (let i = low; i < items.length; i++) {
+                newList.appendChild(items[i].cloneNode(true));
+            }
+            part2.appendChild(newList);
+            
+            return { part1, part2 };
+        }
             
             // Fallback sur l'ancien code pour le texte simple (sans liste)
             const allText = element.innerText || element.textContent;
