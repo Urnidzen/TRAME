@@ -1526,7 +1526,7 @@
             if (isOverflowing(pgnState.currentPageContent)) {
                 // === DÉBUT MODIFICATIONS ===
                 const container = pgnState.currentPageContent;
-                const availableHeight = container.clientHeight - (container.scrollHeight - node.scrollHeight);
+                const availableHeight = container.clientHeight - container.scrollHeight;
                 const pageHeight = container.clientHeight;
                 const availablePercent = availableHeight / pageHeight;
                 
