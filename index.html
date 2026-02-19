@@ -1091,12 +1091,12 @@
         async function selectDocument(docId) {
             if (currentDoc === docId) {
                 expandedId = (expandedId === docId) ? null : docId;
+                renderDocumentsList();
             } else {
                 currentDoc = docId;
                 expandedId = docId;
                 await loadDocument(docId);
             }
-            renderDocumentsList();
         }
 
         async function loadDocument(docId) {
@@ -1145,7 +1145,15 @@
                 tempDiv.querySelectorAll('script, style, link[rel="stylesheet"], meta, title, base, noscript').forEach(el => el.remove());
                 
                 rawContentCache = cleanHtmlContent(tempDiv.innerHTML);
-                paginateContent(rawContentCache);
+                
+                // Attendre que les polices soient prêtes puis paginer
+                await document.fonts.ready;
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        paginateContent(rawContentCache);
+                        renderDocumentsList();
+                    });
+                });
 
             } catch (error) {
                 console.error('Erreur:', error);
