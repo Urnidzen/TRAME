@@ -244,6 +244,32 @@
             padding: 1.2rem; margin-bottom: 1.2rem; border-radius: 4px;
         }
 
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .dash-list li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .dash-list li:before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #7c2d12;
+            font-weight: bold;
+        }
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.3rem;
+        }
+        
         .rule-box { border-left: 4px solid #7c2d12; background: rgba(124, 45, 18, 0.05); padding: 1rem; margin: 1.2rem 0; }
 
         img {
