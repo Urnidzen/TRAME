@@ -1534,12 +1534,14 @@
             if (isOverflowing(pgnState.currentPageContent)) {
                 const container = pgnState.currentPageContent;
                 
-                // STOCKER la hauteur AVANT de détacher le nœud !
-                const nodeHeight = node.scrollHeight;
+                // CAPTURER les hauteurs AVANT de retirer le nœud
+                const nodeScrollHeight = node.scrollHeight;
                 const containerScrollHeight = container.scrollHeight;
-                const availableHeight = container.clientHeight - (containerScrollHeight - nodeHeight);
+                const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
+                const pageHeight = container.clientHeight;
+                const availablePercent = availableHeight / pageHeight;
                 
-                // Maintenant on peut détacher
+                // Maintenant on retire le nœud
                 container.removeChild(node);
                 
                 // CAS 1 : Content-card sur page de gauche avec >40% d'espace
@@ -1573,18 +1575,15 @@
                 // CAS PAR DÉFAUT
                 const isPageEmpty = container.children.length === 0;
                 
-                // NOUVEAU : Si on reporte un content-card et que le dernier élément est un titre, 
+                // Si on reporte un content-card et que le dernier élément est un titre, 
                 // on reporte aussi le titre pour ne pas le couper de son contenu
                 if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
                     const lastChild = container.lastElementChild;
                     const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
                     
                     if (isHeading) {
-                        // Retirer le titre de la page actuelle
                         container.removeChild(lastChild);
-                        // Passer à la page suivante
                         advancePage();
-                        // Remettre le titre puis le content-card dans la file
                         pgnState.elementsQueue.unshift(element);
                         pgnState.elementsQueue.unshift(lastChild);
                         return;
