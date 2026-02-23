@@ -1,6 +1,6 @@
 /**
  * TRAME REGISTRE - SYSTEME DE SAUVEGARDE CENTRALISÉ
- * Ce fichier gère la mémoire (LocalStorage) partagée entre le Codex et les Fiches.
+ * Version Corrigée : Synchronisation multi-iframes
  */
 
 const TRAME_Registre = {
@@ -9,56 +9,62 @@ const TRAME_Registre = {
 
     // Cache des données en mémoire vive
     data: {
-        profiles: [] // Liste des objets { id, name, timestamp, content }
+        profiles: [] 
     },
 
     /**
      * Initialisation : Charge les données depuis le navigateur
      */
     init: function() {
+        this.reload();
+    },
+
+    /**
+     * Force la relecture du LocalStorage pour synchroniser l'état
+     * CRUCIAL : Doit être appelé avant toute modification pour éviter les écrasements
+     */
+    reload: function() {
         const store = localStorage.getItem(this.STORAGE_KEY);
         if (store) {
             try {
                 this.data = JSON.parse(store);
             } catch (e) {
-                console.error("[TRAME Registre] Erreur de lecture des données corrompues :", e);
-                // On garde le tableau vide par sécurité
+                console.error("[TRAME Registre] Données corrompues, reset mémoire.", e);
+                this.data = { profiles: [] };
             }
         } else {
-            // Premier lancement : aucune donnée existante
-            console.log("[TRAME Registre] Initialisation d'un nouveau registre vierge.");
+            this.data = { profiles: [] };
         }
     },
 
     /**
-     * Récupère la liste complète des profils (pour le Sommaire du Livre)
-     * @returns {Array} Tableau des profils
+     * Récupère la liste complète des profils
      */
     getAllProfiles: function() {
-        // On renvoie une copie pour éviter les mutations accidentelles
+        this.reload(); // On s'assure d'avoir la dernière version
         return [...this.data.profiles];
     },
 
     /**
-     * Récupère un profil spécifique par son ID (pour la Fiche)
-     * @param {string} id - L'identifiant unique (ex: "p_1702394...")
-     * @returns {Object|null} Le profil ou null si introuvable
+     * Récupère un profil spécifique
      */
     getProfile: function(id) {
+        this.reload(); // On s'assure d'avoir la dernière version
         return this.data.profiles.find(p => p.id === id) || null;
     },
 
     /**
      * Crée une nouvelle page vierge dans le registre
-     * @returns {string} L'ID du nouveau profil créé
      */
     createProfile: function() {
-        const newId = "p_" + Date.now(); // ID unique basé sur l'heure
+        this.reload(); // IMPORTANT : Recharger avant d'ajouter
+        
+        const newId = "p_" + Date.now(); 
         const newProfile = {
             id: newId,
             name: "Nouveau Personnage",
             timestamp: Date.now(),
-            content: {} // Données vierges
+            content: {} 
         };
 
         this.data.profiles.push(newProfile);
@@ -68,30 +74,29 @@ const TRAME_Registre = {
     },
 
     /**
-     * Met à jour les données d'un profil (appelé par la Fiche lors de la saisie)
-     * @param {string} id - ID du profil
-     * @param {Object} contentData - L'objet JSON contenant toutes les valeurs des inputs
-     * @param {string} [name] - (Optionnel) Le nom du personnage pour le sommaire
+     * Met à jour les données d'un profil
      */
     updateProfile: function(id, contentData, name) {
+        this.reload(); // IMPORTANT : Recharger avant de modifier quoi que ce soit
+
         const profile = this.data.profiles.find(p => p.id === id);
         if (profile) {
             profile.content = contentData;
             if (name) profile.name = name;
             profile.timestamp = Date.now();
             this.save();
-            // console.log("[TRAME Registre] Profil sauvegardé :", id); // Décommenter pour debug
         } else {
-            console.warn("[TRAME Registre] Tentative de sauvegarde sur un profil inexistant :", id);
+            // Cas rare où le profil a été supprimé entre temps
+            console.warn("[TRAME Registre] Profil introuvable pour mise à jour :", id);
         }
     },
 
     /**
-     * Supprime définitivement un profil (appelé par le Livre)
-     * @param {string} id - ID du profil à supprimer
-     * @returns {boolean} Succès de l'opération
+     * Supprime définitivement un profil
      */
     deleteProfile: function(id) {
+        this.reload(); // IMPORTANT : Recharger avant de supprimer
+
         const index = this.data.profiles.findIndex(p => p.id === id);
         if (index > -1) {
             this.data.profiles.splice(index, 1);
@@ -110,29 +115,16 @@ const TRAME_Registre = {
             const json = JSON.stringify(this.data);
             localStorage.setItem(this.STORAGE_KEY, json);
         } catch (e) {
-            console.error("[TRAME Registre] Erreur critique lors de l'écriture disque :", e);
+            console.error("[TRAME Registre] Erreur critique sauvegarde :", e);
             alert("Attention : Impossible de sauvegarder (Quota dépassé ?)");
-        }
-    },
-
-        /**
-     * Force la relecture du LocalStorage pour synchroniser l'état entre iframe et parent
-     */
-    reload: function() {
-        const store = localStorage.getItem(this.STORAGE_KEY);
-        if (store) {
-            try {
-                this.data = JSON.parse(store);
-            } catch (e) {
-                console.error("[TRAME Registre] Erreur de relecture des données :", e);
-            }
         }
     },
     
     /**
-     * Fonction utilitaire pour exporter tout le registre en JSON (Backup global)
+     * Export Global (Backup)
      */
     exportGlobalBackup: function() {
+        this.reload();
         const dataStr = JSON.stringify(this.data, null, 2);
         const blob = new Blob([dataStr], { type: "application/json" });
         const url = URL.createObjectURL(blob);
@@ -147,5 +139,5 @@ const TRAME_Registre = {
     }
 };
 
-// Auto-initialisation au chargement du script
+// Auto-initialisation
 TRAME_Registre.init();
