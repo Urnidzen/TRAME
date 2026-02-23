@@ -1037,9 +1037,9 @@
                 "identity-hair": "",
                 "__state_talents": {
                     "athletisme": false, 
-                    "acrobatie": false, 
+                    "aptitude_feline": false, 
                     "mecanique": false,
-                    "subtilite": false, 
+                    "fourberie": false, 
                     "perception": false, 
                     "survie": false,
                     "savoir_acad": false
@@ -1152,6 +1152,7 @@
             if (docId === 'contact') {
                 rawContentCache = "";
                 renderContactPage(doc.file);
+                renderDocumentsList();
                 return;
             }
 
