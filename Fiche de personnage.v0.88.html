@@ -71,7 +71,9 @@
         .btn-print:hover { color: #1e293b; } 
 
         .label-cell {
-            padding: 4px 0;
+            padding: 0; 
+            height: 34px;
+            line-height: 34px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             vertical-align: middle; 
             font-size: 0.8rem; 
@@ -83,10 +85,21 @@
         
         .value-cell {
             padding: 0 !important; 
+            height: 34px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             vertical-align: middle; 
             width: 35px !important;
             text-align: center;
+        }
+
+        .mod-cell {
+            padding: 0 !important;
+            height: 34px;
+            line-height: 34px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            vertical-align: middle;
+            text-align: center;
+            white-space: nowrap;
         }
         
         .clean-input {
@@ -105,7 +118,7 @@
             margin: 0 auto !important; 
             line-height: 30px !important; 
             vertical-align: middle !important;
-            display: block !important;
+            display: inline-block !important;
             box-sizing: border-box !important;
         }
         
@@ -296,21 +309,21 @@
                                                                 <colgroup><col><col style="width: 28px;"><col style="width: 35px;"></colgroup>
                                                                 <tr class="stat-row">
                                                                     <td class="label-cell">Direct</td>
-                                                                    <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center;">
+                                                                    <td class="mod-cell">
                                                                         <span data-id="bonus-att-direct" class="font-digit font-bold text-black text-[1.3rem]"></span>
                                                                     </td>
                                                                     <td class="value-cell"><input type="number" class="clean-input" value="0"></td>
                                                                 </tr>
                                                                 <tr class="stat-row">
                                                                     <td class="label-cell">Circulaire</td>
-                                                                    <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center;">
+                                                                    <td class="mod-cell">
                                                                         <span data-id="bonus-att-circulaire" class="font-digit font-bold text-black text-[1.3rem]"></span>
                                                                     </td>
                                                                     <td class="value-cell"><input type="number" class="clean-input" value="0"></td>
                                                                 </tr>
                                                                 <tr class="stat-row">
                                                                     <td class="label-cell">Saisie</td>
-                                                                    <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center;"></td>
+                                                                    <td class="mod-cell"></td>
                                                                     <td class="value-cell"><input type="number" data-id="stat-att-saisie" class="clean-input" value="0"></td>
                                                                 </tr>
                                                             </table>
@@ -357,9 +370,21 @@
                                                             </div>
                                                             <table class="w-full">
                                                                 <colgroup><col><col style="width: 32px;"><col style="width: 38px;"></colgroup>
-                                                                <tr class="stat-row"><td class="label-cell">Tête</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-tete" class="clean-input" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tete" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell">Tronc</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-tronc" class="clean-input" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tronc" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell">Membres</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-membres" class="clean-input" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-membres" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
+                                                                <tr class="stat-row">
+                                                                    <td class="label-cell">Tête</td>
+                                                                    <td class="value-cell"><input type="number" data-id="res-nat-tete" class="clean-input" value="0"></td>
+                                                                    <td class="mod-cell"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tete" class="font-digit font-bold text-black text-[1.3rem]">0</span></td>
+                                                                </tr>
+                                                                <tr class="stat-row">
+                                                                    <td class="label-cell">Tronc</td>
+                                                                    <td class="value-cell"><input type="number" data-id="res-nat-tronc" class="clean-input" value="0"></td>
+                                                                    <td class="mod-cell"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tronc" class="font-digit font-bold text-black text-[1.3rem]">0</span></td>
+                                                                </tr>
+                                                                <tr class="stat-row">
+                                                                    <td class="label-cell">Membres</td>
+                                                                    <td class="value-cell"><input type="number" data-id="res-nat-membres" class="clean-input" value="0"></td>
+                                                                    <td class="mod-cell"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-membres" class="font-digit font-bold text-black text-[1.3rem]">0</span></td>
+                                                                </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -483,14 +508,16 @@
                                                                     <option value="Gambison_Nain_Casque">Gambison nain avec Casque</option>
                                                                     <option value="Gambison_Nain_Draconique">Gambison nain draco. sans Casque</option>
                                                                     <option value="Gambison_Nain_Draconique_Casque">Gambison nain draco. avec Casque</option>
-                                                                    <option value="Plaques_Naine">Plaques naines sans Casque</option>
-                                                                    <option value="Plaques_Naine_Casque">Plaques naines avec Casque</option>
-                                                                    <option value="Harnois_Draconique">Harnois draco. sans Casque</option>
-                                                                    <option value="Harnois_Draconique_Casque">Harnois draco. avec Casque</option>
+                                                                    <option value="Harnois_Elfique">Harnois elf. sans Casque</option>
+                                                                    <option value="Harnois_Elfique_Casque">Harnois elf. avec Casque</option>
                                                                     <option value="Harnois_Elfique_Draconique">Harnois elf. draco. sans Casque</option>
                                                                     <option value="Harnois_Elfique_Draconique_Casque">Harnois elf. draco. avec Casque</option>
+                                                                    <option value="Harnois_Nain">Harnois nain sans Casque</option>
+                                                                    <option value="Harnois_Nain_Casque">Harnois nain avec Casque</option>
                                                                     <option value="Harnois_Nain_Draconique">Harnois nain draco. sans Casque</option>
                                                                     <option value="Harnois_Nain_Draconique_Casque">Harnois nain draco. avec Casque</option>
+                                                                    <option value="Harnois_Nain_Elfique">Harnois nain elf. sans Casque</option>
+                                                                    <option value="Harnois_Nain_Elfique_Casque">Harnois nain elf. avec Casque</option>
                                                                     <option value="Harnois_Nain_Elfique_Draconique">Harnois nain, elf., draco. sans Casque</option>
                                                                     <option value="Harnois_Nain_Elfique_Draconique_Casque">Harnois nain, elf., draco. avec Casque</option>
                                                                 </optgroup>
@@ -917,8 +944,14 @@
                 "Gambison_Nain_Casque": { dur: 20, res: 2, malus: ["magie", "perception", "aptitude_feline"] },
                 "Gambison_Nain_Draconique": { dur: 20, res: 2, malus: [] },
                 "Gambison_Nain_Draconique_Casque": { dur: 20, res: 2, malus: ["perception", "aptitude_feline"] },
-                "Plaques_Naine": { dur: 22, res: 3, malus: ["magie", "aptitude_feline", "athletisme"] },
-                "Plaques_Naine_Casque": { dur: 22, res: 3, malus: ["magie", "aptitude_feline", "athletisme", "perception", "aptitude_feline"] },
+                
+                "Harnois_Elfique": { dur: 10, res: 3, malus: ["magie", "aptitude_feline", "athletisme", "perception"] },
+                "Harnois_Elfique_Casque": { dur: 10, res: 3, malus: ["magie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
+                "Harnois_Nain": { dur: 24, res: 4, malus: ["magie", "mecanique", "fourberie", "aptitude_feline", "athletisme", "perception"] },
+                "Harnois_Nain_Casque": { dur: 24, res: 4, malus: ["magie", "mecanique", "fourberie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
+                "Harnois_Nain_Elfique": { dur: 24, res: 4, malus: ["magie", "aptitude_feline", "athletisme", "perception"] },
+                "Harnois_Nain_Elfique_Casque": { dur: 24, res: 4, malus: ["magie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
+
                 "Harnois_Draconique": { dur: 10, res: 3, malus: ["mecanique", "fourberie", "aptitude_feline", "athletisme", "perception"] },
                 "Harnois_Draconique_Casque": { dur: 10, res: 3, malus: ["mecanique", "fourberie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
                 "Harnois_Elfique_Draconique": { dur: 10, res: 3, malus: ["aptitude_feline", "athletisme", "perception"] },
