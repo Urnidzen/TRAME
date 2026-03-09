@@ -1484,7 +1484,7 @@
         
         // === NOUVELLE FONCTION 2 ===
         function splitContentCard(element) {
-            // Vérifier si c'est une liste ou contient une liste
+            // 1. Logique pour les listes (UL/OL) - On garde votre structure actuelle
             const isList = element.tagName === 'UL' || element.tagName === 'OL';
             const list = isList ? element : element.querySelector('ul, ol');
             
@@ -1492,7 +1492,6 @@
                 const items = Array.from(list.children).filter(child => child.tagName === 'LI');
                 if (items.length < 2) return null;
                 
-                // Trouve où couper (combien d'items rentrent dans la page)
                 let low = 0, high = items.length;
                 const container = pgnState.currentPageContent;
                 
@@ -1501,62 +1500,68 @@
                     const testClone = element.cloneNode(true);
                     const testList = isList ? testClone : testClone.querySelector('ul, ol');
                     const testItems = testList.querySelectorAll('li');
-                    for (let i = testItems.length - 1; i >= mid; i--) {
-                        testItems[i].remove();
-                    }
+                    for (let i = testItems.length - 1; i >= mid; i--) { testItems[i].remove(); }
+                    
                     container.appendChild(testClone);
-                    void testClone.offsetHeight; // FORCER LE CALCUL DES ESPACEMENTS DE LISTE
-                    if (isOverflowing(container)) {
-                        high = mid - 1;
-                    } else {
-                        low = mid;
-                    }
+                    const overflow = isOverflowing(container);
                     container.removeChild(testClone);
+                    
+                    if (overflow) { high = mid - 1; } else { low = mid; }
                 }
                 
-                if (low === 0 || low >= items.length) return null;
+                if (low <= 0 || low >= items.length) return null;
                 
-                // Partie 1 (première page) : clone avec début de liste
                 const part1 = element.cloneNode(true);
                 const list1 = isList ? part1 : part1.querySelector('ul, ol');
-                const items1 = list1.querySelectorAll('li');
-                for (let i = items1.length - 1; i >= low; i--) {
-                    items1[i].remove();
-                }
+                const items1 = Array.from(list1.children);
+                for (let i = items1.length - 1; i >= low; i--) { items1[i].remove(); }
                 
-                // Partie 2 (page suivante) : SEULEMENT la suite de la liste, sans titre
-                const part2 = document.createElement(element.tagName);
-                part2.className = element.className;
-                
-                // Crée une liste vide et ajoute seulement les items restants
-                const newList = document.createElement(list.tagName);
-                newList.className = list.className;
-                for (let i = low; i < items.length; i++) {
-                    newList.appendChild(items[i].cloneNode(true));
-                }
-                part2.appendChild(newList);
+                const part2 = element.cloneNode(false);
+                const list2 = list.cloneNode(false);
+                for (let i = low; i < items.length; i++) { list2.appendChild(items[i].cloneNode(true)); }
+                part2.appendChild(list2);
                 
                 return { part1, part2 };
             }
             
-            // Fallback sur l'ancien code pour le texte simple (sans liste)
-            const allText = element.innerText || element.textContent;
-            if (!allText || allText.length < 20) return null;
-            
-            const mid = Math.floor(allText.length / 2);
-            let splitIndex = mid;
-            while (splitIndex > 0 && allText[splitIndex] !== ' ') splitIndex--;
-            if (splitIndex === 0) splitIndex = mid;
-            
-            const text1 = allText.substring(0, splitIndex);
-            const text2 = allText.substring(splitIndex).trim();
-            
-            const part1 = element.cloneNode(true);
-            part1.innerHTML = `<p style="margin:0;">${text1}</p>`;
-            
-            const part2 = element.cloneNode(true);
-            part2.innerHTML = `<p style="margin:0;">${text2}</p>`;
-            
+            // 2. NOUVELLE LOGIQUE : Découpe par paragraphes (préserve le gras/HTML)
+            const children = Array.from(element.children);
+            // Si la carte n'a qu'un seul enfant (ex: juste un long paragraphe), 
+            // on ne peut pas la couper par blocs, on laisse le moteur gérer le report à la page suivante.
+            if (children.length < 2) return null;
+        
+            const container = pgnState.currentPageContent;
+            let splitIndex = 0;
+        
+            // On teste un clone vide de la carte pour voir combien d'enfants rentrent
+            const testCard = element.cloneNode(false);
+            container.appendChild(testCard);
+        
+            for (let i = 0; i < children.length; i++) {
+                testCard.appendChild(children[i].cloneNode(true));
+                if (isOverflowing(container)) {
+                    splitIndex = i;
+                    break;
+                }
+                splitIndex = i + 1;
+            }
+            container.removeChild(testCard);
+        
+            // Sécurité anti-boucle : si aucun enfant ne rentre ou si tout rentre, on ne split pas
+            if (splitIndex <= 0 || splitIndex >= children.length) return null;
+        
+            // Création de la partie 1 (Page actuelle)
+            const part1 = element.cloneNode(false);
+            for (let i = 0; i < splitIndex; i++) {
+                part1.appendChild(children[i].cloneNode(true));
+            }
+        
+            // Création de la partie 2 (Page suivante)
+            const part2 = element.cloneNode(false);
+            for (let i = splitIndex; i < children.length; i++) {
+                part2.appendChild(children[i].cloneNode(true));
+            }
+        
             return { part1, part2 };
         }
         
