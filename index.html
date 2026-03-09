@@ -1484,7 +1484,7 @@
         
         // === NOUVELLE FONCTION 2 ===
         function splitContentCard(element) {
-            // === BLOC LOGIQUE LISTE (Inchangé - Ton code original) ===
+            // Vérifier si c'est une liste ou contient une liste
             const isList = element.tagName === 'UL' || element.tagName === 'OL';
             const list = isList ? element : element.querySelector('ul, ol');
             
@@ -1492,6 +1492,7 @@
                 const items = Array.from(list.children).filter(child => child.tagName === 'LI');
                 if (items.length < 2) return null;
                 
+                // Trouve où couper (combien d'items rentrent dans la page)
                 let low = 0, high = items.length;
                 const container = pgnState.currentPageContent;
                 
@@ -1500,127 +1501,61 @@
                     const testClone = element.cloneNode(true);
                     const testList = isList ? testClone : testClone.querySelector('ul, ol');
                     const testItems = testList.querySelectorAll('li');
-                    for (let i = testItems.length - 1; i >= mid; i--) { testItems[i].remove(); }
+                    for (let i = testItems.length - 1; i >= mid; i--) {
+                        testItems[i].remove();
+                    }
                     container.appendChild(testClone);
-                    void testClone.offsetHeight; 
-                    if (isOverflowing(container)) { high = mid - 1; } else { low = mid; }
+                    void testClone.offsetHeight; // FORCER LE CALCUL DES ESPACEMENTS DE LISTE
+                    if (isOverflowing(container)) {
+                        high = mid - 1;
+                    } else {
+                        low = mid;
+                    }
                     container.removeChild(testClone);
                 }
                 
                 if (low === 0 || low >= items.length) return null;
                 
+                // Partie 1 (première page) : clone avec début de liste
                 const part1 = element.cloneNode(true);
                 const list1 = isList ? part1 : part1.querySelector('ul, ol');
                 const items1 = list1.querySelectorAll('li');
-                for (let i = items1.length - 1; i >= low; i--) { items1[i].remove(); }
+                for (let i = items1.length - 1; i >= low; i--) {
+                    items1[i].remove();
+                }
                 
+                // Partie 2 (page suivante) : SEULEMENT la suite de la liste, sans titre
                 const part2 = document.createElement(element.tagName);
                 part2.className = element.className;
+                
+                // Crée une liste vide et ajoute seulement les items restants
                 const newList = document.createElement(list.tagName);
                 newList.className = list.className;
-                for (let i = low; i < items.length; i++) { newList.appendChild(items[i].cloneNode(true)); }
+                for (let i = low; i < items.length; i++) {
+                    newList.appendChild(items[i].cloneNode(true));
+                }
                 part2.appendChild(newList);
                 
                 return { part1, part2 };
             }
             
-            // === BLOC FALLBACK (Amélioré pour une découpe propre et le GRAS) ===
+            // Fallback sur l'ancien code pour le texte simple (sans liste)
+            const allText = element.innerText || element.textContent;
+            if (!allText || allText.length < 20) return null;
             
-            // 1. On protège les balises Strong pour ne pas les couper au milieu
-            let allContent = element.innerHTML
-                .replace(/<strong>/g, "§S§")
-                .replace(/<\/strong>/g, "§/S§");
-
-            if (allContent.length < 20) return null;
-            
-            // 2. RECHERCHE DU POINT DE COUPE LOGIQUE
-            const mid = Math.floor(allContent.length / 2);
+            const mid = Math.floor(allText.length / 2);
             let splitIndex = mid;
-            
-            // On cherche d'abord une fin de paragraphe </p><p> autour du milieu
-            const pSplit = allContent.lastIndexOf('</p><p>', mid + 150);
-            if (pSplit !== -1 && pSplit > mid - 200) {
-                splitIndex = pSplit + 4; // On coupe entre le </p> et le <p>
-            } else {
-                // Sinon on cherche une fin de phrase (point + espace)
-                const sentenceEnd = allContent.lastIndexOf('. ', mid + 50);
-                if (sentenceEnd !== -1 && sentenceEnd > mid - 150) {
-                    splitIndex = sentenceEnd + 1;
-                } else {
-                    // Sinon, repli sur l'espace le plus proche (ton code d'origine)
-                    while (splitIndex > 0 && allContent[splitIndex] !== ' ') splitIndex--;
-                }
-            }
-
+            while (splitIndex > 0 && allText[splitIndex] !== ' ') splitIndex--;
             if (splitIndex === 0) splitIndex = mid;
             
-            const content1 = allContent.substring(0, splitIndex);
-            const content2 = allContent.substring(splitIndex).trim();
+            const text1 = allText.substring(0, splitIndex);
+            const text2 = allText.substring(splitIndex).trim();
             
-            // 3. FONCTION DE RESTAURATION (Gras + Paragraphes)
-            const restore = (txt) => {
-                let restored = txt.replace(/§S§/g, "<strong>").replace(/§\/S§/g, "</strong>");
-                
-                // Sécurité Strong : on ferme ou on ouvre si la coupe est tombée entre les deux
-                if ((restored.match(/<strong>/g) || []).length > (restored.match(/<\/strong>/g) || []).length) restored += "</strong>";
-                if ((restored.match(/<\/strong>/g) || []).length > (restored.match(/<strong>/g) || []).length) restored = "<strong>" + restored;
-                
-                // Sécurité Paragraphes : on s'assure que chaque moitié a ses balises <p> fermées
-                if ((restored.match(/<p/g) || []).length > (restored.match(/<\/p>/g) || []).length) restored += "</p>";
-                if ((restored.match(/<\/p>/g) || []).length > (restored.match(/<p/g) || []).length) restored = "<p>" + restored;
-                
-                return restored;
-            };
-
             const part1 = element.cloneNode(true);
-            part1.innerHTML = restore(content1);
+            part1.innerHTML = `<p style="margin:0;">${text1}</p>`;
             
             const part2 = element.cloneNode(true);
-            part2.innerHTML = restore(content2);
-            
-            return { part1, part2 };
-        }
-            
-            // === BLOC FALLBACK (Modifié pour réinjecter le gras) ===
-            
-            // On récupère le HTML pour ne pas perdre les <strong>
-            // Mais on protège les balises pour ne pas les couper au milieu (cause de plantage)
-            let allContent = element.innerHTML
-                .replace(/<strong>/g, "§S§")
-                .replace(/<\/strong>/g, "§/S§");
-
-            if (allContent.length < 20) return null;
-            
-            const mid = Math.floor(allContent.length / 2);
-            let splitIndex = mid;
-            
-            // On cherche un espace pour couper proprement (ta logique d'origine)
-            while (splitIndex > 0 && allContent[splitIndex] !== ' ') splitIndex--;
-            if (splitIndex === 0) splitIndex = mid;
-            
-            const content1 = allContent.substring(0, splitIndex);
-            const content2 = allContent.substring(splitIndex).trim();
-            
-            // Fonction pour restaurer les balises après la découpe
-            const restore = (txt) => {
-                let restored = txt.replace(/§S§/g, "<strong>").replace(/§\/S§/g, "</strong>");
-                // Sécurité : si on a ouvert un gras mais pas fermé dans cette moitié, on ferme
-                if ((restored.match(/<strong>/g) || []).length > (restored.match(/<\/strong>/g) || []).length) {
-                    restored += "</strong>";
-                }
-                // Sécurité : si on a fermé un gras jamais ouvert dans cette moitié, on ouvre au début
-                if ((restored.match(/<\/strong>/g) || []).length > (restored.match(/<strong>/g) || []).length) {
-                    restored = "<strong>" + restored;
-                }
-                return restored;
-            };
-
-            const part1 = element.cloneNode(true);
-            // On réinjecte le contenu restauré au lieu du texte brut
-            part1.innerHTML = restore(content1);
-            
-            const part2 = element.cloneNode(true);
-            part2.innerHTML = restore(content2);
+            part2.innerHTML = `<p style="margin:0;">${text2}</p>`;
             
             return { part1, part2 };
         }
