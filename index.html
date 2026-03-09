@@ -1484,7 +1484,7 @@
         
         // === NOUVELLE FONCTION 2 ===
         function splitContentCard(element) {
-            // === BLOC LOGIQUE LISTE (Inchangé, conservé de ton original) ===
+            // === BLOC LOGIQUE LISTE (Inchangé - Ton code original) ===
             const isList = element.tagName === 'UL' || element.tagName === 'OL';
             const list = isList ? element : element.querySelector('ul, ol');
             
@@ -1500,16 +1500,10 @@
                     const testClone = element.cloneNode(true);
                     const testList = isList ? testClone : testClone.querySelector('ul, ol');
                     const testItems = testList.querySelectorAll('li');
-                    for (let i = testItems.length - 1; i >= mid; i--) {
-                        testItems[i].remove();
-                    }
+                    for (let i = testItems.length - 1; i >= mid; i--) { testItems[i].remove(); }
                     container.appendChild(testClone);
                     void testClone.offsetHeight; 
-                    if (isOverflowing(container)) {
-                        high = mid - 1;
-                    } else {
-                        low = mid;
-                    }
+                    if (isOverflowing(container)) { high = mid - 1; } else { low = mid; }
                     container.removeChild(testClone);
                 }
                 
@@ -1518,21 +1512,74 @@
                 const part1 = element.cloneNode(true);
                 const list1 = isList ? part1 : part1.querySelector('ul, ol');
                 const items1 = list1.querySelectorAll('li');
-                for (let i = items1.length - 1; i >= low; i--) {
-                    items1[i].remove();
-                }
+                for (let i = items1.length - 1; i >= low; i--) { items1[i].remove(); }
                 
                 const part2 = document.createElement(element.tagName);
                 part2.className = element.className;
                 const newList = document.createElement(list.tagName);
                 newList.className = list.className;
-                for (let i = low; i < items.length; i++) {
-                    newList.appendChild(items[i].cloneNode(true));
-                }
+                for (let i = low; i < items.length; i++) { newList.appendChild(items[i].cloneNode(true)); }
                 part2.appendChild(newList);
                 
                 return { part1, part2 };
             }
+            
+            // === BLOC FALLBACK (Amélioré pour une découpe propre et le GRAS) ===
+            
+            // 1. On protège les balises Strong pour ne pas les couper au milieu
+            let allContent = element.innerHTML
+                .replace(/<strong>/g, "§S§")
+                .replace(/<\/strong>/g, "§/S§");
+
+            if (allContent.length < 20) return null;
+            
+            // 2. RECHERCHE DU POINT DE COUPE LOGIQUE
+            const mid = Math.floor(allContent.length / 2);
+            let splitIndex = mid;
+            
+            // On cherche d'abord une fin de paragraphe </p><p> autour du milieu
+            const pSplit = allContent.lastIndexOf('</p><p>', mid + 150);
+            if (pSplit !== -1 && pSplit > mid - 200) {
+                splitIndex = pSplit + 4; // On coupe entre le </p> et le <p>
+            } else {
+                // Sinon on cherche une fin de phrase (point + espace)
+                const sentenceEnd = allContent.lastIndexOf('. ', mid + 50);
+                if (sentenceEnd !== -1 && sentenceEnd > mid - 150) {
+                    splitIndex = sentenceEnd + 1;
+                } else {
+                    // Sinon, repli sur l'espace le plus proche (ton code d'origine)
+                    while (splitIndex > 0 && allContent[splitIndex] !== ' ') splitIndex--;
+                }
+            }
+
+            if (splitIndex === 0) splitIndex = mid;
+            
+            const content1 = allContent.substring(0, splitIndex);
+            const content2 = allContent.substring(splitIndex).trim();
+            
+            // 3. FONCTION DE RESTAURATION (Gras + Paragraphes)
+            const restore = (txt) => {
+                let restored = txt.replace(/§S§/g, "<strong>").replace(/§\/S§/g, "</strong>");
+                
+                // Sécurité Strong : on ferme ou on ouvre si la coupe est tombée entre les deux
+                if ((restored.match(/<strong>/g) || []).length > (restored.match(/<\/strong>/g) || []).length) restored += "</strong>";
+                if ((restored.match(/<\/strong>/g) || []).length > (restored.match(/<strong>/g) || []).length) restored = "<strong>" + restored;
+                
+                // Sécurité Paragraphes : on s'assure que chaque moitié a ses balises <p> fermées
+                if ((restored.match(/<p/g) || []).length > (restored.match(/<\/p>/g) || []).length) restored += "</p>";
+                if ((restored.match(/<\/p>/g) || []).length > (restored.match(/<p/g) || []).length) restored = "<p>" + restored;
+                
+                return restored;
+            };
+
+            const part1 = element.cloneNode(true);
+            part1.innerHTML = restore(content1);
+            
+            const part2 = element.cloneNode(true);
+            part2.innerHTML = restore(content2);
+            
+            return { part1, part2 };
+        }
             
             // === BLOC FALLBACK (Modifié pour réinjecter le gras) ===
             
