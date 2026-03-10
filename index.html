@@ -1545,14 +1545,16 @@
                 const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
                 const pageHeight = container.clientHeight;
                 const availablePercent = availableHeight / pageHeight;
+                // Si on est sur mobile, on tolère jusqu'à 20% d'espace, sinon 40%
+                const espaceMinimum = isMobile ? 0.20 : 0.40;
                 
                 // Maintenant on retire le nœud
                 container.removeChild(node);
                 
-                // CAS 1 : Content-card sur page de gauche avec >40% d'espace
+                // CAS 1 : Content-card sur page de gauche
                 if (!pgnState.isRightPage && 
                     element.classList && element.classList.contains('content-card') && 
-                    availablePercent > 0.40) {
+                    availablePercent > espaceMinimum) {
                     
                     const split = splitContentCard(element);
                     if (split) {
@@ -1586,7 +1588,7 @@
                     const lastChild = container.lastElementChild;
                     const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
                     
-                    if (isHeading) {
+                    if (isHeading && container.children.length > 1) {
                         container.removeChild(lastChild);
                         advancePage();
                         pgnState.elementsQueue.unshift(element);
