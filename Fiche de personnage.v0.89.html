@@ -487,6 +487,10 @@
                                                                     <option value="Plaques_Naine_Casque">Plaques naines avec Casque</option>
                                                                     <option value="Harnois_Draconique">Harnois draco. sans Casque</option>
                                                                     <option value="Harnois_Draconique_Casque">Harnois draco. avec Casque</option>
+                                                                    <option value="Harnois_Elfique">Harnois elfique sans Casque</option>
+                                                                    <option value="Harnois_Elfique_Casque">Harnois elfique avec Casque</option>
+                                                                    <option value="Harnois_Nain">Harnois nain sans Casque</option>
+                                                                    <option value="Harnois_Nain_Casque">Harnois nain avec Casque</option>
                                                                     <option value="Harnois_Elfique_Draconique">Harnois elf. draco. sans Casque</option>
                                                                     <option value="Harnois_Elfique_Draconique_Casque">Harnois elf. draco. avec Casque</option>
                                                                     <option value="Harnois_Nain_Draconique">Harnois nain draco. sans Casque</option>
@@ -875,7 +879,7 @@
         }
 
         const WEAPONS_DATA = {
-            "Distance": { label: "Armes à Distance", stats: { init: "1/7", magie: -1 }, items: ["Arc", "Arbalète", "Fronde"] },
+            "Distance": { label: "Armes à Distance", stats: { init: "1/7", magie: -1 }, items: ["Arc", "Arbalète", "Fronde", "Arc en Bois de Tréant"] },
             "Focalisateur": { label: "Focalisateurs", stats: { init: "6", magie: 0 }, items: ["Grimoire", "Chapelet", "Bâton", "Grimoire de l'Érudit"] },
             "Longue": { label: "Armes Longues (2 mains)", stats: { init: "4", magie: -1 }, items: ["Lance (Longue)", "Épée à deux mains", "Hache à deux mains", "Masse à deux mains", "Lance Diam. (Longue)", "Hache Lun. (2 mains)", "Épée à deux mains lun."] },
             "Moyenne": { label: "Armes Moyennes (1 main)", stats: { init: "5", magie: -1 }, items: ["Épée", "Hache", "Masse", "Lance (1 main)", "Fléau", "Épée Lun.", "Hache Lun.", "Lance Diam. (1 main)"] },
@@ -883,6 +887,7 @@
         };
 
         const MAGIC_EFFECTS = {
+            "Arc en Bois de Tréant": "+1 Attaque Directe",
             "Épée Lun.": "+1 Attaque Circulaire",
             "Épée à deux mains lun.": "+1 Attaque Circulaire",
             "Hache Lun.": "+1 Attaque Circulaire",
@@ -921,6 +926,10 @@
                 "Plaques_Naine_Casque": { dur: 22, res: 3, malus: ["magie", "aptitude_feline", "athletisme", "perception", "aptitude_feline"] },
                 "Harnois_Draconique": { dur: 10, res: 3, malus: ["mecanique", "fourberie", "aptitude_feline", "athletisme", "perception"] },
                 "Harnois_Draconique_Casque": { dur: 10, res: 3, malus: ["mecanique", "fourberie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
+                "Harnois_Elfique": { dur: 10, res: 3, malus: ["magie", "aptitude_feline", "athletisme", "perception"] },
+                "Harnois_Elfique_Casque": { dur: 10, res: 3, malus: ["magie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
+                "Harnois_Nain": { dur: 24, res: 4, malus: ["magie", "mecanique", "fourberie", "aptitude_feline", "athletisme", "perception"] },
+                "Harnois_Nain_Casque": { dur: 24, res: 4, malus: ["magie", "mecanique", "fourberie", "aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
                 "Harnois_Elfique_Draconique": { dur: 10, res: 3, malus: ["aptitude_feline", "athletisme", "perception"] },
                 "Harnois_Elfique_Draconique_Casque": { dur: 10, res: 3, malus: ["aptitude_feline", "athletisme", "perception", "perception", "aptitude_feline"] },
                 "Harnois_Nain_Draconique": { dur: 24, res: 4, malus: ["mecanique", "fourberie", "aptitude_feline", "athletisme", "perception"] },
@@ -1013,19 +1022,19 @@
             } 
             else if (category === "Focalisateur") {
                 if (weaponName === "Bâton") {
-                    options.push("Occupée ou Libre", "Bouclier", "Torche");
+                    options.push("Occupée ou Libre", "Bouclier", "Pavois Draconique", "Torche");
                     defaultValue = "Occupée ou Libre";
                 }
                 else {
-                    options.push("Main Libre (Incantation)", "Bouclier", "Torche");
+                    options.push("Main Libre (Incantation)", "Bouclier", "Pavois Draconique", "Torche");
                     defaultValue = "Main Libre (Incantation)";
                 }
             }
             else if (category === "Moyenne") {
-                options.push("Main Libre", "Bouclier", "Torche");
+                options.push("Main Libre", "Bouclier", "Pavois Draconique", "Torche");
             }
             else {
-                options.push("Main Libre", "Bouclier", "Torche");
+                options.push("Main Libre", "Bouclier", "Pavois Draconique", "Torche");
                 WEAPONS_DATA["Courte"].items.forEach(wp => {
                     if (!["Main Libre","Torche","Bouclier (Offensif)"].includes(wp)) options.push(wp); 
                 });
