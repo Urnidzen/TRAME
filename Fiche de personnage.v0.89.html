@@ -1002,32 +1002,30 @@
             });
             const arm = find('armor-select');
             if(arm) arm.onchange = updateUI;
-            // Gestion du changement de Don / Particularité avec mémoire
+            // Gestion du changement de Don / Particularité avec mémoire stable
             const bloodSel = find('magical-blood-select');
             if(bloodSel) {
                 bloodSel.addEventListener('change', (e) => {
                     const raceSelect = find('race-select');
-                    const origRace = find('original-race'); // Notre mémoire cachée
+                    const origRace = find('original-race');
                     
                     if (raceSelect && origRace) {
                         if (e.target.value === "Dragon") {
-                            // 1. Si on devient Dragon, on stocke d'abord l'espèce actuelle en mémoire
                             if (raceSelect.value !== "DRAGON") {
                                 origRace.value = raceSelect.value;
                             }
-                            // 2. On force l'affichage sur DRAGON
                             raceSelect.value = "DRAGON";
                         } else {
-                            // 3. Si on choisit autre chose, on rend son espèce d'origine au joueur
                             if (raceSelect.value === "DRAGON") {
                                 raceSelect.value = origRace.value || "HUMAIN";
                             }
                         }
-                        updateRace();     // Recalcule les talents gratuits de la race
-                        updatePortrait(); // Change l'image si besoin
-                        triggerSave();    // Sauvegarde tout
+                        // On passe "true" pour dire à updateRace de NE PAS vider les coches
+                        updateRace(true); 
+                        updatePortrait();
+                        triggerSave();
                     }
-                    updateUI(); // Rafraîchit l'affichage global
+                    updateUI();
                 });
             }
             updateUI();
@@ -1114,13 +1112,24 @@
             }
         }
 
-        function updateRace() {
+        function updateRace(keepTalents = false) {
             const race = find('race-select')?.value;
             if (!race) return;
-            Object.keys(state.talents).forEach(k => state.talents[k] = false);
-            if (RULES.RACES[race]) RULES.RACES[race].forEach(tid => state.talents[tid] = true);
+            
+            // On ne réinitialise les talents que si keepTalents est faux
+            if (!keepTalents) {
+                Object.keys(state.talents).forEach(k => {
+                    // On ne vide que les booléens (les coches), pas les bonus
+                    if (typeof state.talents[k] === 'boolean') state.talents[k] = false;
+                });
+                if (RULES.RACES[race]) RULES.RACES[race].forEach(tid => state.talents[tid] = true);
+            }
+            
             const saisieField = find('stat-att-saisie');
-            if(saisieField) saisieField.value = (race === "ORQUE") ? 1 : 0;
+            if(saisieField) {
+                // Saisie est à 1 pour les Orques, sinon 0 (évite le vide)
+                saisieField.value = (race === "ORQUE") ? 1 : 0;
+            }
             triggerSave();
             updateUI();
         }
