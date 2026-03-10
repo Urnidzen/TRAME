@@ -1237,9 +1237,18 @@
                         let scoreSansArmure = baseScore + magicBonus;
                         let scoreAvecArmure = scoreSansArmure + armorMalus;
 
-                        // On récupère le bonus manuel s'il a été sauvegardé
+                        // On récupère le bonus manuel de base sauvegardé en mémoire
                         let bonusKey = t.id + "_bonus";
-                        let currentBonus = state.talents[bonusKey] || "";
+                        let baseBonusInt = parseInt(state.talents[bonusKey]) || 0;
+                        
+                        // On détermine si le talent actuel bénéficie du bonus Dragon
+                        let isDragonTalent = isDragon && (t.id === 'athletisme' || t.id === 'perception');
+                        
+                        // On additionne la base et le bonus Dragon pour l'affichage
+                        let displayedBonusInt = baseBonusInt + (isDragonTalent ? 1 : 0);
+                        
+                        // On convertit le résultat en texte pour le menu ("", "-1", "+1", "+2", etc.)
+                        let currentBonus = displayedBonusInt === 0 ? "" : (displayedBonusInt > 0 ? "+" + displayedBonusInt : displayedBonusInt.toString());
 
                         const row = document.createElement('tr');
                         row.onmouseover = () => row.style.backgroundColor = 'rgba(0,0,0,0.05)';
@@ -1267,6 +1276,8 @@
                                     <option value="-1" ${currentBonus === "-1" ? "selected" : ""}>-1</option>
                                     <option value="+1" ${currentBonus === "+1" ? "selected" : ""}>+1</option>
                                     <option value="+2" ${currentBonus === "+2" ? "selected" : ""}>+2</option>
+                                    <option value="+3" ${currentBonus === "+3" ? "selected" : ""}>+3</option>
+                                    <option value="-2" ${currentBonus === "-2" ? "selected" : ""}>-2</option>
                                 </select>
                             </td>
                         `;
@@ -1285,7 +1296,13 @@
                         // 6. Enregistrement automatique du modificateur manuel
                         const selectEl = row.querySelector('.bonus-select');
                         selectEl.onchange = (e) => {
-                            state.talents[bonusKey] = e.target.value;
+                            // On prend la valeur choisie et on retire le bonus Dragon avant de sauvegarder
+                            let selectedInt = parseInt(e.target.value) || 0;
+                            let newBaseInt = selectedInt - (isDragonTalent ? 1 : 0);
+                            
+                            // On convertit pour la sauvegarde
+                            state.talents[bonusKey] = newBaseInt === 0 ? "" : (newBaseInt > 0 ? "+" + newBaseInt : newBaseInt.toString());
+                            
                             triggerSave();
                         };
 
