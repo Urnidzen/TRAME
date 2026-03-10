@@ -652,7 +652,19 @@
             }
             
             const shapeSel = find('shape-select');
-            if(shapeSel) shapeSel.addEventListener('change', () => { updateUI(); updatePortrait(); triggerSave(); });
+            if(shapeSel) shapeSel.addEventListener('change', (e) => { 
+                if (e.target.value === "DRAGON") {
+                    const w1 = find('weapon-select-1');
+                    const w2 = find('weapon-select-2');
+                    if (w1) w1.value = "Griffes ou Morsure";
+                    if (w2) w2.value = "Souffle";
+                    updateOffhandOptions(1);
+                    updateOffhandOptions(2);
+                }
+                updateUI(); 
+                updatePortrait(); 
+                triggerSave(); 
+            });
             
             const raceSel = find('race-select');
             if(raceSel) raceSel.onchange = () => { 
@@ -913,6 +925,7 @@
         }
 
         const WEAPONS_DATA = {
+            "Dragon": { label: "Armes de Dragon", stats: { init: "-", magie: 0 }, items: ["Griffes ou Morsure", "Souffle"] },
             "Distance": { label: "Armes à Distance", stats: { init: "1/7", magie: -1 }, items: ["Arc", "Arbalète", "Fronde", "Arc en Bois de Tréant"] },
             "Focalisateur": { label: "Focalisateurs", stats: { init: "6", magie: 0 }, items: ["Grimoire", "Chapelet", "Bâton", "Grimoire de l'Érudit"] },
             "Longue": { label: "Armes Longues (2 mains)", stats: { init: "4", magie: -1 }, items: ["Lance (Longue)", "Épée à deux mains", "Hache à deux mains", "Masse à deux mains", "Lance Diam. (Longue)", "Hache Lun. (2 mains)", "Épée à deux mains lun."] },
@@ -999,6 +1012,7 @@
                 for (const [key, category] of Object.entries(WEAPONS_DATA)) {
                     const group = document.createElement('optgroup');
                     group.label = category.label;
+                    if (key === "Draconique") group.className = "dragon-weapons";
                     category.items.forEach(item => {
                         const option = document.createElement('option');
                         option.value = item;
@@ -1024,6 +1038,7 @@
                 bloodSel.addEventListener('change', (e) => {
                     const raceSelect = find('race-select');
                     const origRace = find('original-race');
+                    const shapeSelect = find('shape-select');
                     
                     if (raceSelect && origRace) {
                         if (e.target.value === "Dragon") {
@@ -1031,6 +1046,16 @@
                                 origRace.value = raceSelect.value;
                             }
                             raceSelect.value = "DRAGON";
+                            
+                            // On équipe les armes par défaut à la transformation initiale
+                            if (shapeSelect && shapeSelect.value === "DRAGON") {
+                                const w1 = find('weapon-select-1');
+                                const w2 = find('weapon-select-2');
+                                if (w1) w1.value = "Griffes ou Morsure";
+                                if (w2) w2.value = "Souffle";
+                                updateOffhandOptions(1);
+                                updateOffhandOptions(2);
+                            }
                         } else {
                             if (raceSelect.value === "DRAGON") {
                                 raceSelect.value = origRace.value || "HUMAIN";
@@ -1049,6 +1074,8 @@
 
         function getWeaponStats(weaponName) {
             if (["Grimoire","Chapelet","Bâton","Grimoire de l'Érudit"].includes(weaponName)) return { init: "6", magie: 0 };
+            if (weaponName === "Griffes ou Morsure") return { init: "4", magie: 0 };
+            if (weaponName === "Souffle") return { init: "2/8", magie: 0 };
             for (const [key, category] of Object.entries(WEAPONS_DATA)) {
                 if (category.items.includes(weaponName)) return category.stats;
             }
@@ -1082,6 +1109,10 @@
                 offhandSelect.disabled = true;
                 defaultValue = "Occupée";
             } 
+            else if (category === "Draconique") {
+                options.push("Main Libre", "Occupée");
+                defaultValue = "Main Libre";
+            }
             else if (category === "Focalisateur") {
                 if (weaponName === "Bâton") {
                     options.push("Occupée ou Libre", "Bouclier", "Pavois Draconique", "Torche");
@@ -1161,6 +1192,30 @@
             } else if (containerForme) {
                 containerForme.style.display = 'none';
             }
+
+            // Gestion de l'affichage des armes draconiques
+            let isDragonTrueForm = isDragon && shapeSelect && shapeSelect.value === "DRAGON";
+            [1, 2].forEach(index => {
+                const weaponSelect = find(`weapon-select-${index}`);
+                if (weaponSelect) {
+                    const dragonGroup = weaponSelect.querySelector('.dragon-weapons');
+                    if (dragonGroup) {
+                        if (isDragonTrueForm) {
+                            dragonGroup.hidden = false;
+                            dragonGroup.disabled = false;
+                        } else {
+                            dragonGroup.hidden = true;
+                            dragonGroup.disabled = true;
+                            // Si on quitte la vraie forme, on retire les armes draconiques des mains
+                            if (weaponSelect.value === "Griffes ou Morsure" || weaponSelect.value === "Souffle") {
+                                weaponSelect.value = "Main Libre";
+                                updateOffhandOptions(index);
+                            }
+                        }
+                    }
+                }
+            });
+
             [1, 2].forEach(index => {
                 const weaponSelect = find(`weapon-select-${index}`);
                 const offhandSelect = find(`offhand-select-${index}`);
