@@ -1516,6 +1516,14 @@
                 }
                 i++;
             }
+
+            // Si on n'a réussi à placer AUCUN élément, on annule la découpe
+            // pour éviter une boucle infinie de pages vides.
+            if (part1.children.length === 0) {
+                container.removeChild(part1);
+                return null; 
+            }
+            
             // Le reste va dans part2
             for (; i < children.length; i++) {
                 part2.appendChild(children[i].cloneNode(true));
