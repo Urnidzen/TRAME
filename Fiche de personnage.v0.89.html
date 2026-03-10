@@ -274,6 +274,18 @@
                                         <tr>
                                             <td class="text-[10px] font-bold w-28 py-1 align-baseline border-b border-black/30 text-black">COULEUR DES YEUX:</td>
                                             <td class="border-b border-black/30"><input type="text" data-id="identity-eyes" class="w-full bg-transparent outline-none italic font-bold placeholder-black" placeholder=""></td>
+                                            <td id="container-forme" style="display: none; padding-left: 15px; width: 200px; vertical-align: bottom;">
+                                                <div class="flex items-center border-b border-black/30 pb-1">
+                                                    <span class="text-[10px] font-black mr-2 text-red-800 font-title">FORME:</span>
+                                                    <select data-id="shape-select" class="bg-transparent outline-none font-bold text-[11px] uppercase text-red-900 cursor-pointer font-title">
+                                                        <option value="DRAGON">Vraie Forme</option>
+                                                        <option value="HUMAIN">Humain</option>
+                                                        <option value="ELFE">Elfe</option>
+                                                        <option value="NAIN">Nain</option>
+                                                        <option value="ORQUE">Orque</option>
+                                                    </select>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-[10px] font-bold w-28 py-1 align-baseline border-b border-black/30 text-black">CHEVEUX:</td>
@@ -634,6 +646,8 @@
             if (typeof TRAME_Registre !== 'undefined') {
                 const allProfiles = TRAME_Registre.getAllProfiles();
                 if (allProfiles.length <= 1) {
+                    const shapeSel = find('shape-select');
+                    if(shapeSel) shapeSel.onchange = () => { updateUI(); updatePortrait(); };
                     const btnDelete = context.querySelector('[data-action="delete"]');
                     if (btnDelete) btnDelete.style.display = 'none';
                 }
@@ -1130,25 +1144,27 @@
         }
 
         function updateUI() {
-            // Collect equipped items for global bonuses (like Talents)
             const equipped = [];
             let bonusDirect = 0;
             let bonusCirculaire = 0;
-
             const bloodSelect = find('magical-blood-select');
             const isOgreMage = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
             const isDragon = bloodSelect && bloodSelect.value === "Dragon";
+            const containerForme = context.querySelector('#container-forme');
+            const shapeSelect = find('shape-select');
             const raceSelect = find('race-select');
-            const isOrque = raceSelect && raceSelect.value === "ORQUE";
-
+            if (isDragon && containerForme) {
+                containerForme.style.display = 'table-cell';
+                if (shapeSelect && raceSelect) { raceSelect.value = shapeSelect.value; }
+            } else if (containerForme) {
+                containerForme.style.display = 'none';
+            }
             [1, 2].forEach(index => {
                 const weaponSelect = find(`weapon-select-${index}`);
                 const offhandSelect = find(`offhand-select-${index}`);
                 const initLabel = find(`init-label-${index}`);
-                
                 if (weaponSelect && offhandSelect) {
                     if (document.activeElement === weaponSelect) updateOffhandOptions(index);
-                    
                     const weaponName = weaponSelect.value;
                     const offhandName = offhandSelect.value;
                     const weaponStats = getWeaponStats(weaponName);
