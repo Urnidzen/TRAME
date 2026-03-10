@@ -1116,7 +1116,6 @@
             const race = find('race-select')?.value;
             if (!race) return;
             
-            // 1. Gestion des Talents (Coches)
             if (!keepTalents) {
                 Object.keys(state.talents).forEach(k => {
                     if (typeof state.talents[k] === 'boolean') state.talents[k] = false;
@@ -1125,29 +1124,7 @@
                     RULES.RACES[race].forEach(tid => state.talents[tid] = true);
                 }
             }
-            
-            // 2. GESTION DU SCORE DE SAISIE (Bonus Orque)
-            const saisieField = find('stat-att-saisie');
-            if(saisieField) {
-                let currentVal = parseInt(saisieField.value) || 0;
-                
-                // On utilise une petite variable temporaire pour savoir si on avait déjà mis le bonus
-                // (On stocke l'état précédent dans le dataset de l'élément pour ne pas se tromper)
-                const hadOrcBonus = saisieField.dataset.hadBonus === "true";
-                const isOrque = (race === "ORQUE");
-
-                if (isOrque && !hadOrcBonus) {
-                    // On devient Orque : on ajoute 1
-                    saisieField.value = currentVal + 1;
-                    saisieField.dataset.hadBonus = "true";
-                } 
-                else if (!isOrque && hadOrcBonus) {
-                    // On n'est plus Orque : on retire le 1 qu'on avait ajouté
-                    saisieField.value = Math.max(0, currentVal - 1);
-                    saisieField.dataset.hadBonus = "false";
-                }
-            }
-
+            // Ici, on ne touche plus à Saisie !
             triggerSave();
             updateUI();
         }
@@ -1161,6 +1138,8 @@
             const bloodSelect = find('magical-blood-select');
             const isOgreMage = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
             const isDragon = bloodSelect && bloodSelect.value === "Dragon";
+            const raceSelect = find('race-select');
+            const isOrque = raceSelect && raceSelect.value === "ORQUE";
 
             [1, 2].forEach(index => {
                 const weaponSelect = find(`weapon-select-${index}`);
