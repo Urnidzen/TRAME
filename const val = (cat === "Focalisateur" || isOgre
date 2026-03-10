@@ -384,7 +384,7 @@
                                                 <div class="mb-2 border-b border-black/20 pb-1 flex justify-between items-end">
                                                     <span class="font-title font-black uppercase text-xs text-black">Armes</span>
                                                     <div class="flex items-center">
-                                                        <span class="font-title font-bold uppercase text-[8px] text-black mr-2">Don</span>
+                                                        <span class="font-title font-bold uppercase text-[8px] text-black mr-2">Particularité :</span>
                                                         <select data-id="magical-blood-select" class="bg-transparent font-title font-bold text-[10px] uppercase border-b border-black/40 outline-none text-black cursor-pointer text-right">
                                                             <option value=""></option>
                                                             <option value="Sang d'Ogre Mage">Sang d'Ogre Mage</option>
@@ -1115,8 +1115,9 @@
                     const isLeftCatalyst = offhandName && !["Main Libre","Main Libre (Incantation)","Bouclier","Torche","Occupée","Occupée ou Libre"].includes(offhandName);
                     const bloodSelect = find('magical-blood-select');
                     const isOgreMage = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
+                    const isDragon = bloodSelect && bloodSelect.value === "Dragon";
                     
-                    const hasCatalyst = isRightCatalyst || isLeftCatalyst || isOgreMage;
+                    const hasCatalyst = isRightCatalyst || isLeftCatalyst || isOgreMage || isDragon;
                     const canCast = hasFreeHand && hasCatalyst;
 
                     const initSpan = find(`init-val-${index}`);
@@ -1151,7 +1152,7 @@
                             magicSpan.innerText = "imp.";
                             magicSpan.style.color = "#dc2626";
                         } else {
-                            const val = (cat === "Focalisateur") ? 0 : weaponStats.magie;
+                            const val = (cat === "Focalisateur" || isOgreMage || isDragon) ? 0 : weaponStats.magie;
                             magicSpan.innerText = val;
                             magicSpan.style.color = "#000000";
                         }
