@@ -1546,7 +1546,7 @@
                 const pageHeight = container.clientHeight;
                 const availablePercent = availableHeight / pageHeight;
                 // Si on est sur mobile, on tolère jusqu'à 20% d'espace, sinon 40%
-                const espaceMinimum = isMobile ? 0.20 : 0.40;
+                const espaceMinimum = isMobile ? 0.10 : 0.40;
                 
                 // Maintenant on retire le nœud
                 container.removeChild(node);
