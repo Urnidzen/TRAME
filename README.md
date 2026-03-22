@@ -10,7 +10,7 @@
 | [Livret 2 - Création](https://urnidzen.github.io/TRAME/Livret2-Creation.v0.74.html) | v0.74 | Création et évolution des personnages |
 | [Livret 3 - Équipement](https://urnidzen.github.io/TRAME/Livret3-Equipement.v0.79.html) | v0.79 | Armures, armes, objets et artisanat |
 | [Livret 4 - Rencontres](https://urnidzen.github.io/TRAME/Livret4-Rencontres.v0.80.html) | v0.80 | Équilibrage des rencontres et guide du MJ |
-| [Livret 5 - Bestiaire](https://urnidzen.github.io/TRAME/Livret5-Bestiaire.v0.80.html) | v0.80 | Créatures et adversaires |
+| [Livret 5 - Bestiaire](https://urnidzen.github.io/TRAME/Livret5-Bestiaire.v0.81.html) | v0.81 | Créatures et adversaires |
 | [Fiche de Personnage](https://urnidzen.github.io/TRAME/Fiche%20de%20personnage.v0.91.html) | v0.91 | Fiche interactive en ligne |
 
 ## 🎲 Philosophie du Système
