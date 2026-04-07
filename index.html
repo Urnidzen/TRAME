@@ -1597,64 +1597,61 @@
                     }
                 }
                 
-                // === CAS PAR DÉFAUT ET PROTECTION ANTI-ORPHELINS RENFORCÉE ===
+                // === CAS PAR DÉFAUT ET ANTI-ORPHELINS ABSOLU ===
                 const isPageEmpty = container.children.length === 0;
         
                 if (!isPageEmpty) {
-                    // 1. SCANNER INVERSÉ (Ignore les balises fantômes)
-                    let nodesToMove = [];
-                    let headingNode = null;
-                    let current = container.lastElementChild;
-                    
-                    while (current) {
-                        // Si c'est un élément invisible ou vide (ex: <br>, <p></p> vide)
-                        if (current.tagName === 'BR' || (current.textContent.trim() === '' && !current.querySelector('img, canvas, table'))) {
-                            nodesToMove.unshift(current);
-                            current = current.previousElementSibling;
-                        } 
-                        // Si on tombe sur un vrai titre (H1 à H6)
-                        else if (/^H[1-6]$/i.test(current.tagName)) {
-                            headingNode = current;
-                            nodesToMove.unshift(headingNode);
-                            break;
-                        }
-                        // Si c'est un titre emballé dans une DIV isolée
-                        else if (current.tagName === 'DIV' && current.children.length === 1 && /^H[1-6]$/i.test(current.firstElementChild.tagName)) {
-                            headingNode = current;
-                            nodesToMove.unshift(headingNode);
-                            break;
-                        }
-                        // Si c'est du vrai contenu textuel, on arrête de chercher (le titre n'est pas orphelin)
-                        else {
+                    // 1. SCANNER INVERSÉ ULTRA-ROBUSTE
+                    const children = Array.from(container.children);
+                    let lastVisible = null;
+                    let nodesToExtract = [];
+        
+                    // On remonte depuis la fin pour trouver le dernier vrai élément (ignorer les sauts de ligne purs)
+                    for (let i = children.length - 1; i >= 0; i--) {
+                        const child = children[i];
+                        nodesToExtract.unshift(child); // On stocke pour un éventuel déplacement
+        
+                        // Dès qu'on trouve un élément qui a du vrai texte ou une image/tableau
+                        if (child.textContent.trim().length > 0 || child.querySelector('img, table, canvas, svg')) {
+                            lastVisible = child;
                             break;
                         }
                     }
         
-                    // Si on a trouvé un titre orphelin (et qu'il n'est pas tout seul sur sa page)
-                    if (headingNode && container.children.length > nodesToMove.length) {
-                        // On arrache le titre et les éventuels espaces invisibles en dessous
-                        nodesToMove.forEach(node => container.removeChild(node));
-                        advancePage();
+                    // On identifie si c'est un titre (soit par sa balise H1-H6, soit par une classe suspecte)
+                    const isHeading = lastVisible && (
+                        /^H[1-6]$/i.test(lastVisible.tagName) ||
+                        (typeof lastVisible.className === 'string' && lastVisible.className.match(/title|heading|rule-box/i))
+                    );
+        
+                    // Si le dernier élément visible est un titre, ET qu'il n'est pas tout seul sur sa page
+                    if (isHeading && container.children.length > nodesToExtract.length) {
+                        // On arrache le titre et ses espaces
+                        nodesToExtract.forEach(n => container.removeChild(n));
+                        advancePage(); // On passe à la page suivante
                         
-                        // On remet l'élément qui a fait déborder, puis on replace le titre et ses espaces
+                        // On remet l'élément qui a causé le débordement dans la file
                         pgnState.elementsQueue.unshift(element);
-                        for (let i = nodesToMove.length - 1; i >= 0; i--) {
-                            pgnState.elementsQueue.unshift(nodesToMove[i]);
+                        
+                        // On remet le titre par-dessus pour qu'il soit inséré en premier sur la nouvelle page !
+                        for (let i = nodesToExtract.length - 1; i >= 0; i--) {
+                            pgnState.elementsQueue.unshift(nodesToExtract[i]);
                         }
-                        return;
+                        return; // FIN EXPLICITE DE LA BOUCLE
                     }
-                    
-                    // 2. GESTION DES BLOCS GÉANTS (DIV)
+        
+                    // 2. ÉCLATEMENT DES DIVS (Correction du Wrapper Trap)
                     if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
-                        const children = Array.from(element.children);
-                        for (let i = children.length - 1; i >= 0; i--) { 
-                            pgnState.elementsQueue.unshift(children[i]); 
+                        const innerChildren = Array.from(element.children);
+                        for (let i = innerChildren.length - 1; i >= 0; i--) {
+                            pgnState.elementsQueue.unshift(innerChildren[i]);
                         }
-                    } else {
-                        // 3. SAUT DE PAGE CLASSIQUE
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element); 
+                        return; // FIN EXPLICITE DE LA BOUCLE
                     }
+        
+                    // 3. SAUT DE PAGE NORMAL
+                    advancePage();
+                    pgnState.elementsQueue.unshift(element); 
                 } else {
                     handleGiantBlock(element);
                 }
