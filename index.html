@@ -1616,8 +1616,18 @@
                 }
                 
                 if (!isPageEmpty) {
-                    advancePage();
-                    pgnState.elementsQueue.unshift(element); 
+                    // Si c'est un DIV générique qui déborde, on l'éclate tout de suite, sans sauter de page !
+                    if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
+                        // Extraire les enfants et les remettre en file d'attente (comme le fait handleGiantBlock)
+                        const children = Array.from(element.children);
+                        for (let i = children.length - 1; i >= 0; i--) { 
+                            pgnState.elementsQueue.unshift(children[i]); 
+                        }
+                    } else {
+                        // Si c'est un autre élément indivisible, on saute la page
+                        advancePage();
+                        pgnState.elementsQueue.unshift(element); 
+                    }
                 } else {
                     handleGiantBlock(element);
                 }
