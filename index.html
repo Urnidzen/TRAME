@@ -1597,38 +1597,38 @@
                     }
                 }
                 
-                // CAS PAR DÉFAUT
+                // === CAS PAR DÉFAUT ET PROTECTION ANTI-ORPHELINS ===
                 const isPageEmpty = container.children.length === 0;
-                
-                // Si on reporte un content-card et que le dernier élément est un titre, 
-                // on reporte aussi le titre pour ne pas le couper de son contenu
-                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
+        
+                if (!isPageEmpty) {
+                    // 1. PROTECTION UNIVERSELLE : Regarde le dernier élément sur la page
                     const lastChild = container.lastElementChild;
                     const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
                     
+                    // Si c'est un titre (H2, H3, etc.), on l'arrache de la page courante
                     if (isHeading && container.children.length > 1) {
                         container.removeChild(lastChild);
                         advancePage();
+                        // On remet l'élément débordant ET le titre dans la file d'attente
                         pgnState.elementsQueue.unshift(element);
                         pgnState.elementsQueue.unshift(lastChild);
                         return;
                     }
-                }
-                
-                if (!isPageEmpty) {
-                    // Si c'est un DIV générique qui déborde, on l'éclate tout de suite, sans sauter de page !
+                    
+                    // 2. GESTION DES BLOCS GÉANTS (La correction vue précédemment)
                     if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
-                        // Extraire les enfants et les remettre en file d'attente (comme le fait handleGiantBlock)
+                        // Éclatement de la balise DIV pour récupérer son contenu
                         const children = Array.from(element.children);
                         for (let i = children.length - 1; i >= 0; i--) { 
                             pgnState.elementsQueue.unshift(children[i]); 
                         }
                     } else {
-                        // Si c'est un autre élément indivisible, on saute la page
+                        // 3. SAUT DE PAGE CLASSIQUE
                         advancePage();
                         pgnState.elementsQueue.unshift(element); 
                     }
                 } else {
+                    // Si la page est vide mais que ça déborde quand même (ex: très grande image)
                     handleGiantBlock(element);
                 }
             }
