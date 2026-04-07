@@ -1027,11 +1027,37 @@
             // Si l'élément a des enfants, toggle son état développé
             if (hasChildren) {
                 if (expandedSections.has(id)) {
+                    // 1. On ferme le parent
                     expandedSections.delete(id);
+                    
+                    // 2. On cherche et on ferme tous ses descendants
+                    let foundParent = false;
+                    let parentLevel = 0;
+                    
+                    for (let i = 0; i < currentIndex.length; i++) {
+                        const item = currentIndex[i];
+                        
+                        if (item.id === id) {
+                            foundParent = true;
+                            parentLevel = item.level;
+                            continue; // On passe à l'élément suivant
+                        }
+                        
+                        if (foundParent) {
+                            if (item.level > parentLevel) {
+                                // C'est un descendant (niveau inférieur), on force sa fermeture
+                                expandedSections.delete(item.id);
+                            } else {
+                                // On est tombé sur le prochain titre de même niveau (ou plus haut), on arrête
+                                break;
+                            }
+                        }
+                    }
                 } else {
+                    // Si on l'ouvre, on l'ajoute simplement
                     expandedSections.add(id);
                 }
-                renderDocumentsList(); // Re-render pour mettre à jour la visibilité des enfants
+                renderDocumentsList(); // Re-render pour mettre à jour la visibilité
             }
         }
 
