@@ -1568,37 +1568,6 @@
                 
                 // Maintenant on retire le nœud
                 container.removeChild(node);
-
-                // --- INTERCEPTION ANTI-ORPHELIN (AVANT TOUTE DÉCOUPE) ---
-                let lastEl = container.lastElementChild;
-                let nodesToMove = [];
-    
-                // On remonte pour ignorer les sauts de ligne ou paragraphes vides invisibles
-                while (lastEl && (lastEl.tagName === 'BR' || (lastEl.tagName === 'P' && lastEl.textContent.trim() === ''))) {
-                    nodesToMove.unshift(lastEl);
-                    lastEl = lastEl.previousElementSibling;
-                }
-    
-                // Si le dernier vrai élément de la page est un titre
-                const isHeading = lastEl && /^H[1-6]$/i.test(lastEl.tagName);
-    
-                // Si c'est un titre, et qu'il n'est pas le seul élément de la page
-                if (isHeading && lastEl !== container.firstElementChild) {
-                    nodesToMove.unshift(lastEl);
-                    
-                    // On retire le titre de la page actuelle
-                    nodesToMove.forEach(n => container.removeChild(n));
-                    
-                    advancePage();
-                    
-                    // On remet l'élément qui a débordé, puis le titre par-dessus dans la file d'attente
-                    pgnState.elementsQueue.unshift(element);
-                    for (let i = nodesToMove.length - 1; i >= 0; i--) {
-                        pgnState.elementsQueue.unshift(nodesToMove[i]);
-                    }
-                    return; // ON ARRÊTE TOUT ICI. On ne tente aucune découpe.
-                }
-                // --- FIN INTERCEPTION ---
                 
                 // CAS 1 : Content-card sur page de gauche
                 if (!pgnState.isRightPage && 
@@ -1630,20 +1599,25 @@
                 
                 // CAS PAR DÉFAUT
                 const isPageEmpty = container.children.length === 0;
-
-                // CORRECTION DU WRAPPER (Si c'est un <div class="content-section"> qui déborde, on l'éclate)
-                if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
-                    const children = Array.from(element.children);
-                    for (let i = children.length - 1; i >= 0; i--) {
-                        pgnState.elementsQueue.unshift(children[i]);
+                
+                // Si on reporte un content-card et que le dernier élément est un titre, 
+                // on reporte aussi le titre pour ne pas le couper de son contenu
+                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
+                    const lastChild = container.lastElementChild;
+                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
+                    
+                    if (isHeading && container.children.length > 1) {
+                        container.removeChild(lastChild);
+                        advancePage();
+                        pgnState.elementsQueue.unshift(element);
+                        pgnState.elementsQueue.unshift(lastChild);
+                        return;
                     }
-                    return; // On relance la boucle avec les enfants
                 }
-
+                
                 if (!isPageEmpty) {
-                    // Saut de page classique
                     advancePage();
-                    pgnState.elementsQueue.unshift(element);
+                    pgnState.elementsQueue.unshift(element); 
                 } else {
                     handleGiantBlock(element);
                 }
