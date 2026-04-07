@@ -1606,7 +1606,7 @@
                     const lastChild = container.lastElementChild;
                     const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
                     
-                    if (isHeading && container.children.length > 1) {
+                    if (isHeading && container.children.length >= 1) {
                         container.removeChild(lastChild);
                         advancePage();
                         pgnState.elementsQueue.unshift(element);
