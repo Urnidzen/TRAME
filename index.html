@@ -1597,27 +1597,55 @@
                     }
                 }
                 
-                // === CAS PAR DÉFAUT ET PROTECTION ANTI-ORPHELINS ===
+                // === CAS PAR DÉFAUT ET PROTECTION ANTI-ORPHELINS RENFORCÉE ===
                 const isPageEmpty = container.children.length === 0;
         
                 if (!isPageEmpty) {
-                    // 1. PROTECTION UNIVERSELLE : Regarde le dernier élément sur la page
-                    const lastChild = container.lastElementChild;
-                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
+                    // 1. SCANNER INVERSÉ (Ignore les balises fantômes)
+                    let nodesToMove = [];
+                    let headingNode = null;
+                    let current = container.lastElementChild;
                     
-                    // Si c'est un titre (H2, H3, etc.), on l'arrache de la page courante
-                    if (isHeading && container.children.length > 1) {
-                        container.removeChild(lastChild);
+                    while (current) {
+                        // Si c'est un élément invisible ou vide (ex: <br>, <p></p> vide)
+                        if (current.tagName === 'BR' || (current.textContent.trim() === '' && !current.querySelector('img, canvas, table'))) {
+                            nodesToMove.unshift(current);
+                            current = current.previousElementSibling;
+                        } 
+                        // Si on tombe sur un vrai titre (H1 à H6)
+                        else if (/^H[1-6]$/i.test(current.tagName)) {
+                            headingNode = current;
+                            nodesToMove.unshift(headingNode);
+                            break;
+                        }
+                        // Si c'est un titre emballé dans une DIV isolée
+                        else if (current.tagName === 'DIV' && current.children.length === 1 && /^H[1-6]$/i.test(current.firstElementChild.tagName)) {
+                            headingNode = current;
+                            nodesToMove.unshift(headingNode);
+                            break;
+                        }
+                        // Si c'est du vrai contenu textuel, on arrête de chercher (le titre n'est pas orphelin)
+                        else {
+                            break;
+                        }
+                    }
+        
+                    // Si on a trouvé un titre orphelin (et qu'il n'est pas tout seul sur sa page)
+                    if (headingNode && container.children.length > nodesToMove.length) {
+                        // On arrache le titre et les éventuels espaces invisibles en dessous
+                        nodesToMove.forEach(node => container.removeChild(node));
                         advancePage();
-                        // On remet l'élément débordant ET le titre dans la file d'attente
+                        
+                        // On remet l'élément qui a fait déborder, puis on replace le titre et ses espaces
                         pgnState.elementsQueue.unshift(element);
-                        pgnState.elementsQueue.unshift(lastChild);
+                        for (let i = nodesToMove.length - 1; i >= 0; i--) {
+                            pgnState.elementsQueue.unshift(nodesToMove[i]);
+                        }
                         return;
                     }
                     
-                    // 2. GESTION DES BLOCS GÉANTS (La correction vue précédemment)
+                    // 2. GESTION DES BLOCS GÉANTS (DIV)
                     if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
-                        // Éclatement de la balise DIV pour récupérer son contenu
                         const children = Array.from(element.children);
                         for (let i = children.length - 1; i >= 0; i--) { 
                             pgnState.elementsQueue.unshift(children[i]); 
@@ -1628,7 +1656,6 @@
                         pgnState.elementsQueue.unshift(element); 
                     }
                 } else {
-                    // Si la page est vide mais que ça déborde quand même (ex: très grande image)
                     handleGiantBlock(element);
                 }
             }
