@@ -1597,61 +1597,52 @@
                     }
                 }
                 
-                // === CAS PAR DÉFAUT ET ANTI-ORPHELINS ABSOLU ===
+                // CAS PAR DÉFAUT
                 const isPageEmpty = container.children.length === 0;
-        
-                if (!isPageEmpty) {
-                    // 1. SCANNER INVERSÉ ULTRA-ROBUSTE
-                    const children = Array.from(container.children);
-                    let lastVisible = null;
-                    let nodesToExtract = [];
-        
-                    // On remonte depuis la fin pour trouver le dernier vrai élément (ignorer les sauts de ligne purs)
+
+                // 1. CORRECTION DU WRAPPER (Si c'est un <div class="content-section"> qui déborde, on l'éclate)
+                if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
+                    const children = Array.from(element.children);
                     for (let i = children.length - 1; i >= 0; i--) {
-                        const child = children[i];
-                        nodesToExtract.unshift(child); // On stocke pour un éventuel déplacement
-        
-                        // Dès qu'on trouve un élément qui a du vrai texte ou une image/tableau
-                        if (child.textContent.trim().length > 0 || child.querySelector('img, table, canvas, svg')) {
-                            lastVisible = child;
-                            break;
-                        }
+                        pgnState.elementsQueue.unshift(children[i]);
                     }
-        
-                    // On identifie si c'est un titre (soit par sa balise H1-H6, soit par une classe suspecte)
-                    const isHeading = lastVisible && (
-                        /^H[1-6]$/i.test(lastVisible.tagName) ||
-                        (typeof lastVisible.className === 'string' && lastVisible.className.match(/title|heading|rule-box/i))
-                    );
-        
-                    // Si le dernier élément visible est un titre, ET qu'il n'est pas tout seul sur sa page
-                    if (isHeading && container.children.length > nodesToExtract.length) {
-                        // On arrache le titre et ses espaces
-                        nodesToExtract.forEach(n => container.removeChild(n));
-                        advancePage(); // On passe à la page suivante
+                    return; // On relance la boucle avec les enfants
+                }
+
+                // 2. ANTI-ORPHELINS CIBLÉ (Sans casser ta logique)
+                if (!isPageEmpty) {
+                    let lastEl = container.lastElementChild;
+                    let nodesToMove = []; // Pour stocker le titre ET les éventuels <br> fantômes en dessous
+
+                    // On remonte pour ignorer les sauts de ligne vides à la fin de la page
+                    while (lastEl && (lastEl.tagName === 'BR' || (lastEl.tagName === 'P' && lastEl.textContent.trim() === ''))) {
+                        nodesToMove.unshift(lastEl);
+                        lastEl = lastEl.previousElementSibling;
+                    }
+
+                    // Si le dernier vrai élément est un titre, on le sauve
+                    const isHeading = lastEl && /^H[1-6]$/i.test(lastEl.tagName);
+
+                    // On s'assure de ne pas arracher le titre s'il est le tout premier élément de la page
+                    if (isHeading && lastEl !== container.firstElementChild) {
+                        nodesToMove.unshift(lastEl);
                         
-                        // On remet l'élément qui a causé le débordement dans la file
+                        // On retire le titre et les espaces de la page actuelle
+                        nodesToMove.forEach(n => container.removeChild(n));
+                        
+                        advancePage();
+                        
+                        // On remet tout dans le bon ordre pour la page suivante
                         pgnState.elementsQueue.unshift(element);
-                        
-                        // On remet le titre par-dessus pour qu'il soit inséré en premier sur la nouvelle page !
-                        for (let i = nodesToExtract.length - 1; i >= 0; i--) {
-                            pgnState.elementsQueue.unshift(nodesToExtract[i]);
+                        for (let i = nodesToMove.length - 1; i >= 0; i--) {
+                            pgnState.elementsQueue.unshift(nodesToMove[i]);
                         }
-                        return; // FIN EXPLICITE DE LA BOUCLE
+                        return;
                     }
-        
-                    // 2. ÉCLATEMENT DES DIVS (Correction du Wrapper Trap)
-                    if (element.tagName === 'DIV' && !element.classList.contains('content-card') && element.children.length > 0) {
-                        const innerChildren = Array.from(element.children);
-                        for (let i = innerChildren.length - 1; i >= 0; i--) {
-                            pgnState.elementsQueue.unshift(innerChildren[i]);
-                        }
-                        return; // FIN EXPLICITE DE LA BOUCLE
-                    }
-        
-                    // 3. SAUT DE PAGE NORMAL
+
+                    // Sinon, saut de page classique
                     advancePage();
-                    pgnState.elementsQueue.unshift(element); 
+                    pgnState.elementsQueue.unshift(element);
                 } else {
                     handleGiantBlock(element);
                 }
