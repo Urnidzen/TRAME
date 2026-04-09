@@ -1,827 +1,746 @@
-<script type="application/json" id="doc-index">
-{
-    "id": "livret5",
-    "icon": "🐾",
-    "title": "Livret 5",
-    "subtitle": "Bestiaire",
-    "index": [
-        {"id": "section-lexique", "title": "Lexique", "level": 1},
-        {"id": "section-araignees", "title": "Araignées", "level": 1},
-        {"id": "section-bandits", "title": "Bandits", "level": 1},
-        {"id": "section-chevaux", "title": "Chevaux", "level": 1},
-        {"id": "section-dragons", "title": "Dragons", "level": 1},
-        {"id": "section-drakes", "title": "Drakes", "level": 1},
-        {"id": "section-felins", "title": "Félins", "level": 1},
-        {"id": "section-gobelins", "title": "Gobelins", "level": 1},
-        {"id": "section-kobolds", "title": "Kobolds", "level": 1},
-        {"id": "section-loups", "title": "Loups", "level": 1},
-        {"id": "section-mercenaires", "title": "Mercenaires & Soldats", "level": 1},
-        {"id": "section-mortsvivants", "title": "Morts Vivants", "level": 1},
-        {"id": "section-ogre", "title": "Ogre", "level": 1},
-        {"id": "section-ours", "title": "Ours", "level": 1},
-        {"id": "section-peuple", "title": "Peuple", "level": 1},
-        {"id": "section-pirates", "title": "Pirates des Brumes", "level": 1},
-        {"id": "section-rapaces", "title": "Rapaces", "level": 1},
-        {"id": "section-rats", "title": "Rats", "level": 1},
-        {"id": "section-requins", "title": "Requins", "level": 1},
-        {"id": "section-sangliers", "title": "Sangliers", "level": 1},
-        {"id": "section-serpents", "title": "Serpents de Mer", "level": 1},
-        {"id": "section-esprits-de-la-foret", "title": "Esprits de la foret", "level": 1}
-    ]
-}
-</script>
-
-<style>
-    .table-lexique {
-        width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livret 5 - Bestiaire v0.81</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
     }
-    
-    .table-lexique th, .table-lexique td {
-        padding: 8px;
-        vertical-align: top;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
+    h1, h2, h3, h4 {
+      color: #111;
+      margin-top: 1.5em;
     }
-    
-    /* Tableau Lexique - 3 colonnes avec Talents plus large */
-    .table-lexique th:nth-child(1), .table-lexique td:nth-child(1) {
-        width: 25%;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      background: #fff;
     }
-    
-    .table-lexique th:nth-child(2), .table-lexique td:nth-child(2) {
-        width: 25%;
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
     }
-    
-    .table-lexique th:nth-child(3), .table-lexique td:nth-child(3) {
-        width: 50%;
+    th {
+      background-color: #eef2f5;
     }
-    
-    .table-lexique th {
-        text-align: left;
-        border-bottom: 2px solid #1c1917;
+    ul {
+      margin: 0;
+      padding-left: 20px;
     }
-    
-    .table-lexique td {
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+    .creature-block {
+      background: #fff;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #0d6efd;
     }
-    .tag-cat {
-    font-size: 0.6em;
-    font-style: italic;
-    font-weight: normal;
-    color: #666;
-    margin-left: 10px;
+    .creature-title {
+      margin-top: 0;
+      margin-bottom: 5px;
+      font-size: 1.25rem;
     }
-</style>
+    .metadata {
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    .badge-figurant { background-color: #6c757d; }
+    .badge-evolue { background-color: #fd7e14; }
+    .badge-majeur { background-color: #dc3545; }
+    .badge-dangerosite { background-color: #0d6efd; }
+    .stat-line { margin: 4px 0; }
+    .note { font-style: italic; color: #555; font-size: 0.95rem; }
+    .section-divider { border-top: 2px solid #ddd; margin: 30px 0; }
+  </style>
+</head>
+<body>
 
-<div class="content-section" id="section-lexique">
-    <h2>Lexique des Abréviations</h2>
+<h1>Livret 5 - Bestiaire</h1>
 
-    <div class="rule-box" style="margin-bottom: 1.5rem; background: #f8f1e3; border-left: 5px solid #1c1917;">
-        <p><strong>Règle importante sur les statistiques :</strong></p>
-        <p>Quand une créature est décrite, <strong>seules les statistiques qui lui confèrent un bonus ou un malus sont indiquées</strong>.</p>
-        <p><strong>Toute statistique (Attaque, Protection, Talent, etc.) non mentionnée est égale à 0.</strong></p>
-        <p>Exemple : si une créature n’a indiqué que « Att: dir +1 » et « Tal: Surv +1 », cela signifie que toutes ses autres valeurs d’Attaque (cir, saisie…), toutes ses Protections, et tous ses autres Talents sont à 0.</p>
-    </div>
-    
-    <table class="table-lexique">
-        <thead>
-            <tr>
-                <th>Combat</th>
-                <th>Type / Cible</th>
-                <th>Talents</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Att:</strong> Attaquer</td>
-                <td><strong>dir:</strong> Direct</td>
-                <td><strong>Tal:</strong> Talents</td>
-            </tr>
-            <tr>
-                <td><strong>Pro:</strong> Se Protéger</td>
-                <td><strong>cir:</strong> Circulaire</td>
-                <td><strong>Athlé:</strong> Athlétisme</td>
-            </tr>
-            <tr>
-                <td><strong>Type:</strong> Type</td>
-                <td><strong>saisie:</strong> Saisie</td>
-                <td><strong>Félin:</strong> Aptitude Féline</td>
-            </tr>
-            <tr>
-                <td><strong>Cible:</strong> Cible</td>
-                <td><strong>tête:</strong> Tête</td>
-                <td><strong>Méca:</strong> Mécanique</td>
-            </tr>
-            <tr>
-                <td><strong>Def:</strong> Défense</td>
-                <td><strong>tronc:</strong> Tronc</td>
-                <td><strong>Fourb:</strong> Fourberie</td>
-            </tr>
-            <tr>
-                <td><strong>Res:</strong> Résistance</td>
-                <td><strong>mbre:</strong> Membres</td>
-                <td><strong>Percep:</strong> Perception</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><strong>Surv:</strong> Survie</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><strong>Sav Acad:</strong> Savoir Académique</td>
-            </tr>
-        </tbody>
-    </table>
+<h2>Lexique des Abréviations</h2>
+<p><strong>Règle importante sur les statistiques :</strong><br>
+Quand une créature est décrite, seules les statistiques qui lui confèrent un bonus ou un malus sont indiquées.<br>
+Toute statistique (Attaque, Protection, Talent, etc.) non mentionnée est égale à 0.<br>
+<em>Exemple : si une créature n’a indiqué que « Att: dir +1 » et « Tal: Surv +1 », cela signifie que toutes ses autres valeurs d’Attaque (cir, saisie…), toutes ses Protections, et tous ses autres Talents sont à 0.</em></p>
+
+<table>
+  <thead>
+    <tr><th>Combat</th><th>Type / Cible</th><th>Talents</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Att: Attaquer</td><td>dir: Direct</td><td>Tal: Talents</td></tr>
+    <tr><td>Pro: Se Protéger</td><td>cir: Circulaire</td><td>Athlé: Athlétisme</td></tr>
+    <tr><td>Type: Type</td><td>saisie: Saisie</td><td>Félin: Aptitude Féline</td></tr>
+    <tr><td>Cible: Cible</td><td>tête: Tête</td><td>Méca: Mécanique</td></tr>
+    <tr><td>Def: Défense</td><td>tronc: Tronc</td><td>Fourb: Fourberie</td></tr>
+    <tr><td>Res: Résistance</td><td>mbre: Membres</td><td>Percep: Perception</td></tr>
+    <tr><td></td><td></td><td>Surv: Survie</td></tr>
+    <tr><td></td><td></td><td>Sav Acad: Savoir Académique</td></tr>
+  </tbody>
+</table>
+
+<h3>Classification des Créatures</h3>
+<p>Chaque créature est marquée d'un tag (cf : Livret 4 chapitre 2 Ajuster les PNJ) :</p>
+<ul>
+  <li><strong>Figurant :</strong> Profil sans bonus.</li>
+  <li><strong>Évolué :</strong> Individu expérimenté possédant une partie ou la totalité de ses bonus d'espèce (1 à 4 bonus).</li>
+  <li><strong>Majeur :</strong> Plein potentiel, possède l'intégralité de ses bonus d'espèce.</li>
+</ul>
+
+<div class="section-divider"></div>
+
+<h2>Araignées</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Géante</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, généralement tapie au plafond ou dans les grand arbres.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Toile), Moyenne (Pattes), Courte (Crochets).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: saisie +1, Pro: vs dir +1, Tal: Surv +1.</li>
+    <li><strong>Tactique:</strong> Tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</li>
+  </ul>
 </div>
 
-<div class="rule-box" style="margin-bottom: 1.5rem; background: #f8f1e3; border-left: 5px solid #1c1917;">
-    <p><strong>Chaque créature est marquée d'un tag (cf : Livret 4 chapitre 2 Ajuster les PNJ) :</strong></p>
-    <ul>
-        <li><strong>Figurant :</strong> Profil sans bonus.</li>
-        <li><strong>Évolué :</strong> Individu expérimenté possédant une partie ou la totalité de ses bonus d'espèce (1 à 4 bonus).</li>
-        <li><strong>Majeur :</strong> Plein potentiel, possède l'intégralité de ses bonus d'espèce.</li>
-    </ul>
+<div class="creature-block">
+  <h3 class="creature-title">Caméléon</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, change naturellement de couleur pour se fondre dans son environnement, généralement tapie au plafond iou dans les grands arbres.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Toile), Moyenne (Pattes), Courte (Crochets).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: saisie +1, Pro: vs dir +1, Tal: Surv +1, Félin +1 (caméléon).</li>
+    <li><strong>Tactique:</strong> Quasi invisible (corps qui se fond dans l'environnement), tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-araignees">
-    <h2>Araignées</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Géante <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, généralement tapie au plafond ou dans les grand arbres.</p>
-        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Pattes), Courte (Crochets).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: saisie +1, Pro: vs dir +1, Tal: Surv +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Caméléon <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, change naturellement de couleur pour se fondre dans son environnement, généralement tapie au plafond iou dans les grands arbres.</p>
-        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Pattes), Courte (Crochets).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: saisie +1, Pro: vs dir +1, Tal: Surv +1, Félin +1 (caméléon).</p>
-        </div>
-        <p><strong>• Tactique:</strong> Quasi invisible (corps qui se fond dans l'environnement), tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Colossale <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2</span>
-        </div>
-        <p><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, souvent à la tête d’une colonie d’araignées géantes.</p>
-        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Crochets).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: saisie +2, dir +1, Pro: vs dir et saisie +1, tronc, mbre et tête +1 (Chitine, Dur: 6), Tal: Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Caméléon Colossale <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, change naturellement de couleur pour se fondre dans son environnement, souvent à la tête d’une colonie d’araignées géantes caméléons.</p>
-        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Crochets).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: saisie +2, dir +1, Pro: vs dir et saisie +1, tronc, mbre et tête +1 (Chitine, Dur: 6), Tal: Surv +1, Félin +2 (caméléon).</p>
-        </div>
-        <p><strong>Tactique:</strong> Quasi invisible (corps qui se fond dans l'environnement), tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
-    </div>
-
-<div class="content-section" id="section-bandits">
-    <h2>Bandits</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Vaurien <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Brigand armé d'une hache ou d'une masse.</p>
-        <p><strong>Allonge:</strong> Moyenne.</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: cir +1, Tal: Fourb +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Met tout son poids dans des coups larges pour briser la garde.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Brute <span class="tag-cat">(Évolué)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Colosse cicatrisé avec armure de cuir et hache lourde, souvent chef d’un groupe de Vaurien.</p>
-        <p><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: cir +1 et saisie +1, Pro: tronc et mbre +1 (Armure de cuir, Dur: 6).</p>
-        </div>
-        <p><strong>• Tactique:</strong> Privilégie les attaques lourdes (Att cir); utilise sa force pour une Att saisie et jeter au sol si l'adversaire esquive ou bloque trop.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Coupe-jarret <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Brigand coutumier des pillages et des embuscades.</p>
-        <p><strong>Allonge:</strong> Distance (Arc, Arbalète ou fronde) et Moyenne (Arme à une main) ou Courte (Dague).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir et saisie +1, Tal: Athlé et Félin +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Leurs embuscades depuis une position dissimulée (Félin +1) sont redoutables et difficile à détecter pour éviter la surprise (attention l’avantage que confère une attaque surprise est redoutable pour les PJ, souvent mortelle).</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Chef de bande <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Chef de groupe hétéroclite (divers types de bandits) ou homogène (même type de bandits) de bandits humains, peuvent parfois avec leur groupe s’associer à d’autres espèces ou groupe d’autres espèces.</p>
-        <p><strong>Allonge:</strong> Distance (Arc, Arbalète ou fronde) et Moyenne  (Arme à une main) ou Courte (Dague).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir et saisie +2, Pro: vs dir, cir et saisie +1, tronc et mbre +1 (Armure de cuir, Dur: 6), Tal: Percep, Athlé et Félin +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Reste discret pour repérer l’ennemi le plus problématique et établir une stratégie pour l’occire rapidement. </p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Colossale</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, souvent à la tête d’une colonie d’araignées géantes.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Toile), Moyenne (Crochets).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie +2, dir +1, Pro: vs dir et saisie +1, tronc, mbre et tête +1 (Chitine, Dur: 6), Tal: Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
 </div>
 
-<div class="content-section" id="section-chevaux">
-    <h2>Chevaux</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>De monte <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
-        </div>
-        <p><strong>Description:</strong> Cheval rapide et endurant.</p>
-        <p><strong>• Allonge:</strong> Moyenne (Sabots).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Tal: Athlé, Surv et Percep +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Tente de repousser violemment l'attaquant avec ses sabots. Ne peut pas attaquer si monté.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>De Guerre (Destrier) <span class="tag-cat">(Évolué)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1 (1+ barde)</span>
-        </div>
-        <p><strong>Description:</strong> Cheval robuste et puissant, entraîné au combat.</p>
-        <p><strong>• Allonge:</strong> Moyenne (Sabots).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: dir +1, Tal: Athlé, Surv et Percep +1. Si barde: Pro tête, tronc et mbre +2 (Dur 8), Athlé 0.</p>
-        </div>
-        <p><strong>Tactique:</strong> Tente de repousser violemment l’attaquant avec ses sabots, ne peut pas attaquer si monté.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Caméléon Colossale</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, change naturellement de couleur pour se fondre dans son environnement, souvent à la tête d’une colonie d’araignées géantes caméléons.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Toile), Moyenne (Crochets).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie +2, dir +1, Pro: vs dir et saisie +1, tronc, mbre et tête +1 (Chitine, Dur: 6), Tal: Surv +1, Félin +2 (caméléon).</p>
+  <p class="stat-line"><strong>Tactique:</strong> Quasi invisible (corps qui se fond dans l'environnement), tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
 </div>
 
-<div class="content-section" id="section-dragons">
-    <h2>Dragons</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(124, 45, 18, 0.3); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Dragon Véritable <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 6+</span>
-        </div>
-        <p><strong>Description:</strong> Une entité millénaire dont l'existence même est liée aux flux magiques du monde. Sa présence impose généralement la terreur ou le respect absolu. Extremement puissant mais aussi étonnement agile, que se soit sur terre, dans les airs, ou sous les eaux les plus profondes. Il peut prendre forme humaine (malus de - aux actions tan que maintenu) pour voyager parmi les mortels sans être décelé.<br>
-        Les Dragons maléfiques ont souvent des centaines de Kobold voir plusieurs milliers pour les plus anciens, qui sont à leur service et leur vouent une adoration sans limites</p>
-        <p><strong>Allonge:</strong> Distance (Souffle / Magie), Longue (Queue / Griffes / Morsure).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: dir +6 (Souffle, Magie, Griffes, Morsure), saisie +6 (Serres, Mâchoires), Pro: res tronc, mbre et tête +3, armure tronc, mbre et tête +3 (Écailles et cuir, Dur: 20).</p>
-            <p><strong>• Magie Innée:</strong> Catalyseur vivant. Lance ses sorts sans aucun malus et sans besoin d'objet focalisateur.</p>
-            <p><strong>• Talents:</strong> Percep +2, Sav Acad +1, Athlé +2, Félin +1, Surv +1.</p>
-            <p><strong>• Aute:</strong> Vol, nage, creuse dans la terre et la roche, aussi bien qu'il marche. Respiration aquatique, vision parfaite dans le noir, perception des vibrations. Possède une immunité en rapport à la couleur de ses écailles (ex. : rouge, immunité au feu).
-        </div>
-        <p><strong>• Tactique:</strong> Particulièrement intelligent, il est capable d'une grande capacité d'adaptation et de réponse stratégique à toutes les situations. Généralement territorial, avide de richesses et collectionneur. Pas un seul Dragon Véritable ne se ressemble au niveau de ses idéaux que de ses habitudes (certains sont bienveillants, d'autres neutres ou purement maléfiques).</p>
-    </div>
+<h2>Bandits</h2>
 
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(124, 45, 18, 0.3); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Wyverne <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 3+</span>
-        </div>
-        <p><strong>Description:</strong> Prédateur aérien reptilien mesurant près de neuf mètres de long de la gueule au bout de la queue. Son corps musculeux, recouvert d'épaisses écailles ternes, est dépourvu de pattes avant : celles-ci forment de vastes ailes membraneuses. Au sol, elle se dresse sur deux puissantes pattes arrière dotées de serres capables de broyer une cage thoracique. Sa mâchoire est garnie d'innombrables crocs acérés, et sa très longue queue articulée se termine par un dard effilé suintant un venin mortel.</p>
-        <p><strong>Allonge:</strong> Longue (Dard empoisonné, Morsure, Serres).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir +3 (Dard) et saisie +2 (Serres, Morsure). Pro: armure tête, tronc et mbre +2 (Écailles dures, Dur: 10). Tal: Athlé +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Fond sur sa proie en piqué pour la verrouiller dans ses serres ou ses mâchoires (Att: saisie) afin de l'empêcher de fuir ou de l'emporter dans les airs. Une fois la cible immobilisée, elle frappe implacablement avec sa queue (Att: dir). En cas d'Impact avec le dard, le poison fulgurant foudroie la victime. Si la blessure n'entraîne pas une mort immédiate, le venin impose le désavantage de -1 à toutes les actions (paralysie partielle, nécrose) et nécessite des soins en extrême urgence (Magie de Restauration ou antidote préparé via le talent Survie/Savoir) pour survivre.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Vaurien</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Brigand armé d'une hache ou d'une masse.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne.</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: cir +1, Tal: Fourb +1.</li>
+    <li><strong>Tactique:</strong> Met tout son poids dans des coups larges pour briser la garde.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-drakes">
-    <h2>Drakes</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Rocheux <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0+</span>
-        </div>
-        <p><strong>Description:</strong> Gros lézard trapu aux écailles rocheuses de la taille d'un cheval.</p>
-        <p><strong>• Allonge:</strong> Moyenne (Morsure).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Pro: tronc, mbre et tête +2 (Globale, Dur: 8), vs saisie +1, Tal: Félin et Surv +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Reste immobile, ressemblant à un rocher, en attendant de surprendre une malheureuse proie qui s’approche trop près, peu rapide il ne poursuit pas une proie qui le 
-fuit, si il la manque.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Brute</h3>
+  <div class="metadata">
+    <span class="badge badge-evolue">Évolué</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Colosse cicatrisé avec armure de cuir et hache lourde, souvent chef d’un groupe de Vaurien.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: cir +1 et saisie +1, Pro: tronc et mbre +1 (Armure de cuir, Dur: 6).</li>
+    <li><strong>Tactique:</strong> Privilégie les attaques lourdes (Att cir); utilise sa force pour une Att saisie et jeter au sol si l'adversaire esquive ou bloque trop.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-felins">
-    <h2>Félins</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Léopard des Steppes <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Prédateur solitaire et nocturne arpentant l'Immensité Grise. Son pelage tacheté lui offre un camouflage naturel redoutable dans les herbes hautes et les affleurements de basalte.</p>
-        <p><strong>Allonge:</strong> Courte (Morsure, Griffes).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir et saisie +1. Tal: Félin +1, Percep +1, Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Chasseur d'embuscade opérant la nuit. Il utilise sa furtivité (Félin +1) pour approcher sa cible sans être détecté. Il bondit pour la plaquer violemment au sol (Att: saisie) avant de tenter une morsure fatale à la gorge (Att: dir).</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Coupe-jarret</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Brigand coutumier des pillages et des embuscades.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Arc, Arbalète ou fronde) et Moyenne (Arme à une main) ou Courte (Dague).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: dir et saisie +1, Tal: Athlé et Félin +1.</li>
+    <li><strong>Tactique:</strong> Leurs embuscades depuis une position dissimulée (Félin +1) sont redoutables et difficile à détecter pour éviter la surprise (attention l’avantage que confère une attaque surprise est redoutable pour les PJ, souvent mortelle).</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-gobelins">
-    <h2>Gobelins</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Eclaireur <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
-        </div>
-        <p><strong>Description:</strong> Petit, vicieux et très mobile, jamais seul.</p>
-        <p><strong>• Allonge:</strong> Longue (Fronde) et Courte (Dague).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Pro: vs cir +1, Tal: Athlé et Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> À distance, utilise leur fronde pour harceler leurs adversaires, engagé au CàC, poignarde les  mbre  pour avoir l'opportunité de reprendre  de la distance. Dresse parfois des Loups Gris pour les aider à pister ou combattre, tandis qu’ils restent à distance.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Bagarreur <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0+</span>
-        </div>
-        <p><strong>Description:</strong> Petit, vicieux et teigneux.</p>
-        <p><strong>Allonge:</strong> Longue (Massue) ou Courte (Morsure).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Pro: vs cir et dir +1, Tal: Athlé et Félin +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Se cache en embuscade devant les éclaireurs. Utilise maladroitement une arme trop grande pour eux. Rageux : si l’adversaire évite 2x leur attaque, ils lâchent leur arme pour bondir et tenter de le mordre.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Chef <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Grand gobelin armé d'une massue.</p>
-        <p><strong>Allonge:</strong> Longue (Massue cloutée à deux mains).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: cir et saisie +1, Pro: vs cir et dir +1, Tal: Athlé et Félin +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Donne ses ordres en restant caché puis sort de sa cachette pour achever les ennemis et montrer sa force aux autres Gobelins.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Chef de bande</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Chef de groupe hétéroclite (divers types de bandits) ou homogène (même type de bandits) de bandits humains, peuvent parfois avec leur groupe s’associer à d’autres espèces ou groupe d’autres espèces.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Arc, Arbalète ou fronde) et Moyenne (Arme à une main) ou Courte (Dague).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: dir et saisie +2, Pro: vs dir, cir et saisie +1, tronc et mbre +1 (Armure de cuir, Dur: 6), Tal: Percep, Athlé et Félin +1.</li>
+    <li><strong>Tactique:</strong> Reste discret pour repérer l’ennemi le plus problématique et établir une stratégie pour l'occire rapidement.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-kobolds">
-    <h2>Kobolds</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Traqueur <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Créature chétive mais rapide et adroite.</p>
-        <p><strong>Allonge:</strong> Moyenne (Petite Lance).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir +1, Tal: Percep, Surv et Athlé +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Charge rapidement sa proie pour lui percer le torse avec sa lance.</p>
-    </div>
+<h2>Chevaux</h2>
 
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Shaman <span class="tag-cat">(Évolué)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Kobold aux écailles vives maniant un bâton orné d'os, dirige un petit groupe de Kobold.</p>
-        <p><strong>Allonge:</strong> Distance (Magie).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: cir et saisie (Magie) +1, Pro: vs dir +1, Tal: Percep et Athlé +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Tente d’immobiliser ses adversaires pour permettre aux Kobolds Traqueurs de les achever avec leur lance. Seul ou si les Kobolds Traqueurs sont trop loin, attaque avec des sorts de zone.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">De monte</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Cheval rapide et endurant.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Sabots).</p>
+  <p class="stat-line"><strong>Stats:</strong> Tal: Athlé, Surv et Percep +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Tente de repousser violemment l'attaquant avec ses sabots. Ne peut pas attaquer si monté.</p>
 </div>
 
-<div class="content-section" id="section-loups">
-    <h2>Loups</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Gris <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Prédateur rapide cherchant à mettre sa proie au sol.</p>
-        <p><strong>Allonge:</strong> Courte (Morsure).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: saisie +1, Tal: Athlé, Surv et Percep +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Charge pour mordre les membres et forcer une mise au sol via Att saisie.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Géant (Worg) <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Loup très rusé, de la taille d'un cheval.</p>
-        <p><strong>Allonge:</strong> Moyenne (Morsure).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: saisie et dir +1, Tal: Athlé, Surv et Percep +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Cherche à renverser la cible (Att saisie).</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">De Guerre (Destrier)</h3>
+  <div class="metadata">
+    <span class="badge badge-evolue">Évolué</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1 (1+ barde)</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Cheval robuste et puissant, entraîné au combat.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Moyenne (Sabots).</li>
+    <li><strong>Stats:</strong> Att: dir +1, Tal: Athlé, Surv et Percep +1. Si barde: Pro tête, tronc et mbre +2 (Dur 8), Athlé 0.</li>
+    <li><strong>Tactique:</strong> Tente de repousser violemment l’attaquant avec ses sabots, ne peut pas attaquer si monté.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-mercenaires">
-    <h2>Mercenaires, milice et armée</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Garde ou fantassin <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Soldat, milicien ou mercenaire employé pour protéger un lieu, une personne ou un convoie.</p>
-        <p><strong>• Allonge:</strong> Longue (Lance).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: dir +1, Pro: vs dir +1 sous condition (Bouclier, Dur 12).</p>
-        </div>
-        <p><strong>Tactique:</strong> Utilise son allonge et se met en défense s'il est menacé en attendant des renforts.</p>
-    </div>
+<h2>Dragons</h2>
 
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Vétéran <span class="tag-cat">(Évolué)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Dirige souvent un groupe de garde ou constitue un groupe d’élite.</p>
-        <p><strong>Allonge:</strong> Longue (Lance).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: dir +1, Pro: vs dir, cir, saisie +1, vs dir +1 suppl (Bouclier), tronc et mbre +1 (Cuir, Dur 6), Athlé 0, Percep +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Se regrouper en formation pour combattre efficacement et durablement.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Chevalier <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Combattant d’élite souvent au service  d’un noble, généralement chevauchant un cheval de guerre.</p>
-        <p><strong>Allonge:</strong> À cheval : Longue (Lance d’arçon), à pied : Moyenne (Épée longue ou Masse d’arme).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: dir et cir +2, Pro: vs dir, cir, saisie +1, vs dir +1 suppl (Bouclier), tête/tronc/mbre +3 (Plaques, Dur 10). Tal: Athlé 0, Percep -1, Sav Acad +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> charge à cheval profitant de l’avantage d’une position surélevée (bonus d’Att applicable).</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Dragon Véritable</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 6+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Une entité millénaire dont l'existence même est liée aux flux magiques du monde. Sa présence impose généralement la terreur ou le respect absolu. Extremement puissant mais aussi étonnement agile, que se soit sur terre, dans les airs, ou sous les eaux les plus profondes. Il peut prendre forme humaine (malus de - aux actions tan que maintenu) pour voyager parmi les mortels sans être décelé.<br>
+  Les Dragons maléfiques ont souvent des centaines de Kobold voir plusieurs milliers pour les plus anciens, qui sont à leur service et leur vouent une adoration sans limites</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Souffle / Magie), Longue (Queue / Griffes / Morsure).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: dir +6 (Souffle, Magie, Griffes, Morsure), saisie +6 (Serres, Mâchoires), Pro: res tronc, mbre et tête +3, armure tronc, mbre et tête +3 (Écailles et cuir, Dur: 20).</li>
+    <li><strong>Magie Innée:</strong> Catalyseur vivant. Lance ses sorts sans aucun malus et sans besoin d'objet focalisateur.</li>
+    <li><strong>Talents:</strong> Percep +2, Sav Acad +1, Athlé +2, Félin +1, Surv +1.</li>
+    <li><strong>Aute:</strong> Vol, nage, creuse dans la terre et la roche, aussi bien qu'il marche. Respiration aquatique, vision parfaite dans le noir, perception des vibrations. Possède une immunité en rapport à la couleur de ses écailles (ex. : rouge, immunité au feu).</li>
+    <li><strong>Tactique:</strong> Particulièrement intelligent, il est capable d'une grande capacité d'adaptation et de réponse stratégique à toutes les situations. Généralement territorial, avide de richesses et collectionneur. Pas un seul Dragon Véritable ne se ressemble au niveau de ses idéaux que de ses habitudes (certains sont bienveillants, d'autres neutres ou purement maléfiques).</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-mortsvivants">
-    <h2>Morts vivants</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Squelette <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
-        </div>
-        <p><strong>Description:</strong> Squelette d’une créature (Rat Géant, Loup Gris, Cheval, Humain, Orque, Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
-        <p><strong>Allonge:</strong> Variable suivant la créature et si elle possédait une arme de son vivant.</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Pro: vs dir +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Avance et frappe mécaniquement.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Zombie <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Corps plus ou moins décomposé d’une  créature (Rat Géant, Loup Gris, Cheval, Humain, Orque,  Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
-        <p><strong>Allonge:</strong> Courte (Saisie ou Morsure).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: saisie +1, Pro: tronc, mbre et tête +1 (Globale, Dur: 6).</p>
-        </div>
-        <p><strong>• Tactique:</strong> Humanoïde : une fois sa proie attrapée via Att saisie, tente de profiter de l’avantage de la saisie pour mordre. Animal : tente de mordre.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Amas de corps <span class="tag-cat">(Évolué)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Assemblage chaotique de cadavres humanoïdes en une énorme masse difforme doté de nombreux bras et visages affichant une expression de souffrance extrême.</p>
-        <p><strong>Allonge:</strong> Moyenne (Saisie avec bras multiples).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: saisie +2, Pro: tronc, mbre et tête +2 (Globale, Dur : 8).</p>
-        </div>
-        <p><strong>Tactique:</strong> Cherche le contact pour utiliser ses bras multiples en Att saisie et étouffer ses victimes qu’il incorpore à son propre corps.</p>
-    </div>
-
-    <div class="content-card">
-    <h2>Liches</h2>
-    
-    <!-- Description générale complète - texte exact demandé -->
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0; color: #4a2c1f;">Liches</h3>
-        </div>
-        <p><strong>Description :</strong> Mage humain qui, pour échapper à la mort, sacrifie des centaines à des milliers de vies afin de distiller leur essence en un élixir (Sav Acad Dif. 2, possible progressivement ou en un seul grand rituel). Seuls les lanceurs de sorts avec Att cible tronc ≥ 3 peuvent l’assimiler. Le corps se dessèche et se putréfie lentement ; les parties détruites ou trop abîmées sont remplacées par une forme spectrale. Les plus anciennes ne sont souvent plus qu’une silhouette spectrale avec quelques vestiges physiques (crâne ou main).</p>
-        <p><strong>Allonge :</strong> Distance (Magie).</p>
-        <div class="rule-box">
-            <p><strong>Capacités :</strong> Le corps ne vieillit plus mais continue à se dégrader (accéléré par les combats, impossible à soigner). Animation et contôle des morts.</p>
-            <p><strong>Catalyseur :</strong> Le focaliseur utilisé de son vivant peut être rappelé et réparé instantanément (1 action).</p>
-        </div>
-        <p><strong>Tactique :</strong> Utilise des actions multiples pour attaquer avec de puissants sorts et se protéger avec un sort d'armure magique lui conférant protection +3 (durée 1D6, qu'il renouvelle dès le temps écoulé), tout en dirigeant ses serviteurs morts-vivants. Obsédée par ses recherches, elle ignore généralement les intrusions mineures tant qu’elles ne menacent pas ses expériences ou son territoire. Elle peut cependant s’allier ou chercher vengeance si cela sert ses objectifs (nouveaux ingrédients, expansion ou règlement de comptes).</p>
-        <p><strong>Habitat :</strong> Territoires ravagés autour d’une nécropole qu’elle contrôle avec son armée de morts-vivants.</p>
-    </div>
-
-    <!-- Les trois profils d'âge -->
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Liche Jeune <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 5+</span>
-        </div>
-        <p><strong>Description :</strong> Liche récemment transformée. Son corps ressemble à celui d'un zombi.</p>
-        <div class="rule-box">
-            <p><strong>Stats :</strong> Att (magie): saisie, dir et cir +2, tronc +3, Pro: vs dire, cir, saisie +2, tronc, mbre et tête +1 (Globale, Dur: 6). Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus) .</p>
-        </div>
-        <p><strong>Capacités :</strong> Anime jusqu’à une centaine de morts-vivants pour défendre son territoire.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Liche Ancienne <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 7+</span>
-        </div>
-        <p><strong>Description :</strong> Liche âgée de plusieurs siècles. Son corps est déjà très abîmé, avec de nombreuses zones spectrales visibles.</p>
-        <div class="rule-box">
-            <p><strong>Stats :</strong> Att (magie): saisie, dir et cir +3, tronc +4, Pro: vs dire, cir, saisie +3, tronc, mbre et tête +3. Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus) .</p>
-        </div>
-        <p><strong>Capacités :</strong> Vol sans effort. Anime plusieurs centaines à un millier de morts-vivants.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Liche Immémoriale <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 9+</span>
-        </div>
-        <p><strong>Description :</strong> Liche millénaire dont le corps physique n’est plus qu’un vague souvenir. Seuls quelques vestiges (crâne ou main décharnée) flottent au sein d’une silhouette spectrale.</p>
-        <div class="rule-box">
-            <p><strong>Stats :</strong> Att (magie): saisie, dir et cir +4, tronc +5, Pro: vs dire, cir, saisie +4, tronc, mbre et tête +4. Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus) .</p>
-        </div>
-        <p><strong>Capacités :</strong> Vol permanent. Peut animer plusieurs milliers de morts-vivants.</p>
-        <p><strong>Tactique :</strong> Considère rarement les intrus comme une menace.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Wyverne</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 3+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Prédateur aérien reptilien mesurant près de neuf mètres de long de la gueule au bout de la queue. Son corps musculeux, recouvert d'épaisses écailles ternes, est dépourvu de pattes avant : celles-ci forment de vastes ailes membraneuses. Au sol, elle se dresse sur deux puissantes pattes arrière dotées de serres capables de broyer une cage thoracique. Sa mâchoire est garnie d'innombrables crocs acérés, et sa très longue queue articulée se termine par un dard effilé suintant un venin mortel.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Dard empoisonné, Morsure, Serres).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: dir +3 (Dard) et saisie +2 (Serres, Morsure). Pro: armure tête, tronc et mbre +2 (Écailles dures, Dur: 10). Tal: Athlé +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Fond sur sa proie en piqué pour la verrouiller dans ses serres ou ses mâchoires (Att: saisie) afin de l'empêcher de fuir ou de l'emporter dans les airs. Une fois la cible immobilisée, elle frappe implacablement avec sa queue (Att: dir). En cas d'Impact avec le dard, le poison fulgurant foudroie la victime. Si la blessure n'entraîne pas une mort immédiate, le venin impose le désavantage de -1 à toutes les actions (paralysie partielle, nécrose) et nécessite des soins en extrême urgence (Magie de Restauration ou antidote préparé via le talent Survie/Savoir) pour survivre.</p>
 </div>
 
-<div class="content-section" id="section-ogre">
-    <h2>Ogre</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Brute <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Colosse de 3 mètres maniant un tronc ou un pilier. Il s'associe parfois à un grand groupe de Gobelin.</p>
-        <p><strong>Allonge:</strong> Longue (À deux mains).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: cir +2 et saisie +1, Pro: vs saisie +1, tronc, mbre, tête +1 (Dur: 6), Tal: Athlé +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Effectue de grands moulinets pour balayer ou broyer plusieurs ennemis.</p>
-    </div>
+<h2>Drakes</h2>
 
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Mage <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Colosse de 3 mètres capable de lancer des sorts sans avoir besoin d’un focalisateur magique. Intelligent, il dirige en général un groupe d’Ogre Brute.</p>
-        <p><strong>• Allonge:</strong> Variable (Sort).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: tronc et mbre +2, saisie +1, Pro: vs saisie +1, tronc, mbre, tête +2 (Dur : 8), Tal: Sav Acad et Percep +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Invisibilité pour surprendre (avantage) ou fuir, Vol, Transposition, Immobilisation puis dévoration.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Rocheux</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Gros lézard trapu aux écailles rocheuses de la taille d'un cheval.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Moyenne (Morsure).</li>
+    <li><strong>Stats:</strong> Pro: tronc, mbre et tête +2 (Globale, Dur: 8), vs saisie +1, Tal: Félin et Surv +1.</li>
+    <li><strong>Tactique:</strong> Reste immobile, ressemblant à un rocher, en attendant de surprendre une malheureuse proie qui s’approche trop près, peu rapide il ne poursuit pas une proie qui le fuit, si il la manque.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-ours">
-    <h2>Ours</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Brun Adulte <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Bête massive.</p>
-        <p><strong>Allonge:</strong> Moyenne (Pattes).</p>
-        <div class="rule-box">
-            <p><strong>• Stats:</strong> Att: cir et saisie +1, Pro: tronc, mbre et tête +1 (Globale, Dur: 6), Tal: Percep et Surv +1.</p>
-        </div>
-        <p><strong>• Tactique:</strong> Se dresse pour intimider, puis frappe en Att cir ou tente d'écraser la cible (Att saisie).</p>
-    </div>
+<h2>Félins</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Léopard des Steppes</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Prédateur solitaire et nocturne arpentant l'Immensité Grise. Son pelage tacheté lui offre un camouflage naturel redoutable dans les herbes hautes et les affleurements de basalte.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Courte (Morsure, Griffes).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: dir et saisie +1. Tal: Félin +1, Percep +1, Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Chasseur d'embuscade opérant la nuit. Il utilise sa furtivité (Félin +1) pour approcher sa cible sans être détecté. Il bondit pour la plaquer violemment au sol (Att: saisie) avant de tenter une morsure fatale à la gorge (Att: dir).</p>
 </div>
 
-<div class="content-section" id="section-peuple">
-    <h2>Peuple</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Paysan <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
-        </div>
-        <p><strong>Description:</strong> Villageois avec un outil de ferme.</p>
-        <p><strong>• Allonge:</strong> Moyenne ou Courte (outil de ferme).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Tal: Surv +1.</p>
-        </div>
-    </div>
+<h2>Gobelins</h2>
 
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Marchand <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
-        </div>
-        <p><strong>Description:</strong> Dans son échoppe ou sur la route avec un chariot tiré par une âne ou un cheval (quand leur finance le permet, ils emploient des gardes pour protéger leur marchandises).</p>
-        <p><strong>Allonge:</strong> Courte (Dague).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> toutes à 0.</p>
-        </div>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Eclaireur</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Petit, vicieux et très mobile, jamais seul.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Longue (Fronde) et Courte (Dague).</li>
+    <li><strong>Stats:</strong> Pro: vs cir +1, Tal: Athlé et Surv +1.</li>
+    <li><strong>Tactique:</strong> À distance, utilise leur fronde pour harceler leurs adversaires, engagé au CàC, poignarde les mbre pour avoir l'opportunité de reprendre de la distance. Dresse parfois des Loups Gris pour les aider à pister ou combattre, tandis qu’ils restent à distance.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-pirates">
-    <h2>Pirates des Brumes</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Écumeur <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Marin endurci naviguant sur des éperonniers légers depuis les îlots non cartographiés du nord-ouest. Habitué à la rudesse de la Mer de Jade, il survit grâce à la piraterie et à la pêche côtière de subsistance.</p>
-        <p><strong>Allonge:</strong> Distance (Harpon léger ou Arbalète) et Moyenne (Sabre d'abordage) ou Courte (Dague).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir, cir et saisie +1. Tal: Athlé, Félin et Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Leurs embuscades depuis la brume marine (Aptitude Féline +1) sont redoutables. Au corps-à-corps, ils profitent du roulis et du pont glissant pour asséner de larges coups de sabre imprévisibles (Att: cir) ou harponner leurs cibles (Att: dir). Hors combat, leur talent de Survie leur permet de pêcher pour nourrir l'équipage.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Capitaine Pirate <span class="tag-cat">(Majeur)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Vétéran impitoyable ayant survécu aux tempêtes de sillage et aux monstres marins de la Mer de Jade. Il dirige les abordages avec brutalité et connaît parfaitement les routes indirectes entre les récifs.</p>
-        <p><strong>Allonge:</strong> Distance (Harpon lourd ou Arbalète) et Moyenne (Sabre lourd) ou Courte (Dague vicieuse).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir, cir et saisie +2. Pro: vs dir, cir et saisie +1, tronc et mbre +1 (Armure de cuir, Dur: 6). Tal: Percep, Athlé, Félin et Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Reste discret dans la brume du navire pour repérer l’ennemi le plus problématique (Perception). Il établit une stratégie pour l'occire rapidement, exploitant les mouvements du navire pour l'empaler (Att: dir) ou le projeter brutalement par-dessus bord (Att: saisie).</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Bagarreur</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Petit, vicieux et teigneux.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Massue) ou Courte (Morsure).</p>
+  <ul>
+    <li><strong>Stats:</strong> Pro: vs cir et dir +1, Tal: Athlé et Félin +1.</li>
+    <li><strong>Tactique:</strong> Se cache en embuscade devant les éclaireurs. Utilise maladroitement une arme trop grande pour eux. Rageux : si l’adversaire évite 2x leur attaque, ils lâchent leur arme pour bondir et tenter de le mordre.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-rapaces">
-    <h2>Rapaces</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Aigle Géant <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Oiseau de proie massif nichant sur les pics isolés et les rocs noirs de la steppe. Son envergure immense et sa force musculaire lui permettent d'emporter des proies de la taille d'un loup, d'un orque ou d'un humain.</p>
-        <p><strong>Allonge:</strong> Moyenne (Serres, Bec).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir et saisie +1. Tal: Athlé +1, Percep +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Repère ses cibles de haut grâce à sa vue perçante (Perception +1). Il fond en piqué à grande vitesse pour verrouiller sa proie dans ses serres (Att: saisie), cherchant à l'emporter dans les airs ou à la lacérer de coups de bec fulgurants (Att: dir).</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Chef</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Grand gobelin armé d'une massue.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Massue cloutée à deux mains).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: cir et saisie +1, Pro: vs cir et dir +1, Tal: Athlé et Félin +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Donne ses ordres en restant caché puis sort de sa cachette pour achever les ennemis et montrer sa force aux autres Gobelins.</p>
 </div>
 
-<div class="content-section" id="section-rats">
-    <h2>Rats</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Géant <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
-        </div>
-        <p><strong>Description:</strong> Bête de la taille d'un chien, sale et affamée.</p>
-        <p><strong>• Allonge:</strong> Courte (Morsure).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> toutes à 0.</p>
-        </div>
-        <p><strong>Tactique:</strong> Le nombre fait la force.</p>
-    </div>
+<h2>Kobolds</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Traqueur</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Créature chétive mais rapide et adroite.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Petite Lance).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: dir +1, Tal: Percep, Surv et Athlé +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Charge rapidement sa proie pour lui percer le torse avec sa lance.</p>
 </div>
 
-<div class="content-section" id="section-requins">
-    <h2>Requins</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Gris <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
-        </div>
-        <p><strong>Description:</strong> Prédateur redoutable arpentant les eaux profondes. Chassant systématiquement en bande, ils sont frénétiquement attirés par l'odeur du sang.</p>
-        <p><strong>Allonge:</strong> Courte (Morsure).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: saisie +1. Tal: Athlé, Percep et Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Tente de mordre pour verrouiller ses mâchoires (Att: saisie) et entraîner sa proie vers le fond. L'environnement aquatique exigeant de nager (Talent Athlétisme), les créatures terrestres subissent naturellement une difficulté constante et des malus d'actions multiples.</p>
-    </div>
-
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Grand Requin Blanc <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2</span>
-        </div>
-        <p><strong>Description:</strong> Gigantesque prédateur solitaire.</p>
-        <p><strong>Allonge:</strong> Moyenne (Morsure colossale).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: saisie +2. Tal: Athlé, Percep et Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Rôde en solitaire et frappe mortellement par en dessous pour broyer sa proie dans ses mâchoires titanesques (Att: saisie). Tout comme pour le Requin Gris, le fait de devoir nager en combattant (Talent Athlétisme) impose naturellement aux créatures terrestres une difficulté constante et des malus d'actions multiples.</p>
-    </div>
+<div class="creature-block">
+  <h3 class="creature-title">Shaman</h3>
+  <div class="metadata">
+    <span class="badge badge-evolue">Évolué</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Kobold aux écailles vives maniant un bâton orné d'os, dirige un petit groupe de Kobold.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Magie).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: cir et saisie (Magie) +1, Pro: vs dir +1, Tal: Percep et Athlé +1.</li>
+    <li><strong>Tactique:</strong> Tente d’immobiliser ses adversaires pour permettre aux Kobolds Traqueurs de les achever avec leur lance. Seul ou si les Kobolds Traqueurs sont trop loin, attaque avec des sorts de zone.</li>
+  </ul>
 </div>
 
-<div class="content-section" id="section-sangliers">
-    <h2>Sangliers</h2>
-    
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Géant <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
-        </div>
-        <p><strong>Description:</strong> Bête musculeuse aux défenses acérées.</p>
-        <p><strong>• Allonge:</strong> Moyenne (Crocs).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: dir +1, Pro: tronc et tête +1 (Dur: 6).</p>
-        </div>
-        <p><strong>Tactique:</strong> Charge de face pour un impact frontal puissant.</p>
-    </div>
+<h2>Loups</h2>
 
-    <div class="content-section" id="section-serpents">
-        <h2>Serpents de Mer</h2>
-        
-        <div class="content-card">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-                <h3>Serpent de Mer Géant <span class="tag-cat">(Majeur)</span></h3>
-                <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 5+</span>
-            </div>
-            <p><strong>Description:</strong> Monstre aquatique mythique et titanesque mesurant entre 30 et 40 mètres de long. Sa tête est lourdement cuirassée par des plaques osseuses extrêmement épaisses et dures. Sa vision étant très faible, il se fie aux lourdes vibrations dans l'eau et prend souvent les coques des grands navires pour de grosses proies. Les petites embarcations ne produisent pas assez de perturbations pour l'intéresser et sont totalement ignorées.</p>
-            <p><strong>Allonge:</strong> Longue (Morsure colossale / Engloutissement).</p>
-            <div class="rule-box">
-                <p><strong>Stats:</strong> Att: saisie +5. Pro: res tête, tronc et mbre +3, armure tête +4 (Plaques osseuses, Dur: 20). Tal: Athlé +2, Percep -1.</p>
-            </div>
-            <p><strong>Tactique:</strong> Il ne cherche pas à affronter les marins, qu'il voit très mal et qui sont des cibles bien trop petites pour lui. Son seul but est de s'attaquer au gros navire qu'il prend pour une proie : il surgit pour mordre ou engloutir une large partie de la coque (Att: saisie). S'il est physiquement capable d'avaler une petite chaloupe tout rond, il ne la perçoit pas comme une proie digne d'intérêt et ne l'attaque pas. Porté par sa force colossale (Athlé +2), il éventre ou ampute systématiquement le grand bateau attaqué. Constatant que le bois n'est pas à son goût, il s'éloigne ensuite pour chercher un meilleur repas, laissant irrémédiablement le navire couler. S'en cacher est d'ailleurs assez facile (Perception -1).</p>
-        </div>
-    </div>
-    
-    <div class="content-section" id="section-esprits-de-la-foret">
-    <h2>Esprits de la Forêt</h2>
-    <div class="content-card">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3>Tréants <span class="tag-cat">(Figurant)</span></h3>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
-        </div>
-        <p><strong>Description:</strong> Arbre colossal animé par une conscience ancienne. Gardien implacable des bois sacrés, il semble se fondre parfaitement dans son environnement.</p>
-        <p><strong>Allonge:</strong> Longue (Branches et Racines).</p>
-        <div class="rule-box">
-            <p><strong>Stats:</strong> Att: cir +2 (balayage), saisie +2 (étreinte), Pro: res tronc, mbre et tête +2.</p>
-            <p><strong>Immobilité :</strong> Lorsqu'il ne bouge pas, il est quasi impossible de le différencier d'un arbre normal (nécessite un test de Perception Difficulté 1).</p>
-            <p><strong>Talents:</strong> Athlé +1 (Bien que lent sa Force est implacable), Percep +1, Surv +1.</p>
-        </div>
-        <p><strong>Tactique:</strong> Si non découvert, attend que les intrus soient à portée pour les saisir avec ses racines (Att saisie) ou les balayer d'un coup de tronc massif (Att cir). Sa lenteur est compensée par sa portée et sa résistance.</p>
-    </div> 
+<div class="creature-block">
+  <h3 class="creature-title">Gris</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Prédateur rapide cherchant à mettre sa proie au sol.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Courte (Morsure).</li>
+    <li><strong>Stats:</strong> Att: saisie +1, Tal: Athlé, Surv et Percep +1.</li>
+    <li><strong>Tactique:</strong> Charge pour mordre les membres et forcer une mise au sol via Att saisie.</li>
+  </ul>
 </div>
 
+<div class="creature-block">
+  <h3 class="creature-title">Géant (Worg)</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Loup très rusé, de la taille d'un cheval.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Morsure).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie et dir +1, Tal: Athlé, Surv et Percep +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Cherche à renverser la cible (Att saisie).</p>
+</div>
 
+<h2>Mercenaires, milice et armée</h2>
 
+<div class="creature-block">
+  <h3 class="creature-title">Garde ou fantassin</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Soldat, milicien ou mercenaire employé pour protéger un lieu, une personne ou un convoie.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Longue (Lance).</li>
+    <li><strong>Stats:</strong> Att: dir +1, Pro: vs dir +1 sous condition (Bouclier, Dur 12).</li>
+    <li><strong>Tactique:</strong> Utilise son allonge et se met en défense s'il est menacé en attendant des renforts.</li>
+  </ul>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Vétéran</h3>
+  <div class="metadata">
+    <span class="badge badge-evolue">Évolué</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Dirige souvent un groupe de garde ou constitue un groupe d’élite.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Lance).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: dir +1, Pro: vs dir, cir, saisie +1, vs dir +1 suppl (Bouclier), tronc et mbre +1 (Cuir, Dur 6), Athlé 0, Percep +1.</li>
+    <li><strong>Tactique:</strong> Se regrouper en formation pour combattre efficacement et durablement.</li>
+  </ul>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Chevalier</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Combattant d’élite souvent au service d’un noble, généralement chevauchant un cheval de guerre.</p>
+  <p class="stat-line"><strong>Allonge:</strong> À cheval : Longue (Lance d’arçon), à pied : Moyenne (Épée longue ou Masse d'arme).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: dir et cir +2, Pro: vs dir, cir, saisie +1, vs dir +1 suppl (Bouclier), tête/tronc/mbre +3 (Plaques, Dur 10). Tal: Athlé 0, Percep -1, Sav Acad +1.</li>
+    <li><strong>Tactique:</strong> charge à cheval profitant de l’avantage d’une position surélevée (bonus d’Att applicable).</li>
+  </ul>
+</div>
+
+<h2>Morts vivants</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Squelette</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Squelette d’une créature (Rat Géant, Loup Gris, Cheval, Humain, Orque, Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Variable suivant la créature et si elle possédait une arme de son vivant.</p>
+  <ul>
+    <li><strong>Stats:</strong> Pro: vs dir +1.</li>
+    <li><strong>Tactique:</strong> Avance et frappe mécaniquement.</li>
+  </ul>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Zombie</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Corps plus ou moins décomposé d’une créature (Rat Géant, Loup Gris, Cheval, Humain, Orque, Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Courte (Saisie ou Morsure).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: saisie +1, Pro: tronc, mbre et tête +1 (Globale, Dur: 6).</li>
+    <li><strong>Tactique:</strong> Humanoïde : une fois sa proie attrapée via Att saisie, tente de profiter de l’avantage de la saisie pour mordre. Animal : tente de mordre.</li>
+  </ul>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Amas de corps</h3>
+  <div class="metadata">
+    <span class="badge badge-evolue">Évolué</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Assemblage chaotique de cadavres humanoïdes en une énorme masse difforme doté de nombreux bras et visages affichant une expression de souffrance extrême.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Saisie avec bras multiples).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie +2, Pro: tronc, mbre et tête +2 (Globale, Dur : 8).</p>
+  <p class="stat-line"><strong>Tactique:</strong> Cherche le contact pour utiliser ses bras multiples en Att saisie et étouffer ses victimes qu’il incorpore à son propre corps.</p>
+</div>
+
+<h2>Liches</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Liches (Description générale)</h3>
+  <p class="stat-line"><strong>Description :</strong> Mage humain qui, pour échapper à la mort, sacrifie des centaines à des milliers de vies afin de distiller leur essence en un élixir (Sav Acad Dif. 2, possible progressivement ou en un seul grand rituel). Seuls les lanceurs de sorts avec Att cible tronc ≥ 3 peuvent l’assimiler. Le corps se dessèche et se putréfie lentement ; les parties détruites ou trop abîmées sont remplacées par une forme spectrale. Les plus anciennes ne sont souvent plus qu’une silhouette spectrale avec quelques vestiges physiques (crâne ou main).</p>
+  <p class="stat-line"><strong>Allonge :</strong> Distance (Magie).</p>
+  <p class="stat-line"><strong>Capacités :</strong> Le corps ne vieillit plus mais continue à se dégrader (accéléré par les combats, impossible à soigner). Animation et contôle des morts.</p>
+  <p class="stat-line"><strong>Catalyseur :</strong> Le focaliseur utilisé de son vivant peut être rappelé et réparé instantanément (1 action).</p>
+  <p class="stat-line"><strong>Tactique :</strong> Utilise des actions multiples pour attaquer avec de puissants sorts et se protéger avec un sort d'armure magique lui conférant protection +3 (durée 1D6, qu'il renouvelle dès le temps écoulé), tout en dirigeant ses serviteurs morts-vivants. Obsédée par ses recherches, elle ignore généralement les intrusions mineures tant qu’elles ne menacent pas ses expériences ou son territoire. Elle peut cependant s’allier ou chercher vengeance si cela sert ses objectifs (nouveaux ingrédients, expansion ou règlement de comptes).</p>
+  <p class="stat-line"><strong>Habitat :</strong> Territoires ravagés autour d’une nécropole qu’elle contrôle avec son armée de morts-vivants.</p>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Liche Jeune</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 5+</span>
+  </div>
+  <p class="stat-line"><strong>Description :</strong> Liche récemment transformée. Son corps ressemble à celui d'un zombi.</p>
+  <p class="stat-line"><strong>Stats :</strong> Att (magie): saisie, dir et cir +2, tronc +3, Pro: vs dire, cir, saisie +2, tronc, mbre et tête +1 (Globale, Dur: 6). Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus) .</p>
+  <p class="stat-line"><strong>Capacités :</strong> Anime jusqu’à une centaine de morts-vivants pour défendre son territoire.</p>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Liche Ancienne</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 7+</span>
+  </div>
+  <p class="stat-line"><strong>Description :</strong> Liche âgée de plusieurs siècles. Son corps est déjà très abîmé, avec de nombreuses zones spectrales visibles.</p>
+  <p class="stat-line"><strong>Stats :</strong> Att (magie): saisie, dir et cir +3, tronc +4, Pro: vs dire, cir, saisie +3, tronc, mbre et tête +3. Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus) .</p>
+  <p class="stat-line"><strong>Capacités :</strong> Vol sans effort. Anime plusieurs centaines à un millier de morts-vivants.</p>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Liche Immémoriale</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 9+</span>
+  </div>
+  <p class="stat-line"><strong>Description :</strong> Liche millénaire dont le corps physique n’est plus qu’un vague souvenir. Seuls quelques vestiges (crâne ou main décharnée) flottent au sein d’une silhouette spectrale.</p>
+  <p class="stat-line"><strong>Stats :</strong> Att (magie): saisie, dir et cir +4, tronc +5, Pro: vs dire, cir, saisie +4, tronc, mbre et tête +4. Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus) .</p>
+  <p class="stat-line"><strong>Capacités :</strong> Vol permanent. Peut animer plusieurs milliers de morts-vivants.</p>
+  <p class="stat-line"><strong>Tactique :</strong> Considère rarement les intrus comme une menace.</p>
+</div>
+
+<h2>Ogre</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Brute</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Colosse de 3 mètres maniant un tronc ou un pilier. Il s'associe parfois à un grand groupe de Gobelin.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (À deux mains).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: cir +2 et saisie +1, Pro: vs saisie +1, tronc, mbre, tête +1 (Dur: 6), Tal: Athlé +1.</li>
+    <li><strong>Tactique:</strong> Effectue de grands moulinets pour balayer ou broyer plusieurs ennemis.</li>
+  </ul>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Mage</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Colosse de 3 mètres capable de lancer des sorts sans avoir besoin d’un focalisateur magique. Intelligent, il dirige en général un groupe d’Ogre Brute.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Variable (Sort).</li>
+    <li><strong>Stats:</strong> Att: tronc et mbre +2, saisie +1, Pro: vs saisie +1, tronc, mbre, tête +2 (Dur : 8), Tal: Sav Acad et Percep +1.</li>
+    <li><strong>Tactique:</strong> Invisibilité pour surprendre (avantage) ou fuir, Vol, Transposition, Immobilisation puis dévoration.</li>
+  </ul>
+</div>
+
+<h2>Ours</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Brun Adulte</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Bête massive.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Pattes).</p>
+  <ul>
+    <li><strong>Stats:</strong> Att: cir et saisie +1, Pro: tronc, mbre et tête +1 (Globale, Dur: 6), Tal: Percep et Surv +1.</li>
+    <li><strong>Tactique:</strong> Se dresse pour intimider, puis frappe en Att cir ou tente d'écraser la cible (Att saisie).</li>
+  </ul>
+</div>
+
+<h2>Peuple</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Paysan</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Villageois avec un outil de ferme.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Moyenne ou Courte (outil de ferme).</li>
+    <li><strong>Stats:</strong> Tal: Surv +1.</li>
+  </ul>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Marchand</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Dans son échoppe ou sur la route avec un chariot tiré par une âne ou un cheval (quand leur finance le permet, ils emploient des gardes pour protéger leur marchandises).</p>
+  <p class="stat-line"><strong>Allonge:</strong> Courte (Dague).</p>
+  <p class="stat-line"><strong>Stats:</strong> toutes à 0.</p>
+</div>
+
+<h2>Pirates des Brumes</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Écumeur</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Marin endurci naviguant sur des éperonniers légers depuis les îlots non cartographiés du nord-ouest. Habitué à la rudesse de la Mer de Jade, il survit grâce à la piraterie et à la pêche côtière de subsistance.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Harpon léger ou Arbalète) et Moyenne (Sabre d'abordage) ou Courte (Dague).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: dir, cir et saisie +1. Tal: Athlé, Félin et Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Leurs embuscades depuis la brume marine (Aptitude Féline +1) sont redoutables. Au corps-à-corps, ils profitent du roulis et du pont glissant pour asséner de larges coups de sabre imprévisibles (Att: cir) ou harponner leurs cibles (Att: dir). Hors combat, leur talent de Survie leur permet de pêcher pour nourrir l'équipage.</p>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Capitaine Pirate</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Vétéran impitoyable ayant survécu aux tempêtes de sillage et aux monstres marins de la Mer de Jade. Il dirige les abordages avec brutalité et connaît parfaitement les routes indirectes entre les récifs.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Distance (Harpon lourd ou Arbalète) et Moyenne (Sabre lourd) ou Courte (Dague vicieuse).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: dir, cir et saisie +2. Pro: vs dir, cir et saisie +1, tronc et mbre +1 (Armure de cuir, Dur: 6). Tal: Percep, Athlé, Félin et Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Reste discret dans la brume du navire pour repérer l’ennemi le plus problématique (Perception). Il établit une stratégie pour l'occire rapidement, exploitant les mouvements du navire pour l'empaler (Att: dir) ou le projeter brutalement par-dessus bord (Att: saisie).</p>
+</div>
+
+<h2>Rapaces</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Aigle Géant</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Oiseau de proie massif nichant sur les pics isolés et les rocs noirs de la steppe. Son envergure immense et sa force musculaire lui permettent d'emporter des proies de la taille d'un loup, d'un orque ou d'un humain.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Serres, Bec).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: dir et saisie +1. Tal: Athlé +1, Percep +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Repère ses cibles de haut grâce à sa vue perçante (Perception +1). Il fond en piqué à grande vitesse pour verrouiller sa proie dans ses serres (Att: saisie), cherchant à l'emporter dans les airs ou à la lacérer de coups de bec fulgurants (Att: dir).</p>
+</div>
+
+<h2>Rats</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Géant</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 0</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Bête de la taille d'un chien, sale et affamée.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Courte (Morsure).</li>
+    <li><strong>Stats:</strong> toutes à 0.</li>
+    <li><strong>Tactique:</strong> Le nombre fait la force.</li>
+  </ul>
+</div>
+
+<h2>Requins</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Gris</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Prédateur redoutable arpentant les eaux profondes. Chassant systématiquement en bande, ils sont frénétiquement attirés par l'odeur du sang.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Courte (Morsure).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie +1. Tal: Athlé, Percep et Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Tente de mordre pour verrouiller ses mâchoires (Att: saisie) et entraîner sa proie vers le fond. L'environnement aquatique exigeant de nager (Talent Athlétisme), les créatures terrestres subissent naturellement une difficulté constante et des malus d'actions multiples.</p>
+</div>
+
+<div class="creature-block">
+  <h3 class="creature-title">Grand Requin Blanc</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Gigantesque prédateur solitaire.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Moyenne (Morsure colossale).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie +2. Tal: Athlé, Percep et Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Rôde en solitaire et frappe mortellement par en dessous pour broyer sa proie dans ses mâchoires titanesques (Att: saisie). Tout comme pour le Requin Gris, le fait de devoir nager en combattant (Talent Athlétisme) impose naturellement aux créatures terrestres une difficulté constante et des malus d'actions multiples.</p>
+</div>
+
+<h2>Sangliers</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Géant</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 1+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Bête musculeuse aux défenses acérées.</p>
+  <ul>
+    <li><strong>Allonge:</strong> Moyenne (Crocs).</li>
+    <li><strong>Stats:</strong> Att: dir +1, Pro: tronc et tête +1 (Dur: 6).</li>
+    <li><strong>Tactique:</strong> Charge de face pour un impact frontal puissant.</li>
+  </ul>
+</div>
+
+<h2>Serpents de Mer</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Serpent de Mer Géant</h3>
+  <div class="metadata">
+    <span class="badge badge-majeur">Majeur</span>
+    <span class="badge badge-dangerosite">Dangerosité : 5+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Monstre aquatique mythique et titanesque mesurant entre 30 et 40 mètres de long. Sa tête est lourdement cuirassée par des plaques osseuses extrêmement épaisses et dures. Sa vision étant très faible, il se fie aux lourdes vibrations dans l'eau et prend souvent les coques des grands navires pour de grosses proies. Les petites embarcations ne produisent pas assez de perturbations pour l'intéresser et sont totalement ignorées.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Morsure colossale / Engloutissement).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: saisie +5. Pro: res tête, tronc et mbre +3, armure tête +4 (Plaques osseuses, Dur: 20). Tal: Athlé +2, Percep -1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Il ne cherche pas à affronter les marins, qu'il voit très mal et qui sont des cibles bien trop petites pour lui. Son seul but est de s'attaquer au gros navire qu'il prend pour une proie : il surgit pour mordre ou engloutir une large partie de la coque (Att: saisie). S'il est physiquement capable d'avaler une petite chaloupe tout rond, il ne la perçoit pas comme une proie digne d'intérêt et ne l'attaque pas. Porté par sa force colossale (Athlé +2), il éventre ou ampute systématiquement le grand bateau attaqué. Constatant que le bois n'est pas à son goût, il s'éloigne ensuite pour chercher un meilleur repas, laissant irrémédiablement le navire couler. S'en cacher est d'ailleurs assez facile (Perception -1).</p>
+</div>
+
+<h2>Esprits de la Forêt</h2>
+
+<div class="creature-block">
+  <h3 class="creature-title">Tréants</h3>
+  <div class="metadata">
+    <span class="badge badge-figurant">Figurant</span>
+    <span class="badge badge-dangerosite">Dangerosité : 2+</span>
+  </div>
+  <p class="stat-line"><strong>Description:</strong> Arbre colossal animé par une conscience ancienne. Gardien implacable des bois sacrés, il semble se fondre parfaitement dans son environnement.</p>
+  <p class="stat-line"><strong>Allonge:</strong> Longue (Branches et Racines).</p>
+  <p class="stat-line"><strong>Stats:</strong> Att: cir +2 (balayage), saisie +2 (étreinte), Pro: res tronc, mbre et tête +2.</p>
+  <p class="stat-line"><strong>Immobilité :</strong> Lorsqu'il ne bouge pas, il est quasi impossible de le différencier d'un arbre normal (nécessite un test de Perception Difficulté 1).</p>
+  <p class="stat-line"><strong>Talents:</strong> Athlé +1 (Bien que lent sa Force est implacable), Percep +1, Surv +1.</p>
+  <p class="stat-line"><strong>Tactique:</strong> Si non découvert, attend que les intrus soient à portée pour les saisir avec ses racines (Att saisie) ou les balayer d'un coup de tronc massif (Att cir). Sa lenteur est compensée par sa portée et sa résistance.</p>
+</div>
+
+</body>
+</html>
