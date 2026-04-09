@@ -80,6 +80,31 @@
     color: #666;
     margin-left: 10px;
     }
+
+    /* Étiquette de Dangerosité (Fond sombre) */
+    .tag-danger {
+        background: #1c1917;
+        color: #f4ecd8;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        font-weight: bold;
+        white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    }
+
+    /* Étiquette d'Échelonnement (Fond clair pour contraster) */
+    .tag-echelon {
+        background: #e7e5e4;
+        color: #44403c;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.75em;
+        font-weight: 600;
+        margin-left: 8px;
+        vertical-align: middle;
+        text-transform: uppercase; /* Met en majuscule pour un effet "badge" */
+        letter-spacing: 0.5px;
+    }
 </style>
 
 <h2 id="guide-mj-lexique" class="content-section">1. Guide de Lecture & Lexique</h2>
@@ -171,9 +196,9 @@
     <div class="content-card">
         <p>Voici comment lire et interpréter une fiche de créature :</p>
         
-        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem; margin-top: 1rem;">
-            <h4 style="margin: 0;">Brute (Bandit) <span class="tag-cat">(Évolué)</span></h4>
-            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem; margin-top: 1rem;">
+            <h4 style="margin: 0;">Brute (Bandit) <span class="tag-echelon">Évolué</span></h4>
+            <span class="tag-danger">Dangerosité : 1+</span>
         </div>
         <p><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
         <div class="rule-box">
