@@ -169,8 +169,18 @@
 
     <h3 id="exemple-lecture">Exemple de Lecture Pas-à-Pas</h3>
     <div class="content-card">
-    <p><strong>Fiche :</strong> <em>Brute (Bandit) – Évolué</em> | Dangerosité : <code>1+</code> | Allonge : Longue<br>
-        <code>Att: cir +1 et saisie +1</code> | <code>Pro: tronc et mbre +1 (Armure de cuir, Dur: 6)</code></p>
+        <p>Voici comment lire et interpréter une fiche de créature :</p>
+        
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem; margin-top: 1rem;">
+            <h4 style="margin: 0;">Brute (Bandit) <span class="tag-cat">(Évolué)</span></h4>
+            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
+        </div>
+        <p><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
+        <div class="rule-box">
+            <p><strong>Stats:</strong> Att: cir +1 et saisie +1, Pro: tronc et mbre +1 (Armure de cuir, Dur: 6).</p>
+        </div>
+        
+        <p><strong>Décryptage :</strong></p>
         <ol>
             <li><strong>Attaque :</strong> Son score max est <code>cir +1</code> (Type) + <code>tronc +0</code> (Cible non listée = 0) = <strong>1</strong>. D'où Dangerosité <code>1</code>.</li>
             <li><strong>Le <code>+</code> :</strong> Justifié ici par son armure de cuir (<code>Pro: tronc/mbre +1</code>) qui compense l'érosion et augmente sa résilience.</li>
