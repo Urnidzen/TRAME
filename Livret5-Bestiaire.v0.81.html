@@ -89,7 +89,7 @@
         border-radius: 4px;
         font-size: 0.8em;
         font-weight: bold;
-        white-space: nowrap; /* Empêche le texte de passer à la ligne */
+        white-space: nowrap;
     }
 
     /* Étiquette d'Échelonnement (Fond clair pour contraster) */
@@ -100,9 +100,8 @@
         border-radius: 4px;
         font-size: 0.75em;
         font-weight: 600;
-        margin-left: 8px;
         vertical-align: middle;
-        text-transform: uppercase; /* Met en majuscule pour un effet "badge" */
+        text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 </style>
@@ -197,9 +196,14 @@
         <p>Voici comment lire et interpréter une fiche de créature :</p>
         
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem; margin-top: 1rem;">
-            <h4 style="margin: 0;">Brute (Bandit) <span class="tag-echelon">Évolué</span></h4>
-            <span class="tag-danger">Dangerosité : 1+</span>
+            <h4 style="margin: 0;">Brute (Bandit)</h4>
+            
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
         </div>
+        
         <p><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
         <div class="rule-box">
             <p><strong>Stats:</strong> Att: cir +1 et saisie +1, Pro: tronc et mbre +1 (Armure de cuir, Dur: 6).</p>
