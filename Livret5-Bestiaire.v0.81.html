@@ -76,77 +76,71 @@
     }
 </style>
 
-<div class="content-section" id="section-lexique">
-    <h2>Lexique des Abréviations</h2>
+<section id="guide-mj-lexique" class="livret5-lexique">
+  <h2>📖 Guide de Lecture & Lexique</h2>
 
-    <div class="rule-box" style="margin-bottom: 1.5rem; background: #f8f1e3; border-left: 5px solid #1c1917;">
-        <p><strong>Règle importante sur les statistiques :</strong></p>
-        <p>Quand une créature est décrite, <strong>seules les statistiques qui lui confèrent un bonus ou un malus sont indiquées</strong>.</p>
-        <p><strong>Toute statistique (Attaque, Protection, Talent, etc.) non mentionnée est égale à 0.</strong></p>
-        <p>Exemple : si une créature n’a indiqué que « Att: dir +1 » et « Tal: Surv +1 », cela signifie que toutes ses autres valeurs d’Attaque (cir, saisie…), toutes ses Protections, et tous ses autres Talents sont à 0.</p>
-    </div>
-    
-    <table class="table-lexique">
-        <thead>
-            <tr>
-                <th>Combat</th>
-                <th>Type / Cible</th>
-                <th>Talents</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Att:</strong> Attaquer</td>
-                <td><strong>dir:</strong> Direct</td>
-                <td><strong>Tal:</strong> Talents</td>
-            </tr>
-            <tr>
-                <td><strong>Pro:</strong> Se Protéger</td>
-                <td><strong>cir:</strong> Circulaire</td>
-                <td><strong>Athlé:</strong> Athlétisme</td>
-            </tr>
-            <tr>
-                <td><strong>Type:</strong> Type</td>
-                <td><strong>saisie:</strong> Saisie</td>
-                <td><strong>Félin:</strong> Aptitude Féline</td>
-            </tr>
-            <tr>
-                <td><strong>Cible:</strong> Cible</td>
-                <td><strong>tête:</strong> Tête</td>
-                <td><strong>Méca:</strong> Mécanique</td>
-            </tr>
-            <tr>
-                <td><strong>Def:</strong> Défense</td>
-                <td><strong>tronc:</strong> Tronc</td>
-                <td><strong>Fourb:</strong> Fourberie</td>
-            </tr>
-            <tr>
-                <td><strong>Res:</strong> Résistance</td>
-                <td><strong>mbre:</strong> Membres</td>
-                <td><strong>Percep:</strong> Perception</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><strong>Surv:</strong> Survie</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td><strong>Sav Acad:</strong> Savoir Académique</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+  <div class="note-importante">
+    <h3>⚠️ Règle Fondamentale : L'Omission</h3>
+    <p><strong>Toute statistique non mentionnée dans une fiche est égale à 0.</strong> Pour alléger la lecture, seules les valeurs modifiées (bonus, malus, particularités) sont indiquées.</p>
+    <p><em>Exemple concret : Si une créature affiche <code>Att: dir +1</code> et <code>Tal: Surv +1</code>, cela signifie automatiquement que toutes ses autres Attaques (<code>cir</code>, <code>saisie</code>), toutes ses Protections, et tous ses autres Talents sont à <strong>0</strong>.</em></p>
+  </div>
 
-<div class="rule-box" style="margin-bottom: 1.5rem; background: #f8f1e3; border-left: 5px solid #1c1917;">
-    <p><strong>Chaque créature est marquée d'un tag (cf : Livret 4 chapitre 2 Ajuster les PNJ) :</strong></p>
-    <ul>
-        <li><strong>Figurant :</strong> Profil sans bonus.</li>
-        <li><strong>Évolué :</strong> Individu expérimenté possédant une partie ou la totalité de ses bonus d'espèce (1 à 4 bonus).</li>
-        <li><strong>Majeur :</strong> Plein potentiel, possède l'intégralité de ses bonus d'espèce.</li>
-    </ul>
-</div>
+  <h3>🔤 Légende des Abréviations</h3>
+  <table class="table-lexique">
+    <thead>
+      <tr>
+        <th>Combat</th>
+        <th>Type / Cible</th>
+        <th>Talents & Aptitudes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>Att:</code> Attaquer</td><td><code>dir:</code> Direct</td><td><code>Tal:</code> Talents</td></tr>
+      <tr><td><code>Pro:</code> Se Protéger</td><td><code>cir:</code> Circulaire</td><td><code>Athlé:</code> Athlétisme</td></tr>
+      <tr><td><code>Def:</code> Défense (vs)</td><td><code>saisie:</code> Saisie</td><td><code>Félin:</code> Aptitude Féline</td></tr>
+      <tr><td><code>Res:</code> Résistance</td><td><code>tête:</code> Tête</td><td><code>Méca:</code> Mécanique</td></tr>
+      <tr><td><code>Dur:</code> Durabilité</td><td><code>tronc:</code> Tronc</td><td><code>Fourb:</code> Fourberie</td></tr>
+      <tr><td><code>vs [type]:</code> Défense spécifique</td><td><code>mbre:</code> Membres</td><td><code>Percep:</code> Perception</td></tr>
+      <tr><td></td><td></td><td><code>Surv:</code> Survie</td></tr>
+      <tr><td></td><td></td><td><code>Sav Acad:</code> Savoir Académique</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🏷️ Profils & Échelonnement (Tags)</h3>
+  <p>Ces tags, placés entre parenthèses après le nom de la créature, indiquent son niveau d'expérience et les bonus d'espèce qu'elle possède automatiquement (cf. <strong>Livret 2</strong> & <strong>Livret 4</strong>) :</p>
+  <ul>
+    <li><strong>Figurant :</strong> Profil de base, sans bonus d'expérience. Représente la norme biologique ou professionnelle (ex: un paysan, un gobelin éclaireur, un rat).</li>
+    <li><strong>Évolué :</strong> Individu expérimenté ayant développé une partie de son héritage biologique. Le MJ peut lui attribuer de <strong>1 à 4 bonus d'espèce</strong>, justifiés par son vécu ou son rôle narratif.</li>
+    <li><strong>Majeur :</strong> Figure d'exception ou Personnage Joueur. Possède systématiquement <strong>l'intégralité</strong> des bonus liés à son espèce.</li>
+  </ul>
+  <p class="note-mj"><em>Note MJ : Vous pouvez moduler ces tags (surclassement ou déclassement) en ajoutant ou retirant des bonus d'espèce, tant que la justification narrative reste cohérente avec la démographie et la longévité de l'espèce (cf. Livret 4, Ch. 2).</em></p>
+
+  <h3>⚔️ Décodage de la Dangerosité (X / X+)</h3>
+  <p>Ce score est votre principal outil d'équilibrage (cf. <strong>Livret 4, Ch. 3 - Règle de Comparaison</strong>) :</p>
+  <ul>
+    <li><strong>Le Chiffre (X) :</strong> Correspond au <strong>Score Total d'Attaque le plus élevé</strong> de la créature (somme du Type + Cible). C'est la valeur technique brute qui détermine si elle peut rivaliser avec les PJ.</li>
+    <li><strong>Le Signe (+) :</strong> Un <code>+</code> indique une <strong>menace contextuelle</strong>. La créature est plus dangereuse que son chiffre ne le laisse paraître, généralement grâce à une armure lourde, un talent de furtivité, un environnement favorable, un poison, ou un avantage tactique. Le <code>+</code> ne modifie pas le calcul technique, mais justifie un surclassement lors de l'évaluation de la rencontre.</li>
+  </ul>
+
+  <h3>📐 Exemple de Lecture Pas-à-Pas</h3>
+  <div class="exemple-lecture">
+    <p><strong>Fiche :</strong> <em>Brute (Bandit) – Évolué</em> | Dangerosité : <code>1+</code> | Allonge : Longue<br>
+    <code>Att: cir +1 et saisie +1</code> | <code>Pro: tronc et mbre +1 (Armure de cuir, Dur: 6)</code></p>
+    <ol>
+      <li><strong>Attaque :</strong> Son score max est <code>cir +1</code> (Type) + <code>tronc +0</code> (Cible non listée = 0) = <strong>1</strong>. D'où Dangerosité <code>1</code>.</li>
+      <li><strong>Le <code>+</code> :</strong> Justifié ici par son armure de cuir (<code>Pro: tronc/mbre +1</code>) qui compense l'érosion et augmente sa résilience.</li>
+      <li><strong>En combat :</strong> Elle frappe en <code>cir +1</code>. Si elle est attaquée au tronc, sa Protection vaut <code>Def vs cir (0) + Res tronc (+1) = 1</code>. Son armure a 6 points de Durabilité.</li>
+      <li><strong>Échelonnement :</strong> Tag <em>Évolué</em> signifie qu'elle possède déjà des bonus d'espèce appliqués. Le MJ peut lui en ajouter ou en retirer selon le scénario.</li>
+    </ol>
+  </div>
+
+  <h3>🔗 Renvois Croisés Essentiels</h3>
+  <ul>
+    <li><strong>Livret 1 :</strong> Résolution des actions, Érosion tactique, Initiative, Magie & Talents.</li>
+    <li><strong>Livret 2 :</strong> Bonus d'Espèce détaillés, Création de personnage, Plafonds des Talents.</li>
+    <li><strong>Livret 4 :</strong> Ajustement des PNJ (Figurant/Évolué/Majeur), Règle de Comparaison, Équilibrage des rencontres.</li>
+  </ul>
+</section>
 
 <div class="content-section" id="section-araignees">
     <h2>Araignées</h2>
