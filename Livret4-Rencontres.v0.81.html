@@ -40,14 +40,64 @@
 
 <div class="content-section" id="section-ajustement">
     <h2>2. Ajuster les PNJ : L'Échelle d'Importance</h2>
-        <div class="content-card">
-        <p class="mb-4">Les profils du bestiaire représentent le standard de leur profession. C'est pourquoi un simple Marchand a toutes ses statistiques à 0 et qu'un Paysan n'a qu'un +1 en Survie, quel que soit son espèce. Cependant, pour moduler la difficulté ou refléter l'importance narrative d'un individu, le MJ doit classer les PNJ en trois catégories et leur appliquer les bonus d'Espèce correspondant :</p>
-            <p class="pseudo-li"><strong>Les Figurants :</strong> Utilisez le profil brut du bestiaire.</p>
-            <p class="pseudo-li"><strong>Les PNJ Évolutifs (ex. : Alliés expérimentés, Lieutenants) :</strong> Le MJ a la liberté de leur attribuer une partie ou la totalité des bonus tirés de leur Espèce (soit de 1 à 4 bonus), pour l'aider à enrichir ces personnages et servir ses objectifs narratifs.</p>
-            <p class="pseudo-li"><strong>Les Personnages Majeurs (ex. : Boss, Figures d'exception) :</strong> Ces PNJ hors du commun reçoivent systématiquement l'intégralité des bonus liés à leur Espèce, qui s'ajoutent à leur profil de base.</p>
-        <p class="mb-4">Attention aux limites lors de l'ajout de bonus :</p>
-            <p class="pseudo-li"><strong>Les Talents :</strong> La limite mortelle s'applique. Aucun Talent ne peut dépasser +1. Si un PNJ possède déjà +1 dans un Talent de son profil et qu'il reçoit un bonus d'Espèce dans ce même Talent, le MJ dispose de ce +1 pour l'attribuer à un autre Talent de son choix. Si tous les Talents du PNJ sont déjà à +1, le bonus est perdu. Un bonus de Talent ne peut jamais être échangé contre un bonus de Compétence.</p>
-            <p class="pseudo-li"><strong>Les Compétences (Attaque et Protection) :</strong> Contrairement aux Talents, elles n'ont pas de plafond naturel. Un PNJ avec une Attaque Directe à +2 passera simplement à +3 si le MJ y applique un bonus d'Espèce.</p>
+    <div class="content-card">
+        <p class="mb-4">Le Bestiaire ne propose plus seulement des statistiques figées, mais des modèles dynamiques classés selon leur maturité et leur rôle narratif. Chaque fiche indique désormais si la créature est un <strong>Figurant</strong>, un profil <strong>Évolué</strong> ou un personnage <strong>Majeur</strong>. Cette classification permet au MJ d'ajuster la difficulté en fonction de la longévité des espèces et de l'expérience des individus.</p>
+
+        <h3>I. Les Catégories de Profils</h3>
+        <p class="pseudo-li"><strong>Le Figurant (Standard) :</strong> Ce profil représente la norme biologique ou professionnelle d'une espèce. C'est l'individu dans son état de base, sans bonus d'expérience particulier.<br>
+        <span class="italic">Démographie :</span> Très présent chez les espèces à cycle de vie court ou à forte reproduction (Rats, Humains du peuple, Gobelins), où la jeunesse est la norme.</p>
+        
+        <p class="pseudo-li"><strong>L’Évolué (Expérimenté) :</strong> Ce profil désigne un individu ayant intégré une partie de son héritage biologique ou de son vécu.<br>
+        <span class="italic">Démographie :</span> Chez les espèces à grande longévité (Elfes, Nains), cette catégorie est la plus commune, car le temps permet naturellement de développer ses facultés innées.</p>
+        
+        <p class="pseudo-li"><strong>Le Majeur (Exceptionnel) :</strong> Ce profil est réservé aux figures d'exception, aux chefs de guerre ou aux Personnages Joueurs. Il représente le plein potentiel d'une espèce.</p>
+
+        <hr class="my-4">
+
+        <h3>II. Création de Variantes (Outil de Modulation)</h3>
+        <p class="mb-4">Le Bestiaire est une boîte à outils. Le MJ peut faire passer un PNJ d'une catégorie à une autre, soit pour renforcer une menace (surclassement), soit pour refléter une faiblesse ou un manque d'expérience (déclassement), en appliquant ou en retirant les <strong>Bonus d'Espèce</strong>.</p>
+
+        <h4>Méthode de Modulation</h4>
+        <p class="mb-4">Pour adapter une créature, identifiez son espèce et ajustez son profil selon le sens de la transition :</p>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem;">
+            <thead>
+                <tr style="border-bottom: 2px solid #1c1917;">
+                    <th style="text-align: left; padding: 8px;">Espèce</th>
+                    <th style="text-align: left; padding: 8px;">Valeur des Bonus d'Espèce (pour ajout ou retrait)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <td style="padding: 8px;"><strong>Humain</strong></td>
+                    <td style="padding: 8px;">2 Talents au choix (+1) ET 2 Statistiques de combat au choix (+1).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <td style="padding: 8px;"><strong>Elfe</strong></td>
+                    <td style="padding: 8px;">Aptitude Féline +1, Perception +1, Survie +1 ET 2 Statistiques au choix (+1).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <td style="padding: 8px;"><strong>Nain</strong></td>
+                    <td style="padding: 8px;">Athlétisme +1, Mécanique +1, Savoir Académique +1 ET 2 Statistiques au choix (+1).</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <td style="padding: 8px;"><strong>Orque</strong></td>
+                    <td style="padding: 8px;">Athlétisme +1, Survie +1, Attaque Saisie +1 ET 2 Statistiques au choix (+1).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Exemples d'ajustement :</h4>
+        <p class="pseudo-li"><strong>Surclassement :</strong> Pour créer un <strong>Capitaine</strong> à partir d'un <strong>Vétéran</strong> (Évolué), le MJ lui ajoute les bonus d'espèce humains restants pour atteindre le rang Majeur.</p>
+        <p class="pseudo-li"><strong>Déclassement :</strong> Pour représenter un <strong>Garde novice</strong>, le MJ peut prendre la fiche du <strong>Garde</strong> (Figurant) et lui retirer son bonus d'Attaque Directe (+1), le ramenant à 0 pour refléter son manque d'entraînement.</p>
+
+        <hr class="my-4">
+
+        <h3>III. Règles de Cohérence et d'Équilibre</h3>
+        <p class="pseudo-li"><strong>1. Plafond des Talents :</strong> Aucun Talent ne peut dépasser <strong>+1</strong> (limite mortelle). Si un bonus s'ajoute à un talent déjà possédé, le point est réattribué à un autre talent. À l'inverse, un talent ne peut descendre sous 0.</p>
+        <p class="pseudo-li"><strong>2. Progression des Compétences :</strong> Les scores d'Attaque et de Protection n'ont pas de plafond. Ils peuvent fluctuer librement lors de la modulation pour correspondre à l'état narratif du PNJ (blessure, vieillesse ou excellence).</p>
+        <p class="pseudo-li"><strong>3. Influence de la Longévité :</strong> La modulation doit rester crédible : il est fréquent de déclasser un Humain (vie courte), mais un Elfe ou un Nain "Figurant" doit être justifié par une condition exceptionnelle, car leur longévité induit naturellement un profil Évolué.</p>
+        <p class="pseudo-li"><strong>4. Interdiction de l'Aléatoire Pur :</strong> L'ajustement d'une rencontre doit toujours servir la cohérence de la narration et le plaisir de jeu, et non résulter d'un simple jet de dé.</p>
     </div>
 </div>
 
