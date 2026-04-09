@@ -26,7 +26,7 @@
         {"id": "section-requins", "title": "Requins", "level": 1},
         {"id": "section-sangliers", "title": "Sangliers", "level": 1},
         {"id": "section-serpents", "title": "Serpents de Mer", "level": 1},
-        {"id": "section-treants", "title": "Tréants", "level": 1}
+        {"id": "section-esprits-de-la-foret", "title": "Esprits de la foret", "level": 1}
     ]
 }
 </script>
@@ -139,12 +139,23 @@
     </table>
 </div>
 
+<div class="rule-box" style="margin-top: 1rem; background: #e3f2fd; border-left: 5px solid #0288d1;">
+    <p><strong>Rappel sur les Catégories :</strong></p>
+    <p>Chaque créature est marquée d'un tag indiquant sa maturité :</p>
+    <ul>
+        <li><strong>Figurant :</strong> Profil de base sans bonus.</li>
+        <li><strong>Évolué :</strong> Individu expérimenté possédant une partie ou la totalité de sa réserve d'espèce (1 à 4 bonus).</li>
+        <li><strong>Majeur :</strong> Plein potentiel, possède l'intégralité de sa réserve d'espèce.</li>
+    </ul>
+    <p><em>Note : Pour moduler une créature, référez-vous au <strong>Livret 2</strong> (espèces jouables) ou appliquez le bonus standard (+1 à deux talents et deux compétences) pour les autres.</em></p>
+</div>
+
 <div class="content-section" id="section-araignees">
     <h2>Araignées</h2>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Géante</h3>
+            <h3>Géante <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, généralement tapie au plafond ou dans les grand arbres.</p>
@@ -157,7 +168,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Caméléon</h3>
+            <h3>Caméléon <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, change naturellement de couleur pour se fondre dans son environnement, généralement tapie au plafond iou dans les grands arbres.</p>
@@ -170,7 +181,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Colossale</h3>
+            <h3>Colossale <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2</span>
         </div>
         <p><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, souvent à la tête d’une colonie d’araignées géantes.</p>
@@ -183,7 +194,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Caméléon Colossale</h3>
+            <h3>Caméléon Colossale <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, change naturellement de couleur pour se fondre dans son environnement, souvent à la tête d’une colonie d’araignées géantes caméléons.</p>
@@ -199,7 +210,7 @@
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Vaurien</h3>
+            <h3>Vaurien <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Brigand armé d'une hache ou d'une masse.</p>
@@ -212,7 +223,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Brute</h3>
+            <h3>Brute <span class="tag-cat">(Évolué)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Colosse cicatrisé avec armure de cuir et hache lourde, souvent chef d’un groupe de Vaurien.</p>
@@ -225,7 +236,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Coupe-jarret</h3>
+            <h3>Coupe-jarret <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Brigand coutumier des pillages et des embuscades.</p>
@@ -238,7 +249,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Chef de bande</h3>
+            <h3>Chef de bande <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Chef de groupe hétéroclite (divers types de bandits) ou homogène (même type de bandits) de bandits humains, peuvent parfois avec leur groupe s’associer à d’autres espèces ou groupe d’autres espèces.</p>
@@ -255,7 +266,7 @@
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">De monte</h3>
+            <h3>De monte <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
         </div>
         <p><strong>Description:</strong> Cheval rapide et endurant.</p>
@@ -268,7 +279,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">De Guerre (Destrier)</h3>
+            <h3>De Guerre (Destrier) <span class="tag-cat">(Évolué)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1 (1+ barde)</span>
         </div>
         <p><strong>Description:</strong> Cheval robuste et puissant, entraîné au combat.</p>
@@ -285,7 +296,7 @@
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(124, 45, 18, 0.3); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0; color: #7c2d12;">Dragon Véritable</h3>
+            <h3>Dragon Véritable <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 6+</span>
         </div>
         <p><strong>Description:</strong> Une entité millénaire dont l'existence même est liée aux flux magiques du monde. Sa présence impose généralement la terreur ou le respect absolu. Extremement puissant mais aussi étonnement agile, que se soit sur terre, dans les airs, ou sous les eaux les plus profondes. Il peut prendre forme humaine (malus de - aux actions tan que maintenu) pour voyager parmi les mortels sans être décelé.<br>
@@ -302,7 +313,7 @@
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(124, 45, 18, 0.3); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0; color: #7c2d12;">Wyverne</h3>
+            <h3>Wyverne <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 3+</span>
         </div>
         <p><strong>Description:</strong> Prédateur aérien reptilien mesurant près de neuf mètres de long de la gueule au bout de la queue. Son corps musculeux, recouvert d'épaisses écailles ternes, est dépourvu de pattes avant : celles-ci forment de vastes ailes membraneuses. Au sol, elle se dresse sur deux puissantes pattes arrière dotées de serres capables de broyer une cage thoracique. Sa mâchoire est garnie d'innombrables crocs acérés, et sa très longue queue articulée se termine par un dard effilé suintant un venin mortel.</p>
@@ -319,7 +330,7 @@
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Rocheux</h3>
+            <h3>Rocheux <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0+</span>
         </div>
         <p><strong>Description:</strong> Gros lézard trapu aux écailles rocheuses de la taille d'un cheval.</p>
@@ -337,7 +348,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Léopard des Steppes</h3>
+            <h3>Léopard des Steppes <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Prédateur solitaire et nocturne arpentant l'Immensité Grise. Son pelage tacheté lui offre un camouflage naturel redoutable dans les herbes hautes et les affleurements de basalte.</p>
@@ -354,7 +365,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Eclaireur</h3>
+            <h3>Eclaireur <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
         </div>
         <p><strong>Description:</strong> Petit, vicieux et très mobile, jamais seul.</p>
@@ -367,7 +378,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Bagarreur</h3>
+            <h3>Bagarreur <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0+</span>
         </div>
         <p><strong>Description:</strong> Petit, vicieux et teigneux.</p>
@@ -380,7 +391,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Chef</h3>
+            <h3>Chef <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Grand gobelin armé d'une massue.</p>
@@ -397,7 +408,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Traqueur</h3>
+            <h3>Traqueur <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Créature chétive mais rapide et adroite.</p>
@@ -410,7 +421,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Shaman</h3>
+            <h3>Shaman <span class="tag-cat">(Évolué)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Kobold aux écailles vives maniant un bâton orné d'os, dirige un petit groupe de Kobold.</p>
@@ -427,7 +438,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Gris</h3>
+            <h3>Gris <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Prédateur rapide cherchant à mettre sa proie au sol.</p>
@@ -440,10 +451,10 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Géant (Worg)</h3>
+            <h3>Géant (Worg) <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
-        <p><strong>Description:</strong> Loup de la taille d'un cheval, maléfique et intelligent.</p>
+        <p><strong>Description:</strong> Loup très rusé, de la taille d'un cheval.</p>
         <p><strong>Allonge:</strong> Moyenne (Morsure).</p>
         <div class="rule-box">
             <p><strong>Stats:</strong> Att: saisie et dir +1, Tal: Athlé, Surv et Percep +1.</p>
@@ -457,7 +468,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Garde ou fantassin</h3>
+            <h3>Garde ou fantassin <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Soldat, milicien ou mercenaire employé pour protéger un lieu, une personne ou un convoie.</p>
@@ -470,7 +481,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Vétéran</h3>
+            <h3>Vétéran <span class="tag-cat">(Évolué)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Dirige souvent un groupe de garde ou constitue un groupe d’élite.</p>
@@ -483,7 +494,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Chevalier</h3>
+            <h3>Chevalier <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Combattant d’élite souvent au service  d’un noble, généralement chevauchant un cheval de guerre.</p>
@@ -500,7 +511,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Squelette</h3>
+            <h3>Squelette <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
         </div>
         <p><strong>Description:</strong> Squelette d’une créature (Rat Géant, Loup Gris, Cheval, Humain, Orque, Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
@@ -513,7 +524,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Zombie</h3>
+            <h3>Zombie <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Corps plus ou moins décomposé d’une  créature (Rat Géant, Loup Gris, Cheval, Humain, Orque,  Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
@@ -526,7 +537,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Amas de corps</h3>
+            <h3>Amas de corps <span class="tag-cat">(Évolué)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Assemblage chaotique de cadavres humanoïdes en une énorme masse difforme doté de nombreux bras et visages affichant une expression de souffrance extrême.</p>
@@ -558,7 +569,7 @@ fuit, si il la manque.</p>
     <!-- Les trois profils d'âge -->
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Liche Jeune</h3>
+            <h3>Liche Jeune <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 5+</span>
         </div>
         <p><strong>Description :</strong> Liche récemment transformée. Son corps ressemble à celui d'un zombi.</p>
@@ -570,7 +581,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Liche Ancienne</h3>
+            <h3>Liche Ancienne <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 7+</span>
         </div>
         <p><strong>Description :</strong> Liche âgée de plusieurs siècles. Son corps est déjà très abîmé, avec de nombreuses zones spectrales visibles.</p>
@@ -582,7 +593,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Liche Immémoriale</h3>
+            <h3>Liche Immémoriale <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 9+</span>
         </div>
         <p><strong>Description :</strong> Liche millénaire dont le corps physique n’est plus qu’un vague souvenir. Seuls quelques vestiges (crâne ou main décharnée) flottent au sein d’une silhouette spectrale.</p>
@@ -599,7 +610,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Brute</h3>
+            <h3>Brute <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Colosse de 3 mètres maniant un tronc ou un pilier. Il s'associe parfois à un grand groupe de Gobelin.</p>
@@ -612,7 +623,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Mage</h3>
+            <h3>Mage <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Colosse de 3 mètres capable de lancer des sorts sans avoir besoin d’un focalisateur magique. Intelligent, il dirige en général un groupe d’Ogre Brute.</p>
@@ -629,7 +640,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Brun Adulte</h3>
+            <h3>Brun Adulte <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Bête massive.</p>
@@ -646,7 +657,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Paysan</h3>
+            <h3>Paysan <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
         </div>
         <p><strong>Description:</strong> Villageois avec un outil de ferme.</p>
@@ -658,7 +669,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Marchand</h3>
+            <h3>Marchand <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
         </div>
         <p><strong>Description:</strong> Dans son échoppe ou sur la route avec un chariot tiré par une âne ou un cheval (quand leur finance le permet, ils emploient des gardes pour protéger leur marchandises).</p>
@@ -674,7 +685,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Écumeur (Pirate standard)</h3>
+            <h3>Écumeur <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Marin endurci naviguant sur des éperonniers légers depuis les îlots non cartographiés du nord-ouest. Habitué à la rudesse de la Mer de Jade, il survit grâce à la piraterie et à la pêche côtière de subsistance.</p>
@@ -687,7 +698,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Capitaine Pirate</h3>
+            <h3>Capitaine Pirate <span class="tag-cat">(Majeur)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Vétéran impitoyable ayant survécu aux tempêtes de sillage et aux monstres marins de la Mer de Jade. Il dirige les abordages avec brutalité et connaît parfaitement les routes indirectes entre les récifs.</p>
@@ -704,7 +715,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Aigle Géant</h3>
+            <h3>Aigle Géant <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Oiseau de proie massif nichant sur les pics isolés et les rocs noirs de la steppe. Son envergure immense et sa force musculaire lui permettent d'emporter des proies de la taille d'un loup, d'un orque ou d'un humain.</p>
@@ -721,7 +732,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Géant</h3>
+            <h3>Géant <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 0</span>
         </div>
         <p><strong>Description:</strong> Bête de la taille d'un chien, sale et affamée.</p>
@@ -738,7 +749,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Gris (Chasse en meute)</h3>
+            <h3>Gris <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
         </div>
         <p><strong>Description:</strong> Prédateur redoutable arpentant les eaux profondes. Chassant systématiquement en bande, ils sont frénétiquement attirés par l'odeur du sang.</p>
@@ -751,7 +762,7 @@ fuit, si il la manque.</p>
 
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Grand Requin Blanc</h3>
+            <h3>Grand Requin Blanc <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2</span>
         </div>
         <p><strong>Description:</strong> Gigantesque prédateur solitaire.</p>
@@ -768,7 +779,7 @@ fuit, si il la manque.</p>
     
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Géant</h3>
+            <h3>Géant <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1+</span>
         </div>
         <p><strong>Description:</strong> Bête musculeuse aux défenses acérées.</p>
@@ -784,7 +795,7 @@ fuit, si il la manque.</p>
         
         <div class="content-card">
             <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-                <h3 style="margin: 0;">Serpent de Mer Géant</h3>
+                <h3>Serpent de Mer Géant <span class="tag-cat">(Majeur)</span></h3>
                 <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 5+</span>
             </div>
             <p><strong>Description:</strong> Monstre aquatique mythique et titanesque mesurant entre 30 et 40 mètres de long. Sa tête est lourdement cuirassée par des plaques osseuses extrêmement épaisses et dures. Sa vision étant très faible, il se fie aux lourdes vibrations dans l'eau et prend souvent les coques des grands navires pour de grosses proies. Les petites embarcations ne produisent pas assez de perturbations pour l'intéresser et sont totalement ignorées.</p>
@@ -796,11 +807,11 @@ fuit, si il la manque.</p>
         </div>
     </div>
     
-    <div class="content-section" id="section-treants">
-    <h2>Tréants</h2>
+    <div class="content-section" id="section-esprits-de-la-foret">
+    <h2>Esprits de la Forêt</h2>
     <div class="content-card">
         <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0;">Esprit de la Forêt</h3>
+            <h3>Tréants <span class="tag-cat">(Figurant)</span></h3>
             <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 2+</span>
         </div>
         <p><strong>Description:</strong> Arbre colossal animé par une conscience ancienne. Gardien implacable des bois sacrés, il semble se fondre parfaitement dans son environnement.</p>
