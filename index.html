@@ -192,28 +192,11 @@
             background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
             padding: 50px 70px 80px 70px;
             overflow-y: auto;
-            overflow-x: hidden;
             column-count: 2;
             column-gap: 60px;
-            column-rule: 1px solid #8c5f2e;
+            column-rule: none;
         }
-
-        .page::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 20px;
-            background: linear-gradient(to right, 
-                rgba(0,0,0,0.08) 0%, 
-                rgba(0,0,0,0.02) 50%, 
-                rgba(0,0,0,0.08) 100%);
-            pointer-events: none;
-            z-index: 2;
-            transform: translateX(-50%);
-        }
-        
+       
         .content-wrapper { 
             width: 100%;
             height: 100%;
