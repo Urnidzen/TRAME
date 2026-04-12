@@ -1551,97 +1551,23 @@
         }
         
         function processElement(element) {
-            // FORCER UN SAUT DE PAGE si l'élément a la classe 'page-break'
             if (element.classList && element.classList.contains('page-break')) {
-                advancePage();
+                pgnState.pageCount++;
+                createNewSpread();
                 return;
             }
-           
+        
             let node = element.cloneNode(true);
             pgnState.currentPageContent.appendChild(node);
-            void node.offsetHeight;
-           
+        
             if (isOverflowing(pgnState.currentPageContent)) {
                 const container = pgnState.currentPageContent;
-               
-                // CAPTURER les hauteurs AVANT de retirer le nœud
-                const nodeScrollHeight = node.scrollHeight;
-                const containerScrollHeight = container.scrollHeight;
-                const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
-                const pageHeight = container.clientHeight;
-                const availablePercent = availableHeight / pageHeight;
-                const espaceMinimum = isMobile ? 0.10 : 0.40;
-               
-                // Maintenant on retire le nœud
                 container.removeChild(node);
-               
-                // CAS 1 : Content-card
-                if (element.classList && element.classList.contains('content-card') && 
-                    availablePercent > espaceMinimum) {
-                   
-                    const split = splitContentCard(element);
-                    if (split) {
-                        container.appendChild(split.part1);
-                        pgnState.elementsQueue.unshift(split.part2);
-                        advancePage();
-                        return;
-                    }
-                }
-               
-                // CAS 2 : Texte simple (P ou LI) sur page de gauche
-                if (!pgnState.isRightPage &&
-                    (element.tagName === 'P' || element.tagName === 'LI') &&
-                    !element.querySelector('img, table, div')) {
-                   
-                    const split = splitTextElement(element, availableHeight);
-                    if (split && split.part1.textContent.length > 10) {
-                        container.appendChild(split.part1);
-                        pgnState.elementsQueue.unshift(split.part2);
-                        advancePage();
-                        return;
-                    }
-                }
-               
-                // CAS PAR DÉFAUT
-                const isPageEmpty = container.children.length === 0;
-        
-                // === GESTION SPÉCIFIQUE POUR LES TABLEAUX (correction du bug) ===
-                if (element.tagName === 'TABLE') {
-                    // On ne veut JAMAIS laisser un tableau partiellement affiché
-                    if (!isPageEmpty) {
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element);   // reporte le tableau entier
-                        return;   // IMPORTANT : on sort immédiatement
-                    } else {
-                        // Page vide mais tableau trop grand → on le force
-                        container.appendChild(node);
-                        node.style.maxHeight = '92%';
-                        node.style.overflowY = 'auto';
-                        advancePage();
-                        return;
-                    }
-                }
-        
-                // Gestion des content-card avec titre précédent (ton code original)
-                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
-                    const lastChild = container.lastElementChild;
-                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
-                   
-                    if (isHeading && container.children.length > 1) {
-                        container.removeChild(lastChild);
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element);
-                        pgnState.elementsQueue.unshift(lastChild);
-                        return;
-                    }
-                }
-               
-                // Cas général
-                if (!isPageEmpty) {
-                    advancePage();
+
+                if (element.tagName === 'TABLE' || element.classList.contains('content-card')) {
+                    pgnState.pageCount++;
+                    createNewSpread();
                     pgnState.elementsQueue.unshift(element);
-                } else {
-                    handleGiantBlock(element);
                 }
             }
         }
