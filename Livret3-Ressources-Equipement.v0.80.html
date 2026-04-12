@@ -5,7 +5,7 @@
     "title": "Livret 3",
     "subtitle": "Ressources & Équipement",
     "index": [
-        {"id": "section-standing", "title": "1. L'Échelle de Standing", "level": 1},
+        {"id": "section-ressources", "title": "1. L'Échelle de Ressources", "level": 1},
         {"id": "section-achat", "title": "2. Règle d'Achat", "level": 1},
         {"id": "section-fortune", "title": "Le Test de Fortune", "level": 2},
         {"id": "section-butin", "title": "3. Butin et Progression", "level": 1},
@@ -28,24 +28,24 @@
 </script>
 
 <style>
-.standing-table {
+.ressources-table {
 width: 100% !important;
 border-collapse: collapse !important;
 margin-bottom: 2rem;
 font-size: 0.85em;
 }
-.standing-table th {
+.ressources-table th {
 text-align: left;
 border-bottom: 2px solid #1c1917;
 padding: 10px 8px;
 background: #f5f5f4;
 }
-.standing-table td {
+.ressources-table td {
 border-bottom: 1px solid rgba(0,0,0,0.1);
 padding: 10px 8px;
 vertical-align: top;
 }
-.standing-table tr:hover {
+.ressources-table tr:hover {
 background: rgba(0,0,0,0.02);
 }
 .category-label {
@@ -117,15 +117,14 @@ font-weight: bold;
 }
 </style>
 
-<div class="content-section" id="section-standing">
-<h2>1. L'Échelle de Standing</h2>
-<div class="content-card">
-<p>Le <strong>Standing</strong> définit votre place dans la hiérarchie. Il ne s'agit pas de compter chaque denier, mais de déterminer quels services, quels plaisirs et quel niveau de vie votre bourse vous permet de maintenir sans risque.</p>
-<table class="standing-table">
+<div class="content-section" id="section-ressources">
+<h2>1. L'Échelle de Ressources</h2>
+<p>Le <strong>Ressources</strong> définit votre place dans la hiérarchie. Il ne s'agit pas de compter chaque denier, mais de déterminer quels services, quels plaisirs et quel niveau de vie votre bourse vous permet de maintenir sans risque.</p>
+<table class="ressources-table">
 <thead>
 <tr>
 <th style="width: 70px;">Niveau</th>
-<th style="width: 100px;">Standing</th>
+<th style="width: 100px;">Ressources</th>
 <th>Vie & Soins (Magie incluse)</th>
 <th>Services & Humains</th>
 <th>Biens & Immobilier</th>
@@ -209,15 +208,14 @@ font-weight: bold;
 </tbody>
 </table>
 </div>
-</div>
 
 <div class="content-section" id="section-achat">
 <h2>2. Règle d'Achat</h2>
 <div class="content-card">
 <ul class="dash-list space-y-4">
-<li><strong>Si Standing > Niveau de l'objet :</strong> Achat automatique.</li>
-<li><strong>Si Standing = Niveau de l'objet :</strong> <strong>Test de Fortune</strong> requis.</li>
-<li><strong>Si Standing < Niveau de l'objet :</strong> <strong>Achat Désespéré</strong> (baisse d'un palier automatique).</li>
+<li><strong>Si Ressources > Niveau de l'objet :</strong> Achat automatique.</li>
+<li><strong>Si Ressources = Niveau de l'objet :</strong> <strong>Test de Fortune</strong> requis.</li>
+<li><strong>Si Ressources < Niveau de l'objet :</strong> <strong>Achat Désespéré</strong> (baisse d'un palier automatique).</li>
 </ul>
 </div>
 </div>
@@ -228,7 +226,7 @@ font-weight: bold;
 <p><strong>Procédure :</strong> Lancez <strong>1D6</strong> après avoir décrit la transaction.</p>
 <ul class="dash-list mt-2">
 <li><strong>Résultat 2 à 6 :</strong> Fortune stable.</li>
-<li><strong>Résultat 1 :</strong> <strong>Rupture de Fortune.</strong> Le Standing baisse d'un palier.</li>
+<li><strong>Résultat 1 :</strong> <strong>Rupture de Fortune.</strong> Le Ressources baisse d'un palier.</li>
 </ul>
 </div>
 </div>
@@ -236,7 +234,7 @@ font-weight: bold;
 <div class="content-section" id="section-desespere">
 <h3>4. L'Achat Désespéré</h3>
 <div class="content-card">
-<p>Appliqué automatiquement lorsque le Standing du personnage est inférieur au niveau de l'objet convoité. Le personnage parvient à acquérir le bien, mais au prix d'une <strong>baisse immédiate d'un palier de Standing</strong>, reflétant l'épuisement de ses réserves ou la prise de dettes risquées.</p>
+<p>Appliqué automatiquement lorsque le Ressources du personnage est inférieur au niveau de l'objet convoité. Le personnage parvient à acquérir le bien, mais au prix d'une <strong>baisse immédiate d'un palier de Ressources</strong>, reflétant l'épuisement de ses réserves ou la prise de dettes risquées.</p>
 </div>
 </div>
 
@@ -244,7 +242,7 @@ font-weight: bold;
 <h2>5. Butin et Progression</h2>
 <div class="content-card">
 <p>Une <strong>Unité de Butin (UB)</strong> n'est pas un objet unique, mais un <strong>ensemble de valeurs</strong> (monnaie, objets, contrats, bijoux) constituant un trésor significatif.</p>
-<h4>Augmenter son Standing</h4>
+<h4>Augmenter son Ressources</h4>
 <ul class="dash-list space-y-2 mt-2">
 <li><strong>Trésor Majeur :</strong> Trouver une UB de niveau supérieur au vôtre vous fait monter au niveau de l'ensemble dès que vous l'investissez pour asseoir votre rang (payer un bail, acheter l'équipement complet, engager du personnel).</li>
 <li><strong>Accumulation :</strong> Posséder <strong>10 UB</strong> de son propre niveau permet de monter au palier supérieur.</li>
@@ -254,7 +252,7 @@ font-weight: bold;
 
 <div class="content-section" id="section-description-tresor">
 <h2>6. Décrire un Trésor (Guide du MJ)</h2>
-<p>Le MJ doit décrire un <strong>ensemble d'objets</strong> dont la valeur cumulée correspond au niveau de Standing visé. Trouver une simple épée n'est pas un trésor de niveau 2, c'est juste un bien d'équipement.</p>
+<p>Le MJ doit décrire un <strong>ensemble d'objets</strong> dont la valeur cumulée correspond au niveau de Ressources visé. Trouver une simple épée n'est pas un trésor de niveau 2, c'est juste un bien d'équipement.</p>
 
 <div class="treasure-desc">
 <span class="ensemble-tag">Ensemble de Niveau 0 (Mendiant)</span>
@@ -309,7 +307,7 @@ Un coffre massif rempli de gemmes étincelantes et de lingots de <strong>Mithril
 <p>Tout personnage souhaitant se protéger doit d'abord revêtir une armure légère (Gambison ou Cuir). Il peut ensuite y ajouter d'autres éléments (Mailles et/ou Plaques) pour en augmenter la Résistance et la Durabilité, au prix de malus cumulatifs.</p>
 
 <h3 id="section-armures-table">Armures</h3>
-<table class="standing-table">
+<table class="ressources-table">
 <thead>
 <tr>
 <th>Armure (appellation)</th>
@@ -356,7 +354,7 @@ Un coffre massif rempli de gemmes étincelantes et de lingots de <strong>Mithril
 <p><em>*** Chaleur Arcane : La magie offensive se distingue par la manifestation d'une chaleur excessive dégageant du corps du lanceur, rendant le port d'une armure particulièrement inconfortable lors de l'incantation. Ce phénomène s'applique même par grand froid et se traduit par le malus de -1 au Score d'Attaque. De fait, les magiciens offensifs privilégient généralement des tenues légères. L'origine de cette chaleur reste mystérieuse – aucune théorie ne fait l'unanimité. Étrangement, certaines créatures (ex. : Ogre Mage, Dragon Véritable) ne manifestent pas cet effet secondaire, étayant les spéculations les plus ésotériques sur la nature différente de leur magie innée.</em></p>
 
 <h3 id="section-boucliers-table">Boucliers</h3>
-<table class="standing-table">
+<table class="ressources-table">
 <thead>
 <tr><th>Équipement</th><th>Durabilité</th><th>Bonus</th></tr>
 </thead>
@@ -383,7 +381,7 @@ Un coffre massif rempli de gemmes étincelantes et de lingots de <strong>Mithril
 <p>Si une Arme manufacturée ou un Objet, autre que ceux listés dans la catégorie des focalisateurs magiques, est utilisée pour lancer un sort, appliquez un Malus de -1 aux résolutions du sort. Lancer un sort requiert une main libre ET un catalyseur (arme manufacturée, objet ou focalisateur magique). Les armes à deux mains permettent de libérer une main temporairement pour incanter, contrairement à l'usage simultané de deux objets (ex: épée + bouclier).</p>
 
 <h3 id="section-armes-manufacturees">Armes manufacturées et Objets</h3>
-<table class="standing-table">
+<table class="ressources-table">
 <thead>
 <tr><th>Catégorie</th><th>Exemples</th><th>Contrainte / Avantage</th><th>Initiative</th></tr>
 </thead>
@@ -422,7 +420,7 @@ Un coffre massif rempli de gemmes étincelantes et de lingots de <strong>Mithril
 </table>
 
 <h3 id="section-armes-naturelles">Armes Naturelles</h3>
-<table class="standing-table">
+<table class="ressources-table">
 <thead>
 <tr><th>Catégorie</th><th>Exemples</th><th>Contrainte / Avantage</th><th>Initiative</th></tr>
 </thead>
