@@ -194,12 +194,17 @@
         }
 
         .page {
-            flex: 1; height: 100%;
+            flex: 1;
+            height: 100%;
             background: #e3d5b8;
             background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
             padding: 50px 60px 80px 60px;
-            position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: flex-start;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            column-width: 270px;
+            column-gap: 55px;
+            column-rule: 1px solid #1c1917;   /* fine ligne verticale entre colonnes */
         }
 
         .page-left { 
