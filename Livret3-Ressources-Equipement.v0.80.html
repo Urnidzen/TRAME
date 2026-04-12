@@ -48,12 +48,57 @@
         .content-wrapper .table-boucliers,
         .content-wrapper .table-armes-mfg,
         .content-wrapper .table-armes-nat,
-        .content-wrapper .table-tresors {
+        .content-wrapper .table-tresors,
+        .content-wrapper .ressources-table,
+        .content-wrapper .table-5cols {
             width: 100% !important;
             table-layout: fixed !important;
             border-collapse: collapse !important;
         }
 
+        /* Tableau Ressources - 5 colonnes */
+        /* Colonne 1 : Niveau */
+        .content-wrapper .ressources-table th:nth-child(1),
+        .content-wrapper .ressources-table td:nth-child(1) {
+            width: 8% !important;
+            padding: 8px !important;
+            vertical-align: top !important;
+            text-align: center !important;
+            word-wrap: break-word !important;
+        }
+        /* Colonne 2 : Ressources */
+        .content-wrapper .ressources-table th:nth-child(2),
+        .content-wrapper .ressources-table td:nth-child(2) {
+            width: 15% !important;
+            padding: 8px !important;
+            vertical-align: top !important;
+            word-wrap: break-word !important;
+        }
+        /* Colonne 3 : Vie & Soins */
+        .content-wrapper .ressources-table th:nth-child(3),
+        .content-wrapper .ressources-table td:nth-child(3) {
+            width: 27% !important;
+            padding: 8px !important;
+            vertical-align: top !important;
+            word-wrap: break-word !important;
+        }
+        /* Colonne 4 : Services & Humains */
+        .content-wrapper .ressources-table th:nth-child(4),
+        .content-wrapper .ressources-table td:nth-child(4) {
+            width: 25% !important;
+            padding: 8px !important;
+            vertical-align: top !important;
+            word-wrap: break-word !important;
+        }
+        /* Colonne 5 : Biens & Immobilier */
+        .content-wrapper .ressources-table th:nth-child(5),
+        .content-wrapper .ressources-table td:nth-child(5) {
+            width: 25% !important;
+            padding: 8px !important;
+            vertical-align: top !important;
+            word-wrap: break-word !important;
+        }
+    
         /* Tableau Armures - 4 colonnes avec Conséquence Mécanique (malus) plus large */
         .content-wrapper .table-armures th:nth-child(1),
         .content-wrapper .table-armures td:nth-child(1) {
