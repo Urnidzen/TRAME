@@ -1563,8 +1563,8 @@
             if (isOverflowing(pgnState.currentPageContent)) {
                 const container = pgnState.currentPageContent;
                 container.removeChild(node);
-
-                if (element.tagName === 'TABLE' || element.classList.contains('content-card')) {
+        
+                if (element.tagName === 'TABLE' || element.classList.contains('content-card') || element.tagName === 'IMG') {
                     pgnState.pageCount++;
                     createNewSpread();
                     pgnState.elementsQueue.unshift(element);
