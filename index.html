@@ -1400,44 +1400,39 @@
         let pgnState = { wrapper: null, currentSpread: null, currentPageContent: null, isRightPage: false, pageCount: 1, elementsQueue: [] };
 
         function paginateContent(htmlContent) {
-            console.groupCollapsed("=== DÉBUT PAGINATION ===");
-            const startTime = performance.now();
-        
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
             staging.innerHTML = htmlContent;
-        
-            pgnState.wrapper.innerHTML = '';
+
+            // forcer le calcul immédiat des tailles
+            void staging.offsetHeight;
+            
+            pgnState.wrapper.innerHTML = ''; 
             pgnState.pageCount = 1;
-            pgnState.isRightPage = false;
-        
+            pgnState.isRightPage = false; 
+
             createNewSpread();
-        
+            
             pgnState.elementsQueue = Array.from(staging.children).filter(el => {
                 return !['SCRIPT', 'STYLE', 'LINK', 'META', 'NOSCRIPT', 'TITLE', 'BASE'].includes(el.tagName);
             });
-        
-            logPagination(`Queue initiale : ${pgnState.elementsQueue.length} éléments`);
-        
-            // Traitement principal avec moins de reflows
+
             while (pgnState.elementsQueue.length > 0) {
-                const element = pgnState.elementsQueue.shift();
+                let element = pgnState.elementsQueue.shift();
                 processElement(element);
             }
-        
+            
             removeEmptySpreads();
-        
-            // Mise à jour des numéros de page
+    
+            // Mise à jour finale des numéros au format "p. X/Y"
             const allPages = document.querySelectorAll('.book-spread .page');
             const totalPages = allPages.length;
             allPages.forEach((page, index) => {
                 const numEl = page.querySelector('.page-number');
-                if (numEl) numEl.textContent = `p. ${index + 1}/${totalPages}`;
+                if (numEl) {
+                    numEl.textContent = `p. ${index + 1}/${totalPages}`;
+                }
             });
-        
-            const duration = (performance.now() - startTime).toFixed(1);
-            console.log(`Pagination terminée en ${duration}ms - ${totalPages} pages`);
-            console.groupEnd();
         }
 
         function injectGiscus() {
@@ -1542,94 +1537,127 @@
             return { part1, part2 };
         }
         
+        // === NOUVELLE FONCTION 2 ===
         function splitContentCard(element) {
-            logPagination("→ Tentative splitContentCard");
-        
-            const part1 = element.cloneNode(false);
-            const part2 = element.cloneNode(false);
+            const container = pgnState.currentPageContent;
+            const part1 = element.cloneNode(false); // Carte vide
+            const part2 = element.cloneNode(false); // Carte vide
+            container.appendChild(part1);
         
             const children = Array.from(element.children);
             let i = 0;
-        
-            // Remplir part1 tant que ça rentre
+            // On remplit part1 tant que ça ne déborde pas
             while (i < children.length) {
                 part1.appendChild(children[i].cloneNode(true));
-                pgnState.currentPageContent.appendChild(part1);   // test temporaire
-        
-                if (isOverflowing(pgnState.currentPageContent)) {
+                if (isOverflowing(container)) {
                     part1.removeChild(part1.lastChild);
-                    pgnState.currentPageContent.removeChild(part1);
                     break;
                 }
-                pgnState.currentPageContent.removeChild(part1);
                 i++;
             }
-        
+
+            // Si on n'a réussi à placer AUCUN élément, on annule la découpe
+            // pour éviter une boucle infinie de pages vides.
             if (part1.children.length === 0) {
-                logPagination("→ Impossible de splitter la content-card (trop grosse)");
-                return null;
+                container.removeChild(part1);
+                return null; 
             }
-        
-            // Reste dans part2
+            
+            // Le reste va dans part2
             for (; i < children.length; i++) {
                 part2.appendChild(children[i].cloneNode(true));
             }
-        
+            container.removeChild(part1);
             return { part1, part2 };
         }
         
         function processElement(element) {
-            if (!element || !element.nodeType) return;
-        
-            logPagination(`Processing <${element.tagName}> ${element.className || ''}`);
-        
-            // FORCER un saut de page si demandé
+            // FORCER UN SAUT DE PAGE si l'élément a la classe 'page-break'
             if (element.classList && element.classList.contains('page-break')) {
-                logPagination("→ Page-break détecté");
                 advancePage();
                 return;
             }
-        
+           
             let node = element.cloneNode(true);
             pgnState.currentPageContent.appendChild(node);
-        
-            // Un seul test d'overflow après insertion
+            void node.offsetHeight;
+           
             if (isOverflowing(pgnState.currentPageContent)) {
-                logPagination("→ OVERFLOW détecté", element.tagName);
-        
-                pgnState.currentPageContent.removeChild(node);
-        
-                const isPageEmpty = pgnState.currentPageContent.children.length === 0;
-        
-                // Cas spécial : Tableaux (très problématique dans Livret 3)
-                if (element.tagName === 'TABLE') {
-                    if (!isPageEmpty) {
-                        logPagination("→ Tableau trop grand → report sur page suivante");
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element);
-                        return;
-                    } else {
-                        // Page vide mais tableau trop grand → on le force avec scroll
-                        logPagination("→ Tableau géant forcé sur page vide");
-                        node.style.maxHeight = '92%';
-                        node.style.overflowY = 'auto';
-                        pgnState.currentPageContent.appendChild(node);
-                        advancePage();
-                        return;
-                    }
-                }
-        
-                // Cas spécial : content-card (le plus fréquent dans Livret 3)
-                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
+                const container = pgnState.currentPageContent;
+               
+                // CAPTURER les hauteurs AVANT de retirer le nœud
+                const nodeScrollHeight = node.scrollHeight;
+                const containerScrollHeight = container.scrollHeight;
+                const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
+                const pageHeight = container.clientHeight;
+                const availablePercent = availableHeight / pageHeight;
+                const espaceMinimum = isMobile ? 0.10 : 0.40;
+               
+                // Maintenant on retire le nœud
+                container.removeChild(node);
+               
+                // CAS 1 : Content-card sur page de gauche
+                if (!pgnState.isRightPage &&
+                    element.classList && element.classList.contains('content-card') &&
+                    availablePercent > espaceMinimum) {
+                   
                     const split = splitContentCard(element);
                     if (split) {
-                        pgnState.currentPageContent.appendChild(split.part1);
+                        container.appendChild(split.part1);
                         pgnState.elementsQueue.unshift(split.part2);
                         advancePage();
                         return;
                     }
                 }
+               
+                // CAS 2 : Texte simple (P ou LI) sur page de gauche
+                if (!pgnState.isRightPage &&
+                    (element.tagName === 'P' || element.tagName === 'LI') &&
+                    !element.querySelector('img, table, div')) {
+                   
+                    const split = splitTextElement(element, availableHeight);
+                    if (split && split.part1.textContent.length > 10) {
+                        container.appendChild(split.part1);
+                        pgnState.elementsQueue.unshift(split.part2);
+                        advancePage();
+                        return;
+                    }
+                }
+               
+                // CAS PAR DÉFAUT
+                const isPageEmpty = container.children.length === 0;
         
+                // === GESTION SPÉCIFIQUE POUR LES TABLEAUX (correction du bug) ===
+                if (element.tagName === 'TABLE') {
+                    // On ne veut JAMAIS laisser un tableau partiellement affiché
+                    if (!isPageEmpty) {
+                        advancePage();
+                        pgnState.elementsQueue.unshift(element);   // reporte le tableau entier
+                        return;   // IMPORTANT : on sort immédiatement
+                    } else {
+                        // Page vide mais tableau trop grand → on le force
+                        container.appendChild(node);
+                        node.style.maxHeight = '92%';
+                        node.style.overflowY = 'auto';
+                        advancePage();
+                        return;
+                    }
+                }
+        
+                // Gestion des content-card avec titre précédent (ton code original)
+                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
+                    const lastChild = container.lastElementChild;
+                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
+                   
+                    if (isHeading && container.children.length > 1) {
+                        container.removeChild(lastChild);
+                        advancePage();
+                        pgnState.elementsQueue.unshift(element);
+                        pgnState.elementsQueue.unshift(lastChild);
+                        return;
+                    }
+                }
+               
                 // Cas général
                 if (!isPageEmpty) {
                     advancePage();
@@ -1669,18 +1697,7 @@
             }
         }
 
-        function isOverflowing(container) {
-            // On force un seul reflow par appel en lisant les valeurs ensemble
-            const scrollH = container.scrollHeight;
-            const clientH = container.clientHeight;
-            return scrollH > clientH + 8;   // +8px de tolérance (plus stable)
-        }
-        
-        let paginationLogEnabled = true;   // Mets à false quand tu as fini de debugger
-        
-        function logPagination(msg, ...args) {
-            if (paginationLogEnabled) console.log(`[PAGINATION] ${msg}`, ...args);
-        }
+        function isOverflowing(container) { return container.scrollHeight > container.clientHeight + 2; }
 
         function scrollToElement(id) {
             const cleanId = id.replace('section-', '');
