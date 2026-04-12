@@ -1587,7 +1587,15 @@
             let node = element.cloneNode(true);
             pgnState.currentPageContent.appendChild(node);
             void node.offsetHeight;
-           
+
+            // === AJOUT : détection du cas tableau suivi de h2 ===
+            if ((node.tagName === 'H2' || node.classList.contains('section-title-isolated')) && 
+                pgnState.currentPageContent.lastElementChild && 
+                pgnState.currentPageContent.lastElementChild.dataset.lastBlock === 'table') {
+                
+                node.dataset.afterTable = 'true';
+            }
+            
             if (isOverflowing(pgnState.currentPageContent)) {
                 const container = pgnState.currentPageContent;
                
@@ -1635,20 +1643,19 @@
         
                 // === GESTION SPÉCIFIQUE POUR LES TABLEAUX (correction du bug) ===
                 if (element.tagName === 'TABLE') {
-                    // On ne veut JAMAIS laisser un tableau partiellement affiché
-                    if (!isPageEmpty) {
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element);   // reporte le tableau entier
-                        return;   // IMPORTANT : on sort immédiatement
-                    } else {
-                        // Page vide mais tableau trop grand → on le force
-                        container.appendChild(node);
-                        node.style.maxHeight = '92%';
-                        node.style.overflowY = 'auto';
-                        advancePage();
-                        return;
-                    }
+                if (!isPageEmpty) {
+                    advancePage();
+                    pgnState.elementsQueue.unshift(element);
+                    return;
+                } else {
+                    container.appendChild(node);
+                    node.dataset.lastBlock = 'table';               
+                    node.style.maxHeight = '92%';
+                    node.style.overflowY = 'auto';
+                    advancePage();
+                    return;
                 }
+}
         
                 // Gestion des content-card avec titre précédent (ton code original)
                 if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
