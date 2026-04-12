@@ -8,7 +8,7 @@
 |----------|---------|-------------|
 | [Livret 1 - Mécanismes](https://urnidzen.github.io/TRAME/Livret1-Mecanismes.v0.87.html) | v0.87 | Règles de résolution, combat, magie et exploration |
 | [Livret 2 - Création](https://urnidzen.github.io/TRAME/Livret2-Creation.v0.75.html) | v0.75 | Création et évolution des personnages |
-| [Livret 3 - Équipement](https://urnidzen.github.io/TRAME/Livret3-Equipement.v0.79.html) | v0.79 | Armures, armes, objets et artisanat |
+| [Livret 3 - Ressources & Équipement](https://urnidzen.github.io/TRAME/Livret3-Ressources-Equipement.v0.80.html) | v0.80 | Ressources, Armures, armes et objets |
 | [Livret 4 - Rencontres](https://urnidzen.github.io/TRAME/Livret4-Rencontres.v0.81.html) | v0.81 | Équilibrage des rencontres et guide du MJ |
 | [Livret 5 - Bestiaire](https://urnidzen.github.io/TRAME/Livret5-Bestiaire.v0.81.html) | v0.81 | Créatures et adversaires |
 | [Fiche de Personnage](https://urnidzen.github.io/TRAME/Fiche%20de%20personnage.v0.91.html) | v0.91 | Fiche interactive en ligne |
