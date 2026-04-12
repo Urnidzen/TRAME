@@ -302,31 +302,94 @@
 
         <p>Les <strong>Ressources</strong> définissent votre place dans la hiérarchie. Il ne s’agit pas de compter chaque denier, mais de déterminer quels services, quels plaisirs et quel niveau de vie votre bourse vous permet de maintenir sans risque.</p>
         
-        <h3>0 — Mendiant</h3>
-        <div class="pseudo-li"><strong>Vie & Soins :</strong> Grange, abri de fortune, ruelles. Prières de rue, herbes sauvages, repos forcé.</div>
-        <div class="pseudo-li"><strong>Services :</strong> Aucun. On est souvent soi-même la proie.</div>
-        <div class="pseudo-li"><strong>Biens :</strong> Haillons, bâton, écuelle de bois.</div>
-        
-        <h3>1 — Peuple</h3>
-        <div class="pseudo-li"><strong>Vie :</strong> Dortoir commun, pain et bière de grain. <strong>Soins :</strong> Guérisseur local, herboriste, petit sort de soin mineur.</div>
-        <div class="pseudo-li"><strong>Services :</strong> Porteur, passe avec une prostituée de rue, esclave de labeur (vendu pour dettes).</div>
-        <div class="pseudo-li"><strong>Biens & Logis :</strong> Lance, Gambison, charrette à bras, outils. Chambre louée, masure.</div>
-        
-        <h3>2 — Riche</h3>
-        <div class="pseudo-li"><strong>Vie :</strong> Chambre privée en auberge, vin de table, viande rôtie. <strong>Soins :</strong> Soigneur de guilde, apothicaire, objets magiques courants.</div>
-        <div class="pseudo-li"><strong>Services :</strong> Garde du corps mercenaire, courtisane de taverne, esclave de maison.</div>
-        <div class="pseudo-li"><strong>Biens & Logis :</strong> Épée, Cotte de mailles, focalisateur magique. Maison de ville, petite ferme.</div>
-        
-        <h3>3 — Opulent</h3>
-        <div class="pseudo-li"><strong>Vie :</strong> Banquet, vins de qualité, suite luxueuse. <strong>Soins :</strong> Maître soigneur réputé, magie de restauration puissante.</div>
-        <div class="pseudo-li"><strong>Services :</strong> Escorte armée, courtisane de haut rang, esclave de luxe ou d’exception.</div>
-        <div class="pseudo-li"><strong>Biens & Logis :</strong> Harnois, Destrier, bijoux d’or. Manoir, domaine fortifié.</div>
-        
-        <h3>4 — Crésus</h3>
-        <div class="pseudo-li"><strong>Vie :</strong> Entretien d’une cour entière, denrées exotiques. <strong>Soins :</strong> Guérisseur personnel, accès aux rituels de téléportation.</div>
-        <div class="pseudo-li"><strong>Services :</strong> Armée privée, réseau d’espions, traite d’esclaves à grande échelle.</div>
-        <div class="pseudo-li"><strong>Biens & Logis :</strong> Mithril, Adamantite, reliques, navire de mer. Château fort, palais.</div>
-        
+        <table class="standing-table">
+            <thead>
+                <tr>
+                    <th style="width: 70px;">Niveau</th>
+                    <th style="width: 100px;">Standing</th>
+                    <th>Vie & Soins (Magie incluse)</th>
+                    <th>Services & Humains</th>
+                    <th>Biens & Immobilier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>0</strong></td>
+                    <td><strong>Mendiant</strong></td>
+                    <td>
+                        <span class="category-label">Logement</span> Grange, abri de fortune, ruelles.<br>
+                        <span class="category-label">Soins</span> Prières de rue, herbes sauvages, repos forcé.
+                    </td>
+                    <td>
+                        <span class="category-label">Services</span> Aucun. On est souvent soi-même la proie.
+                    </td>
+                    <td>
+                        <span class="category-label">Biens</span> Haillons, bâton, écuelle de bois.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>1</strong></td>
+                    <td><strong>Peuple</strong></td>
+                    <td>
+                        <span class="category-label">Vie</span> Dortoir commun, pain et bière de grain.<br>
+                        <span class="category-label">Soins</span> Guérisseur local, herboriste, petit sort de soin mineur.
+                    </td>
+                    <td>
+                        <span class="category-label">Services</span> Porteur, passe avec une prostituée de rue, esclave de labeur (vendu pour dettes).
+                    </td>
+                    <td>
+                        <span class="category-label">Biens</span> Lance, Gambison, charette à bras, outils.<br>
+                        <span class="category-label">Logis</span> Chambre louée, masure.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>2</strong></td>
+                    <td><strong>Riche</strong></td>
+                    <td>
+                        <span class="category-label">Vie</span> Chambre privée en auberge, vin de table, viande rôtie.<br>
+                        <span class="category-label">Soins</span> Soigneur de guilde, apothicaire, objets magiques courants.
+                    </td>
+                    <td>
+                        <span class="category-label">Services</span> Garde du corps mercenaire, courtisane de taverne, esclave de maison.
+                    </td>
+                    <td>
+                        <span class="category-label">Biens</span> Épée, Cotte de mailles, focalisateur magique.<br>
+                        <span class="category-label">Logis</span> Maison de ville, petite ferme.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>3</strong></td>
+                    <td><strong>Opulent</strong></td>
+                    <td>
+                        <span class="category-label">Vie</span> Banquet, vins de qualité, suite luxueuse.<br>
+                        <span class="category-label">Soins</span> Maître soigneur réputé, magie de restauration puissante.
+                    </td>
+                    <td>
+                        <span class="category-label">Services</span> Escorte armée, courtisane de haut rang, esclave de luxe ou d'exception.
+                    </td>
+                    <td>
+                        <span class="category-label">Biens</span> Harnois, Destrier, bijoux d'or.<br>
+                        <span class="category-label">Logis</span> Manoir, domaine fortifié.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>4</strong></td>
+                    <td><strong>Crésus</strong></td>
+                    <td>
+                        <span class="category-label">Vie</span> Entretien d'une cour entière, denrées exotiques.<br>
+                        <span class="category-label">Soins</span> Guérisseur personnel, accès aux rituels de téléportation.
+                    </td>
+                    <td>
+                        <span class="category-label">Services</span> Armée privée, réseau d'espions, traite d'esclaves à grande échelle.
+                    </td>
+                    <td>
+                        <span class="category-label">Biens</span> Mithril, Adamantite, reliques, navire de mer.<br>
+                        <span class="category-label">Logis</span> Château fort, palais.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      
     <div class="page-break"></div>
 
         <div class="content-section" id="section-achat">
