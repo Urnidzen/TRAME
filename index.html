@@ -1450,16 +1450,18 @@
             const spread = document.createElement('div');
             spread.className = 'book-spread';
             
-            const htmlLeft = `<div class="page page-left"><div class="content-wrapper"></div>${LEGAL_HTML}<div class="page-number">p. ${pgnState.pageCount}/—</div></div>`;
-            const htmlRight = `<div class="page page-right"><div class="content-wrapper"></div>${LEGAL_HTML}<div class="page-number">p. ${pgnState.pageCount + 1}/—</div></div>`;
-
-            if (isMobile) spread.innerHTML = htmlLeft;
-            else spread.innerHTML = htmlLeft + htmlRight;
-            
+            const html = `
+                <div class="page">
+                    <div class="content-wrapper"></div>
+                    ${LEGAL_HTML}
+                    <div class="page-number">p. ${pgnState.pageCount}/—</div>
+                </div>
+            `;
+        
+            spread.innerHTML = html;
             pgnState.wrapper.appendChild(spread);
             pgnState.currentSpread = spread;
-            pgnState.currentPageContent = spread.querySelector('.page-left .content-wrapper');
-            pgnState.isRightPage = false;
+            pgnState.currentPageContent = spread.querySelector('.content-wrapper');
         }
 
         function removeEmptySpreads() {
