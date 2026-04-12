@@ -1480,18 +1480,8 @@
         }
 
         function advancePage() {
-            if (isMobile) {
-                pgnState.pageCount++;
-                createNewSpread();
-            } else {
-                if (!pgnState.isRightPage) {
-                    pgnState.isRightPage = true;
-                    pgnState.currentPageContent = pgnState.currentSpread.querySelector('.page-right .content-wrapper');
-                } else {
-                    pgnState.pageCount += 2;
-                    createNewSpread();
-                }
-            }
+            pgnState.pageCount++;
+            createNewSpread();
         }
 
         function splitTextElement(element, maxHeight) {
@@ -1585,9 +1575,8 @@
                 // Maintenant on retire le nœud
                 container.removeChild(node);
                
-                // CAS 1 : Content-card sur page de gauche
-                if (!pgnState.isRightPage &&
-                    element.classList && element.classList.contains('content-card') &&
+                // CAS 1 : Content-card
+                if (element.classList && element.classList.contains('content-card') && 
                     availablePercent > espaceMinimum) {
                    
                     const split = splitContentCard(element);
