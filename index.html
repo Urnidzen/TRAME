@@ -1450,7 +1450,7 @@
             const spread = document.createElement('div');
             spread.className = 'book-spread';
             
-            const html = `
+            spread.innerHTML = `
                 <div class="page">
                     <div class="content-wrapper"></div>
                     ${LEGAL_HTML}
@@ -1458,10 +1458,10 @@
                 </div>
             `;
         
-            spread.innerHTML = html;
             pgnState.wrapper.appendChild(spread);
             pgnState.currentSpread = spread;
             pgnState.currentPageContent = spread.querySelector('.content-wrapper');
+            pgnState.isRightPage = false;   // On désactive la logique double page
         }
 
         function removeEmptySpreads() {
