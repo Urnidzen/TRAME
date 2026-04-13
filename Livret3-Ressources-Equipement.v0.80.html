@@ -471,81 +471,70 @@
 
         <h2 id="section-niveaux-objets">2. Niveaux des Objets, Biens et Services</h2>
         <div class="content-card">
-            <p>Tout ce qui peut être acheté, possédé ou utilisé dans le jeu possède un <strong>Niveau</strong> (de 0 à 4) qui correspond à l’échelle des Ressources :</p>
+            <p>Tout objet, bien ou service possède un <strong>Niveau</strong> de 0 à 4, identique à l’échelle des Ressources.</p>
             <ul class="dash-list">
-                <li><strong>Niveau 0</strong> : biens de survie basiques (haillons, couteau rouillé…)</li>
-                <li><strong>Niveau 1</strong> : équipement courant du peuple (lance, gambison, chambre louée…)</li>
-                <li><strong>Niveau 2</strong> : biens de qualité (épée, cotte de mailles, maison de ville…)</li>
-                <li><strong>Niveau 3</strong> : objets de luxe ou de guerre (harnois, destrier, manoir…)</li>
-                <li><strong>Niveau 4</strong> : richesses exceptionnelles (mithril, château, traite d’esclaves…)</li>
+                <li><strong>Niveau 0</strong> : Biens de survie basiques</li>
+                <li><strong>Niveau 1</strong> : Équipement courant du peuple</li>
+                <li><strong>Niveau 2</strong> : Biens de qualité</li>
+                <li><strong>Niveau 3</strong> : Objets de luxe ou de guerre</li>
+                <li><strong>Niveau 4</strong> : Richesses exceptionnelles</li>
             </ul>
-            <p class="italic">Note : Un objet individuel possède son propre Niveau. Une Unité de Butin (UB) est l’ensemble des possessions d’une victime dont la valeur totale correspond à un palier de Ressources.</p>
+            <p class="italic">Votre niveau de Ressources est comparé à ce Niveau pour déterminer si l’achat est possible.</p>
         </div>
-
+        
         <h2 id="section-achat">3. Règles d’Achat</h2>
-            <div class="content-card">
-                <ul class="dash-list">
-                    <li><strong>Si Ressources > Niveau de l'objet :</strong> Achat automatique.</li>
-                    <li><strong>Si Ressources = Niveau de l'objet :</strong> Test de Fortune requis.</li>
-                    <li><strong>Si Ressources < Niveau de l'objet :</strong> Achat Désespéré (perte d’un palier de Ressources).</li>
-                </ul>
-            </div>
-
+        <div class="content-card">
+            <ul class="dash-list">
+                <li><strong>Ressources > Niveau de l’objet :</strong> Achat automatique.</li>
+                <li><strong>Ressources = Niveau de l’objet :</strong> Test de Fortune requis.</li>
+                <li><strong>Ressources < Niveau de l’objet :</strong> Achat Désespéré (baisse d’un palier de Ressources).</li>
+            </ul>
+        </div>
+        
         <h2 id="section-fortune">4. Le Test de Fortune (D6)</h2>
-            <div class="content-card">
-                <p><strong>Procédure :</strong> Décrivez la transaction, puis lancez <strong>1D6</strong>.</p>
-                <ul class="dash-list">
-                    <li><strong>2 à 6 :</strong> Fortune stable – vous obtenez l’objet sans perdre de niveau de Ressources.</li>
-                    <li><strong>1 :</strong> <strong>Rupture de Fortune</strong> – vos Ressources baissent immédiatement d’un palier.</li>
-                </ul>
-            </div>
-
+        <div class="content-card">
+            <p>Décrivez la transaction, puis lancez 1D6 :</p>
+            <ul class="dash-list">
+                <li><strong>2 à 6 :</strong> Succès – vous obtenez l’objet sans perdre de Ressources.</li>
+                <li><strong>1 :</strong> <strong>Rupture de Fortune</strong> – vos Ressources baissent d’un palier.</li>
+            </ul>
+        </div>
+        
         <h2 id="section-desespere">5. L’Achat Désespéré</h2>
-            <div class="content-card">
-                <p>Quand vos Ressources sont inférieures au Niveau de l’objet convoité, vous parvenez tout de même à l’acquérir, mais au prix d’une <strong>baisse immédiate d’un palier de Ressources</strong> (dettes, épuisement des réserves, vente forcée d’autres biens…).</p>
-            </div>
-
+        <div class="content-card">
+            <p>Si vos Ressources sont inférieures au Niveau de l’objet, vous pouvez tout de même l’acquérir, mais vos Ressources baissent immédiatement d’un palier (dettes, épuisement des réserves…).</p>
+        </div>
+        
         <h2 id="section-butin">6. Butin, Trésors et Progression des Ressources</h2>
-            <div class="content-card">
-                <p>Une <strong>Unité de Butin (UB)</strong> correspond à <strong>l’ensemble des possessions</strong> d’une personne, d’une créature ou d’un petit groupe : monnaie, objets personnels, équipements, armes, armures, contrats ou titres de propriété. Sa valeur totale équivaut à un palier complet sur l’Échelle de Ressources.</p>
-
-                <p><strong>Règle fondamentale :</strong> Les possessions complètes d’une victime ou d’un adversaire vaincu représentent généralement **une UB correspondant à son propre niveau de Ressources**.</p>
-
-                <h4>Distinction importante : Fouille complète vs Vol à la tire</h4>
-                <ul class="dash-list">
-                    <li><strong>Fouille complète</strong> (récupérer tout ce que la victime possède : sac, ceinture, bottes, monture, etc.) → donne **1 UB** du rang exact de la victime.</li>
-                    <li><strong>Vol à la tire</strong> (fouiller rapidement les poches visibles ou prendre seulement ce qui est immédiatement accessible sans tout emporter) → donne **1 UB de rang inférieur** à celui de la victime.</li>
-                </ul>
-
-                <h4>Butin issu d’un lieu (armurerie, cache, entrepôt, caravane…)</h4>
-                <p>Quand les personnages découvrent un lieu contenant du matériel plutôt que les possessions d’une seule personne, la valeur dépend de l’importance du stock trouvé :</p>
-                <ul class="dash-list">
-                    <li>Un petit stock abandonné (quelques armes ou objets en bon état) → des biens mineurs ou des objets individuels (pas une UB).</li>
-                    <li>Un stock significatif (équipement suffisant pour armer plusieurs personnes) → **1 UB** du niveau correspondant (généralement niveau 1 ou 2).</li>
-                    <li>Un entrepôt important, une armurerie militaire ou une caravane bien chargée → **1 UB de niveau supérieur** (niveau 2 ou 3) voire **plusieurs UB**.</li>
-                </ul>
-
-                <h4>Exemples concrets</h4>
-                <ul class="dash-list">
-                    <li>Un brigand ou mendiant → Fouille complète = **1 UB niveau 0 (Mendiant)**</li>
-                    <li>Un milicien, artisan ou marchand modeste → Fouille complète = **1 UB niveau 1 (Peuple)**</li>
-                    <li>Un marchand aisé ou chef de bande → Fouille complète = **1 UB niveau 2 (Riche)**</li>
-                    <li>Un seigneur mineur ou riche marchand → Fouille complète = **1 UB niveau 3 (Opulent)**</li>
-                </ul>
-
-                <h4>Comment augmenter son niveau de Ressources ?</h4>
-                <ul class="dash-list space-y-2 mt-2">
-                    <li><strong>Trésor Majeur :</strong> Découvrir et investir une UB de niveau <strong>supérieur</strong> au vôtre vous fait immédiatement monter au niveau correspondant.</li>
-                    <li><strong>Accumulation :</strong> Posséder et investir <strong>10 UB</strong> de votre niveau actuel permet de monter d’un palier supérieur.</li>
-                </ul>
-
-                <p class="italic mt-4">Note : Le MJ reste libre d’attribuer plusieurs UB lorsqu’un lieu ou un événement représente une richesse exceptionnelle (grande cache, trésor de monstre, butin de caravane complète, etc.).</p>
-            </div>
-
-    <div class="page-break"></div>
-
+        <div class="content-card">
+            <p>Une <strong>Unité de Butin (UB)</strong> est l’ensemble des possessions d’une personne, d’une créature ou d’un petit groupe. Sa valeur totale correspond à un palier complet de l’Échelle de Ressources (0 à 4).</p>
+        
+            <p><strong>Règle fondamentale :</strong> Les possessions complètes d’une victime vaincue représentent généralement **1 UB de son propre niveau de Ressources**.</p>
+        
+            <h4>Fouille complète vs Vol à la tire</h4>
+            <ul class="dash-list">
+                <li><strong>Fouille complète</strong> → **1 UB** du rang exact de la victime.</li>
+                <li><strong>Vol à la tire</strong> (fouiller rapidement les poches) → **1 UB de rang inférieur**.</li>
+            </ul>
+        
+            <h4>Butin issu d’un lieu (armurerie, cache, caravane…)</h4>
+            <ul class="dash-list">
+                <li>Petit stock abandonné → biens mineurs ou objets individuels (pas une UB).</li>
+                <li>Stock significatif (équipement pour plusieurs personnes) → **1 UB** du niveau correspondant.</li>
+                <li>Grand entrepôt ou caravane bien chargée → **1 UB de niveau supérieur** voire plusieurs UB.</li>
+            </ul>
+        
+            <h4>Comment monter en Ressources ?</h4>
+            <ul class="dash-list">
+                <li><strong>Trésor Majeur :</strong> Investir une UB de niveau supérieur → vous montez immédiatement à ce niveau.</li>
+                <li><strong>Accumulation :</strong> 10 UB de votre niveau actuel → vous montez d’un palier.</li>
+            </ul>
+        
+            <p class="italic">Le MJ peut attribuer plusieurs UB pour un butin exceptionnel.</p>
+        </div>
+        
         <h2 id="section-tresors">7. Décrire un Trésor</h2>
-            <p>Le MJ doit décrire un <strong>ensemble d’objets cohérent</strong> dont la valeur cumulée correspond au niveau de l’UB (et donc au rang de la victime ou du trésor trouvé). Trouver une simple épée n’est pas un trésor de niveau 2, c’est juste un bien d’équipement.</p>
+        <p>Le MJ décrit un ensemble cohérent d’objets dont la valeur totale correspond au niveau de l’UB. Ces tableaux donnent des exemples types pour chaque niveau :</p>
             
             <div style="margin-top: 2rem;"></div>
             <div class="content-card">       
