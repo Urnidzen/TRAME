@@ -5,24 +5,25 @@
         "title": "Livret 3",
         "subtitle": "Ressources & Équipement",
         "index": [
-            {"id": "section-ressources", "title": "1. L'Échelle de Ressources", "level": 1},
-            {"id": "section-achat", "title": "2. Règle d'Achat", "level": 1},
-            {"id": "section-fortune", "title": "3. Le Test de Fortune", "level": 2},
-            {"id": "section-desespere", "title": "4. L'Achat Désespéré", "level": 2},
-            {"id": "section-butin", "title": "5. Butin et Progression", "level": 1},
-            {"id": "section-tresors", "title": "6. Décrire un Trésor", "level": 1},
-            {"id": "section-armures", "title": "7. Armures et Boucliers", "level": 1},
+            {"id": "section-ressources", "title": "1. Les Ressources", "level": 1},
+            {"id": "section-niveaux-objets", "title": "2. Niveaux des Objets, Biens et Services", "level": 1},
+            {"id": "section-achat", "title": "3. Règles d’Achat", "level": 1},
+            {"id": "section-fortune", "title": "4. Le Test de Fortune (D6)", "level": 2},
+            {"id": "section-desespere", "title": "5. L’Achat Désespéré", "level": 2},
+            {"id": "section-butin", "title": "6. Butin, Trésors et Progression des Ressources", "level": 1},
+            {"id": "section-tresors", "title": "7. Décrire un Trésor", "level": 1},
+            {"id": "section-armures", "title": "8. Armures et Boucliers", "level": 1},
             {"id": "section-armures-table", "title": "Tableau des Armures", "level": 2},
             {"id": "section-boucliers-table", "title": "Tableau des Boucliers", "level": 2},
-            {"id": "section-regle-usure", "title": "Règle d'Usure", "level": 2},
-            {"id": "section-armes", "title": "8. Armes", "level": 1},
-            {"id": "section-armes-intro", "title": "Règles de Focalisation", "level": 2},
-            {"id": "section-armes-manufacturees", "title": "Armes manufacturées", "level": 2},
+            {"id": "section-regle-usure", "title": "Règle d'Usure (Durabilité)", "level": 2},
+            {"id": "section-armes", "title": "9. Armes", "level": 1},
+            {"id": "section-armes-intro", "title": "Règles de Focalisation Magique", "level": 2},
+            {"id": "section-armes-manufacturees", "title": "Armes Manufacturées et Objets", "level": 2},
             {"id": "section-armes-naturelles", "title": "Armes Naturelles", "level": 2},
-            {"id": "section-objets", "title": "9. Objets Magiques", "level": 1},
+            {"id": "section-objets", "title": "10. Objets Magiques", "level": 1},
             {"id": "section-principes", "title": "Principes de Création", "level": 2},
             {"id": "section-armes-magiques", "title": "Armes Magiques", "level": 2},
-            {"id": "section-armures-magiques", "title": "Armures et Protections", "level": 2},
+            {"id": "section-armures-magiques", "title": "Armures et Protections Magiques", "level": 2},
             {"id": "section-autres-magiques", "title": "Autres Objets et Consommables", "level": 2}
         ]
     }
@@ -337,9 +338,18 @@
         }
 </style>
 
-    <h2 id="section-ressources">1. L'Échelle de Ressources</h2>
+    <h2 id="section-ressources">1. Les Ressources</h2>
 
-        <p>Les <strong>Ressources</strong> déterminent quels services, quels plaisirs et quel niveau de vie votre bourse vous permet de maintenir sans risque.</p>
+        <p>Les <strong>Ressources</strong> représentent le niveau global de richesse, de statut social et de train de vie que votre personnage peut entretenir de manière stable et durable. Il s’agit d’une échelle allant de <strong>0 (Mendiant)</strong> à <strong>4 (Crésus)</strong>.</p>
+
+        <p>Votre niveau de Ressources détermine :</p>
+        <ul class="dash-list">
+            <li>le logement, la nourriture et les soins que vous pouvez vous permettre ;</li>
+            <li>les services, employés ou plaisirs accessibles ;</li>
+            <li>les biens, équipements et objets que vous pouvez acquérir et maintenir.</li>
+        </ul>
+        
+        <p>Plus votre niveau de Ressources est élevé, plus votre quotidien est confortable et plus vous pouvez accéder à des biens et services de qualité supérieure.</p>
         
         <div style="margin-top: 2rem;"></div>
         <div class="content-card">
@@ -459,50 +469,56 @@
 
     <div class="page-break"></div>
 
-        <div class="content-section" id="section-achat">
-            <h2>2. Règle d'Achat</h2>
+        <h2 id="section-niveaux-objets">2. Niveaux des Objets, Biens et Services</h2>
+        <div class="content-card">
+            <p>Tout ce qui peut être acheté, possédé ou utilisé dans le jeu possède un <strong>Niveau</strong> (de 0 à 4) qui correspond à l’échelle des Ressources :</p>
+            <ul class="dash-list">
+                <li><strong>Niveau 0</strong> : biens de survie basiques (haillons, couteau rouillé…)</li>
+                <li><strong>Niveau 1</strong> : équipement courant du peuple (lance, gambison, chambre louée…)</li>
+                <li><strong>Niveau 2</strong> : biens de qualité (épée, cotte de mailles, maison de ville…)</li>
+                <li><strong>Niveau 3</strong> : objets de luxe ou de guerre (harnois, destrier, manoir…)</li>
+                <li><strong>Niveau 4</strong> : richesses exceptionnelles (mithril, château, traite d’esclaves…)</li>
+            </ul>
+            <p class="italic">Votre niveau de Ressources est donc comparé au Niveau de l’objet ou du service que vous souhaitez acquérir.</p>
+        </div>
+
+        <h2 id="section-achat">3. Règles d’Achat</h2>
             <div class="content-card">
                 <ul class="dash-list">
                     <li><strong>Si Ressources > Niveau de l'objet :</strong> Achat automatique.</li>
-                    <li><strong>Si Ressources = Niveau de l'objet :</strong> <strong>Test de Fortune</strong> requis.</li>
-                    <li><strong>Si Ressources < Niveau de l'objet :</strong> <strong>Achat Désespéré</strong> (baisse d'un palier automatique).</li>
+                    <li><strong>Si Ressources = Niveau de l'objet :</strong> Test de Fortune requis.</li>
+                    <li><strong>Si Ressources < Niveau de l'objet :</strong> Achat avec perte d'un palier de ressource.</li>
                 </ul>
             </div>
-        </div>
 
-        <div class="content-section" id="section-fortune">
-            <h2>3. Le Test de Fortune (D6)</h2>
+        <h2 id="section-fortune">4. Le Test de Fortune (D6)</h2>
             <div class="content-card">
-                <p><strong>Procédure :</strong> Lancez <strong>1D6</strong> après avoir décrit la transaction.</p>
+                <p><strong>Procédure :</strong> Décrivez la transaction, puis lancez <strong>1D6</strong>.</p>
                 <ul class="dash-list">
-                    <li><strong>Résultat 2 à 6 :</strong> Fortune stable.</li>
-                    <li><strong>Résultat 1 :</strong> <strong>Rupture de Fortune.</strong> Le Ressources baisse d'un palier.</li>
+                    <li><strong>2 à 6 :</strong> Fortune stable – vous obtenez l’objet sans perdre de niveau de Ressources.</li>
+                    <li><strong>1 :</strong> <strong>Rupture de Fortune</strong> – vos Ressources baissent immédiatement d’un palier.</li>
                 </ul>
             </div>
-        </div>
 
-        <div class="content-section" id="section-desespere">
-            <h2>4. L'Achat Désespéré</h2>
+        <h2 id="section-desespere">5. L’Achat avec perte de rang de ressources</h2>
             <div class="content-card">
-                <p>Appliqué automatiquement lorsque le Ressources du personnage est inférieur au niveau de l'objet convoité. Le personnage parvient à acquérir le bien, mais au prix d'une <strong>baisse immédiate d'un palier de Ressources</strong>, reflétant l'épuisement de ses réserves ou la prise de dettes risquées.</p>
+                <p>Quand vos Ressources sont inférieures d'un rang (pa plus) au Niveau de l’objet convoité, vous parvenez tout de même à l’acquérir, mais au prix d’une <strong>baisse immédiate d’un palier de Ressources</strong> (dettes, épuisement des réserves, vente forcée d’autres biens…).</p>
             </div>
-        </div>
 
-        <div class="content-section" id="section-butin">
-            <h2>5. Butin et Progression</h2>
+        <h2 id="section-butin">6. Butin, Trésors et Progression des Ressources</h2>
             <div class="content-card">
-                <p>Une <strong>Unité de Butin (UB)</strong> n'est pas un objet unique, mais un <strong>ensemble de valeurs</strong> (monnaie, objets, contrats, bijoux) constituant un trésor significatif.</p>
-                <h4>Augmenter son Ressources</h4>
+                <p>Une <strong>Unité de Butin (UB)</strong> n’est pas un objet isolé, mais un <strong>trésor significatif</strong> dont la valeur totale correspond à un palier entier de Ressources (voir la section « Décrire un Trésor » ci-après).</p>
+            
+                <h4>Comment augmenter son niveau de Ressources ?</h4>
                 <ul class="dash-list space-y-2 mt-2">
-                    <li><strong>Trésor Majeur :</strong> Trouver une UB de niveau supérieur au vôtre vous fait monter au niveau de l'ensemble dès que vous l'investissez pour asseoir votre rang (payer un bail, acheter l'équipement complet, engager du personnel).</li>
-                    <li><strong>Accumulation :</strong> Posséder <strong>10 UB</strong> de son propre niveau permet de monter au palier supérieur.</li>
+                    <li><strong>Trésor Majeur :</strong> Trouver et investir une UB de niveau <strong>supérieur</strong> au vôtre vous fait immédiatement monter au niveau de cette UB (vous consolidez votre nouveau rang en payant un bail, en achetant un équipement complet, en engageant du personnel…).</li>
+                    <li><strong>Accumulation :</strong> Posséder <strong>10 UB</strong> de votre niveau actuel permet de monter d’un palier (vous consolidez votre richesse et passez au niveau supérieur).</li>
                 </ul>
             </div>
-        </div>
 
     <div class="page-break"></div>
 
-        <h2 id="section-tresors">6. Décrire un Trésor</h2>
+        <h2 id="section-tresors">7. Décrire un Trésor</h2>
             <p>Le MJ doit décrire un <strong>ensemble d'objets</strong> dont la valeur cumulée correspond au niveau de Ressources visé. Trouver une simple épée n'est pas un trésor de niveau 2, c'est juste un bien d'équipement.</p>
             
             <div style="margin-top: 2rem;"></div>
@@ -580,7 +596,7 @@
         <div class="page-break"></div>
 
         <div class="content-section" id="section-armures">
-            <h2>7. Armures et Boucliers</h2>
+            <h2>8. Armures et Boucliers</h2>
             <p>Le port d'une armure confère une protection supplémentaire (bonus de résistance) s'ajoutant à celle déjà possédée, mais impose généralement des contraintes, se traduisant par des malus cumulatifs sur certains talents.<br>
             Tout personnage souhaitant se protéger doit d'abord revêtir une armure légère (Gambison ou Cuir). Il peut ensuite y ajouter d'autres éléments (Mailles et/ou Plaques) pour en augmenter la Résistance et la Durabilité, au prix de malus cumulatifs.</p>
             
@@ -705,7 +721,7 @@
         <div class="page-break"></div>
 
         <div class="content-section" id="section-armes">
-            <h2>8. Armes</h2>
+            <h2>9. Armes</h2>
             
             <div class="content-section" id="section-armes-intro">
                 <h3>Règles de Focalisation Magique</h3>
@@ -832,7 +848,7 @@
         <div class="page-break"></div>
 
         <div class="content-section" id="section-objets">
-            <h2>9. Objets Magiques</h2>
+            <h2>10. Objets Magiques</h2>
             <p class="mb-4">Cette section présente les équipements spéciaux et reliques dont la confection exige des composants extraordinaires et / ou une maîtrise artisanale hors du commun.</p>
 
             <div class="content-section" id="section-principes">
