@@ -63,31 +63,37 @@
   .especes-row {
     display: grid;
     grid-template-columns: 0.8fr 2fr 2fr 1.2fr;  /* Proportions adaptées */
-    gap: 1rem;
-    align-items: baseline;
+    gap: 1.5rem;    /* Plus d'espace entre colonnes */
+    align-items: start;    /* Alignement en haut pour multi-lignes */
     font-size: 0.95rem;
+    line-height: 1.5;     /* Plus d'interligne */
   }
   
   .especes-header {
     font-weight: bold;
     border-bottom: 2px solid #1c1917;
-    padding-bottom: 0.3rem;
-    margin-bottom: 0.3rem;
+    padding-bottom: 0.5rem;    /* Plus d'espace sous l'en-tête */
+    margin-bottom: 0.5rem;
     font-family: 'Cinzel', serif;
     letter-spacing: 0.05em;
   }
   
   .especes-row {
     border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding: 0.4rem 0;
+    padding: 0.6rem 0;    /* Plus de hauteur de ligne */
   }
   
   .especes-row:last-child {
     border-bottom: none;
   }
+
+  .especes-col {
+    padding-right: 0.5rem;    /* Respiration à droite de chaque cellule */
+  }
   
   .especes-col:first-child {
     color: #7c2d12;  /* Accent pour le nom de la race */
+    font-weight: 600;
   }
     
     .table-races {
