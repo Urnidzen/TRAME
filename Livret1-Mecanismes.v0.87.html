@@ -199,73 +199,100 @@
     }
 </style>
 
-<div class="content-section" id="partie-1">
-    <h2>1. Combat et Magie</h2>
+<h2 id="partie-1">1. Combat et Magie</h2>
 
-    <div class="content-section" id="section-actions">
-        <h3>Actions</h3>
-        <div class="content-card">
-            <p>Pour réaliser une action physique ou magique, chaque personnage doit choisir <strong>UNE</strong> option parmi les suivantes :</p>
-            <ul class="dash-list space-y-2">
-                <li>
-                    <strong>L'Attaque (Offensive)</strong>
-                    <p>Le personnage choisit un Type et une Cible pour tenter de toucher un adversaire. Il peut méler son attaque à l'utilisation de ses talents si ils sont en lien direct avec son action (ex : une feinte, utilisera l'action d'attaque et le talent Fourberie).<br>Note : Si un personnage a une arme courte dans chaque main, il peut effectuer une attaque par arme qu'il possède sans malus de cible ou d'attaque multiple.</p>
-                </li>
-                
-                <li>
-                    <strong>La Manœuvre Défensive (Tactique)</strong>
-                    <p>Le personnage se concentre exclusivement sur sa protection. Il choisit un type de Défense (vs Direct, vs Circulaire ou vs Saisie) dans laquelle il gagne un bonus temporaire de +1 dans cette compétence pour se protéger jusqu'au début de son prochain tour.<br>Restriction : Seuls les PJ et PNJ intelligents peuvent utiliser la Défense.</p>
-                </li>
-                
-                <li>
-                    <strong>L'Attente (Action Retardée)</strong>
-                    <p>Le personnage ne fait rien dans l'immédiat, attendant le moment qu'il juge opportun pour agir et déterminer son action</p>
-                </li>
+<h3 id="section-actions">Actions</h3>
 
-                <li>
-                    <strong>Autre</strong>
-                    <p>Le personnage réalise une action ne relevant pas directement du combat : escalader (Athlétisme), crocheter (Mécanique), sprinter (Athlétisme), etc. Le MJ est seul juge de la durée nécessaire.</p>
-                </li>                
-            </ul>
-        </div>
-    </div>
+<div class="card-start"></div>
+<div class="card-line">
+    <p>Pour réaliser une action physique ou magique, chaque personnage doit choisir <strong>UNE</strong> option parmi les suivantes :</p>
+</div>
 
-    <div class="content-section" id="section-deroulement">
-        <h3>Déroulement</h3>
-        
-        <h4 id="section-obligation">Les Tours de combats</h4>
-            <div class="content-card">    
-                <p>Chaque scène de combat est découpée en Tours qui représentent une séquence d'actions où chaque combattant agit à son tour, comme si tous agissaient en même temps dans l'univers fictionnel, mais séquentiellement à la table de jeu pour permettre aux joueurs de réfléchir et d'intervenir.</p>
-                <p>Durant chaque tour, le Maître du Jeu (MJ) doit s'assurer que tous les acteurs (Personnages Joueurs, PNJ, créatures) qui ne sont pas hors de combat (mort, KO) aient agit avant de passer au tour suivant.</p>
-            </div>
+<div class="card-line">
+    <p><strong>L'Attaque (Offensive)</strong></p>
+    <p>Le personnage choisit un Type et une Cible pour tenter de toucher un adversaire. Il peut méler son attaque à l'utilisation de ses talents si ils sont en lien direct avec son action (ex : une feinte, utilisera l'action d'attaque et le talent Fourberie).<br>Note : Si un personnage a une arme courte dans chaque main, il peut effectuer une attaque par arme qu'il possède sans malus de cible ou d'attaque multiple.</p>
+</div>
 
-        <h4 id="section-initiative">La hiérarchie de l'initiative</h4>
-            <div class="content-card">
-                <p class="mb-2">L'ordre de passage durant un Tour n'est pas déterminé par un jet de dé systématique, mais par une priorité technique liée à l'équipement et à la situation.</p>
-                <p class="mb-2"><strong>L'ordre est le suivant :</strong></p>
-                <ul class="dash-list space-y-2">
-                    <li><strong>Priorité 0 : L'Initiative Sacrifiée</strong> — Une créature intelligente peut réduire son Score Total d'Attaque de 1 pour agir immédiatement, avant la Priorité 1. Si plusieurs êtres choisissent cette option, l'ordre entre eux se détermine selon la hiérarchie habituelle (en appliquant les sous-catégories des Priorités 1 à 8) et les règles de résolution des égalités.</li>
-                    <li><strong>Priorité 1 : Le Tir (ou Lancer) à Distance</strong> – Armes à Distance (ex : Arcs, Arbalètes, Armes de jet), uniquement si le tireur n'est engagé par aucun adversaire au corps-à-corps.</li>
-                    <li><strong>Priorité 2 : La Magie « Libre » (Soutien)</strong> – Sortilèges et Prières, uniquement si le lanceur n'est engagé par aucun adversaire au corps-à-corps.</li>
-                    <li><strong>Priorité 3 : Le Sprint</strong> – Se déplacer pour s'éloigner ou rejoindre un lieu (nombre de tours à l'appréciation du MJ). Une acrobatie (talent : aptitude féline) peut être nécessaire pour se désengager.</li>
-                    <li><strong>Priorité 4 : Allonge Longue (La Mêlée)</strong> – Armes à deux mains (ex : Lances, Espadons, Masses).</li>
-                    <li><strong>Priorité 5 : Allonge Moyenne (La Mêlée)</strong> – Armes à une main (ex : Épées, Haches).</li>
-                    <li><strong>Priorité 6 : Allonge Courte (La Mêlée)</strong> – ex : Dagues, Poings, Saisies.</li>
-                    <li><strong>Priorité 7 : Le Tir (ou Lancer) en Mêlée</strong> – Armes à Distance alors que le tireur est engagé par au moins un adversaire au corps-à-corps.</li>
-                    <li><strong>Priorité 8 : La Magie « Sous Pression »</strong> – Sortilèges et Prières si le lanceur a au moins un adversaire au corps-à-corps.</li>
-                </ul>
-                <p class="italic mb-4" style="margin-top: 1rem;"><strong>Note sur le Déplacement :</strong> Toute action de combat inclut par défaut un déplacement stratégique ou une charge sur une distance raisonnable (jugée par le MJ). Cette distance peut être augmentée avec un talent d'Athlétisme (+1) et, si le terrain est complexe, nécessite aussi Aptitude Féline (+1). L'utilisation du talent Aptitude Féline est requise pour se désengager sauf circonstance particulière (désavantage de l'adversaire ou avantage tactique).</p>
-            </div>
+<div class="card-line">
+    <p><strong>La Manœuvre Défensive (Tactique)</strong></p>
+    <p>Le personnage se concentre exclusivement sur sa protection. Il choisit un type de Défense (vs Direct, vs Circulaire ou vs Saisie) dans laquelle il gagne un bonus temporaire de +1 dans cette compétence pour se protéger jusqu'au début de son prochain tour.<br>Restriction : Seuls les PJ et PNJ intelligents peuvent utiliser la Défense.</p>
+</div>
 
-        <h4 id="section-egalite-priorite">Résolution des égalités de priorité</h4>
-            <div class="content-card">
-                <p>Si deux personnages se trouvent dans la même catégorie de priorité, on utilise les règles suivantes pour trancher :</p>
-                <ol class="dash-list space-y-2">
-                    <li><strong>La Loi de la Compétence (Expérience) :</strong> Le combattant avec la Statistique la plus élevée (dans l'action entreprise ou sa stat principale) agit en premier.</li>
-                    <li><strong>La Loi du Regard (Départage) :</strong> En cas d'égalité parfaite, chaque combattant lance 1D6. Le plus haut score agit en premier.</li>
-                </ol>
-            </div>
-        </div>
+<div class="card-line">
+    <p><strong>L'Attente (Action Retardée)</strong></p>
+    <p>Le personnage ne fait rien dans l'immédiat, attendant le moment qu'il juge opportun pour agir et déterminer son action</p>
+</div>
+
+<div class="card-line">
+    <p><strong>Autre</strong></p>
+    <p>Le personnage réalise une action ne relevant pas directement du combat : escalader (Athlétisme), crocheter (Mécanique), sprinter (Athlétisme), etc. Le MJ est seul juge de la durée nécessaire.</p>
+</div>
+<div class="card-end"></div>
+
+<h3 id="section-deroulement">Déroulement</h3>
+
+<h4 id="section-obligation">Les Tours de combats</h4>
+<div class="card-start"></div>
+<div class="card-line">
+    <p>Chaque scène de combat est découpée en Tours qui représentent une séquence d'actions où chaque combattant agit à son tour, comme si tous agissaient en même temps dans l'univers fictionnel, mais séquentiellement à la table de jeu pour permettre aux joueurs de réfléchir et d'intervenir.</p>
+</div>
+<div class="card-line">
+    <p>Durant chaque tour, le Maître du Jeu (MJ) doit s'assurer que tous les acteurs (Personnages Joueurs, PNJ, créatures) qui ne sont pas hors de combat (mort, KO) aient agit avant de passer au tour suivant.</p>
+</div>
+<div class="card-end"></div>
+
+<h4 id="section-initiative">La hiérarchie de l'initiative</h4>
+<div class="card-start"></div>
+<div class="card-line">
+    <p>L'ordre de passage durant un Tour n'est pas déterminé par un jet de dé systématique, mais par une priorité technique liée à l'équipement et à la situation.</p>
+</div>
+<div class="card-line">
+    <p><strong>L'ordre est le suivant :</strong></p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 0 : L'Initiative Sacrifiée</strong> — Une créature intelligente peut réduire son Score Total d'Attaque de 1 pour agir immédiatement, avant la Priorité 1. Si plusieurs êtres choisissent cette option, l'ordre entre eux se détermine selon la hiérarchie habituelle (en appliquant les sous-catégories des Priorités 1 à 8) et les règles de résolution des égalités.</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 1 : Le Tir (ou Lancer) à Distance</strong> – Armes à Distance (ex : Arcs, Arbalètes, Armes de jet), uniquement si le tireur n'est engagé par aucun adversaire au corps-à-corps.</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 2 : La Magie « Libre » (Soutien)</strong> – Sortilèges et Prières, uniquement si le lanceur n'est engagé par aucun adversaire au corps-à-corps.</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 3 : Le Sprint</strong> – Se déplacer pour s'éloigner ou rejoindre un lieu (nombre de tours à l'appréciation du MJ). Une acrobatie (talent : aptitude féline) peut être nécessaire pour se désengager.</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 4 : Allonge Longue (La Mêlée)</strong> – Armes à deux mains (ex : Lances, Espadons, Masses).</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 5 : Allonge Moyenne (La Mêlée)</strong> – Armes à une main (ex : Épées, Haches).</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 6 : Allonge Courte (La Mêlée)</strong> – ex : Dagues, Poings, Saisies.</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 7 : Le Tir (ou Lancer) en Mêlée</strong> – Armes à Distance alors que le tireur est engagé par au moins un adversaire au corps-à-corps.</p>
+</div>
+<div class="card-line">
+    <p><strong>Priorité 8 : La Magie « Sous Pression »</strong> – Sortilèges et Prières si le lanceur a au moins un adversaire au corps-à-corps.</p>
+</div>
+<div class="card-line">
+    <p><strong>Note sur le Déplacement :</strong> Toute action de combat inclut par défaut un déplacement stratégique ou une charge sur une distance raisonnable (jugée par le MJ). Cette distance peut être augmentée avec un talent d'Athlétisme (+1) et, si le terrain est complexe, nécessite aussi Aptitude Féline (+1). L'utilisation du talent Aptitude Féline est requise pour se désengager sauf circonstance particulière (désavantage de l'adversaire ou avantage tactique).</p>
+</div>
+<div class="card-end"></div>
+
+<h4 id="section-egalite-priorite">Résolution des égalités de priorité</h4>
+<div class="card-start"></div>
+<div class="card-line">
+    <p>Si deux personnages se trouvent dans la même catégorie de priorité, on utilise les règles suivantes pour trancher :</p>
+</div>
+<div class="card-line">
+    <p><strong>La Loi de la Compétence (Expérience) :</strong> Le combattant avec la Statistique la plus élevée (dans l'action entreprise ou sa stat principale) agit en premier.</p>
+</div>
+<div class="card-line">
+    <p><strong>La Loi du Regard (Départage) :</strong> En cas d'égalité parfaite, chaque combattant lance 1D6. Le plus haut score agit en premier.</p>
+</div>
+<div class="card-end"></div>
 
     <div class="content-section" id="section-matrice">
         <h3>Les Compétences</h3>
