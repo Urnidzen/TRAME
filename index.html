@@ -311,6 +311,49 @@
             max-width: 100%; height: auto; display: block;
         }
 
+        /* Structure "plaquée" - éléments individuels découpables */
+        .rule-item, .table-row, .card-line {
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .rule-item {
+            padding-left: 1.5rem;
+            border-left: 3px solid #7c2d12;
+            margin-left: 0.5rem;
+        }
+        
+        .table-row {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 0.4rem 0;
+        }
+        
+        /* Simulation visuelle des content-cards avec des lignes successives */
+        .card-start {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-left: 4px solid #7c2d12;
+            background: rgba(255,255,255,0.3);
+            padding: 1rem 1.2rem 0.2rem 1.2rem;
+            border-radius: 4px 4px 0 0;
+            margin-top: 1rem;
+        }
+        
+        .card-line {
+            border-left: 4px solid #7c2d12;
+            background: rgba(255,255,255,0.3);
+            padding-left: 1.2rem;
+            margin: 0;
+        }
+        
+        .card-end {
+            border-left: 4px solid #7c2d12;
+            background: rgba(255,255,255,0.3);
+            padding-bottom: 1rem;
+            border-radius: 0 0 4px 4px;
+            margin-bottom: 1.2rem;
+        }
+        
         .sheet-container-frame {
             position: relative;
             overflow: hidden;
@@ -1510,200 +1553,71 @@
                 }
             }
         }
-
-        function splitTextElement(element, maxHeight) {
-            const clone = element.cloneNode(true);
-            const originalText = element.textContent;
-            let low = 0, high = originalText.length;
-            
-            while (low < high) {
-                const mid = Math.ceil((low + high) / 2);
-                clone.textContent = originalText.substring(0, mid);
-                pgnState.currentPageContent.appendChild(clone);
-                
-                if (pgnState.currentPageContent.scrollHeight <= maxHeight + 2) {
-                    low = mid;
-                } else {
-                    high = mid - 1;
-                }
-                pgnState.currentPageContent.removeChild(clone);
-            }
-            
-            const text1 = originalText.substring(0, low);
-            const text2 = originalText.substring(low).trim();
-            
-            if (text2.length === 0) return null;
-            
-            const part1 = element.cloneNode(true);
-            part1.textContent = text1;
-            
-            const part2 = element.cloneNode(true);
-            part2.textContent = text2;
-            
-            return { part1, part2 };
-        }
-        
-        // === NOUVELLE FONCTION 2 ===
-        function splitContentCard(element) {
-            const container = pgnState.currentPageContent;
-            const part1 = element.cloneNode(false); // Carte vide
-            const part2 = element.cloneNode(false); // Carte vide
-            container.appendChild(part1);
-        
-            const children = Array.from(element.children);
-            let i = 0;
-            // On remplit part1 tant que ça ne déborde pas
-            while (i < children.length) {
-                part1.appendChild(children[i].cloneNode(true));
-                if (isOverflowing(container)) {
-                    part1.removeChild(part1.lastChild);
-                    break;
-                }
-                i++;
-            }
-
-            // Si on n'a réussi à placer AUCUN élément, on annule la découpe
-            // pour éviter une boucle infinie de pages vides.
-            if (part1.children.length === 0) {
-                container.removeChild(part1);
-                return null; 
-            }
-            
-            // Le reste va dans part2
-            for (; i < children.length; i++) {
-                part2.appendChild(children[i].cloneNode(true));
-            }
-            container.removeChild(part1);
-            return { part1, part2 };
-        }
-        
+              
         function processElement(element) {
-            // FORCER UN SAUT DE PAGE si l'élément a la classe 'page-break'
+            // Saut de page forcé
             if (element.classList && element.classList.contains('page-break')) {
                 advancePage();
                 return;
             }
-           
+            
+            // Clone et ajout
             let node = element.cloneNode(true);
             pgnState.currentPageContent.appendChild(node);
             void node.offsetHeight;
-
-            // === AJOUT : détection du cas tableau suivi de h2 ===
-            if ((node.tagName === 'H2' || node.classList.contains('section-title-isolated')) && 
-                pgnState.currentPageContent.lastElementChild && 
-                pgnState.currentPageContent.lastElementChild.dataset.lastBlock === 'table') {
-                
-                node.dataset.afterTable = 'true';
-            }
             
+            // Détection de débordement
             if (isOverflowing(pgnState.currentPageContent)) {
                 const container = pgnState.currentPageContent;
-               
-                // CAPTURER les hauteurs AVANT de retirer le nœud
-                const nodeScrollHeight = node.scrollHeight;
-                const containerScrollHeight = container.scrollHeight;
-                const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
-                const pageHeight = container.clientHeight;
-                const availablePercent = availableHeight / pageHeight;
-                const espaceMinimum = isMobile ? 0.10 : 0.40;
-               
-                // Maintenant on retire le nœud
                 container.removeChild(node);
-               
-                // CAS 1 : Content-card sur page de gauche
-                if (!pgnState.isRightPage &&
-                    element.classList && element.classList.contains('content-card') &&
-                    availablePercent > espaceMinimum) {
-                   
-                    const split = splitContentCard(element);
-                    if (split) {
-                        container.appendChild(split.part1);
-                        pgnState.elementsQueue.unshift(split.part2);
-                        advancePage();
-                        return;
-                    }
-                }
-               
-                // CAS 2 : Texte simple (P ou LI) sur page de gauche
-                if (!pgnState.isRightPage &&
-                    (element.tagName === 'P' || element.tagName === 'LI') &&
-                    !element.querySelector('img, table, div')) {
-                   
-                    const split = splitTextElement(element, availableHeight);
-                    if (split && split.part1.textContent.length > 10) {
-                        container.appendChild(split.part1);
-                        pgnState.elementsQueue.unshift(split.part2);
-                        advancePage();
-                        return;
-                    }
-                }
-               
-                // CAS PAR DÉFAUT
+                
                 const isPageEmpty = container.children.length === 0;
-        
-                // === GESTION SPÉCIFIQUE POUR LES TABLEAUX (correction du bug) ===
-                if (element.tagName === 'TABLE') {
-                if (!isPageEmpty) {
-                    advancePage();
-                    pgnState.elementsQueue.unshift(element);
-                    return;
-                } else {
-                    container.appendChild(node);
-                    node.dataset.lastBlock = 'table';               
+                
+                // Si la page est vide et l'élément est trop gros (tableau, image)
+                if (isPageEmpty && (element.tagName === 'TABLE' || element.tagName === 'IMG')) {
                     node.style.maxHeight = '92%';
                     node.style.overflowY = 'auto';
+                    container.appendChild(node);
                     advancePage();
                     return;
                 }
-}
-        
-                // Gestion des content-card avec titre précédent (ton code original)
-                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
-                    const lastChild = container.lastElementChild;
-                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
-                   
-                    if (isHeading && container.children.length > 1) {
-                        container.removeChild(lastChild);
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element);
-                        pgnState.elementsQueue.unshift(lastChild);
-                        return;
-                    }
-                }
-               
-                // Cas général
-                if (!isPageEmpty) {
+                
+                // Si page vide et texte très long, on le met quand même avec scroll
+                if (isPageEmpty) {
+                    container.appendChild(node);
                     advancePage();
-                    pgnState.elementsQueue.unshift(element);
-                } else {
-                    handleGiantBlock(element);
+                    return;
                 }
+                
+                // Sinon, on passe à la page suivante et on remet l'élément
+                advancePage();
+                pgnState.elementsQueue.unshift(element);
             }
         }
 
         function handleGiantBlock(element) {
+            // Éléments médias ou tableaux : ajouter avec limitation de taille
             const tagName = element.tagName.toLowerCase();
-            if (['img', 'video', 'iframe', 'svg'].includes(tagName) || element.classList.contains('atomic')) {
+            if (['img', 'video', 'iframe', 'svg', 'table'].includes(tagName)) {
                 let node = element.cloneNode(true);
-                node.style.maxHeight = "100%";
+                node.style.maxHeight = "92%";
                 node.style.overflowY = "auto";
-                node.style.display = "block";
                 pgnState.currentPageContent.appendChild(node);
                 advancePage();
                 return;
             }
+            
+            // Éléments avec enfants : décomposer en enfants individuels
             const children = Array.from(element.children);
             if (children.length > 0) {
-                if (element.id && children[0]) {
-                    children[0].id = element.id;
-                    if (children[0].tagName === 'H2') {
-                        children[0].classList.add('section-title-isolated');
-                    }
+                // Remettre les enfants dans la queue (ordre inversé pour dépiler correctement)
+                for (let i = children.length - 1; i >= 0; i--) {
+                    pgnState.elementsQueue.unshift(children[i]);
                 }
-                for (let i = children.length - 1; i >= 0; i--) { pgnState.elementsQueue.unshift(children[i]); }
             } else {
+                // Élément simple : l'ajouter avec scroll si nécessaire
                 let node = element.cloneNode(true);
-                node.style.maxHeight = "100%";
+                node.style.maxHeight = "92%";
                 node.style.overflowY = "auto";
                 pgnState.currentPageContent.appendChild(node);
                 advancePage();
