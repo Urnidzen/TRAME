@@ -1426,40 +1426,33 @@
         let currentLineCount = 0;
 
         function estimateLines(element) {
-            const tagName = element.tagName;
             const text = element.textContent || '';
+            const baseLength = text.length;
+            const tagName = element.tagName;
             
-            if (tagName === 'H2' || element.classList.contains('section-title-isolated')) {
-                return CONFIG.COSTS.HEADING_H2;
-            }
-            if (tagName === 'H3') return CONFIG.COSTS.HEADING_H3;
-            if (tagName === 'H4') return CONFIG.COSTS.HEADING_H4;
-            if (tagName === 'IMG' || tagName === 'TABLE' || element.classList.contains('atomic')) {
-                return 'scale'; // Signal pour scaling
-            }
+            // Tableaux et images : poids fixe élevé
+            if (tagName === 'TABLE') return 800;
+            if (tagName === 'IMG') return 600;
+            
+            // Titres : ils prennent beaucoup de place visuelle
+            if (tagName === 'H2') return Math.max(baseLength * 4, 150);
+            if (tagName === 'H3') return Math.max(baseLength * 4, 150);
+            if (tagName === 'H4') return Math.max(baseLength * 3, 100);
+            
+            // Listes : espace entre les items
+            if (tagName === 'LI') return (baseLength * 1.2) + 20;
+            
+            // Content-card : compter les enfants + marge
             if (element.classList.contains('content-card')) {
-                let innerLines = 0;
+                let childrenWeight = 0;
                 for (let child of element.children) {
-                    const childLines = estimateLines(child);
-                    if (childLines === 'scale') return 'scale';
-                    innerLines += childLines;
+                    childrenWeight += estimateLines(child);
                 }
-                return innerLines + CONFIG.COSTS.CONTENT_CARD;
+                return childrenWeight + 100;
             }
-            if (tagName === 'UL' || tagName === 'OL') {
-                const items = element.querySelectorAll(':scope > li');
-                return items.length * CONFIG.COSTS.LIST_ITEM;
-            }
-            if (tagName === 'LI') {
-                const textLines = Math.ceil(text.length / 80);
-                return Math.max(CONFIG.COSTS.LIST_ITEM, textLines);
-            }
-            if (tagName === 'P' || tagName === 'DIV' || tagName === 'SPAN') {
-                if (text.length === 0) return 0;
-                const textLines = Math.ceil(text.length / 80);
-                return textLines + CONFIG.COSTS.PARAGRAPH_MARGIN;
-            }
-            return 1;
+            
+            // Par défaut : le texte lui-même
+            return baseLength;
         }
 
         // Traitement par comptage de lignes (pour texte, titres, listes)
@@ -1619,16 +1612,10 @@
             tempPage.style.position = 'absolute';
             document.body.appendChild(tempPage);
             
-            const computedStyle = window.getComputedStyle(tempPage);
-            const paddingTop = parseInt(computedStyle.paddingTop) || 0;
-            const paddingBottom = parseInt(computedStyle.paddingBottom) || 0;
-            const footerSpace = 60;
-            
-            const availableHeight = tempPage.clientHeight - paddingTop - paddingBottom - footerSpace;
-            MAX_LINES_PER_PAGE = Math.floor(availableHeight / CONFIG.LINE_HEIGHT * 0.4);
-            console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page`);
+            const MAX_CHARS_PER_PAGE = 1800;
+            console.log(`Pagination : Max ${MAX_CHARS_PER_PAGE} caractères par page`);
             document.body.removeChild(tempPage);
-            currentLineCount = 0;
+            let currentCharCount = 0;
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
             staging.innerHTML = htmlContent;
@@ -1643,15 +1630,36 @@
                 return !['SCRIPT', 'STYLE', 'LINK', 'META', 'NOSCRIPT', 'TITLE', 'BASE'].includes(el.tagName);
             });
 
+            const MAX_CHARS_PER_PAGE = 1800;
+            let currentCharCount = 0;
+            
             while (pgnState.elementsQueue.length > 0) {
                 let element = pgnState.elementsQueue.shift();
-                const estimatedLines = estimateLines(element);
+                const weight = estimateLines(element);
                 
-                if (estimatedLines === 'scale') {
-                    processElementWithScaling(element);
-                } else {
-                    processElementByCounting(element, estimatedLines);
+                if (element.classList && element.classList.contains('page-break')) {
+                    advancePage();
+                    currentCharCount = 0;
+                    continue;
                 }
+                
+                // Si titre risque d'être orphelin en bas de page
+                if ((element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4') && 
+                    currentCharCount > 1400) {
+                    advancePage();
+                    currentCharCount = 0;
+                }
+                
+                // Si ça dépasse la limite
+                if (currentCharCount + weight > MAX_CHARS_PER_PAGE && currentCharCount > 0) {
+                    advancePage();
+                    currentCharCount = 0;
+                }
+                
+                // Ajout à la page
+                const node = element.cloneNode(true);
+                pgnState.currentPageContent.appendChild(node);
+                currentCharCount += weight;
             }
             
             removeEmptySpreads();
