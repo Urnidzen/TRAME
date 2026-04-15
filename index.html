@@ -1619,17 +1619,13 @@
             tempPage.style.position = 'absolute';
             document.body.appendChild(tempPage);
             
-            // Mesurer les marges réelles appliquées par le CSS (padding + espace footer)
             const computedStyle = window.getComputedStyle(tempPage);
-            const paddingTop = parseInt(computedStyle.paddingTop);
-            const paddingBottom = parseInt(computedStyle.paddingBottom);
-            const footerSpace = 60; // Espace pour numéro de page et texte légal
+            const paddingTop = parseInt(computedStyle.paddingTop) || 0;
+            const paddingBottom = parseInt(computedStyle.paddingBottom) || 0;
+            const footerSpace = 60;
             
             const availableHeight = tempPage.clientHeight - paddingTop - paddingBottom - footerSpace;
-            
-            MAX_LINES_PER_PAGE = Math.floor(pageHeight / CONFIG.LINE_HEIGHT);
-            
-            document.body.removeChild(tempPage);
+            MAX_LINES_PER_PAGE = Math.floor(availableHeight / CONFIG.LINE_HEIGHT);
             console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page`);
             
             currentLineCount = 0;
