@@ -1407,145 +1407,85 @@
 
         // === CONFIGURATION DE LA PAGINATION PAR LIGNES ===
         const CONFIG = {
-            // Hauteur d'une ligne standard en pixels (correspond à votre line-height CSS)
             LINE_HEIGHT: 30,
-            
-            // Marge de sécurité en bas de page (pour ne pas coller au footer)
             PAGE_MARGIN_BOTTOM: 60,
-            
-            // Coût en lignes des différents éléments
             COSTS: {
-                LINE_TEXT: 1,           // Une ligne de texte simple
-                PARAGRAPH_MARGIN: 0.3,  // Espace après un paragraphe
-                HEADING_H2: 1.5,        // Titre H2 + espace après
-                HEADING_H3: 1.2,        // Titre H3 + espace après
-                HEADING_H4: 1,          // Titre H4
-                CONTENT_CARD: 0.5,      // Bordure/padding d'une carte vide
-                LIST_ITEM: 0.8,         // Un élément de liste
-                TABLE_ROW: 1.2,         // Une ligne de tableau estimée
-                IMAGE: 8                // Estimation hauteur image (sera ajustée par scaling)
+                LINE_TEXT: 1,
+                PARAGRAPH_MARGIN: 0.3,
+                HEADING_H2: 1.5,
+                HEADING_H3: 1.2,
+                HEADING_H4: 1,
+                CONTENT_CARD: 0.5,
+                LIST_ITEM: 0.8,
+                TABLE_ROW: 1.2,
+                IMAGE: 8
             }
         };
         
-        // Variable globale qui mémorisera le nombre max de lignes par page
-        let MAX_LINES_PER_PAGE = 40; // Valeur par défaut, sera recalculée
-        let currentLineCount = 0; // Compteur de lignes pour la pagination (global)
+        let MAX_LINES_PER_PAGE = 40;
+        let currentLineCount = 0;
 
-        // Fonction qui estime le nombre de lignes qu'un élément va occuper
         function estimateLines(element) {
             const tagName = element.tagName;
             const text = element.textContent || '';
             
-            // Cas 1 : C'est un titre H2
             if (tagName === 'H2' || element.classList.contains('section-title-isolated')) {
                 return CONFIG.COSTS.HEADING_H2;
             }
-            
-            // Cas 2 : C'est un titre H3
-            if (tagName === 'H3') {
-                return CONFIG.COSTS.HEADING_H3;
-            }
-            
-            // Cas 3 : C'est un titre H4
-            if (tagName === 'H4') {
-                return CONFIG.COSTS.HEADING_H4;
-            }
-            
-            // Cas 4 : C'est une image ou un tableau -> on retourne 'measure' 
-            // (signal spécial pour dire "il faut mesurer vraiment")
+            if (tagName === 'H3') return CONFIG.COSTS.HEADING_H3;
+            if (tagName === 'H4') return CONFIG.COSTS.HEADING_H4;
             if (tagName === 'IMG' || tagName === 'TABLE' || element.classList.contains('atomic')) {
-                return 'measure';
+                return 'scale'; // Signal pour scaling
             }
-            
-            // Cas 5 : C'est une carte de contenu (content-card)
             if (element.classList.contains('content-card')) {
-                // On compte les lignes à l'intérieur + le coût de la carte elle-même
                 let innerLines = 0;
-                const children = element.children;
-                for (let child of children) {
+                for (let child of element.children) {
                     const childLines = estimateLines(child);
-                    if (childLines === 'measure') return 'measure'; // Si un enfant est complexe
+                    if (childLines === 'scale') return 'scale';
                     innerLines += childLines;
                 }
                 return innerLines + CONFIG.COSTS.CONTENT_CARD;
             }
-            
-            // Cas 6 : C'est une liste (ul, ol)
             if (tagName === 'UL' || tagName === 'OL') {
                 const items = element.querySelectorAll(':scope > li');
                 return items.length * CONFIG.COSTS.LIST_ITEM;
             }
-            
-            // Cas 7 : C'est un élément de liste individuel (si on le reçoit directement)
             if (tagName === 'LI') {
-                // Estimation : longueur du texte / 80 caractères par ligne
                 const textLines = Math.ceil(text.length / 80);
                 return Math.max(CONFIG.COSTS.LIST_ITEM, textLines);
             }
-            
-            // Cas 8 : Paragraphe standard ou texte simple
             if (tagName === 'P' || tagName === 'DIV' || tagName === 'SPAN') {
-                if (text.length === 0) return 0; // Vide
-                
-                // Calcul : nombre de caractères / 80 caractères par ligne (estimation moyenne)
+                if (text.length === 0) return 0;
                 const textLines = Math.ceil(text.length / 80);
-                // On ajoute la marge après le paragraphe
                 return textLines + CONFIG.COSTS.PARAGRAPH_MARGIN;
             }
-            
-            // Par défaut, si on ne sait pas ce que c'est
             return 1;
         }
 
-        function processElementByCounting(element, lineCost) {
-            const container = pgnState.currentPageContent;
-            
-            // Vérification : est-ce que ça dépasse la limite ?
-            // On garde une marge de 2 lignes pour éviter de coller au bord
-            if (currentLineCount + lineCost > MAX_LINES_PER_PAGE - 2) {
-                // Ça dépasse, on passe à la page suivante
-                advancePage();
-                currentLineCount = 0;
-            }
-            
-            // On ajoute l'élément
-            const node = element.cloneNode(true);
-            container.appendChild(node);
-            
-            // On met à jour le compteur
-            currentLineCount += lineCost;
-            
-            // Marquer le dernier type d'élément (pour la gestion des titres orphelins)
-            container.lastElementChild.dataset.lastBlock = 'text';
-        }
-
+        // Traitement par comptage de lignes (pour texte, titres, listes)
         function processElementByCounting(element, lineCost) {
             const container = pgnState.currentPageContent;
             const tagName = element.tagName;
             const availableLines = MAX_LINES_PER_PAGE - currentLineCount;
             const safetyMargin = 2;
             
-            // 1. Saut de page forcé
+            // Saut de page forcé
             if (element.classList && element.classList.contains('page-break')) {
                 advancePage();
                 currentLineCount = 0;
                 return;
             }
             
-            // 2. Si ça rentre parfaitement, on ajoute simplement
+            // Si ça rentre, on ajoute
             if (lineCost <= availableLines - safetyMargin) {
                 const node = element.cloneNode(true);
                 container.appendChild(node);
                 currentLineCount += lineCost;
-                
-                // Marquer le type pour la détection de titres orphelins
-                if (tagName === 'H2' || tagName === 'H3') {
-                    node.dataset.isHeading = 'true';
-                }
+                if (tagName === 'H2' || tagName === 'H3') node.dataset.isHeading = 'true';
                 return;
             }
             
-            // 3. Gestion des titres orphelins (on ne coupe jamais un titre)
+            // Titres orphelins : on ne coupe jamais un titre
             if (tagName === 'H2' || tagName === 'H3' || tagName === 'H4' || 
                 element.classList.contains('section-title-isolated')) {
                 advancePage();
@@ -1553,32 +1493,26 @@
                 const node = element.cloneNode(true);
                 container.appendChild(node);
                 currentLineCount += lineCost;
-                node.dataset.isHeading = 'true';
                 return;
             }
             
-            // 4. Découpage des paragraphes de texte simple
+            // Découpage des paragraphes longs
             if ((tagName === 'P' || tagName === 'LI') && 
                 !element.querySelector('img, table, div, .content-card')) {
                 
                 const text = element.textContent;
                 const charsPerLine = 80;
-                
-                // Combien de lignes peut-on prendre sur cette page ?
                 const linesWeCanTake = Math.max(1, availableLines - safetyMargin);
                 const charsWeCanTake = linesWeCanTake * charsPerLine;
                 
                 if (charsWeCanTake >= text.length - 20) {
-                    // Presque tout rentre, on passe juste à la nouvelle page
                     advancePage();
                     currentLineCount = 0;
                     const node = element.cloneNode(true);
                     container.appendChild(node);
                     currentLineCount += lineCost;
                 } else {
-                    // On coupe le texte en deux
                     const text1 = text.substring(0, charsWeCanTake);
-                    // On coupe au dernier espace pour ne pas couper un mot
                     const lastSpace = text1.lastIndexOf(' ');
                     const cleanCut = lastSpace > 0 ? lastSpace : charsWeCanTake;
                     const finalText1 = text.substring(0, cleanCut);
@@ -1588,7 +1522,6 @@
                         const part1 = element.cloneNode(true);
                         part1.textContent = finalText1;
                         container.appendChild(part1);
-                        // On considère que la page est pleine
                         currentLineCount = MAX_LINES_PER_PAGE;
                     }
                     
@@ -1604,25 +1537,20 @@
                 return;
             }
             
-            // 5. Scinder les content-cards si possible
+            // Scinder les content-cards si possible
             if (element.classList.contains('content-card') && element.children.length > 1 && availableLines > 5) {
                 const children = Array.from(element.children);
-                let linesUsed = CONFIG.COSTS.CONTENT_CARD; // Coût de la carte vide
+                let linesUsed = CONFIG.COSTS.CONTENT_CARD;
                 let splitIndex = 0;
                 
-                // On essaie de remplir la carte avec autant d'enfants que possible
                 for (let i = 0; i < children.length; i++) {
                     const childLines = estimateLines(children[i]);
-                    if (linesUsed + childLines > availableLines - safetyMargin) {
-                        break;
-                    }
+                    if (linesUsed + childLines > availableLines - safetyMargin) break;
                     linesUsed += childLines;
                     splitIndex = i + 1;
                 }
                 
-                // Si on a pu mettre au moins un enfant et qu'il en reste
                 if (splitIndex > 0 && splitIndex < children.length) {
-                    // Première partie sur cette page
                     const part1 = element.cloneNode(false);
                     for (let i = 0; i < splitIndex; i++) {
                         part1.appendChild(children[i].cloneNode(true));
@@ -1630,7 +1558,6 @@
                     container.appendChild(part1);
                     currentLineCount += linesUsed;
                     
-                    // Deuxième partie remise dans la file
                     const part2 = element.cloneNode(false);
                     for (let i = splitIndex; i < children.length; i++) {
                         part2.appendChild(children[i].cloneNode(true));
@@ -1638,59 +1565,75 @@
                     
                     advancePage();
                     currentLineCount = 0;
-                    
-                    // Traiter la suite (récursif)
                     const part2Lines = estimateLines(part2);
                     processElementByCounting(part2, part2Lines);
                     return;
                 }
             }
             
-            // 6. Par défaut : on passe à la page suivante et on met l'élément entier
+            // Par défaut : nouvelle page et élément entier
             advancePage();
             currentLineCount = 0;
             const node = element.cloneNode(true);
             container.appendChild(node);
             currentLineCount += lineCost;
-            
-            // Si c'était un tableau (normalement géré ailleurs mais sécurité)
-            if (tagName === 'TABLE') {
-                node.dataset.lastBlock = 'table';
-            }
         }
-        
+
+        // Traitement par scaling pour tableaux et images (comme la fiche de perso)
+        function processElementWithScaling(element) {
+            const container = pgnState.currentPageContent;
+            const tagName = element.tagName;
+            
+            // Si la page a déjà du contenu, on passe à la suivante pour les gros blocs
+            if (currentLineCount > 2) {
+                advancePage();
+                currentLineCount = 0;
+            }
+            
+            const node = element.cloneNode(true);
+            container.appendChild(node);
+            
+            // Application du scaling si nécessaire
+            setTimeout(() => {
+                const availableHeight = container.clientHeight * 0.9;
+                const elementHeight = node.scrollHeight;
+                
+                if (elementHeight > availableHeight) {
+                    const scale = availableHeight / elementHeight;
+                    node.style.transform = `scale(${scale})`;
+                    node.style.transformOrigin = 'top left';
+                    node.style.height = `${elementHeight * scale}px`;
+                    node.style.marginBottom = '20px';
+                }
+            }, 0);
+            
+            // On considère que ça prend toute la page
+            currentLineCount = MAX_LINES_PER_PAGE - 1;
+        }
+
         function paginateContent(htmlContent) {
-            // === NOUVEAU : Calcul initial du nombre de lignes par page ===
-            // On crée une page temporaire invisible pour mesurer la hauteur disponible
+            // Calcul initial
             const tempPage = document.createElement('div');
             tempPage.className = 'page page-left';
             tempPage.style.visibility = 'hidden';
             tempPage.style.position = 'absolute';
             document.body.appendChild(tempPage);
             
-            // Calcul : hauteur utile divisée par hauteur de ligne
             const pageHeight = tempPage.clientHeight - CONFIG.PAGE_MARGIN_BOTTOM;
             MAX_LINES_PER_PAGE = Math.floor(pageHeight / CONFIG.LINE_HEIGHT);
             
-            // On nettoie la page temporaire
             document.body.removeChild(tempPage);
+            console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page`);
             
-            console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page calculées`);
-            
-            // === Initialisation du compteur de lignes pour la première page ===
-            currentLineCount = 0; // On enlève le "let" pour utiliser la variable globale
-            
+            currentLineCount = 0;
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
             staging.innerHTML = htmlContent;
-
-            // forcer le calcul immédiat des tailles
             void staging.offsetHeight;
             
             pgnState.wrapper.innerHTML = ''; 
             pgnState.pageCount = 1;
             pgnState.isRightPage = false; 
-
             createNewSpread();
             
             pgnState.elementsQueue = Array.from(staging.children).filter(el => {
@@ -1699,22 +1642,17 @@
 
             while (pgnState.elementsQueue.length > 0) {
                 let element = pgnState.elementsQueue.shift();
-                
-                // === NOUVEAU : Estimation des lignes ===
                 const estimatedLines = estimateLines(element);
                 
-                // Si c'est un élément complexe (tableau/image), on utilise l'ancienne méthode
-                if (estimatedLines === 'measure') {
-                    processElementWithMeasurement(element);
+                if (estimatedLines === 'scale') {
+                    processElementWithScaling(element);
                 } else {
-                    // Sinon, on utilise le comptage de lignes
                     processElementByCounting(element, estimatedLines);
                 }
             }
             
             removeEmptySpreads();
     
-            // Mise à jour finale des numéros au format "p. X/Y"
             const allPages = document.querySelectorAll('.book-spread .page');
             const totalPages = allPages.length;
             allPages.forEach((page, index) => {
