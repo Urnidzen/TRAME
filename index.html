@@ -1612,10 +1612,6 @@
             tempPage.style.position = 'absolute';
             document.body.appendChild(tempPage);
             
-            const MAX_CHARS_PER_PAGE = 1800;
-            console.log(`Pagination : Max ${MAX_CHARS_PER_PAGE} caractères par page`);
-            document.body.removeChild(tempPage);
-            let currentCharCount = 0;
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
             staging.innerHTML = htmlContent;
