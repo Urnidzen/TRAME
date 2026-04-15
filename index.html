@@ -345,23 +345,32 @@
             line-height: 1.6;
         }
 
-        /* Ajout 1 : Flexbox pour aligner les "colonnes" */
         .rule-item.table-row {
-            display: flex;
+            display: flex !important;
             align-items: baseline;
-            gap: 1rem;
+            justify-content: flex-start;
+            gap: 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
         }
         
         .cell-label {
-            min-width: 6rem;      /* Largeur fixe pour aligner tout */
+            min-width: 7rem;      /* Plus large pour "+8 et au-delà" */
+            max-width: 7rem;
             font-weight: bold;
+            color: #7c2d12;
+            flex-shrink: 0;       /* Empêche le rétrécissement */
         }
         
         .cell-content {
-            flex: 1;              /* Prend le reste de la largeur */
+            flex: 1;
+            padding-left: 1rem;
+        }
+
+        .rule-item.table-row:last-of-type {
+            border-bottom: none;
         }
         
-        /* Ajout 2 : Enlever la bordure sur la dernière ligne avant .card-end */
         .table-row:last-of-type {
             border-bottom: none;
         }
