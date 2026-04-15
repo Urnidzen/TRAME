@@ -246,6 +246,13 @@
             font-family: 'Cinzel', serif;
         }
 
+        /* Si un titre est le premier élément de la page, pas de marge au-dessus */
+        .page h2:first-child,
+        .page h3:first-child, 
+        .page h4:first-child {
+            margin-top: 0 !important;
+        }
+
         .page .content-wrapper table + h2,
         .page .content-wrapper table + h3,
         .page .content-wrapper table + .section-title-isolated {
@@ -1555,6 +1562,7 @@
             pgnState.currentSpread = spread;
             pgnState.currentPageContent = spread.querySelector('.page-left .content-wrapper');
             pgnState.isRightPage = false;
+            setTimeout(cleanFirstElementMargin, 0);
         }
 
         function removeEmptySpreads() {
@@ -1580,7 +1588,7 @@
             let firstEl = pgnState.currentPageContent.firstElementChild;
             
             // Si c'est un h3 ou h4, on retire sa marge supérieure
-            if (firstEl && (firstEl.tagName === 'H3' || firstEl.tagName === 'H4')) {
+            if (firstEl && (firstEl.tagName === 'H2' || firstEl.tagName === 'H3' || firstEl.tagName === 'H4')) {
                 firstEl.style.marginTop = '0';
             }
         }
