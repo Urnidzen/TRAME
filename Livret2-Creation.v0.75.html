@@ -61,7 +61,7 @@
 /* Grille 4 colonnes pour les tableaux d'espèces */
 .especes-header,
 .especes-row {
-  display: grid;
+  display: grid; !important;
   grid-template-columns: 0.8fr 2fr 2fr 1.2fr;
   gap: 1.5rem;
   align-items: start;
@@ -96,7 +96,7 @@
 /* Première colonne (Race) */
 .especes-row > div:first-child,
 .especes-header > div:first-child {
-  padding-left: 1rem;
+  padding-left: 1rem; !important;
   color: #7c2d12;
   font-weight: 600;
 }
@@ -104,7 +104,7 @@
 /* Dernière colonne (Rôle) */
 .especes-row > div:last-child,
 .especes-header > div:last-child {
-  padding-right: 2rem;
+  padding-right: 2rem; !important;
   text-align: left;
 }
 
