@@ -1619,7 +1619,14 @@
             tempPage.style.position = 'absolute';
             document.body.appendChild(tempPage);
             
-            const pageHeight = tempPage.clientHeight - CONFIG.PAGE_MARGIN_BOTTOM;
+            // Mesurer les marges réelles appliquées par le CSS (padding + espace footer)
+            const computedStyle = window.getComputedStyle(tempPage);
+            const paddingTop = parseInt(computedStyle.paddingTop);
+            const paddingBottom = parseInt(computedStyle.paddingBottom);
+            const footerSpace = 60; // Espace pour numéro de page et texte légal
+            
+            const availableHeight = tempPage.clientHeight - paddingTop - paddingBottom - footerSpace;
+            
             MAX_LINES_PER_PAGE = Math.floor(pageHeight / CONFIG.LINE_HEIGHT);
             
             document.body.removeChild(tempPage);
