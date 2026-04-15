@@ -104,6 +104,27 @@
     padding-right: 2rem;  /* Décale Rôle vers la gauche */
     text-align: left;       /* Au cas où il serait aligné à droite */
 }
+
+/* Alignement des titres - doit matcher les données */
+.especes-header > div:first-child {
+    padding-left: 1rem;   /* Match avec .especes-row > div:first-child */
+}
+
+.especes-header > div:last-child {
+    padding-right: 2rem;  /* Match avec .especes-row > div:last-child */
+    text-align: left;
+}
+
+/* Si tu veux aligner différemment chaque colonne (optionnel) */
+.especes-header > div:nth-child(2),
+.especes-row > div:nth-child(2) {
+    text-align: left;      /* Colonne Talents */
+}
+
+.especes-header > div:nth-child(3),
+.especes-row > div:nth-child(3) {
+    text-align: left;      /* Colonne Compétences */
+}
     
     .table-races {
         width: 100%;
