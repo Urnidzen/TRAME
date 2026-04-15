@@ -1429,6 +1429,7 @@
         
         // Variable globale qui mémorisera le nombre max de lignes par page
         let MAX_LINES_PER_PAGE = 40; // Valeur par défaut, sera recalculée
+        let currentLineCount = 0; // Compteur de lignes pour la pagination (global)
 
         // Fonction qui estime le nombre de lignes qu'un élément va occuper
         function estimateLines(element) {
@@ -1576,7 +1577,7 @@
             console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page calculées`);
             
             // === Initialisation du compteur de lignes pour la première page ===
-            let currentLineCount = 0;
+            currentLineCount = 0; // On enlève le "let" pour utiliser la variable globale
             
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
