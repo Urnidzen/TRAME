@@ -1570,8 +1570,21 @@
                     spread.remove();
                 }
             });
+            setTimeout(cleanFirstElementMargin, 0);
         }
 
+        function cleanFirstElementMargin() {
+            if (!pgnState.currentPageContent) return;
+            
+            // Trouve le premier vrai élément (pas un texte vide)
+            let firstEl = pgnState.currentPageContent.firstElementChild;
+            
+            // Si c'est un h3 ou h4, on retire sa marge supérieure
+            if (firstEl && (firstEl.tagName === 'H3' || firstEl.tagName === 'H4')) {
+                firstEl.style.marginTop = '0';
+            }
+        }
+        
         function advancePage() {
             if (isMobile) {
                 pgnState.pageCount++;
@@ -1585,6 +1598,7 @@
                     createNewSpread();
                 }
             }
+            cleanFirstElementMargin();
         }
               
         function processElement(element) {
