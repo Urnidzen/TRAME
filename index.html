@@ -1519,43 +1519,144 @@
             container.lastElementChild.dataset.lastBlock = 'text';
         }
 
-        function processElementWithMeasurement(element) {
+        function processElementByCounting(element, lineCost) {
             const container = pgnState.currentPageContent;
             const tagName = element.tagName;
+            const availableLines = MAX_LINES_PER_PAGE - currentLineCount;
+            const safetyMargin = 2;
             
-            // On clone l'élément
-            const node = element.cloneNode(true);
-            
-            // Si la page n'est pas vide et que c'est un gros bloc, on passe à la page suivante
-            if (currentLineCount > 2 && (tagName === 'TABLE' || tagName === 'IMG')) {
+            // 1. Saut de page forcé
+            if (element.classList && element.classList.contains('page-break')) {
                 advancePage();
                 currentLineCount = 0;
+                return;
             }
             
-            // On l'ajoute
-            container.appendChild(node);
+            // 2. Si ça rentre parfaitement, on ajoute simplement
+            if (lineCost <= availableLines - safetyMargin) {
+                const node = element.cloneNode(true);
+                container.appendChild(node);
+                currentLineCount += lineCost;
+                
+                // Marquer le type pour la détection de titres orphelins
+                if (tagName === 'H2' || tagName === 'H3') {
+                    node.dataset.isHeading = 'true';
+                }
+                return;
+            }
             
-            // === SCALING pour les tableaux et images ===
-            if (tagName === 'TABLE' || tagName === 'IMG') {
-                // On attend que le DOM soit mis à jour (prochain cycle)
-                setTimeout(() => {
-                    const availableHeight = container.clientHeight * 0.9; // 90% de la page max
-                    const elementHeight = node.scrollHeight;
+            // 3. Gestion des titres orphelins (on ne coupe jamais un titre)
+            if (tagName === 'H2' || tagName === 'H3' || tagName === 'H4' || 
+                element.classList.contains('section-title-isolated')) {
+                advancePage();
+                currentLineCount = 0;
+                const node = element.cloneNode(true);
+                container.appendChild(node);
+                currentLineCount += lineCost;
+                node.dataset.isHeading = 'true';
+                return;
+            }
+            
+            // 4. Découpage des paragraphes de texte simple
+            if ((tagName === 'P' || tagName === 'LI') && 
+                !element.querySelector('img, table, div, .content-card')) {
+                
+                const text = element.textContent;
+                const charsPerLine = 80;
+                
+                // Combien de lignes peut-on prendre sur cette page ?
+                const linesWeCanTake = Math.max(1, availableLines - safetyMargin);
+                const charsWeCanTake = linesWeCanTake * charsPerLine;
+                
+                if (charsWeCanTake >= text.length - 20) {
+                    // Presque tout rentre, on passe juste à la nouvelle page
+                    advancePage();
+                    currentLineCount = 0;
+                    const node = element.cloneNode(true);
+                    container.appendChild(node);
+                    currentLineCount += lineCost;
+                } else {
+                    // On coupe le texte en deux
+                    const text1 = text.substring(0, charsWeCanTake);
+                    // On coupe au dernier espace pour ne pas couper un mot
+                    const lastSpace = text1.lastIndexOf(' ');
+                    const cleanCut = lastSpace > 0 ? lastSpace : charsWeCanTake;
+                    const finalText1 = text.substring(0, cleanCut);
+                    const finalText2 = text.substring(cleanCut).trim();
                     
-                    if (elementHeight > availableHeight) {
-                        const scale = availableHeight / elementHeight;
-                        node.style.transform = `scale(${scale})`;
-                        node.style.transformOrigin = 'top left';
-                        // On ajuste la hauteur déclarée pour éviter les trous blancs après
-                        node.style.height = `${elementHeight * scale}px`;
-                        node.style.marginBottom = '20px';
+                    if (finalText1.length > 10) {
+                        const part1 = element.cloneNode(true);
+                        part1.textContent = finalText1;
+                        container.appendChild(part1);
+                        // On considère que la page est pleine
+                        currentLineCount = MAX_LINES_PER_PAGE;
                     }
-                }, 0);
+                    
+                    if (finalText2.length > 0) {
+                        advancePage();
+                        currentLineCount = 0;
+                        const part2 = element.cloneNode(true);
+                        part2.textContent = finalText2;
+                        container.appendChild(part2);
+                        currentLineCount += Math.ceil(finalText2.length / charsPerLine) + CONFIG.COSTS.PARAGRAPH_MARGIN;
+                    }
+                }
+                return;
             }
             
-            // On estime que ça prend toute la page (ou presque)
-            currentLineCount = MAX_LINES_PER_PAGE - 1;
-            node.dataset.lastBlock = tagName.toLowerCase();
+            // 5. Scinder les content-cards si possible
+            if (element.classList.contains('content-card') && element.children.length > 1 && availableLines > 5) {
+                const children = Array.from(element.children);
+                let linesUsed = CONFIG.COSTS.CONTENT_CARD; // Coût de la carte vide
+                let splitIndex = 0;
+                
+                // On essaie de remplir la carte avec autant d'enfants que possible
+                for (let i = 0; i < children.length; i++) {
+                    const childLines = estimateLines(children[i]);
+                    if (linesUsed + childLines > availableLines - safetyMargin) {
+                        break;
+                    }
+                    linesUsed += childLines;
+                    splitIndex = i + 1;
+                }
+                
+                // Si on a pu mettre au moins un enfant et qu'il en reste
+                if (splitIndex > 0 && splitIndex < children.length) {
+                    // Première partie sur cette page
+                    const part1 = element.cloneNode(false);
+                    for (let i = 0; i < splitIndex; i++) {
+                        part1.appendChild(children[i].cloneNode(true));
+                    }
+                    container.appendChild(part1);
+                    currentLineCount += linesUsed;
+                    
+                    // Deuxième partie remise dans la file
+                    const part2 = element.cloneNode(false);
+                    for (let i = splitIndex; i < children.length; i++) {
+                        part2.appendChild(children[i].cloneNode(true));
+                    }
+                    
+                    advancePage();
+                    currentLineCount = 0;
+                    
+                    // Traiter la suite (récursif)
+                    const part2Lines = estimateLines(part2);
+                    processElementByCounting(part2, part2Lines);
+                    return;
+                }
+            }
+            
+            // 6. Par défaut : on passe à la page suivante et on met l'élément entier
+            advancePage();
+            currentLineCount = 0;
+            const node = element.cloneNode(true);
+            container.appendChild(node);
+            currentLineCount += lineCost;
+            
+            // Si c'était un tableau (normalement géré ailleurs mais sécurité)
+            if (tagName === 'TABLE') {
+                node.dataset.lastBlock = 'table';
+            }
         }
         
         function paginateContent(htmlContent) {
@@ -1693,207 +1794,6 @@
                 }
             }
         }
-
-        function splitTextElement(element, maxHeight) {
-            const clone = element.cloneNode(true);
-            const originalText = element.textContent;
-            let low = 0, high = originalText.length;
-            
-            while (low < high) {
-                const mid = Math.ceil((low + high) / 2);
-                clone.textContent = originalText.substring(0, mid);
-                pgnState.currentPageContent.appendChild(clone);
-                
-                if (pgnState.currentPageContent.scrollHeight <= maxHeight + 2) {
-                    low = mid;
-                } else {
-                    high = mid - 1;
-                }
-                pgnState.currentPageContent.removeChild(clone);
-            }
-            
-            const text1 = originalText.substring(0, low);
-            const text2 = originalText.substring(low).trim();
-            
-            if (text2.length === 0) return null;
-            
-            const part1 = element.cloneNode(true);
-            part1.textContent = text1;
-            
-            const part2 = element.cloneNode(true);
-            part2.textContent = text2;
-            
-            return { part1, part2 };
-        }
-        
-        // === NOUVELLE FONCTION 2 ===
-        function splitContentCard(element) {
-            const container = pgnState.currentPageContent;
-            const part1 = element.cloneNode(false); // Carte vide
-            const part2 = element.cloneNode(false); // Carte vide
-            container.appendChild(part1);
-        
-            const children = Array.from(element.children);
-            let i = 0;
-            // On remplit part1 tant que ça ne déborde pas
-            while (i < children.length) {
-                part1.appendChild(children[i].cloneNode(true));
-                if (isOverflowing(container)) {
-                    part1.removeChild(part1.lastChild);
-                    break;
-                }
-                i++;
-            }
-
-            // Si on n'a réussi à placer AUCUN élément, on annule la découpe
-            // pour éviter une boucle infinie de pages vides.
-            if (part1.children.length === 0) {
-                container.removeChild(part1);
-                return null; 
-            }
-            
-            // Le reste va dans part2
-            for (; i < children.length; i++) {
-                part2.appendChild(children[i].cloneNode(true));
-            }
-            container.removeChild(part1);
-            return { part1, part2 };
-        }
-        
-        function processElement(element) {
-            // FORCER UN SAUT DE PAGE si l'élément a la classe 'page-break'
-            if (element.classList && element.classList.contains('page-break')) {
-                advancePage();
-                return;
-            }
-           
-            let node = element.cloneNode(true);
-            pgnState.currentPageContent.appendChild(node);
-            void node.offsetHeight;
-
-            // === AJOUT : détection du cas tableau suivi de h2 ===
-            if ((node.tagName === 'H2' || node.classList.contains('section-title-isolated')) && 
-                pgnState.currentPageContent.lastElementChild && 
-                pgnState.currentPageContent.lastElementChild.dataset.lastBlock === 'table') {
-                
-                node.dataset.afterTable = 'true';
-            }
-            
-            if (isOverflowing(pgnState.currentPageContent)) {
-                const container = pgnState.currentPageContent;
-               
-                // CAPTURER les hauteurs AVANT de retirer le nœud
-                const nodeScrollHeight = node.scrollHeight;
-                const containerScrollHeight = container.scrollHeight;
-                const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
-                const pageHeight = container.clientHeight;
-                const availablePercent = availableHeight / pageHeight;
-                const espaceMinimum = isMobile ? 0.10 : 0.40;
-               
-                // Maintenant on retire le nœud
-                container.removeChild(node);
-               
-                // CAS 1 : Content-card sur page de gauche
-                if (!pgnState.isRightPage &&
-                    element.classList && element.classList.contains('content-card') &&
-                    availablePercent > espaceMinimum) {
-                   
-                    const split = splitContentCard(element);
-                    if (split) {
-                        container.appendChild(split.part1);
-                        pgnState.elementsQueue.unshift(split.part2);
-                        advancePage();
-                        return;
-                    }
-                }
-               
-                // CAS 2 : Texte simple (P ou LI) sur page de gauche
-                if (!pgnState.isRightPage &&
-                    (element.tagName === 'P' || element.tagName === 'LI') &&
-                    !element.querySelector('img, table, div')) {
-                   
-                    const split = splitTextElement(element, availableHeight);
-                    if (split && split.part1.textContent.length > 10) {
-                        container.appendChild(split.part1);
-                        pgnState.elementsQueue.unshift(split.part2);
-                        advancePage();
-                        return;
-                    }
-                }
-               
-                // CAS PAR DÉFAUT
-                const isPageEmpty = container.children.length === 0;
-        
-                // === GESTION SPÉCIFIQUE POUR LES TABLEAUX (correction du bug) ===
-                if (element.tagName === 'TABLE') {
-                if (!isPageEmpty) {
-                    advancePage();
-                    pgnState.elementsQueue.unshift(element);
-                    return;
-                } else {
-                    container.appendChild(node);
-                    node.dataset.lastBlock = 'table';               
-                    node.style.maxHeight = '92%';
-                    node.style.overflowY = 'auto';
-                    advancePage();
-                    return;
-                }
-}
-        
-                // Gestion des content-card avec titre précédent (ton code original)
-                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
-                    const lastChild = container.lastElementChild;
-                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
-                   
-                    if (isHeading && container.children.length > 1) {
-                        container.removeChild(lastChild);
-                        advancePage();
-                        pgnState.elementsQueue.unshift(element);
-                        pgnState.elementsQueue.unshift(lastChild);
-                        return;
-                    }
-                }
-               
-                // Cas général
-                if (!isPageEmpty) {
-                    advancePage();
-                    pgnState.elementsQueue.unshift(element);
-                } else {
-                    handleGiantBlock(element);
-                }
-            }
-        }
-
-        function handleGiantBlock(element) {
-            const tagName = element.tagName.toLowerCase();
-            if (['img', 'video', 'iframe', 'svg'].includes(tagName) || element.classList.contains('atomic')) {
-                let node = element.cloneNode(true);
-                node.style.maxHeight = "100%";
-                node.style.overflowY = "auto";
-                node.style.display = "block";
-                pgnState.currentPageContent.appendChild(node);
-                advancePage();
-                return;
-            }
-            const children = Array.from(element.children);
-            if (children.length > 0) {
-                if (element.id && children[0]) {
-                    children[0].id = element.id;
-                    if (children[0].tagName === 'H2') {
-                        children[0].classList.add('section-title-isolated');
-                    }
-                }
-                for (let i = children.length - 1; i >= 0; i--) { pgnState.elementsQueue.unshift(children[i]); }
-            } else {
-                let node = element.cloneNode(true);
-                node.style.maxHeight = "100%";
-                node.style.overflowY = "auto";
-                pgnState.currentPageContent.appendChild(node);
-                advancePage();
-            }
-        }
-
-        function isOverflowing(container) { return container.scrollHeight > container.clientHeight + 2; }
 
         function scrollToElement(id) {
             const cleanId = id.replace('section-', '');
