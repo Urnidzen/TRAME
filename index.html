@@ -1627,7 +1627,7 @@
             const availableHeight = tempPage.clientHeight - paddingTop - paddingBottom - footerSpace;
             MAX_LINES_PER_PAGE = Math.floor(availableHeight / CONFIG.LINE_HEIGHT);
             console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page`);
-            
+            document.body.removeChild(tempPage);
             currentLineCount = 0;
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
