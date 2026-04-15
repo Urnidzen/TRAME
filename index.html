@@ -1625,7 +1625,7 @@
             const footerSpace = 60;
             
             const availableHeight = tempPage.clientHeight - paddingTop - paddingBottom - footerSpace;
-            MAX_LINES_PER_PAGE = Math.floor(availableHeight / CONFIG.LINE_HEIGHT * 0.8);
+            MAX_LINES_PER_PAGE = Math.floor(availableHeight / CONFIG.LINE_HEIGHT * 0.4);
             console.log(`Pagination : ${MAX_LINES_PER_PAGE} lignes par page`);
             document.body.removeChild(tempPage);
             currentLineCount = 0;
