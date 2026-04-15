@@ -599,7 +599,7 @@
             { id: 'livret2', file: 'Livret2-Creation.v0.75.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },
             { id: 'livret3', file: 'Livret3-Ressources-Equipement.v0.80.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Ressssources & Équipement' },
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
-            { id: 'livret5', file: 'Livret5-Bestiaire.v0.82.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
+            { id: 'livret5', file: 'Livret5-Bestiaire.v0.81.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'fiche', file: 'Fiche de personnage.v0.91.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
@@ -1405,261 +1405,32 @@
 
         let pgnState = { wrapper: null, currentSpread: null, currentPageContent: null, isRightPage: false, pageCount: 1, elementsQueue: [] };
 
-        // === CONFIGURATION DE LA PAGINATION PAR LIGNES ===
-        const CONFIG = {
-            LINE_HEIGHT: 30,
-            PAGE_MARGIN_BOTTOM: 60,
-            COSTS: {
-                LINE_TEXT: 1,
-                PARAGRAPH_MARGIN: 0.3,
-                HEADING_H2: 1.5,
-                HEADING_H3: 1.2,
-                HEADING_H4: 1,
-                CONTENT_CARD: 0.5,
-                LIST_ITEM: 0.8,
-                TABLE_ROW: 1.2,
-                IMAGE: 8
-            }
-        };
-        
-        let MAX_LINES_PER_PAGE = 40;
-        let currentLineCount = 0;
-
-        function estimateLines(element) {
-            const text = element.textContent || '';
-            const baseLength = text.length;
-            const tagName = element.tagName;
-            
-            // Tableaux et images : poids fixe élevé
-            if (tagName === 'TABLE') return 800;
-            if (tagName === 'IMG') return 600;
-            
-            // Titres : ils prennent beaucoup de place visuelle
-            if (tagName === 'H2') return Math.max(baseLength * 4, 150);
-            if (tagName === 'H3') return Math.max(baseLength * 4, 150);
-            if (tagName === 'H4') return Math.max(baseLength * 3, 100);
-            
-            // Listes : espace entre les items
-            if (tagName === 'LI') return (baseLength * 1.2) + 20;
-            
-            // Content-card : compter les enfants + marge
-            if (element.classList.contains('content-card')) {
-                let childrenWeight = 0;
-                for (let child of element.children) {
-                    childrenWeight += estimateLines(child);
-                }
-                return childrenWeight + 100;
-            }
-            
-            // Par défaut : le texte lui-même
-            return baseLength;
-        }
-
-        // Traitement par comptage de lignes (pour texte, titres, listes)
-        function processElementByCounting(element, lineCost) {
-            const container = pgnState.currentPageContent;
-            const tagName = element.tagName;
-            const availableLines = MAX_LINES_PER_PAGE - currentLineCount;
-            const safetyMargin = 2;
-            
-            // Saut de page forcé
-            if (element.classList && element.classList.contains('page-break')) {
-                advancePage();
-                currentLineCount = 0;
-                return;
-            }
-            
-            // Si ça rentre, on ajoute
-            if (lineCost <= availableLines - safetyMargin) {
-                const node = element.cloneNode(true);
-                container.appendChild(node);
-                currentLineCount += lineCost;
-                if (tagName === 'H2' || tagName === 'H3') node.dataset.isHeading = 'true';
-                return;
-            }
-            
-            // Titres orphelins : on ne coupe jamais un titre
-            if (tagName === 'H2' || tagName === 'H3' || tagName === 'H4' || 
-                element.classList.contains('section-title-isolated')) {
-                advancePage();
-                currentLineCount = 0;
-                const node = element.cloneNode(true);
-                container.appendChild(node);
-                currentLineCount += lineCost;
-                return;
-            }
-            
-            // Découpage des paragraphes longs
-            if ((tagName === 'P' || tagName === 'LI') && 
-                !element.querySelector('img, table, div, .content-card')) {
-                
-                const text = element.textContent;
-                const charsPerLine = 80;
-                const linesWeCanTake = Math.max(1, availableLines - safetyMargin);
-                const charsWeCanTake = linesWeCanTake * charsPerLine;
-                
-                if (charsWeCanTake >= text.length - 20) {
-                    advancePage();
-                    currentLineCount = 0;
-                    const node = element.cloneNode(true);
-                    container.appendChild(node);
-                    currentLineCount += lineCost;
-                } else {
-                    const text1 = text.substring(0, charsWeCanTake);
-                    const lastSpace = text1.lastIndexOf(' ');
-                    const cleanCut = lastSpace > 0 ? lastSpace : charsWeCanTake;
-                    const finalText1 = text.substring(0, cleanCut);
-                    const finalText2 = text.substring(cleanCut).trim();
-                    
-                    if (finalText1.length > 10) {
-                        const part1 = element.cloneNode(true);
-                        part1.textContent = finalText1;
-                        container.appendChild(part1);
-                        currentLineCount = MAX_LINES_PER_PAGE;
-                    }
-                    
-                    if (finalText2.length > 0) {
-                        advancePage();
-                        currentLineCount = 0;
-                        const part2 = element.cloneNode(true);
-                        part2.textContent = finalText2;
-                        container.appendChild(part2);
-                        currentLineCount += Math.ceil(finalText2.length / charsPerLine) + CONFIG.COSTS.PARAGRAPH_MARGIN;
-                    }
-                }
-                return;
-            }
-            
-            // Scinder les content-cards si possible
-            if (element.classList.contains('content-card') && element.children.length > 1 && availableLines > 5) {
-                const children = Array.from(element.children);
-                let linesUsed = CONFIG.COSTS.CONTENT_CARD;
-                let splitIndex = 0;
-                
-                for (let i = 0; i < children.length; i++) {
-                    const childLines = estimateLines(children[i]);
-                    if (linesUsed + childLines > availableLines - safetyMargin) break;
-                    linesUsed += childLines;
-                    splitIndex = i + 1;
-                }
-                
-                if (splitIndex > 0 && splitIndex < children.length) {
-                    const part1 = element.cloneNode(false);
-                    for (let i = 0; i < splitIndex; i++) {
-                        part1.appendChild(children[i].cloneNode(true));
-                    }
-                    container.appendChild(part1);
-                    currentLineCount += linesUsed;
-                    
-                    const part2 = element.cloneNode(false);
-                    for (let i = splitIndex; i < children.length; i++) {
-                        part2.appendChild(children[i].cloneNode(true));
-                    }
-                    
-                    advancePage();
-                    currentLineCount = 0;
-                    const part2Lines = estimateLines(part2);
-                    processElementByCounting(part2, part2Lines);
-                    return;
-                }
-            }
-            
-            // Par défaut : nouvelle page et élément entier
-            advancePage();
-            currentLineCount = 0;
-            const node = element.cloneNode(true);
-            container.appendChild(node);
-            currentLineCount += lineCost;
-        }
-
-        // Traitement par scaling pour tableaux et images (comme la fiche de perso)
-        function processElementWithScaling(element) {
-            const container = pgnState.currentPageContent;
-            const tagName = element.tagName;
-            
-            // Si la page a déjà du contenu, on passe à la suivante pour les gros blocs
-            if (currentLineCount > 2) {
-                advancePage();
-                currentLineCount = 0;
-            }
-            
-            const node = element.cloneNode(true);
-            container.appendChild(node);
-            
-            // Application du scaling si nécessaire
-            setTimeout(() => {
-                const availableHeight = container.clientHeight * 0.9;
-                const elementHeight = node.scrollHeight;
-                
-                if (elementHeight > availableHeight) {
-                    const scale = availableHeight / elementHeight;
-                    node.style.transform = `scale(${scale})`;
-                    node.style.transformOrigin = 'top left';
-                    node.style.height = `${elementHeight * scale}px`;
-                    node.style.marginBottom = '20px';
-                }
-            }, 0);
-            
-            // On considère que ça prend toute la page
-            currentLineCount = MAX_LINES_PER_PAGE - 1;
-        }
-
         function paginateContent(htmlContent) {
-            // Calcul initial
-            const tempPage = document.createElement('div');
-            tempPage.className = 'page page-left';
-            tempPage.style.visibility = 'hidden';
-            tempPage.style.position = 'absolute';
-            document.body.appendChild(tempPage);
-            
             pgnState.wrapper = document.getElementById('bookSpreadsWrapper');
             const staging = document.getElementById('hiddenStaging');
             staging.innerHTML = htmlContent;
+
+            // forcer le calcul immédiat des tailles
             void staging.offsetHeight;
             
             pgnState.wrapper.innerHTML = ''; 
             pgnState.pageCount = 1;
             pgnState.isRightPage = false; 
+
             createNewSpread();
             
             pgnState.elementsQueue = Array.from(staging.children).filter(el => {
                 return !['SCRIPT', 'STYLE', 'LINK', 'META', 'NOSCRIPT', 'TITLE', 'BASE'].includes(el.tagName);
             });
 
-            const MAX_CHARS_PER_PAGE = 1800;
-            let currentCharCount = 0;
-            
             while (pgnState.elementsQueue.length > 0) {
                 let element = pgnState.elementsQueue.shift();
-                const weight = estimateLines(element);
-                
-                if (element.classList && element.classList.contains('page-break')) {
-                    advancePage();
-                    currentCharCount = 0;
-                    continue;
-                }
-                
-                // Si titre risque d'être orphelin en bas de page
-                if ((element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4') && 
-                    currentCharCount > 1400) {
-                    advancePage();
-                    currentCharCount = 0;
-                }
-                
-                // Si ça dépasse la limite
-                if (currentCharCount + weight > MAX_CHARS_PER_PAGE && currentCharCount > 0) {
-                    advancePage();
-                    currentCharCount = 0;
-                }
-                
-                // Ajout à la page
-                const node = element.cloneNode(true);
-                pgnState.currentPageContent.appendChild(node);
-                currentCharCount += weight;
+                processElement(element);
             }
             
             removeEmptySpreads();
     
+            // Mise à jour finale des numéros au format "p. X/Y"
             const allPages = document.querySelectorAll('.book-spread .page');
             const totalPages = allPages.length;
             allPages.forEach((page, index) => {
@@ -1739,6 +1510,207 @@
                 }
             }
         }
+
+        function splitTextElement(element, maxHeight) {
+            const clone = element.cloneNode(true);
+            const originalText = element.textContent;
+            let low = 0, high = originalText.length;
+            
+            while (low < high) {
+                const mid = Math.ceil((low + high) / 2);
+                clone.textContent = originalText.substring(0, mid);
+                pgnState.currentPageContent.appendChild(clone);
+                
+                if (pgnState.currentPageContent.scrollHeight <= maxHeight + 2) {
+                    low = mid;
+                } else {
+                    high = mid - 1;
+                }
+                pgnState.currentPageContent.removeChild(clone);
+            }
+            
+            const text1 = originalText.substring(0, low);
+            const text2 = originalText.substring(low).trim();
+            
+            if (text2.length === 0) return null;
+            
+            const part1 = element.cloneNode(true);
+            part1.textContent = text1;
+            
+            const part2 = element.cloneNode(true);
+            part2.textContent = text2;
+            
+            return { part1, part2 };
+        }
+        
+        // === NOUVELLE FONCTION 2 ===
+        function splitContentCard(element) {
+            const container = pgnState.currentPageContent;
+            const part1 = element.cloneNode(false); // Carte vide
+            const part2 = element.cloneNode(false); // Carte vide
+            container.appendChild(part1);
+        
+            const children = Array.from(element.children);
+            let i = 0;
+            // On remplit part1 tant que ça ne déborde pas
+            while (i < children.length) {
+                part1.appendChild(children[i].cloneNode(true));
+                if (isOverflowing(container)) {
+                    part1.removeChild(part1.lastChild);
+                    break;
+                }
+                i++;
+            }
+
+            // Si on n'a réussi à placer AUCUN élément, on annule la découpe
+            // pour éviter une boucle infinie de pages vides.
+            if (part1.children.length === 0) {
+                container.removeChild(part1);
+                return null; 
+            }
+            
+            // Le reste va dans part2
+            for (; i < children.length; i++) {
+                part2.appendChild(children[i].cloneNode(true));
+            }
+            container.removeChild(part1);
+            return { part1, part2 };
+        }
+        
+        function processElement(element) {
+            // FORCER UN SAUT DE PAGE si l'élément a la classe 'page-break'
+            if (element.classList && element.classList.contains('page-break')) {
+                advancePage();
+                return;
+            }
+           
+            let node = element.cloneNode(true);
+            pgnState.currentPageContent.appendChild(node);
+            void node.offsetHeight;
+
+            // === AJOUT : détection du cas tableau suivi de h2 ===
+            if ((node.tagName === 'H2' || node.classList.contains('section-title-isolated')) && 
+                pgnState.currentPageContent.lastElementChild && 
+                pgnState.currentPageContent.lastElementChild.dataset.lastBlock === 'table') {
+                
+                node.dataset.afterTable = 'true';
+            }
+            
+            if (isOverflowing(pgnState.currentPageContent)) {
+                const container = pgnState.currentPageContent;
+               
+                // CAPTURER les hauteurs AVANT de retirer le nœud
+                const nodeScrollHeight = node.scrollHeight;
+                const containerScrollHeight = container.scrollHeight;
+                const availableHeight = container.clientHeight - (containerScrollHeight - nodeScrollHeight);
+                const pageHeight = container.clientHeight;
+                const availablePercent = availableHeight / pageHeight;
+                const espaceMinimum = isMobile ? 0.10 : 0.40;
+               
+                // Maintenant on retire le nœud
+                container.removeChild(node);
+               
+                // CAS 1 : Content-card sur page de gauche
+                if (!pgnState.isRightPage &&
+                    element.classList && element.classList.contains('content-card') &&
+                    availablePercent > espaceMinimum) {
+                   
+                    const split = splitContentCard(element);
+                    if (split) {
+                        container.appendChild(split.part1);
+                        pgnState.elementsQueue.unshift(split.part2);
+                        advancePage();
+                        return;
+                    }
+                }
+               
+                // CAS 2 : Texte simple (P ou LI) sur page de gauche
+                if (!pgnState.isRightPage &&
+                    (element.tagName === 'P' || element.tagName === 'LI') &&
+                    !element.querySelector('img, table, div')) {
+                   
+                    const split = splitTextElement(element, availableHeight);
+                    if (split && split.part1.textContent.length > 10) {
+                        container.appendChild(split.part1);
+                        pgnState.elementsQueue.unshift(split.part2);
+                        advancePage();
+                        return;
+                    }
+                }
+               
+                // CAS PAR DÉFAUT
+                const isPageEmpty = container.children.length === 0;
+        
+                // === GESTION SPÉCIFIQUE POUR LES TABLEAUX (correction du bug) ===
+                if (element.tagName === 'TABLE') {
+                if (!isPageEmpty) {
+                    advancePage();
+                    pgnState.elementsQueue.unshift(element);
+                    return;
+                } else {
+                    container.appendChild(node);
+                    node.dataset.lastBlock = 'table';               
+                    node.style.maxHeight = '92%';
+                    node.style.overflowY = 'auto';
+                    advancePage();
+                    return;
+                }
+}
+        
+                // Gestion des content-card avec titre précédent (ton code original)
+                if (!isPageEmpty && element.classList && element.classList.contains('content-card')) {
+                    const lastChild = container.lastElementChild;
+                    const isHeading = lastChild && /^H[2-5]$/i.test(lastChild.tagName);
+                   
+                    if (isHeading && container.children.length > 1) {
+                        container.removeChild(lastChild);
+                        advancePage();
+                        pgnState.elementsQueue.unshift(element);
+                        pgnState.elementsQueue.unshift(lastChild);
+                        return;
+                    }
+                }
+               
+                // Cas général
+                if (!isPageEmpty) {
+                    advancePage();
+                    pgnState.elementsQueue.unshift(element);
+                } else {
+                    handleGiantBlock(element);
+                }
+            }
+        }
+
+        function handleGiantBlock(element) {
+            const tagName = element.tagName.toLowerCase();
+            if (['img', 'video', 'iframe', 'svg'].includes(tagName) || element.classList.contains('atomic')) {
+                let node = element.cloneNode(true);
+                node.style.maxHeight = "100%";
+                node.style.overflowY = "auto";
+                node.style.display = "block";
+                pgnState.currentPageContent.appendChild(node);
+                advancePage();
+                return;
+            }
+            const children = Array.from(element.children);
+            if (children.length > 0) {
+                if (element.id && children[0]) {
+                    children[0].id = element.id;
+                    if (children[0].tagName === 'H2') {
+                        children[0].classList.add('section-title-isolated');
+                    }
+                }
+                for (let i = children.length - 1; i >= 0; i--) { pgnState.elementsQueue.unshift(children[i]); }
+            } else {
+                let node = element.cloneNode(true);
+                node.style.maxHeight = "100%";
+                node.style.overflowY = "auto";
+                pgnState.currentPageContent.appendChild(node);
+                advancePage();
+            }
+        }
+
+        function isOverflowing(container) { return container.scrollHeight > container.clientHeight + 2; }
 
         function scrollToElement(id) {
             const cleanId = id.replace('section-', '');
@@ -1820,14 +1792,8 @@
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 checkMobile();
-                
-                // === NOUVEAU : Recalculer les lignes et repaginer ===
-                if (currentDoc !== 'fiche' && currentDoc !== 'contact' && rawContentCache) {
-                    console.log('Redimensionnement détecté, recalcul de la pagination...');
-                    paginateContent(rawContentCache);
-                }
-                
                 if (currentDoc === 'fiche') resizeAllSheets();
+                else if (rawContentCache) paginateContent(rawContentCache);
             }, 300);
         });
 
