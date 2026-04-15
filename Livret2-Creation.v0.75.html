@@ -32,6 +32,32 @@
 </script>
 
 <style>
+  /* Tableau spécifique aux Rang de Compétences - 4 colonnes visualles */
+  .rangs-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* Deux paires côte à côte */
+    gap: 1.5rem 2rem;                /* Espacement vertical et horizontal */
+    align-items: baseline;
+  }
+  
+  .rangs-table .rang-pair {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    white-space: nowrap;             /* Empêche la coupure au milieu d'une paire */
+  }
+  
+  .rangs-table .rang-label {
+    min-width: 6rem;                 /* Assez large pour "+8 et au-delà :" */
+    font-weight: bold;
+    color: #7c2d12;
+    flex-shrink: 0;
+  }
+  
+  .rangs-table .rang-value {
+    flex: 1;
+  }
+
     .table-races {
         width: 100%;
         table-layout: fixed;
@@ -116,51 +142,32 @@
     <h3 id="section-competences-details">Les Compétences</h3>
         <p>Les <strong>Compétences</strong> couvrent toutes les actions de combat, aussi bien offensives que défensives — ainsi que l'incantation magique et la résistance aux assauts physiques et mystiques.</p>
         <p><strong>Progression sans plafond :</strong> Contrairement aux Talents, les Compétences de combat ne connaissent pas de limite naturelle. Au-delà du Maître (+3), les rangs suivants sont accessibles aux héros les plus exceptionnels :</p>
+
 <div class="card-start"></div>
 
-<div class="rule-item table-row">
-    <div class="cell-label">0 :</div>
-    <div class="cell-content">Non-initié</div>
+<div class="rule-item rangs-table">
+    <div class="rang-pair"><span class="rang-label">0 :</span><span class="rang-value">Non-initié</span></div>
+    <div class="rang-pair"><span class="rang-label">+1 :</span><span class="rang-value">Initié</span></div>
 </div>
 
-<div class="rule-item table-row">
-    <div class="cell-label">+1 :</div>
-    <div class="cell-content">Initié</div>
+<div class="rule-item rangs-table">
+    <div class="rang-pair"><span class="rang-label">+2 :</span><span class="rang-value">Expert</span></div>
+    <div class="rang-pair"><span class="rang-label">+3 :</span><span class="rang-value">Maître</span></div>
 </div>
 
-<div class="rule-item table-row">
-    <div class="cell-label">+2 :</div>
-    <div class="cell-content">Expert</div>
+<div class="rule-item rangs-table">
+    <div class="rang-pair"><span class="rang-label">+4 :</span><span class="rang-value">Grand Maître</span></div>
+    <div class="rang-pair"><span class="rang-label">+5 :</span><span class="rang-value">Légendaire</span></div>
 </div>
 
-<div class="rule-item table-row">
-    <div class="cell-label">+3 :</div>
-    <div class="cell-content">Maître</div>
+<div class="rule-item rangs-table">
+    <div class="rang-pair"><span class="rang-label">+6 :</span><span class="rang-value">Mythique</span></div>
+    <div class="rang-pair"><span class="rang-label">+7 :</span><span class="rang-value">Demi-Dieu</span></div>
 </div>
 
-<div class="rule-item table-row">
-    <div class="cell-label">+4 :</div>
-    <div class="cell-content">Grand Maître</div>
-</div>
-
-<div class="rule-item table-row">
-    <div class="cell-label">+5 :</div>
-    <div class="cell-content">Légendaire</div>
-</div>
-
-<div class="rule-item table-row">
-    <div class="cell-label">+6 :</div>
-    <div class="cell-content">Mythique</div>
-</div>
-
-<div class="rule-item table-row">
-    <div class="cell-label">+7 :</div>
-    <div class="cell-content">Demi-Dieu</div>
-</div>
-
-<div class="rule-item table-row">
-    <div class="cell-label">+8 et au-delà :</div>
-    <div class="cell-content">Divin</div>
+<div class="rule-item rangs-table">
+    <div class="rang-pair"><span class="rang-label">+8 et au-delà :</span><span class="rang-value">Divin</span></div>
+    <div class="rang-pair"></div>  <!-- Cellule vide pour équilibrer la grille -->
 </div>
 
 <div class="card-end"></div>
