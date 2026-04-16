@@ -38,82 +38,59 @@
   gap: 0.5rem 1.5rem;
   align-items: baseline;
   font-size: 0.95rem;
-  /* On garde le fond/bloc de .rule-item mais on override le display */
-}
-
-.rule-item.especes-grid.header {
-  font-weight: bold;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid #1c1917;
-}
-
-.rule-item.especes-grid > :first-child {
-  color: #7c2d12;
-  font-weight: 600;
-}
-
-  /* Tableau spécifique aux Rang de Compétences - 4 colonnes visualles */
-  .rangs-table {
-    display: grid;
-    grid-template-columns: 1fr 1fr;  /* Deux paires côte à côte */
-    gap: 1.5rem 2rem;                /* Espacement vertical et horizontal */
-    align-items: baseline;
-  }
-  
-  .rangs-table .rang-pair {
-    display: flex;
-    gap: 0.5rem;
-    align-items: baseline;
-    white-space: nowrap;             /* Empêche la coupure au milieu d'une paire */
-  }
-  
-  .rangs-table .rang-label {
-    min-width: 6rem;                 /* Assez large pour "+8 et au-delà :" */
-    font-weight: bold;
-    color: #7c2d12;
-    flex-shrink: 0;
-  }
-  
-  .rangs-table .rang-value {
-    flex: 1;
-  }
-
-/* Tableau d'espèces - Grille 4 colonnes */
-.especes-grid {
-  display: grid;
-  grid-template-columns: 0.8fr 2fr 2fr 1.2fr;
-  gap: 0.5rem 1.5rem;  /* vertical horizontal */
-  align-items: baseline;
-  font-size: 0.95rem;
   line-height: 1.4;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
-.especes-grid:first-of-type {
+.rule-item.especes-grid.header,
+.rule-item.especes-grid:first-of-type {
   font-weight: bold;
-  border-bottom: 2px solid #1c1917;
   font-family: 'Cinzel', serif;
   letter-spacing: 0.05em;
+  border-bottom: 2px solid #1c1917;
   padding-top: 0;
 }
 
-.especes-grid:last-of-type {
+.rule-item.especes-grid:last-of-type {
   border-bottom: none;
 }
 
-/* Première colonne (Race) */
-.especes-grid > :first-child {
+.rule-item.especes-grid > :first-child {
   color: #7c2d12;
   font-weight: 600;
   padding-left: 0.5rem;
 }
 
-/* Dernière colonne (Rôle) - alignement droit optionnel */
-.especes-grid > :last-child {
+.rule-item.especes-grid > :last-child {
   text-align: left;
   padding-right: 0.5rem;
+}
+
+/* Tableau spécifique aux Rang de Compétences - 4 colonnes visuelles */
+.rangs-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+  align-items: baseline;
+}
+
+.rangs-table .rang-pair {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.rangs-table .rang-label {
+  min-width: 6rem;
+  font-weight: bold;
+  color: #7c2d12;
+  flex-shrink: 0;
+}
+
+.rangs-table .rang-value {
+  flex: 1;
 }
 </style>
 
