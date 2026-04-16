@@ -30,440 +30,104 @@
 </script>
 
 <style>
-        /* Grille pour Armes Manufacturées (4 colonnes) */
-        .rule-item.armes-mfg-grid {
-          display: grid;
-          grid-template-columns: 1fr 1.2fr 2.2fr 1.6fr;
-          gap: 0.5rem 1rem;
-          align-items: baseline;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .rule-item.armes-mfg-grid.header {
-          font-weight: bold;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 0.05em;
-          border-bottom: 2px solid #1c1917;
-        }
-        
-        .rule-item.armes-mfg-grid > :first-child {
-          color: #7c2d12;
-          font-weight: 600;
-        }
-        
-        /* Grille pour Armes Naturelles (même structure) */
-        .rule-item.armes-nat-grid {
-          display: grid;
-          grid-template-columns: 1fr 1.2fr 2.2fr 1.6fr;
-          gap: 0.5rem 1rem;
-          align-items: baseline;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .rule-item.armes-nat-grid.header {
-          font-weight: bold;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 0.05em;
-          border-bottom: 2px solid #1c1917;
-        }
-        
-        .rule-item.armes-nat-grid > :first-child {
-          color: #7c2d12;
-          font-weight: 600;
-        }
-        
-        /* Grille pour les tableaux de Trésors (3 colonnes) */
-        .rule-item.tresors-grid {
-          display: grid;
-          grid-template-columns: 0.5fr 1.5fr 4fr;
-          gap: 0.5rem 1rem;
-          align-items: baseline;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .rule-item.tresors-grid.header {
-          font-weight: bold;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 0.05em;
-          border-bottom: 2px solid #1c1917;
-        }
-        
-        .rule-item.tresors-grid > :first-child {
-          text-align: center;
-          color: #7c2d12;
-          font-weight: 600;
-        }
-        
-        /* Grille pour Armures (4 colonnes) */
-        .rule-item.armures-grid {
-          display: grid;
-          grid-template-columns: 1.2fr 0.8fr 1.2fr 2.8fr;
-          gap: 0.5rem 1rem;
-          align-items: baseline;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .rule-item.armures-grid.header {
-          font-weight: bold;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 0.05em;
-          border-bottom: 2px solid #1c1917;
-        }
-        
-        .rule-item.armures-grid > :first-child {
-          color: #7c2d12;
-          font-weight: 600;
-        }
-        
-        /* Grille pour Boucliers (3 colonnes) */
-        .rule-item.boucliers-grid {
-          display: grid;
-          grid-template-columns: 1fr 0.8fr 3fr;
-          gap: 0.5rem 1rem;
-          align-items: baseline;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .rule-item.boucliers-grid.header {
-          font-weight: bold;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 0.05em;
-          border-bottom: 2px solid #1c1917;
-        }
-        
-        .rule-item.boucliers-grid > :first-child {
-          color: #7c2d12;
-          font-weight: 600;
-        }
-        
-        .rule-item.ressources-grid {
-          display: grid;
-          grid-template-columns: 0.6fr 1fr 2.2fr 3.2fr;
-          gap: 0.5rem 1rem;
-          align-items: baseline;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          padding: 0.5rem 1rem;
-          border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .rule-item.ressources-grid.header {
-          font-weight: bold;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 0.05em;
-          border-bottom: 2px solid #1c1917;
-        }
-        
-        .rule-item.ressources-grid > :first-child {
-          text-align: center;
-          color: #7c2d12;
-          font-weight: 600;
-        }
-        
-        /* Base forcée sur tous les tableaux du document */
-        table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-        }
-    
-        /* Styles spécifiques aux tableaux */
-        .content-wrapper .table-armures,
-        .content-wrapper .table-boucliers,
-        .content-wrapper .table-armes-mfg,
-        .content-wrapper .table-armes-nat,
-        .content-wrapper .table-tresors,
-        .content-wrapper .ressources-table,
-        .content-wrapper .table-5cols {
-            width: 100% !important;
-            table-layout: fixed !important;
-            border-collapse: collapse !important;
-        }
+/* Grilles pour les tableaux convertis */
+.rule-item.ressources-grid {
+  display: grid;
+  grid-template-columns: 0.6fr 1fr 2.2fr 3.2fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
 
-        /* Tableau Ressources - 4 colonnes */
-        /* Colonne 1 : Niveau */
-        .content-wrapper .ressources-table th:nth-child(1),
-        .content-wrapper .ressources-table td:nth-child(1) {
-            width: 10% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            text-align: center !important;
-            word-wrap: break-word !important;
-        }
-        /* Colonne 2 : Ressources */
-        .content-wrapper .ressources-table th:nth-child(2),
-        .content-wrapper .ressources-table td:nth-child(2) {
-            width: 14% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-        }
-        /* Colonne 3 : Services */
-        .content-wrapper .ressources-table th:nth-child(3),
-        .content-wrapper .ressources-table td:nth-child(3) {
-            width: 25% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-        }
-        /* Colonne 4 : Biens et personnel */
-        .content-wrapper .ressources-table th:nth-child(4),
-        .content-wrapper .ressources-table td:nth-child(4) {
-            width: 51% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-        }
-    
-        /* Tableau Armures - 4 colonnes avec Conséquence Mécanique (malus) plus large */
-        .content-wrapper .table-armures th:nth-child(1),
-        .content-wrapper .table-armures td:nth-child(1) {
-            width: 23% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armures th:nth-child(2),
-        .content-wrapper .table-armures td:nth-child(2) {
-            width: 15% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armures th:nth-child(3),
-        .content-wrapper .table-armures td:nth-child(3) {
-            width: 23% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armures th:nth-child(4),
-        .content-wrapper .table-armures td:nth-child(4) {
-            width: 39% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        
-        /* Tableau Boucliers - 3 colonnes */
-        .content-wrapper .table-boucliers th:nth-child(1),
-        .content-wrapper .table-boucliers td:nth-child(1) {
-            width: 25% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-boucliers th:nth-child(2),
-        .content-wrapper .table-boucliers td:nth-child(2) {
-            width: 15% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-boucliers th:nth-child(3),
-        .content-wrapper .table-boucliers td:nth-child(3) {
-            width: 60% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        
-        /* Tableau Armes manufacturées - 4 colonnes avec Contrainte/Avantage plus large */
-        .content-wrapper .table-armes-mfg th:nth-child(1),
-        .content-wrapper .table-armes-mfg td:nth-child(1) {
-            width: 20% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armes-mfg th:nth-child(2),
-        .content-wrapper .table-armes-mfg td:nth-child(2) {
-            width: 20% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armes-mfg th:nth-child(3),
-        .content-wrapper .table-armes-mfg td:nth-child(3) {
-            width: 35% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armes-mfg th:nth-child(4),
-        .content-wrapper .table-armes-mfg td:nth-child(4) {
-            width: 25% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        
-        /* Tableau Armes naturelles - 4 colonnes */
-        .content-wrapper .table-armes-nat th:nth-child(1),
-        .content-wrapper .table-armes-nat td:nth-child(1) {
-            width: 20% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armes-nat th:nth-child(2),
-        .content-wrapper .table-armes-nat td:nth-child(2) {
-            width: 25% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armes-nat th:nth-child(3),
-        .content-wrapper .table-armes-nat td:nth-child(3) {
-            width: 35% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-armes-nat th:nth-child(4),
-        .content-wrapper .table-armes-nat td:nth-child(4) {
-            width: 20% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        
-        /* Tableau Trésors - 4 colonnes */
-        .content-wrapper .table-tresors th:nth-child(1),
-        .content-wrapper .table-tresors td:nth-child(1) {
-            width: 10% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-tresors th:nth-child(2),
-        .content-wrapper .table-tresors td:nth-child(2) {
-            width: 30% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        .content-wrapper .table-tresors th:nth-child(3),
-        .content-wrapper .table-tresors td:nth-child(3) {
-            width: 60% !important;
-            padding: 8px !important;
-            vertical-align: top !important;
-            word-wrap: break-word !important;
-            overflow-wrap: break-word !important;
-            hyphens: auto !important;
-        }
-        
-        /* En-têtes communs */
-        .content-wrapper .table-armures th,
-        .content-wrapper .table-boucliers th,
-        .content-wrapper .table-armes-mfg th,
-        .content-wrapper .table-armes-nat th,
-        .content-wrapper .table-tresors th,
-        .content-wrapper .ressources-table th {
-            text-align: left !important;
-            border-bottom: 2px solid #1c1917 !important;
-        }
-        
-        /* Cellules de données communes */
-        .content-wrapper .table-armures td,
-        .content-wrapper .table-boucliers td,
-        .content-wrapper .table-armes-mfg td,
-        .content-wrapper .table-armes-nat td,
-        .content-wrapper .table-tresors td,
-        .content-wrapper .ressources-table td {
-            border-bottom: 1px solid rgba(0,0,0,0.1) !important;
-        }
+.rule-item.ressources-grid.header,
+.rule-item.tresors-grid.header,
+.rule-item.armures-grid.header,
+.rule-item.boucliers-grid.header,
+.rule-item.armes-mfg-grid.header,
+.rule-item.armes-nat-grid.header {
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #1c1917;
+}
 
-        /* Texte utilities */
-        .text-sm {
-            font-size: 0.875rem;
-        }
-        .italic {
-            font-style: italic;
-        }
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-        .mt-4 {
-            margin-top: 1rem;
-        }
-        .mt-6 {
-            margin-top: 1.5rem;
-        }
-        .mb-4 {
-            margin-bottom: 1rem;
-        }
-        .space-y-2 > * + * {
-            margin-top: 0.5rem;
-        }
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
+.rule-item.ressources-grid > :first-child {
+  text-align: center;
+  color: #7c2d12;
+  font-weight: 600;
+}
 
-        /* Listes */
-        .dash-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        .dash-list li {
-            position: relative;
-            padding-left: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        .dash-list li::before {
-            content: "–";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
+.rule-item.tresors-grid {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 4fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.tresors-grid > :first-child {
+  text-align: center;
+  color: #7c2d12;
+  font-weight: 600;
+}
+
+.rule-item.armures-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1.2fr 2.8fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.armures-grid > :first-child,
+.rule-item.boucliers-grid > :first-child,
+.rule-item.armes-mfg-grid > :first-child,
+.rule-item.armes-nat-grid > :first-child {
+  color: #7c2d12;
+  font-weight: 600;
+}
+
+.rule-item.boucliers-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 3fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.armes-mfg-grid,
+.rule-item.armes-nat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 2.2fr 1.6fr;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Suppression des bordures sur les derniers éléments */
+.rule-item.ressources-grid:last-of-type,
+.rule-item.tresors-grid:last-of-type,
+.rule-item.armures-grid:last-of-type,
+.rule-item.boucliers-grid:last-of-type,
+.rule-item.armes-mfg-grid:last-of-type,
+.rule-item.armes-nat-grid:last-of-type {
+  border-bottom: none;
+}
 </style>
 
 <h2 id="section-ressources">1. Les Ressources</h2>
@@ -891,7 +555,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Épée ou Hache Lunaire</strong></p>
+    <h4><strong>Épée ou Hache Lunaire</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> La lame possède un fini irisé rappelant l'intérieur d'un coquillage, alternant entre le gris perle et le bleu pâle. Lorsqu'elle décrit un arc de cercle, l'arme semble être portée par une force centrifuge surnaturelle, rendant le mouvement circulaire plus rapide et plus difficile à parer qu'une frappe directe.</p>
@@ -909,7 +573,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Lance Diamantine</strong></p>
+    <h4><strong>Lance Diamantine</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Taillée dans un cristal de Fer Diamantin noir et facetté, cette pointe ne s'émousse jamais. Sa dureté absolue et son inertie parfaite guident le bras vers l'avant, transformant chaque attaque directe en une force de perforation dévastatrice.</p>
@@ -925,11 +589,9 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Catalyseur de Liche</strong></p>
+    <h4><strong>Catalyseur de Liche</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Objet focalisateur imprégné d'une partie de l'essence d'une liche vaincue. Il conserve généralement la forme du catalyseur original utilisé par la liche de son vivant (bâton, orbe, grimoire, amulette, etc.).</p>
@@ -957,13 +619,11 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <h3 id="section-armures-magiques">Armures et Protections Magiques</h3>
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Cotte de maille Elfique</strong></p>
+    <h4><strong>Cotte de maille Elfique</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Composée d'anneaux de Mithril si fins qu'elle ressemble à une étoffe de soie argentée au toucher. Ce métal est d'une souplesse telle qu'il ne peut être forgé en plaques rigides, mais il offre en retour une liberté de mouvement totale pour les tâches de précision.</p>
@@ -981,7 +641,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Plaques Naines</strong></p>
+    <h4><strong>Plaques Naines</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> D'un aspect brut et anguleux, ces plaques massives d'Adamantite arborent un gris anthracite mat. Bien qu'elle offre une extraordinaire durabilité, son poids exige une force athlétique hors du commun pour ne pas s'effondrer sous sa propre protection.</p>
@@ -1000,11 +660,9 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Cuir de Dragon</strong></p>
+    <h4><strong>Cuir de Dragon</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Ce cuir peut arborer un rouge ardent doublé d'une chaleur résiduelle, ou un vert profond aux senteurs de forêt millénaire, ou tout autre, variant selon la nature du dragon originel. Contrairement aux cuirs habituels, cette protection semble entrer en résonance avec l'esprit du lanceur de sorts, supprimant toute entrave à ses incantations de combat.</p>
@@ -1022,7 +680,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Plaques d'Écailles</strong></p>
+    <h4><strong>Plaques d'Écailles</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Des dizaines d'écailles draconiques méticuleusement rivetées à une cotte de mailles ou une armure de cuir.</p>
@@ -1038,11 +696,9 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Pavois Draconique</strong></p>
+    <h4><strong>Pavois Draconique</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Un bouclier massif taillé directement dans une unique écaille de dragon.</p>
@@ -1058,13 +714,11 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <h3 id="section-autres-magiques">Autres Objets et Consommables</h3>
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Cape de soie d'araignée caméléon</strong></p>
+    <h4><strong>Cape de soie d'araignée caméléon</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> La soie qui compose cette cape s'ajuste aux variations de lumière et de couleurs environnantes en reproduisant les teintes du sol ou des murs derrière le porteur. Elle agit comme un camouflage naturel qui facilite la dissimulation dans n'importe quel milieu.</p>
@@ -1082,7 +736,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Cœur de Dragon Véritable</strong></p>
+    <h4><strong>Cœur de Dragon Véritable</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Le cœur massif du prédateur suprême, saturé de l'essence magique de la création. Seul le combattant ayant porté le coup de grâce à la bête peut tenter de l'assimiler juste après l'avoir abattue.</p>
@@ -1110,11 +764,9 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Sang de Dragon Dilué</strong></p>
+    <h4><strong>Sang de Dragon Dilué</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Une préparation alchimique contenue dans une fiole, stabilisant l'essence de la bête mythique.</p>
@@ -1135,7 +787,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Sang de Dragon Concentré</strong></p>
+    <h4><strong>Sang de Dragon Concentré</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Le sang pur et épais du prédateur suprême, réduit par alchimie. Le liquide palpite d'une magie instable et violente.</p>
@@ -1154,11 +806,9 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Sang d'Ogre Mage</strong></p>
+    <h4><strong>Sang d'Ogre Mage</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Contenu dans une fiole de cristal épais, ce liquide visqueux d'un bleu violacé est parcouru d'étincelles constantes. La fiole vibre légèrement au creux de la main, témoignant de la magie brute qui sature ce sang et qui s'apprête à modifier définitivement le flux spirituel de celui qui l'absorbe.</p>
@@ -1179,7 +829,7 @@
 
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Grimoire de l'Érudit</strong></p>
+    <h4><strong>Grimoire de l'Érudit</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> L'apparence extérieure de ce grimoire est un mystère quotidien, changeant de format, de couleur et de texture de couverture sans prévenir. Lorsqu'on le consulte, l'encre s'anime pour réorganiser les textes et les schémas, affichant précisément le savoir recherché par son possesseur.</p>
@@ -1195,11 +845,9 @@
 </div>
 <div class="card-end"></div>
 
-<div class="page-break"></div>
-
 <div class="card-start"></div>
 <div class="rule-item">
-    <p><strong>Cercle de Téléportation</strong></p>
+    <h4><strong>Cercle de Téléportation</strong></h4>
 </div>
 <div class="rule-item">
     <p><strong>Description :</strong> Un réseau complexe de runes gravées à même le sol ou la pierre. Lorsqu'il est activé par le sang, il dévoile des portails scintillants vers d'autres cercles reliés.</p>
