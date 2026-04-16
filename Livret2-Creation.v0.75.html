@@ -32,6 +32,27 @@
 </script>
 
 <style>
+.rule-item.especes-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 2fr 2fr 1.2fr;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  /* On garde le fond/bloc de .rule-item mais on override le display */
+}
+
+.rule-item.especes-grid.header {
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #1c1917;
+}
+
+.rule-item.especes-grid > :first-child {
+  color: #7c2d12;
+  font-weight: 600;
+}
+
   /* Tableau spécifique aux Rang de Compétences - 4 colonnes visualles */
   .rangs-table {
     display: grid;
@@ -450,31 +471,31 @@
 Peuplant majoritairement le monde connu. Vous pouvez choisir l'une de ces espèces librement.</p>
 
 <div class="card-start"></div>
-<div class="especes-grid">
+<div class="rule-item especes-grid header">
     <div>Race</div>
     <div>Talents</div>
     <div>Compétences</div>
     <div>Rôle</div>
 </div>
-<div class="especes-grid">
+<div class="rule-item especes-grid">
     <div><strong>Elfe</strong></div>
     <div>Aptitude Féline +1, Perception +1, Survie +1</div>
     <div>2 au choix à +1</div>
     <div>Furtif et fin limier</div>
 </div>
-<div class="especes-grid">
+<div class="rule-item especes-grid">
     <div><strong>Nain</strong></div>
     <div>Athlétisme +1, Mécanique +1, Savoir +1</div>
     <div>2 au choix à +1</div>
     <div>Pilier et ingénieur</div>
 </div>
-<div class="especes-grid">
+<div class="rule-item especes-grid">
     <div><strong>Orque</strong></div>
     <div>Athlétisme +1, Survie +1</div>
     <div>Saisie +1 et 2 autres</div>
     <div>Corps-à-corps résilient</div>
 </div>
-<div class="especes-grid">
+<div class="rule-item especes-grid">
     <div><strong>Humain</strong></div>
     <div>2 au choix à +1</div>
     <div>2 au choix à +1</div>
