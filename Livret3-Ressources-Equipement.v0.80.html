@@ -30,6 +30,30 @@
 </script>
 
 <style>
+        .rule-item.ressources-grid {
+          display: grid;
+          grid-template-columns: 0.6fr 1fr 2.2fr 3.2fr;
+          gap: 0.5rem 1rem;
+          align-items: baseline;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          padding: 0.5rem 1rem;
+          border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .rule-item.ressources-grid.header {
+          font-weight: bold;
+          font-family: 'Cinzel', serif;
+          letter-spacing: 0.05em;
+          border-bottom: 2px solid #1c1917;
+        }
+        
+        .rule-item.ressources-grid > :first-child {
+          text-align: center;
+          color: #7c2d12;
+          font-weight: 600;
+        }
+        
         /* Base forcée sur tous les tableaux du document */
         table {
             width: 100% !important;
@@ -321,117 +345,110 @@
         }
 </style>
 
-    <h2 id="section-ressources">1. Les Ressources</h2>
+<h2 id="section-ressources">1. Les Ressources</h2>
 
-        <p class="italic">Les listes ci-dessous ne sont ni exhaustives ni absolues. Elles offrent des indications sur ce que peut globalement se payer ou posséder un personnage selon son niveau de Ressources, afin d'aider à situer les achats possibles et les seuils du Test de Fortune (D6).</p>
-        
-        <div class="content-card">
-            <table class="ressources-table">
-                <thead>
-                    <tr>
-                        <th>Niveau</th>
-                        <th>Ressources</th>
-                        <th>Services</th>
-                        <th>Biens et Personnel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: center;"><strong>0</strong></td>
-                        <td><strong>Mendiant</strong></td>
-                        <td>Aucun</td>
-                        <td>Haillons, bâton, vieux sac, écuelle, couverture, quelques pièces de cuivre, bibelots sans valeur</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;"><strong>1</strong></td>
-                        <td><strong>Peuple</strong></td>
-                        <td>Louer une nuit au dortoir, repas modeste à l'auberge, herboriste ou prêtre local, prostitué de rue</td>
-                        <td>Vêtement de travail et un du dimanche, outils, maison modeste, une mule, un ou deux éventuel esclave de labeur ; si combattant : une arme, gambison ou armure de cuir</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;"><strong>2</strong></td>
-                        <td><strong>Riche</strong></td>
-                        <td>Louer une chambre privée, repas luxueux à l'auberge, apothicaire de renom, courtisane de luxe</td>
-                        <td>Vêtements les plus luxueux, maison de ville et/ou de campagne, entrepôts, lopins de terre (champs, bois exploitable et giboyeux), chevaux de trait ou de monte, charrettes, armes, cotte de mailles ou brigandine, focalisateur manufacturé, si pratiqué : jusqu'à une 50ène d'esclaves de maison et de labeur / Jusqu'à 20 Gardes du corps ou mercenaires (possiblement 1 ou 2 vétérans), cuisinier, serviteurs et employés</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<p>Les listes ci-dessous ne sont ni exhaustives ni absolues. Elles offrent des indications sur ce que peut globalement se payer ou posséder un personnage selon son niveau de Ressources, afin d'aider à situer les achats possibles et les seuils du Test de Fortune (D6).</p>
 
-        <div class="content-card">
-            <table class="ressources-table">
-                <thead>
-                    <tr>
-                        <th>Niveau</th>
-                        <th>Ressources</th>
-                        <th>Services</th>
-                        <th>Biens et Personnel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="text-align: center;"><strong>3</strong></td>
-                        <td><strong>Opulent</strong></td>
-                        <td>Location de tous les services offerts par une auberge de prestige, festins avec vins d'exception, soirée de débauche avec les plus belles courtisanes, escorte par l'armée locale ponctuelle</td>
-                        <td>Manoir fortifié avec terres ou plusieurs demeures urbaines, destrier de guerre caparaçonné, harnois, bijouterie d'or massif, bibliothèque personnelle, collections d'art, jusqu'à 2 000 esclaves de labeur, de maison et spécialistes (musiciens, concubines qualifiés) / Intendant, écuyers, musiciens, cuisinier, jusqu'à 1 000 gardes, mercenaires ou vétérans, une 10ène de chevaliers, serviteurs et employés de maison</td>                        
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;"><strong>4</strong></td>
-                        <td><strong>Crésus</strong></td>
-                        <td>Location d'auberge de prestige entière pour festins</td>
-                        <td>Lingots de minerais rares et précieux (adamantite, mithril, fer diamantin, etc.), objets magiques, flottes marchandes entières, monopoles commerciaux sur plusieurs provinces, château fort avec ville fortifiée attenante ou plusieurs domaines seigneuriaux, si pratiqué : jusqu'à 10 000 esclaves de labeur, de luxe, spécialistes et administrateurs, traite d'esclaves à grande échelle / Prêtres, armée privée (10 000 hommes ou plus), réseau d'espions, intendants de provinces, une 100ène de chevaliers, des milliers de serviteurs et d'employés</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="card-start"></div>
+<div class="rule-item ressources-grid header">
+    <div>Niveau</div>
+    <div>Ressources</div>
+    <div>Services</div>
+    <div>Biens et Personnel</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>0</strong></div>
+    <div><strong>Mendiant</strong></div>
+    <div>Aucun</div>
+    <div>Haillons, bâton, vieux sac, écuelle, couverture, quelques pièces de cuivre, bibelots sans valeur</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>1</strong></div>
+    <div><strong>Peuple</strong></div>
+    <div>Louer une nuit au dortoir, repas modeste à l'auberge, herboriste ou prêtre local, prostitué de rue</div>
+    <div>Vêtement de travail et un du dimanche, outils, maison modeste, une mule, un ou deux éventuel esclave de labeur ; si combattant : une arme, gambison ou armure de cuir</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>2</strong></div>
+    <div><strong>Riche</strong></div>
+    <div>Louer une chambre privée, repas luxueux à l'auberge, apothicaire de renom, courtisane de luxe</div>
+    <div>Vêtements les plus luxueux, maison de ville et/ou de campagne, entrepôts, lopins de terre (champs, bois exploitable et giboyeux), chevaux de trait ou de monte, charrettes, armes, cotte de mailles ou brigandine, focalisateur manufacturé, si pratiqué : jusqu'à une 50ène d'esclaves de maison et de labeur / Jusqu'à 20 Gardes du corps ou mercenaires (possiblement 1 ou 2 vétérans), cuisinier, serviteurs et employés</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>3</strong></div>
+    <div><strong>Opulent</strong></div>
+    <div>Location de tous les services offerts par une auberge de prestige, festins avec vins d'exception, soirée de débauche avec les plus belles courtisanes, escorte par l'armée locale ponctuelle</div>
+    <div>Manoir fortifié avec terres ou plusieurs demeures urbaines, destrier de guerre caparaçonné, harnois, bijouterie d'or massif, bibliothèque personnelle, collections d'art, jusqu'à 2 000 esclaves de labeur, de maison et spécialistes (musiciens, concubines qualifiés) / Intendant, écuyers, musiciens, cuisinier, jusqu'à 1 000 gardes, mercenaires ou vétérans, une 10ène de chevaliers, serviteurs et employés de maison</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>4</strong></div>
+    <div><strong>Crésus</strong></div>
+    <div>Location d'auberge de prestige entière pour festins</div>
+    <div>Lingots de minerais rares et précieux (adamantite, mithril, fer diamantin, etc.), objets magiques, flottes marchandes entières, monopoles commerciaux sur plusieurs provinces, château fort avec ville fortifiée attenante ou plusieurs domaines seigneuriaux, si pratiqué : jusqu'à 10 000 esclaves de labeur, de luxe, spécialistes et administrateurs, traite d'esclaves à grande échelle / Prêtres, armée privée (10 000 hommes ou plus), réseau d'espions, intendants de provinces, une 100ène de chevaliers, des milliers de serviteurs et d'employés</div>
+</div>
+<div class="card-end"></div>
 
-        <div class="content-card">
-            <h4>Niveau de Ressources et Dangerosité</h4>
-            <p><strong>Important :</strong> Le niveau de Ressources d'une créature ne correspond <strong>pas</strong> mécaniquement à sa Dangerosité (puissance de combat). Il dépend de son <strong>comportement</strong> et de son <strong>âge</strong> :</p>
-            <ul class="dash-list">
-                <li><strong>Prédateurs intelligents et accumulateurs</strong> (Dragon, Liche, certains humanoïdes organisés) amassent des trésors → Niveau élevé</li>
-                <li><strong>Prédateurs bestiaux</strong> (Wyverne, Ogre Brute, ours) consomment ou négligent les richesses → Niveau faible malgré une dangerosité élevée</li>
-                <li><strong>Longévité</strong> : Une créature intelligente vivant longtemps accumule davantage (ex: une araignée caméléon colossale ancienne détient plus de butin qu'une jeune)</li>
-            </ul>
-            <p class="italic">Ainsi, une créature de Dangerosité 2+ peut n'offrir que 1 UB Peuple (bête sauvage sans intérêt pour l'or) ou 1 UB Riche (guerrier équipé), selon sa nature.</p>
-        </div>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p><strong>Niveau de Ressources et Dangerosité</strong></p>
+</div>
+<div class="rule-item">
+    <p>Important : Le niveau de Ressources d'une créature ne correspond pas mécaniquement à sa Dangerosité (puissance de combat). Il dépend de son comportement et de son âge :</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Prédateurs intelligents et accumulateurs (Dragon, Liche, certains humanoïdes organisés) amassent des trésors → Niveau élevé</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Prédateurs bestiaux (Wyverne, Ogre Brute, ours) consomment ou négligent les richesses → Niveau faible malgré une dangerosité élevée</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Longévité : Une créature intelligente vivant longtemps accumule davantage (ex: une araignée caméléon colossale ancienne détient plus de butin qu'une jeune)</p>
+</div>
+<div class="rule-item">
+    <p>Ainsi, une créature de Dangerosité 2+ peut n'offrir que 1 UB Peuple (bête sauvage sans intérêt pour l'or) ou 1 UB Riche (guerrier équipé), selon sa nature.</p>
+</div>
+<div class="card-end"></div>
 
-        <h2 id="section-niveaux-objets">2. Niveaux des Objets, Biens et Services</h2>
+<h2 id="section-niveaux-objets">2. Niveaux des Objets, Biens et Services</h2>
 
-        <p>Tout objet, bien ou service possède un <strong>Niveau</strong> de 0 à 4. Cette échelle permet de déterminer immédiatement si un personnage peut s'offrir un achat ponctuel (Services), entretenir une dépense récurrente (Personnel), ou acquérir une possession durable (Biens).</p>
-        
-        <div class="content-card">
-            <h4>Niveau 0 — Mendiant :</h4>
-            <p>Aucun revenu stable. L'accès à la nourriture, l'abri et les vêtements dépend de la charité, du vol ou des travaux les plus précaires. Impossible d'entretenir quoi que ce soit à l'année.</p>
-            <p class="italic">Exemples : Une nuit à la belle étoile, des haillons, une écuelle de bois.</p>
-        </div>
-        
-        <div class="content-card">
-            <h4>Niveau 1 — Peuple :</h4>
-            <p>Revenu suffisant pour louer un abri modeste et se nourrir quotidiennement, mais pas pour entretenir de personnel dédié.</p>
-            <p class="italic">Exemples : Une chambre louée, une mule, une lance, la consultation ponctuelle d'un herboriste.</p>
-        </div>
-        
-        <div class="content-card">
-            <h4>Niveau 2 — Riche :</h4>
-            <p>Capacité à entretenir une maisonnée (serviteurs, gardes ponctuels) et à se vêtir de luxe. Peut acquérir du matériel de qualité (armes, armures intermédiaires, chevaux).</p>
-            <p class="italic">Exemples : Une maison de ville, une cotte de mailles ou brigandine, des gardes du corps à la journée, un apothicaire renommé.</p>
-        </div>
-        
-        <div class="content-card">
-            <h4>Niveau 3 — Opulent :</h4>
-            <p>Richesse territoriale ou commerciale permettant d'entretenir une armée privée de taille moyenne et du personnel spécialisé (musiciens, intendants). L'achat d'un harnois complet ou d'un destrier ne représente pas un sacrifice.</p>
-            <p class="italic">Exemples : Un manoir fortifié, un harnois, une escorte armée permanente, des esclaves de luxe qualifiés.</p>
-        </div>
-        
-        <div class="content-card">
-            <h4>Niveau 4 — Crésus :</h4>
-            <p>Richesse inquantifiable, transgénérationnelle ou mythique. Permet de mobiliser des ressources d'ampleur étatique (armées de milliers d'hommes, flottes entières) et d'acquérir des biens uniques ou magiques.</p>
-            <p class="italic">Exemples : Un château avec ville attenante, des lingots de mithril par tonnes, des objets magiques, une vaste traite d'esclaves.</p>
-        </div>
-        
-        <p class="note-mj">Le MJ utilise cette échelle pour situer rapidement la valeur d'un objet non listé au Chapitre 1 : si un bien correspond conceptuellement au train de vie "Opulent", il est de Niveau 3.</p>
-        
+<p>Tout objet, bien ou service possède un Niveau de 0 à 4. Cette échelle permet de déterminer immédiatement si un personnage peut s'offrir un achat ponctuel (Services), entretenir une dépense récurrente (Personnel), ou acquérir une possession durable (Biens).</p>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p><strong>Niveau 0 — Mendiant :</strong><br>Aucun revenu stable. L'accès à la nourriture, l'abri et les vêtements dépend de la charité, du vol ou des travaux les plus précaires. Impossible d'entretenir quoi que ce soit à l'année.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Exemples : Une nuit à la belle étoile, des haillons, une écuelle de bois.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Niveau 1 — Peuple :</strong><br>Revenu suffisant pour louer un abri modeste et se nourrir quotidiennement, mais pas pour entretenir de personnel dédié.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Exemples : Une chambre louée, une mule, une lance, la consultation ponctuelle d'un herboriste.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Niveau 2 — Riche :</strong><br>Capacité à entretenir une maisonnée (serviteurs, gardes ponctuels) et à se vêtir de luxe. Peut acquérir du matériel de qualité (armes, armures intermédiaires, chevaux).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Exemples : Une maison de ville, une cotte de mailles ou brigandine, des gardes du corps à la journée, un apothicaire renommé.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Niveau 3 — Opulent :</strong><br>Richesse territoriale ou commerciale permettant d'entretenir une armée privée de taille moyenne et du personnel spécialisé (musiciens, intendants). L'achat d'un harnois complet ou d'un destrier ne représente pas un sacrifice.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Exemples : Un manoir fortifié, un harnois, une escorte armée permanente, des esclaves de luxe qualifiés.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Niveau 4 — Crésus :</strong><br>Richesse inquantifiable, transgénérationnelle ou mythique. Permet de mobiliser des ressources d'ampleur étatique (armées de milliers d'hommes, flottes entières) et d'acquérir des biens uniques ou magiques.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Exemples : Un château avec ville attenante, des lingots de mithril par tonnes, des objets magiques, une vaste traite d'esclaves.</p>
+</div>
+<div class="rule-item">
+    <p>Le MJ utilise cette échelle pour situer rapidement la valeur d'un objet non listé au Chapitre 1 : si un bien correspond conceptuellement au train de vie "Opulent", il est de Niveau 3.</p>
+</div>
+<div class="card-end"></div>
+
         <h2 id="section-achat">3. Règles d’Achat</h2>
         <div class="content-card">
             <ul class="dash-list">
