@@ -30,6 +30,79 @@
 </script>
 
 <style>
+        /* Grille pour les tableaux de Trésors (3 colonnes) */
+        .rule-item.tresors-grid {
+          display: grid;
+          grid-template-columns: 0.5fr 1.5fr 4fr;
+          gap: 0.5rem 1rem;
+          align-items: baseline;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          padding: 0.5rem 1rem;
+          border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .rule-item.tresors-grid.header {
+          font-weight: bold;
+          font-family: 'Cinzel', serif;
+          letter-spacing: 0.05em;
+          border-bottom: 2px solid #1c1917;
+        }
+        
+        .rule-item.tresors-grid > :first-child {
+          text-align: center;
+          color: #7c2d12;
+          font-weight: 600;
+        }
+        
+        /* Grille pour Armures (4 colonnes) */
+        .rule-item.armures-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr 1.2fr 2.8fr;
+          gap: 0.5rem 1rem;
+          align-items: baseline;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          padding: 0.5rem 1rem;
+          border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .rule-item.armures-grid.header {
+          font-weight: bold;
+          font-family: 'Cinzel', serif;
+          letter-spacing: 0.05em;
+          border-bottom: 2px solid #1c1917;
+        }
+        
+        .rule-item.armures-grid > :first-child {
+          color: #7c2d12;
+          font-weight: 600;
+        }
+        
+        /* Grille pour Boucliers (3 colonnes) */
+        .rule-item.boucliers-grid {
+          display: grid;
+          grid-template-columns: 1fr 0.8fr 3fr;
+          gap: 0.5rem 1rem;
+          align-items: baseline;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          padding: 0.5rem 1rem;
+          border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .rule-item.boucliers-grid.header {
+          font-weight: bold;
+          font-family: 'Cinzel', serif;
+          letter-spacing: 0.05em;
+          border-bottom: 2px solid #1c1917;
+        }
+        
+        .rule-item.boucliers-grid > :first-child {
+          color: #7c2d12;
+          font-weight: 600;
+        }
+        
         .rule-item.ressources-grid {
           display: grid;
           grid-template-columns: 0.6fr 1fr 2.2fr 3.2fr;
@@ -449,257 +522,197 @@
 </div>
 <div class="card-end"></div>
 
-        <h2 id="section-achat">3. Règles d’Achat</h2>
-        <div class="content-card">
-            <ul class="dash-list">
-                <li><strong>Ressources > Niveau de l’objet :</strong> Achat automatique.</li>
-                <li><strong>Ressources = Niveau de l’objet :</strong> Test de Fortune requis.</li>
-                <li><strong>Ressources < Niveau de l’objet :</strong> Achat Désespéré (baisse d’un palier de Ressources).</li>
-            </ul>
-        </div>
-        
-        <h2 id="section-fortune">4. Le Test de Fortune (D6)</h2>
-        <div class="content-card">
-            <p>Décrivez la transaction, puis lancez 1D6 :</p>
-            <ul class="dash-list">
-                <li><strong>2 à 6 :</strong> Succès – vous obtenez l’objet sans perdre de Ressources.</li>
-                <li><strong>1 :</strong> <strong>Rupture de Fortune</strong> – vos Ressources baissent d’un palier.</li>
-            </ul>
-        </div>
-        
-        <h2 id="section-desespere">5. L’Achat Désespéré</h2>
-        <div class="content-card">
-            <p>Si vos Ressources sont inférieures au Niveau de l’objet, vous pouvez tout de même l’acquérir, mais vos Ressources baissent immédiatement d’un palier (dettes, épuisement des réserves…).</p>
-        </div>
-        
-        <h2 id="section-butin">6. Butin, Trésors et Progression des Ressources</h2>
-        <div class="content-card">
-            <p>Une <strong>Unité de Butin (UB)</strong> est l’ensemble des possessions d’une personne, d’une créature ou d’un petit groupe. Sa valeur totale correspond à un palier complet de l’Échelle de Ressources (0 à 4).</p>
-        
-            <p><strong>Règle fondamentale :</strong> Les possessions complètes d’une victime vaincue représentent généralement **1 UB de son propre niveau de Ressources**.</p>
-        
-            <h4>Fouille complète vs Vol à la tire</h4>
-            <ul class="dash-list">
-                <li><strong>Fouille complète</strong> → **1 UB** du rang exact de la victime.</li>
-                <li><strong>Vol à la tire</strong> (fouiller rapidement les poches) → **1 UB de rang inférieur**.</li>
-            </ul>
-        
-            <h4>Butin issu d’un lieu (armurerie, cache, caravane…)</h4>
-            <ul class="dash-list">
-                <li>Petit stock abandonné → biens mineurs ou objets individuels (pas une UB).</li>
-                <li>Stock significatif (équipement pour plusieurs personnes) → **1 UB** du niveau correspondant.</li>
-                <li>Grand entrepôt ou caravane bien chargée → **1 UB de niveau supérieur** voire plusieurs UB.</li>
-            </ul>
-        
-            <h4>Comment monter en Ressources ?</h4>
-            <ul class="dash-list">
-                <li><strong>Trésor Majeur :</strong> Investir une UB de niveau supérieur → vous montez immédiatement à ce niveau.</li>
-                <li><strong>Accumulation :</strong> 10 UB de votre niveau actuel → vous montez d’un palier.</li>
-            </ul>
-        
-            <p class="italic">Le MJ peut attribuer plusieurs UB pour un butin exceptionnel.</p>
-        </div>
-        
-        <h2 id="section-tresors">7. Décrire un Trésor</h2>
+<h2 id="section-butin">6. Butin, Trésors et Progression des Ressources</h2>
 
-        <p>Le MJ décrit un ensemble cohérent d'objets dont la valeur totale correspond au niveau de l'UB. Ces descriptions reflètent le train de vie et la puissance économique du défunt (cf. Chapitre 1) : un niveau 2 permet d'entretenir des serviteurs et des propriétés multiples, un niveau 3 constitue une fortune seigneuriale avec armée privée, et un niveau 4 représente une richesse dynastique inquantifiable.</p>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Une Unité de Butin (UB) est l'ensemble des possessions d'une personne, d'une créature ou d'un petit groupe. Sa valeur totale correspond à un palier complet de l'Échelle de Ressources (0 à 4).</p>
+</div>
+<div class="rule-item">
+    <p><strong>Règle fondamentale :</strong> Les possessions complètes d'une victime vaincue représentent généralement 1 UB de son propre niveau de Ressources.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Fouille complète vs Vol à la tire</strong></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Fouille complète → 1 UB du rang exact de la victime.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Vol à la tire (fouiller rapidement les poches) → 1 UB de rang inférieur.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Butin issu d'un lieu (armurerie, cache, caravane…)</strong></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Petit stock abandonné → biens mineurs ou objets individuels (pas une UB).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Stock significatif (équipement pour plusieurs personnes) → 1 UB du niveau correspondant.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Grand entrepôt ou caravane bien chargée → 1 UB de niveau supérieur voire plusieurs UB.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Comment monter en Ressources ?</strong></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Trésor Majeur : Investir une UB de niveau supérieur → vous montez immédiatement à ce niveau.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Accumulation : 10 UB de votre niveau actuel → vous montez d'un palier.</p>
+</div>
+<div class="rule-item">
+    <p>Le MJ peut attribuer plusieurs UB pour un butin exceptionnel.</p>
+</div>
+<div class="card-end"></div>
         
-        <div style="margin-top: 2rem;"></div>
-        <div class="content-card">       
-        
-        <!-- Niveau 0 -->
-        <table class="table-tresors">
-            <thead>
-                <tr>
-                    <th>Niveau</th>
-                    <th>Description</th>
-                    <th>Contenu</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="text-align: center;"><strong>0</strong></td>
-                    <td>Une petite trouvaille qui assure quelques jours de survie.</td>
-                    <td>Une poignée de deniers de cuivre, une besace de toile trouée, un couteau de métal émoussé, quelques lacets de cuir et une couverture en loques.</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <!-- Niveau 1 -->
-        <table class="table-tresors">
-            <tbody>
-                <tr>
-                    <td style="text-align: center;"><strong>1</strong></td>
-                    <td>L'équipement complet et le capital pour s'établir comme artisan ou milicien.</td>
-                    <td>Une bourse de cuir souple remplie de pièces d'argent, une lance de facture correcte, un gambison de cuir teinté, une charrette à bras en bon état et le contrat de propriété d'un <strong>esclave de labeur</strong>.</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <!-- Niveau 2 -->
-        <table class="table-tresors">
-            <tbody>
-                <tr>
-                    <td style="text-align: center;"><strong>2</strong></td>
-                    <td>La fortune d'un homme d'affaires prospère : de quoi établir un train de vie avec serviteurs et commerces.</td>
-                    <td>Un coffre-fort de fer contenant plusieurs milliers de pièces d'argent, trois <strong>cottes de mailles ou brigandines</strong> neuves pour une escorte, une bague de négociant en argent, les titres de propriété d'une <strong>maison de ville avec entrepôt attenant</strong>, d'une <strong>ferme avec granges et bois</strong>, cinq <strong>chevaux de trait</strong> avec leurs charrettes, et les contrats de <strong>vingt esclaves de maison et de labeur</strong> (cuisinier, palefrenier, gardes, manœuvres).</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <!-- Niveau 3 -->
-        <table class="table-tresors">
-            <tbody>
-                <tr>
-                    <td style="text-align: center;"><strong>3</strong></td>
-                    <td>La richesse d'un grand seigneur capable d'armer une compagnie et d'entretenir plusieurs demeures.</td>
-                    <td>Un coffre de chêne massif cerclé d'or renfermant plusieurs milliers de pièces d'or, dix <strong>harnois complets</strong> avec leurs destriers caparaçonnés pour une escorte d'élite, une bibliothèque de deux cents volumes reliés cuir, des tapisseries et statues de collection, les titres de propriété d'un <strong>manoir fortifié avec terres agricoles</strong> et de <strong>trois maisons de ville</strong> dans différentes cités, ainsi que les contrats de <strong>deux cents esclaves</strong> (domestiques, spécialistes, concubines qualifiés, artisans) et une compagnie de <strong>vingt mercenaires vétérans</strong> sous contrat annuel.</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <!-- Niveau 4 -->
-        <table class="table-tresors">
-            <tbody>
-                <tr>
-                    <td style="text-align: center;"><strong>4</strong></td>
-                    <td>Une richesse inquantifiable : de quoi fonder un royaume ou acheter une flotte.</td>
-                    <td>Une salle du trésor comptant des <strong>tonnes de lingots d'or, d'argent pur, de Mithril et d'Adamantite</strong>, une armurerie contenant cent <strong>harnois de maître</strong> et leurs destriers, une <strong>flotte marchande de dix galions</strong> avec leurs cargaisons de soie et d'épices, les titres de propriété d'un <strong>château fort avec ville fortifiée de mille âmes</strong> et de plusieurs domaines seigneuriaux, les registres d'un <strong>monopole commercial sur l'ivoire et les métaux précieux</strong> couvrant trois provinces, et les contrats de <strong>mille esclaves</strong> administratifs, de luxe et de labeur gérant une <strong>traite d'esclaves à échelle continentale</strong>.</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-        
-        <div class="content-card">
-            <h4>Matériaux et composants</h4>
-            <p>Certaines créatures fournissent des matériaux bruts récupérables (cf. Livret 5, Bestiaire) : soie d'araignée, écailles de dragon, cuir de wyverne, chitine, etc. Ces ressources brutes ne constituent pas une UB à elles seules mais s'ajoutent au butin standard ou servent à la fabrication d'objets exceptionnels (Section 10).</p>
-            <p class="italic">Note : Les armures et armes mentionnées dans ces tableaux correspondent aux équipements manufacturés standard. Les objets magiques restent exceptionnels et ne font pas partie de l'UB standard (sauf indication contraire au niveau 4).</p>
-        </div>
+<h2 id="section-tresors">7. Décrire un Trésor</h2>
 
-        <div class="page-break"></div>
+<p>Le MJ décrit un ensemble cohérent d'objets dont la valeur totale correspond au niveau de l'UB. Ces descriptions reflètent le train de vie et la puissance économique du défunt (cf. Chapitre 1) : un niveau 2 permet d'entretenir des serviteurs et des propriétés multiples, un niveau 3 constitue une fortune seigneuriale avec armée privée, et un niveau 4 représente une richesse dynastique inquantifiable.</p>
 
-        <div class="content-section" id="section-armures">
-            <h2>8. Armures et Boucliers</h2>
-            <p>Le port d'une armure confère une protection supplémentaire (bonus de résistance) s'ajoutant à celle déjà possédée, mais impose généralement des contraintes, se traduisant par des malus cumulatifs sur certains talents.<br>
-            Tout personnage souhaitant se protéger doit d'abord revêtir une armure légère (Gambison ou Cuir). Il peut ensuite y ajouter d'autres éléments (Mailles et/ou Plaques) pour en augmenter la Résistance et la Durabilité, au prix de malus cumulatifs.</p>
-            
-            <h3 id="section-armures-table">Tableau des Armures</h3>
-            <div class="content-card">
-            <!-- Armure de Base -->
-            <table class="table-armures">
-                <thead>
-                    <tr>
-                        <th>Armure</th>
-                        <th>Durabilité</th>
-                        <th>Bonus de Résistance</th>
-                        <th>Malus (additionnels et cumulatifs)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Base (Gambison ou Cuir)</strong></td>
-                        <td style="text-align: center;">6</td>
-                        <td>+1 (Tronc et Membres)</td>
-                        <td>-1 au score d'attaque utilisé pour lancer un sort (s'il cible/inclut des ennemis).*</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <!-- + Mailles -->
-            <table class="table-armures">
-                <tbody>
-                    <tr>
-                        <td><strong>+ Mailles (Cotte de Mailles)</strong></td>
-                        <td style="text-align: center;">+2 (Total 8)</td>
-                        <td>+1 (Tronc et Membres, Total +2)</td>
-                        <td>ET -1 aux Talents : Mécanique et Fourberie.**</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <!-- + Plaques -->
-            <table class="table-armures">
-                <tbody>
-                    <tr>
-                        <td><strong>+ Plaques (Brigandine)</strong></td>
-                        <td style="text-align: center;">+2 (Total 8)</td>
-                        <td>+1 (Tronc et Membres, Total +2)</td>
-                        <td>ET -1 aux Talents : Aptitude Féline et Athlétisme.***</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <!-- + Mailles et Plaques -->
-            <table class="table-armures">
-                <tbody>
-                    <tr>
-                        <td><strong>+ Mailles et Plaques (Harnois)</strong></td>
-                        <td style="text-align: center;">+4 (Total 10)</td>
-                        <td>+2 (Tronc et Membres, Total +3)</td>
-                        <td>ET -1 aux Talents : Mécanique, Fourberie, Aptitude Féline, Athlétisme et Perception.</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <!-- + Protection tête -->
-            <table class="table-armures">
-                <tbody>
-                    <tr>
-                        <td><strong>+ protection tête (Casque)</strong></td>
-                        <td style="text-align: center;">= Type d'armure</td>
-                        <td>= Type d'armure (tête)</td>
-                        <td>-1 aux Talents : Perception et Aptitude Féline.</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
+<div class="card-start"></div>
+<div class="rule-item tresors-grid header">
+    <div>Niveau</div>
+    <div>Description</div>
+    <div>Contenu</div>
+</div>
+<div class="rule-item tresors-grid">
+    <div><strong>0</strong></div>
+    <div>Une petite trouvaille qui assure quelques jours de survie.</div>
+    <div>Une poignée de deniers de cuivre, une besace de toile trouée, un couteau de métal émoussé, quelques lacets de cuir et une couverture en loques.</div>
+</div>
+<div class="rule-item tresors-grid">
+    <div><strong>1</strong></div>
+    <div>L'équipement complet et le capital pour s'établir comme artisan ou milicien.</div>
+    <div>Une bourse de cuir souple remplie de pièces d'argent, une lance de facture correcte, un gambison de cuir teinté, une charrette à bras en bon état et le contrat de propriété d'un esclave de labeur.</div>
+</div>
+<div class="rule-item tresors-grid">
+    <div><strong>2</strong></div>
+    <div>La fortune d'un homme d'affaires prospère : de quoi établir un train de vie avec serviteurs et commerces.</div>
+    <div>Un coffre-fort de fer contenant plusieurs milliers de pièces d'argent, trois cottes de mailles ou brigandines neuves pour une escorte, une bague de négociant en argent, les titres de propriété d'une maison de ville avec entrepôt attenant, d'une ferme avec granges et bois, cinq chevaux de trait avec leurs charrettes, et les contrats de vingt esclaves de maison et de labeur (cuisinier, palefrenier, gardes, manœuvres).</div>
+</div>
+<div class="rule-item tresors-grid">
+    <div><strong>3</strong></div>
+    <div>La richesse d'un grand seigneur capable d'armer une compagnie et d'entretenir plusieurs demeures.</div>
+    <div>Un coffre de chêne massif cerclé d'or renfermant plusieurs milliers de pièces d'or, dix harnois complets avec leurs destriers caparaçonnés pour une escorte d'élite, une bibliothèque de deux cents volumes reliés cuir, des tapisseries et statues de collection, les titres de propriété d'un manoir fortifié avec terres agricoles et de trois maisons de ville dans différentes cités, ainsi que les contrats de deux cents esclaves (domestiques, spécialistes, concubines qualifiés, artisans) et une compagnie de vingt mercenaires vétérans sous contrat annuel.</div>
+</div>
+<div class="rule-item tresors-grid">
+    <div><strong>4</strong></div>
+    <div>Une richesse inquantifiable : de quoi fonder un royaume ou acheter une flotte.</div>
+    <div>Une salle du trésor comptant des tonnes de lingots d'or, d'argent pur, de Mithril et d'Adamantite, une armurerie contenant cent harnois de maître et leurs destriers, une flotte marchande de dix galions avec leurs cargaisons de soie et d'épices, les titres de propriété d'un château fort avec ville fortifiée de mille âmes et de plusieurs domaines seigneuriaux, les registres d'un monopole commercial sur l'ivoire et les métaux précieux couvrant trois provinces, et les contrats de mille esclaves administratifs, de luxe et de labeur gérant une traite d'esclaves à échelle continentale.</div>
+</div>
+<div class="card-end"></div>
 
-            <p class="text-sm italic mt-2">
-            * <strong>Chaleur Arcane :</strong> La magie offensive se distingue par la manifestation d'une chaleur excessive dégageant du corps du lanceur, rendant le port d'une armure particulièrement inconfortable lors de l'incantation. Ce phénomène s'applique même par grand froid et se traduit par le malus de -1 au Score d'Attaque. De fait, les magiciens offensifs privilégient généralement des tenues légères. L'origine de cette chaleur reste mystérieuse – aucune théorie ne fait l'unanimité. Étrangement, certaines créatures (ex. : Ogre Mage, Dragon Véritable) ne manifestent pas cet effet secondaire, étayant les spéculations les plus ésotériques sur la nature différente de leur magie innée.</br>
-            ** Les gants de mailles gênent le toucher et ajoutent une épaisseur encombrante aux mains. Les enlever supprime le malus mais aussi le bonus de résistance aux membres.<br>
-            *** La rigidité globale de l'armure entrave globalement les mouvements. Les gants ont des plaques qui recouvrent uniquement le dessus de la main, ne gênant pas l'utilisateur pour accomplir des tâches liées à la mécanique ou à la fourberie.
-            </p>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p><strong>Matériaux et composants</strong></p>
+</div>
+<div class="rule-item">
+    <p>Certaines créatures fournissent des matériaux bruts récupérables (cf. Livret 5, Bestiaire) : soie d'araignée, écailles de dragon, cuir de wyverne, chitine, etc. Ces ressources brutes ne constituent pas une UB à elles seules mais s'ajoutent au butin standard ou servent à la fabrication d'objets exceptionnels (Section 10).</p>
+</div>
+<div class="rule-item">
+    <p>Note : Les armures et armes mentionnées dans ces tableaux correspondent aux équipements manufacturés standard. Les objets magiques restent exceptionnels et ne font pas partie de l'UB standard (sauf indication contraire au niveau 4).</p>
+</div>
+<div class="card-end"></div>
 
-            <img src="armures.png" alt="Illustration armures TRAME" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: block; margin-top: 2rem;">
-            
-            <h3 id="section-boucliers-table" class="mt-6">Tableau des Boucliers</h3>
-            <div class="content-card">
-            <table class="table-boucliers">
-                <thead>
-                    <tr>
-                        <th>Équipement</th>
-                        <th>Durabilité</th>
-                        <th>Bonus</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Bouclier</strong></td>
-                        <td style="text-align: center;">12</td>
-                        <td>+1 Défense vs Direct sauf dos si utilisé activement, ou +1 Défense vs Direct dos si porté dans le dos.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="page-break"></div>
 
-        <div class="page-break"></div>
-            
-        <div class="content-section" id="section-regle-usure">
-            <h3>Règle d'Usure (Durabilité)</h3>
-            <div class="content-card">
-            <p class="mb-4">Les armures et les boucliers ne sont pas éternels. Ils possèdent un score de Durabilité. Lorsque le personnage subit une attaque, l'armure perd 1 Point de Durabilité si elle est "nécessaire" pour éviter l'Impact.</p>
-            <ul class="dash-list space-y-2">
-                <li>
-                    <strong>La Condition</strong>
-                    <p>L'usure s'applique si le score de Défense sans le bonus d'armure aurait entraîné une "Supériorité (Attaque > Défense)", mais que le bonus d'armure permet d'atteindre l'Égalité (Compteur) ou la Supériorité de Défense.</p>
-                </li>
-                <li>
-                    <strong>Bris de l'armure</strong>
-                    <p>Si la Durabilité tombe à 0, l'armure est inutilisable et ne confère plus aucun bonus de Résistance jusqu'à réparation (Test de Mécanique ou Magie de Restauration).</p>
-                </li>
-            </ul>
-            </div>
-        </div>
+<h2 id="section-armures">8. Armures et Boucliers</h2>
+
+<p>Le port d'une armure confère une protection supplémentaire (bonus de résistance) s'ajoutant à celle déjà possédée, mais impose généralement des contraintes, se traduisant par des malus cumulatifs sur certains talents.</p>
+<p>Tout personnage souhaitant se protéger doit d'abord revêtir une armure légère (Gambison ou Cuir). Il peut ensuite y ajouter d'autres éléments (Mailles et/ou Plaques) pour en augmenter la Résistance et la Durabilité, au prix de malus cumulatifs.</p>
+
+<h3 id="section-armures-table">Tableau des Armures</h3>
+
+<div class="card-start"></div>
+<div class="rule-item armures-grid header">
+    <div>Armure</div>
+    <div>Durabilité</div>
+    <div>Bonus de Résistance</div>
+    <div>Malus (additionnels et cumulatifs)</div>
+</div>
+<div class="rule-item armures-grid">
+    <div><strong>Base (Gambison ou Cuir)</strong></div>
+    <div>6</div>
+    <div>+1 (Tronc et Membres)</div>
+    <div>-1 au score d'attaque utilisé pour lancer un sort (s'il cible/inclut des ennemis).*</div>
+</div>
+<div class="rule-item armures-grid">
+    <div><strong>+ Mailles (Cotte de Mailles)</strong></div>
+    <div>+2 (Total 8)</div>
+    <div>+1 (Tronc et Membres, Total +2)</div>
+    <div>ET -1 aux Talents : Mécanique et Fourberie.**</div>
+</div>
+<div class="rule-item armures-grid">
+    <div><strong>+ Plaques (Brigandine)</strong></div>
+    <div>+2 (Total 8)</div>
+    <div>+1 (Tronc et Membres, Total +2)</div>
+    <div>ET -1 aux Talents : Aptitude Féline et Athlétisme.***</div>
+</div>
+<div class="rule-item armures-grid">
+    <div><strong>+ Mailles et Plaques (Harnois)</strong></div>
+    <div>+4 (Total 10)</div>
+    <div>+2 (Tronc et Membres, Total +3)</div>
+    <div>ET -1 aux Talents : Mécanique, Fourberie, Aptitude Féline, Athlétisme et Perception.</div>
+</div>
+<div class="rule-item armures-grid">
+    <div><strong>+ protection tête (Casque)</strong></div>
+    <div>= Type d'armure</div>
+    <div>= Type d'armure (tête)</div>
+    <div>-1 aux Talents : Perception et Aptitude Féline.</div>
+</div>
+<div class="card-end"></div>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>* Chaleur Arcane : La magie offensive se distingue par la manifestation d'une chaleur excessive dégageant du corps du lanceur, rendant le port d'une armure particulièrement inconfortable lors de l'incantation. Ce phénomène s'applique même par grand froid et se traduit par le malus de -1 au Score d'Attaque. De fait, les magiciens offensifs privilégient généralement des tenues légères. L'origine de cette chaleur reste mystérieuse – aucune théorie ne fait l'unanimité. Étrangement, certaines créatures (ex. : Ogre Mage, Dragon Véritable) ne manifestent pas cet effet secondaire, étayant les spéculations les plus ésotériques sur la nature différente de leur magie innée.</p>
+</div>
+<div class="rule-item">
+    <p>** Les gants de mailles gênent le toucher et ajoutent une épaisseur encombrante aux mains. Les enlever supprime le malus mais aussi le bonus de résistance aux membres.</p>
+</div>
+<div class="rule-item">
+    <p>*** La rigidité globale de l'armure entrave globalement les mouvements. Les gants ont des plaques qui recouvrent uniquement le dessus de la main, ne gênant pas l'utilisateur pour accomplir des tâches liées à la mécanique ou à la fourberie.</p>
+</div>
+<div class="card-end"></div>
+
+<img src="armures.png" alt="Illustration armures TRAME" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: block; margin-top: 2rem;">
+
+<h3 id="section-boucliers-table">Tableau des Boucliers</h3>
+
+<div class="card-start"></div>
+<div class="rule-item boucliers-grid header">
+    <div>Équipement</div>
+    <div>Durabilité</div>
+    <div>Bonus</div>
+</div>
+<div class="rule-item boucliers-grid">
+    <div><strong>Bouclier</strong></div>
+    <div>12</div>
+    <div>+1 Défense vs Direct sauf dos si utilisé activement, ou +1 Défense vs Direct dos si porté dans le dos.</div>
+</div>
+<div class="card-end"></div>
+
+<div class="page-break"></div>
+
+<h3 id="section-regle-usure">Règle d'Usure (Durabilité)</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Les armures et les boucliers ne sont pas éternels. Ils possèdent un score de Durabilité. Lorsque le personnage subit une attaque, l'armure perd 1 Point de Durabilité si elle est "nécessaire" pour éviter l'Impact.</p>
+</div>
+<div class="rule-item">
+    <p><strong>La Condition</strong></p>
+</div>
+<div class="rule-item">
+    <p>L'usure s'applique si le score de Défense sans le bonus d'armure aurait entraîné une "Supériorité (Attaque > Défense)", mais que le bonus d'armure permet d'atteindre l'Égalité (Compteur) ou la Supériorité de Défense.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Bris de l'armure</strong></p>
+</div>
+<div class="rule-item">
+    <p>Si la Durabilité tombe à 0, l'armure est inutilisable et ne confère plus aucun bonus de Résistance jusqu'à réparation (Test de Mécanique ou Magie de Restauration).</p>
+</div>
+<div class="card-end"></div>
 
         <div class="page-break"></div>
 
