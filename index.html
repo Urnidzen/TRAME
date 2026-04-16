@@ -24,625 +24,195 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;500;600;700" rel="stylesheet">
     <script src="registre.js"></script>
 
-    <style>
-        :root {
-            --parchment: #e3d5b8;
-            --dark-ink: #1c1917;
-            --accent: #7c2d12;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-        html, body { 
-            height: 100%; 
-            width: 100%;
-            overflow: hidden; 
-        }
-
-        body {
-            background-color: #2c2520;
-            background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--dark-ink);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, h4, .font-cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
-
-        .sidebar-container {
-            position: fixed;
-            left: 0; top: 0; height: 100vh;
-            z-index: 100;
-            display: flex;
-            transform: translateX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar-container.closed { transform: translateX(-320px); }
-
-        .sidebar {
-            width: 320px;
-            height: 100%;
-            background: #f4ecd8;
-            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
-            border-right: 3px solid #1c1917;
-            overflow-y: auto;
-            padding: 20px;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.3);
-        }
-
-        .tab-handle {
-            width: 25px; height: 105px;
-            background: #f5f5f0;
-            border: 2px solid #1c1917;
-            border-left: none;
-            border-radius: 0 12px 12px 0;
-            align-self: center;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 3px 0 10px rgba(0,0,0,0.4);
-            transition: all 0.2s;
-            margin-left: -2px;
-        }
-
-        .tab-handle:hover { background: #ffffff; }
-
-        .tab-text {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            color: #1c1917;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            transform: rotate(180deg);
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .search-container {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(0,0,0,0.2);
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #1c1917;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.9);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
-        }
-
-        .doc-item { margin-bottom: 8px; }
-
-        .doc-header {
-            display: flex; align-items: center; gap: 10px;
-            padding: 12px;
-            background: rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .doc-header:hover { background: rgba(124, 45, 18, 0.1); }
-        .doc-header.active { background: rgba(124, 45, 18, 0.2); border-left: 4px solid #7c2d12; }
-
-        .doc-icon { font-size: 1.2rem; }
-        .doc-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.9rem; }
-        .doc-subtitle { font-size: 0.75rem; opacity: 0.7; margin-top: 2px; }
-
-        .doc-index {
-            margin-top: 8px; margin-left: 10px; padding-left: 15px;
-            border-left: 2px solid rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .doc-index.expanded { display: block; }
-
-        .index-item {
-            padding: 8px 10px; font-size: 0.85rem; cursor: pointer;
-            border-radius: 4px; transition: all 0.2s; margin-bottom: 4px;
-        }
-
-        .index-item:hover { background: rgba(124, 45, 18, 0.1); padding-left: 15px; }
-
-        .main-container {
-            margin-left: 320px; 
-            height: 100vh;
-            width: calc(100% - 320px);
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            transition: margin-left 0.3s, width 0.3s;
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
-            /* Gardez le fond bois visible autour des pages */
-            background-color: #2c2520;
-            background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
-        }
-        
-        .main-container::-webkit-scrollbar { display: none; }
-        .main-container.sidebar-closed { margin-left: 0; width: 100%; }
-
-        .book-spreads-wrapper {
-            display: flex; flex-direction: column; width: 100%;
-        }
-
-        .book-spread {
-            display: flex; 
-            gap: 0; 
-            width: calc(100% - 60px);      /* Marge de 30px de chaque côté */
-            height: calc(100vh - 60px);    /* Marge de 30px en haut/bas */
-            margin: 30px auto;             /* Centré avec marges */
-            scroll-snap-align: center;
-            scroll-snap-stop: always; 
-            flex-shrink: 0; 
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 
-                0 10px 40px rgba(0,0,0,0.6),
-                0 0 0 1px rgba(0,0,0,0.2);
-            overflow: hidden;
-            background: #1a1612;
-            z-index: 1;
-        }
-
-        .page {
-            flex: 1; height: 100%;
-            background: #e3d5b8;
-            background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
-            padding: 50px 60px 80px 60px;
-            position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: flex-start;
-        }
-
-        .page-left { 
-            border-right: 1px solid rgba(0,0,0,0.1); 
-            box-shadow: inset -10px 0 20px rgba(0,0,0,0.05); 
-        }
-        .page-right { 
-            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05); 
-        }
-
-        .content-wrapper { 
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .content-section { margin-bottom: 1.5rem; }
-        .content-section h2, .page h2 {
-            font-size: 1.5rem;
-            border-bottom: 2px solid #1c1917;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            margin-top: 3.5rem;}
-
-        .content-section h3, .page h3 {
-            font-size: 1.25rem;
-            border-bottom: 1px solid rgba(28, 25, 23, 0.4);
-            padding-bottom: 0.3rem;
-            margin-bottom: 0.8rem;
-            margin-top: 3rem;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 0.05em;
-            color: #1c1917;
-        }
-        
-        .content-section h4, .page h4{
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            margin-top: 2.5rem;
-            color: #1c1917;
-            border-left: 3px solid #7c2d12;
-            padding-left: 0.8rem;
-            font-family: 'Cinzel', serif;
-        }
-
-        /* Si un titre est le premier élément de la page, pas de marge au-dessus */
-        .page h2:first-child,
-        .page h3:first-child, 
-        .page h4:first-child {
-            margin-top: 0 !important;
-        }
-
-        .page .content-wrapper table + h2,
-        .page .content-wrapper table + h3,
-        .page .content-wrapper table + .section-title-isolated {
-            margin-top: 3.2rem !important;
-        }
-        
-        .content-card {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 1.2rem; margin-bottom: 1.2rem; border-radius: 4px;
-        }
-
-        /* La fausse liste pour contourner le bug de pagination JS */
-        .pseudo-li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 0.5rem;
-            display: block; /* S'assure que le paragraphe se comporte bien comme un bloc */
-        }
-        
-        .pseudo-li:before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: #7c2d12;
-            font-weight: bold;
-        }
-
-        .pseudo-li-level2 {
-            padding-left: 40px !important;
-            position: relative;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        
-        .pseudo-li-level2:before {
-            content: "—";
-            position: absolute;
-            left: 20px;
-            color: #7c2d12;
-            font-weight: bold;
-        }
-        
-        .dash-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .dash-list li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 0.5rem;
-        }
-        
-        .dash-list li:before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: #7c2d12;
-            font-weight: bold;
-        }
-        ul, ol {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
-        }
-        li {
-            margin-bottom: 0.3rem;
-        }
-        
-        .list-two-columns {
-            column-count: 2;
-            column-gap: 2rem;
-        }
-
-        .list-two-columns li {
-            break-inside: avoid;
-            margin-bottom: 0.5rem; /* Remplace space-y-2 qui peut poser problème en colonnes */
-        }
-        
-        .rule-box { border-left: 4px solid #7c2d12; background: rgba(124, 45, 18, 0.05); padding: 1rem; margin: 1.2rem 0; }
-
-        img {
-            max-width: 100%; height: auto; display: block;
-        }
-
-        /* Structure "plaquée" - éléments individuels découpables */
-        .rule-item, .table-row, .card-line {
-            display: block;
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-             
-        .rule-item {
-            background: rgba(255,255,255,0.3);
-            padding-left: 1.2rem;  /* aligné avec le haut */
-            padding-right: 1.2rem;
-            padding-top: 0.3rem;
-            padding-bottom: 0.3rem;
-            margin-left: 0;  /* supprime le décalage */
-            margin-bottom: 0; /* colle au suivant */
-        }
-        
-        .table-row {
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding: 0.4rem 0;
-        }
-        
-        /* Simulation visuelle des content-cards avec des lignes successives */
-        .card-start {
-            border-top: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.3);
-            padding-left: 1.2rem;
-            padding-right: 1.2rem;
-            padding-top: 0.5rem;
-            border-radius: 4px 4px 0 0;
-            margin-top: 1rem;
-            margin-bottom: 0;
-        }
-        
-        .card-line {
-            border-left: 4px solid #7c2d12;
-            background: rgba(255,255,255,0.3);
-            padding-left: 1.2rem;
-            padding-right: 1.2rem;
-            margin: 0;
-        }
-        
-        .card-end {
-            background: rgba(255,255,255,0.3);
-            padding-left: 1.2rem;  /* aligné avec le reste */
-            padding-right: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-radius: 0 0 4px 4px;
-            margin-top: 0;
-            margin-bottom: 1rem;
-        }
-        
-        .sheet-container-frame {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-        }
-
-        .char-sheet-frame {
-            background: transparent;
-            border: none;
-            width: 794px;
-            height: 1123px;
-        }
-
-        .sheet-placeholder-text {
-            font-family: 'Cinzel', serif; 
-            text-align: center; 
-            color: #7c2d12;
-            margin-top: 30vh;
-            padding: 0 40px;
-        }
-
-        .new-char-btn {
-            background: transparent;
-            border: 2px solid #7c2d12;
-            color: #7c2d12;
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            padding: 15px 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .new-char-btn:hover {
-            background: #7c2d12;
-            color: #f4ecd8;
-        }
-
-        .big-plus { font-size: 2rem; }
-
-        .legal-notice {
-            position: absolute;
-            bottom: 0.8rem;
-            left: 0;  
-            width: 100%;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 0.4rem;
-            color: rgba(28, 25, 23, 0.6);
-            pointer-events: none;
-            line-height: 1.4;
-            padding: 0px 20px;
-            z-index: 10;
-        }
-
-        .page-number {
-            position: absolute;
-            bottom: 1.8rem;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            color: rgba(28, 25, 23, 0.5);
-            pointer-events: none;
-            z-index: 10;
-            padding-bottom: 0; 
-        }
-
-        .section-title-isolated {
-            font-size: 1.5rem;
-            border-bottom: 2px solid #1c1917;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 0.05em;
-        }
-
-        .index-item.expanded {
-            background: rgba(124, 45, 18, 0.15);
-            font-weight: 600;
-        }
-        
-        .index-item:hover {
-            background: rgba(124, 45, 18, 0.1);
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar-container { transform: translateX(-320px); }
-            .sidebar-container:not(.closed) { transform: translateX(0); }
-            
-            .main-container { 
-                margin-left: 0 !important; 
-                width: 100% !important;
-                height: 100dvh;                    /* CRUCIAL : même unité que les spreads */
-                scroll-snap-type: y mandatory;     /* Garder le snap */
-            }
-            
-            .book-spread {
-                width: calc(100% - 20px);
-                height: calc(100dvh - 20px);       /* 10px marge haut + 10px bas */
-                margin: 10px auto;
-                border-radius: 4px;
-                scroll-snap-align: start;          /* Forcer l'alignement début */
-                scroll-snap-stop: always;          /* Forcer le snap segmenté */
-                scroll-margin: 10px 0;
-            }
-            
-            .page { 
-                padding: 30px 20px 60px 20px; 
-                width: 100%; 
-                height: 100%;
-                min-height: unset;
-                display: flex;           /* S'assurer que c'est là */
-                flex-direction: column;  /* S'assurer que c'est là */
-            }
-            
-            .page-right { display: none; }
-            
-            .book-spread.sheet-mode .page-left { display: none; }
-            .book-spread.sheet-mode .page-right { 
-                display: flex; 
-                width: 100%; 
-                height: 100%;
-            }
-        }
-
-        @media print {
-            @page {
-               margin: 0;
-            }
-            
-            html, body, .main-container, .book-spreads-wrapper {
-                height: auto !important;
-                overflow: visible !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                background: none !important;
-            }
-
-            .sidebar-container, .tab-handle, #searchInput, .new-char-btn {
-                display: none !important;
-            }
-
-            .book-spread {
-                display: block !important;
-                width: 100% !important;          /* Pleine largeur pour l'impression */
-                height: auto !important;
-                margin: 0 !important;            /* Pas de marge */
-                border-radius: 0 !important;
-                box-shadow: none !important;
-                page-break-after: always !important;
-                break-after: page !important;
-            }
-
-            .book-spread:last-of-type {
-                page-break-after: auto !important;
-                break-after: auto !important;
-            }
-
-    .page {
-        height: 297mm !important;           /* Hauteur fixe A4 */
-        min-height: 297mm !important;
-        width: 210mm !important;            /* Largeur A4 */
-        position: relative !important;       /* Référence pour le positionnement absolu */
-        display: block !important;
-        border: none !important;
-        box-shadow: none !important;
-        margin: 0 auto !important;          /* Centré */
-        padding: 1cm 1cm 2.5cm 1cm !important; /* Bas augmenté pour laisser la place au footer */
-        box-sizing: border-box !important;
-        overflow: hidden !important;         /* Empêche le débordement */
-        
-        page-break-inside: avoid !important;
-        page-break-after: always !important;
-        break-after: page !important;
+<style>
+    :root {
+        --parchment: #e3d5b8;
+        --dark-ink: #1c1917;
+        --accent: #7c2d12;
     }
 
-        /* Fixe le texte légal en bas */
-        .legal-notice {
-            position: absolute !important;
-            bottom: 0.8cm !important;           /* Distance du bas de page */
-            left: 0 !important;
-            width: 100% !important;
-            text-align: center !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            font-size: 8pt !important;
-        }
-    
-        /* Fixe le numéro de page juste au-dessus */
-        .page-number {
-            position: absolute !important;
-            bottom: 1.8cm !important;           /* Au-dessus du legal-notice */
-            left: 0 !important;
-            width: 100% !important;
-            text-align: center !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            font-size: 10pt !important;
-        }
-    
-        /* S'assure que le contenu ne déborde pas sur le footer */
-        .content-wrapper {
-            height: calc(100% - 2.5cm) !important;
-            overflow: hidden !important;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-            .page:last-of-type {
-                page-break-after: auto !important;
-                break-after: auto !important;
-            }
+    html, body { 
+        height: 100%; 
+        width: 100%;
+        overflow: hidden; 
+    }
 
-            .page-left, .page-right {
-                display: block !important;
-            }
+    body {
+        background-color: #2c2520;
+        background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+        font-family: 'Cormorant Garamond', serif;
+        color: var(--dark-ink);
+        line-height: 1.6;
+    }
 
-            .sheet-container-frame {
-                position: relative !important;
-                width: 794px !important;
-                height: 1123px !important;
-                overflow: hidden !important;
-                margin: 0 auto !important;
-                page-break-inside: avoid !important;
-            }
+    h1, h2, h3, h4, .font-cinzel { 
+        font-family: 'Cinzel', serif; 
+        letter-spacing: 0.05em; 
+    }
+
+    /* ==================== INTERFACE ==================== */
+    .sidebar-container {
+        position: fixed;
+        left: 0; top: 0; height: 100vh;
+        z-index: 100;
+        display: flex;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+    .sidebar-container.closed { transform: translateX(-320px); }
+
+    .sidebar {
+        width: 320px;
+        height: 100%;
+        background: #f4ecd8;
+        background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+        border-right: 3px solid #1c1917;
+        overflow-y: auto;
+        padding: 20px;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+
+    .tab-handle {
+        width: 25px; height: 105px;
+        background: #f5f5f0;
+        border: 2px solid #1c1917;
+        border-left: none;
+        border-radius: 0 12px 12px 0;
+        align-self: center;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 3px 0 10px rgba(0,0,0,0.4);
+    }
+    .tab-handle:hover { background: #ffffff; }
+
+    .tab-text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        color: #1c1917;
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+        transform: rotate(180deg);
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid #1c1917;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.9);
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1rem;
+    }
+
+    .doc-header {
+        display: flex; align-items: center; gap: 10px;
+        padding: 12px;
+        background: rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .doc-header:hover { background: rgba(124, 45, 18, 0.1); }
+    .doc-header.active { background: rgba(124, 45, 18, 0.2); border-left: 4px solid #7c2d12; }
+
+    .main-container {
+        margin-left: 320px; 
+        height: 100vh;
+        width: calc(100% - 320px);
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        background-color: #2c2520;
+        background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+    }
+    .main-container.sidebar-closed { margin-left: 0; width: 100%; }
+
+    .book-spread {
+        display: flex; 
+        gap: 0; 
+        width: calc(100% - 60px);
+        height: calc(100vh - 60px);
+        margin: 30px auto;
+        scroll-snap-align: center;
+        flex-shrink: 0;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        overflow: hidden;
+        background: #1a1612;
+    }
+
+    .page {
+        flex: 1; height: 100%;
+        background: #e3d5b8;
+        background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+        padding: 50px 60px 80px 60px;
+        display: flex; flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .page-left { border-right: 1px solid rgba(0,0,0,0.1); }
     
-            .char-sheet-frame {
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                transform: none !important;
-                width: 794px !important;
-                height: 1123px !important;
-                box-shadow: none !important;
-                margin: 0 !important;
-                display: block !important;
-                page-break-inside: avoid !important;
-            }
-        }
-        
-        .empty-line {
+    .legal-notice, .page-number {
+        position: absolute;
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        color: rgba(28, 25, 23, 0.5);
+        pointer-events: none;
+    }
+    .legal-notice { bottom: 0.8rem; left: 0; width: 100%; text-align: center; }
+    .page-number { bottom: 1.8rem; left: 0; width: 100%; text-align: center; }
+
+    /* ==================== FICHE PERSONNAGE ==================== */
+    .sheet-container-frame {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .char-sheet-frame {
+        background: transparent;
+        border: none;
+        width: 794px;
+        height: 1123px;
+    }
+
+    /* ==================== MOBILE & PRINT ==================== */
+    @media (max-width: 1024px) {
+        .sidebar-container { transform: translateX(-320px); }
+        .sidebar-container:not(.closed) { transform: translateX(0); }
+        .main-container { margin-left: 0 !important; width: 100% !important; }
+        .book-spread { width: calc(100% - 20px); height: calc(100dvh - 20px); margin: 10px auto; }
+        .page-right { display: none; }
+        .book-spread.sheet-mode .page-left { display: none; }
+        .book-spread.sheet-mode .page-right { display: flex; width: 100%; }
+    }
+
+    @media print {
+        @page { margin: 0; }
+        .sidebar-container, .tab-handle { display: none !important; }
+        .book-spread {
             display: block;
-            height: 1.6rem;  /* Hauteur d'une ligne de texte standard */
-            width: 100%;
+            width: 210mm !important;
+            height: 297mm !important;
+            margin: 0 auto;
+            page-break-after: always;
         }
-        
-    </style>
+        .page {
+            height: 297mm !important;
+            width: 210mm !important;
+            padding: 1cm 1cm 2.5cm 1cm !important;
+            margin: 0 auto;
+        }
+        .legal-notice { bottom: 0.8cm !important; font-size: 8pt; }
+        .page-number { bottom: 1.8cm !important; font-size: 10pt; }
+    }
+</style>
 
 <script type="application/ld+json">
     {
