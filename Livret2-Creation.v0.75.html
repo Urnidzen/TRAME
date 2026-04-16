@@ -58,61 +58,41 @@
     flex: 1;
   }
 
-/* Grille 4 colonnes pour les tableaux d'espèces */
-.especes-header,
-.especes-row {
-  display: grid; !important;
+/* Tableau d'espèces - Grille 4 colonnes */
+.especes-grid {
+  display: grid;
   grid-template-columns: 0.8fr 2fr 2fr 1.2fr;
-  gap: 1.5rem;
-  align-items: start;
+  gap: 0.5rem 1.5rem;  /* vertical horizontal */
+  align-items: baseline;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
-.especes-header {
+.especes-grid:first-of-type {
   font-weight: bold;
-  border-bottom: 1px solid #1c1917;
-  padding-bottom: 0.3rem;
-  margin-bottom: 0.3rem;
+  border-bottom: 2px solid #1c1917;
   font-family: 'Cinzel', serif;
   letter-spacing: 0.05em;
+  padding-top: 0;
 }
 
-.especes-row {
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding: 0.6rem 0;
-}
-
-.especes-row:last-child {
+.especes-grid:last-of-type {
   border-bottom: none;
 }
 
-/* RÈGLES CORRIGÉES - Ciblage direct des div enfants */
-.especes-row > div,
-.especes-header > div {
-  padding: 0 0.5rem;  /* Respiration gauche/droite pour toutes les cellules */
-}
-
 /* Première colonne (Race) */
-.especes-row > div:first-child,
-.especes-header > div:first-child {
-  padding-left: 1rem; !important;
+.especes-grid > :first-child {
   color: #7c2d12;
   font-weight: 600;
+  padding-left: 0.5rem;
 }
 
-/* Dernière colonne (Rôle) */
-.especes-row > div:last-child,
-.especes-header > div:last-child {
-  padding-right: 2rem; !important;
+/* Dernière colonne (Rôle) - alignement droit optionnel */
+.especes-grid > :last-child {
   text-align: left;
-}
-
-/* DEBUG - Retire ça quand c'est aligné */
-.especes-header > div,
-.especes-row > div {
-  outline: 1px dotted rgba(124, 45, 18, 0.3);
-  background: rgba(124, 45, 18, 0.05);
+  padding-right: 0.5rem;
 }
 </style>
 
@@ -470,31 +450,31 @@
 Peuplant majoritairement le monde connu. Vous pouvez choisir l'une de ces espèces librement.</p>
 
 <div class="card-start"></div>
-<div class="rule-item especes-header">
+<div class="especes-grid">
     <div>Race</div>
     <div>Talents</div>
     <div>Compétences</div>
     <div>Rôle</div>
 </div>
-<div class="rule-item especes-row">
+<div class="especes-grid">
     <div><strong>Elfe</strong></div>
     <div>Aptitude Féline +1, Perception +1, Survie +1</div>
     <div>2 au choix à +1</div>
     <div>Furtif et fin limier</div>
 </div>
-<div class="rule-item especes-row">
+<div class="especes-grid">
     <div><strong>Nain</strong></div>
     <div>Athlétisme +1, Mécanique +1, Savoir +1</div>
     <div>2 au choix à +1</div>
     <div>Pilier et ingénieur</div>
 </div>
-<div class="rule-item especes-row">
+<div class="especes-grid">
     <div><strong>Orque</strong></div>
     <div>Athlétisme +1, Survie +1</div>
     <div>Saisie +1 et 2 autres</div>
     <div>Corps-à-corps résilient</div>
 </div>
-<div class="rule-item especes-row">
+<div class="especes-grid">
     <div><strong>Humain</strong></div>
     <div>2 au choix à +1</div>
     <div>2 au choix à +1</div>
