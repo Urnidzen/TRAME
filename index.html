@@ -64,6 +64,7 @@
 
         h1, h2, h3, h4, .font-cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
 
+        /* ===== SIDEBAR ===== */
         .sidebar-container {
             position: fixed;
             left: 0; top: 0; height: 100vh;
@@ -166,7 +167,9 @@
         }
 
         .index-item:hover { background: rgba(124, 45, 18, 0.1); padding-left: 15px; }
+        .index-item.expanded { background: rgba(124, 45, 18, 0.15); font-weight: 600; }
 
+        /* ===== MAIN CONTAINER & BOOK SPREADS ===== */
         .main-container {
             margin-left: 320px; 
             height: 100vh;
@@ -230,13 +233,15 @@
             overflow: hidden;
         }
 
+        /* ===== TYPOGRAPHIE & TITRES ===== */
         .content-section { margin-bottom: 1.5rem; }
         .content-section h2, .page h2 {
             font-size: 1.5rem;
             border-bottom: 2px solid #1c1917;
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
-            margin-top: 3.5rem;}
+            margin-top: 3.5rem;
+        }
 
         .content-section h3, .page h3 {
             font-size: 1.25rem;
@@ -249,7 +254,7 @@
             color: #1c1917;
         }
         
-        .content-section h4, .page h4{
+        .content-section h4, .page h4 {
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
@@ -267,16 +272,171 @@
         }
 
         .page .content-wrapper table + h2,
-        .page .content-wrapper table + h3 {
+        .page .content-wrapper table + h3,
+        .page .content-wrapper table + .section-title-isolated {
             margin-top: 3.2rem !important;
         }
-        
-        .rule-box { border-left: 4px solid #7c2d12; background: rgba(124, 45, 18, 0.05); padding: 1rem; margin: 1.2rem 0; }
 
-        img {
-            max-width: 100%; height: auto; display: block;
+        .section-title-isolated {
+            font-size: 1.5rem;
+            border-bottom: 2px solid #1c1917;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== LISTES ===== */
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        .dash-list {
+            list-style: none;
+            padding-left: 0;
         }
         
+        .dash-list li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .dash-list li:before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #7c2d12;
+            font-weight: bold;
+        }
+        
+        .list-two-columns {
+            column-count: 2;
+            column-gap: 2rem;
+        }
+
+        .list-two-columns li {
+            break-inside: avoid;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pseudo-listes (pour la pagination) */
+        .pseudo-li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .pseudo-li:before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #7c2d12;
+            font-weight: bold;
+        }
+
+        .pseudo-li-level2 {
+            padding-left: 40px !important;
+            position: relative;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .pseudo-li-level2:before {
+            content: "—";
+            position: absolute;
+            left: 20px;
+            color: #7c2d12;
+            font-weight: bold;
+        }
+
+        /* ===== CARDS & CONTAINERS ===== */
+        .content-card {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 1.2rem; 
+            margin-bottom: 1.2rem; 
+            border-radius: 4px;
+        }
+
+        .rule-box { 
+            border-left: 4px solid #7c2d12; 
+            background: rgba(124, 45, 18, 0.05); 
+            padding: 1rem; 
+            margin: 1.2rem 0; 
+        }
+
+        /* Simulation visuelle des content-cards avec des lignes successives */
+        .card-start {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.3);
+            padding-left: 1.2rem;
+            padding-right: 1.2rem;
+            padding-top: 0.5rem;
+            border-radius: 4px 4px 0 0;
+            margin-top: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .card-line {
+            border-left: 4px solid #7c2d12;
+            background: rgba(255,255,255,0.3);
+            padding-left: 1.2rem;
+            padding-right: 1.2rem;
+            margin: 0;
+        }
+        
+        .card-end {
+            background: rgba(255,255,255,0.3);
+            padding-left: 1.2rem;
+            padding-right: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-radius: 0 0 4px 4px;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== STRUCTURE "PLAQUÉE" (éléments individuels découpables) ===== */
+        .rule-item, .table-row, .card-line {
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+             
+        .rule-item {
+            background: rgba(255,255,255,0.3);
+            padding-left: 1.2rem;
+            padding-right: 1.2rem;
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+            margin-left: 0;
+            margin-bottom: 0;
+        }
+        
+        .table-row {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 0.4rem 0;
+        }
+
+        .empty-line {
+            display: block;
+            height: 1.6rem;
+            width: 100%;
+        }
+
+        /* ===== IMAGES ===== */
+        img {
+            max-width: 100%; 
+            height: auto; 
+            display: block;
+        }
+
+        /* ===== FICHES PERSONNAGES ===== */
         .sheet-container-frame {
             position: relative;
             overflow: hidden;
@@ -320,6 +480,9 @@
             color: #f4ecd8;
         }
 
+        .big-plus { font-size: 2rem; }
+
+        /* ===== FOOTER ===== */
         .legal-notice {
             position: absolute;
             bottom: 0.8rem;
@@ -349,11 +512,7 @@
             padding-bottom: 0; 
         }
 
-        .index-item.expanded {
-            background: rgba(124, 45, 18, 0.15);
-            font-weight: 600;
-        }
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             .sidebar-container { transform: translateX(-320px); }
             .sidebar-container:not(.closed) { transform: translateX(0); }
@@ -394,6 +553,7 @@
             }
         }
 
+        /* ===== PRINT ===== */
         @media print {
             @page {
                margin: 0;
@@ -440,7 +600,6 @@
                 padding: 1cm 1cm 2.5cm 1cm !important;
                 box-sizing: border-box !important;
                 overflow: hidden !important;
-                
                 page-break-inside: avoid !important;
                 page-break-after: always !important;
                 break-after: page !important;
