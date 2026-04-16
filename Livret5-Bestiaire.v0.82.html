@@ -40,50 +40,7 @@
 </script>
 
 <style>
-/* Grilles pour les tableaux convertis */
-.rule-item.lexique-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.5rem 1rem;
-  align-items: baseline;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.rule-item.lexique-grid.header {
-  font-weight: bold;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid #1c1917;
-}
-
-.rule-item.ressources-grid {
-  display: grid;
-  grid-template-columns: 0.6fr 1fr 2.2fr 3.2fr;
-  gap: 0.5rem 1rem;
-  align-items: baseline;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.rule-item.ressources-grid.header {
-  font-weight: bold;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid #1c1917;
-}
-
-.rule-item.ressources-grid > :first-child {
-  text-align: center;
-  color: #7c2d12;
-  font-weight: 600;
-}
-
-/* Étiquettes de profils et dangerosité */
+/* À garder dans chaque fichier Livret (spécifique au contenu) */
 .tag-danger {
     background: #1c1917;
     color: #f4ecd8;
@@ -101,15 +58,47 @@
     border-radius: 4px;
     font-size: 0.75em;
     font-weight: 600;
-    vertical-align: middle;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-/* Suppression des bordures sur les derniers éléments */
-.rule-item.lexique-grid:last-of-type,
-.rule-item.ressources-grid:last-of-type {
-  border-bottom: none;
+/* Grilles spécifiques au Livret 5 */
+.rule-item.lexique-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.lexique-grid.header {
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid #1c1917;
+}
+
+.rule-item.ressources-grid {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 2.2fr 3.2fr;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.ressources-grid.header {
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid #1c1917;
+}
+
+.rule-item.ressources-grid > :first-child {
+    text-align: center;
+    color: #7c2d12;
+    font-weight: 600;
 }
 </style>
 
