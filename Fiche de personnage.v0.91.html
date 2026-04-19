@@ -251,6 +251,7 @@
                                         <option value="NAIN">NAIN</option>
                                         <option value="ORQUE">ORQUE</option>
                                         <option value="PAGURE">PAGURE</option>
+                                        <option value="OGRE_MAGE">OGRE-MAGE</option>
                                         <option value="DRAGON" hidden>DRAGON</option>
                                     </select>
                                     <input type="hidden" data-id="original-race" value="HUMAIN">
@@ -601,6 +602,8 @@
             "DRAGON_FÉMININ": "portraits/portrait_femme_dragon.png",
             "PAGURE_MASCULIN": "portraits/portrait_homme_pagure.png",
             "PAGURE_FÉMININ": "portraits/portrait_femme_pagure.png",
+            "OGRE_MAGE_MASCULIN": "portraits/portrait_homme_ogre_mage.png",
+            "OGRE_MAGE_FÉMININ": "portraits/portrait_femme_ogre_mage.png"
         };
 
         const state = {
@@ -1078,7 +1081,8 @@
                 "ORQUE": ["athletisme", "survie"],
                 "PAGURE": ["aptitude_feline"],
                 "HUMAIN": [],
-                "DRAGON": []
+                "DRAGON": [],
+                "OGRE_MAGE": ["savoir_acad", "athletisme"]
             }
         };
 
@@ -1283,7 +1287,20 @@
             
             const isOgreMage = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
             const isDragon = bloodSelect && bloodSelect.value === "Dragon";
+            const isOgreMage = raceSelect && raceSelect.value === "OGRE_MAGE";
             const isPagure = raceSelect && raceSelect.value === "PAGURE";
+                // Cacher "Particularité : Sang d'Ogre Mage" si la race est déjà Ogre-Mage
+                if (bloodSelect) {
+                    const bloodContainer = bloodSelect.closest('.flex.items-center');
+                    if (bloodContainer) {
+                        if (isOgreMage) {
+                            bloodContainer.style.display = 'none'; // Cache le menu
+                            if (bloodSelect.value !== "") bloodSelect.value = ""; // Remet à vide
+                        } else {
+                            bloodContainer.style.display = 'flex'; // Montre le menu
+                        }
+                    }
+                }
             
             let isDragonTrueForm = isDragon && shapeSelect && shapeSelect.value === "DRAGON";
             let isDragonPolymorphed = isDragon && shapeSelect && shapeSelect.value !== "DRAGON";
@@ -1386,9 +1403,9 @@
                     const hasFreeHand = isRightFree || isLeftFree || isPagureSansExo; 
                     
                     const isRightCatalyst = !["Main Libre","Torche"].includes(weaponName);
-                    const isLeftCatalyst = offhandName && !["Main Libre","Main Libre (Incantation)","Bouclier","Torche","Occupée","Occupée ou Libre"].includes(offhandName);
-                    
-                    const hasCatalyst = isRightCatalyst || isLeftCatalyst || isOgreMage || isDragon || isPagureSansExo; 
+                    const isLeftCatalyst = offhandSelect.value && !["Main Libre","Main Libre (Incantation)","Bouclier","Torche","Occupée","Occupée ou Libre"].includes(offhandSelect.value);
+
+                    const hasCatalyst = isRightCatalyst || isLeftCatalyst || isOgreMage || isDragonTrueForm || isPagureSansExo;
                     const canCast = hasFreeHand && hasCatalyst;
 
                     const initSpan = find(`init-val-${index}`);
