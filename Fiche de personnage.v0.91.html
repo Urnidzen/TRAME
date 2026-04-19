@@ -251,11 +251,9 @@
                                         <option value="NAIN">NAIN</option>
                                         <option value="ORQUE">ORQUE</option>
                                         <option value="PAGURE">PAGURE</option>
-                                        <option value="OGRE_MAGE">OGRE-MAGE</option>
                                         <option value="DRAGON" hidden>DRAGON</option>
                                     </select>
                                     <input type="hidden" data-id="original-race" value="HUMAIN">
-                                    <input type="hidden" data-id="dragon-poly-state" value="false">
                                 </td>
                                 <td style="padding-right: 15px; vertical-align: bottom;">
                                     <label class="block text-[9px] font-black uppercase tracking-widest mb-1 font-title text-black">Genre</label>
@@ -315,9 +313,9 @@
                                                             </div>
                                                             <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
                                                                 <colgroup><col style="width: auto;"><col style="width: 35px;"></colgroup>
-                                                                <tr class="stat-row"><td class="label-cell">Direct</td><td class="value-cell"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell">Circulaire</td><td class="value-cell"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell">Saisie</td><td class="value-cell"><input type="number" data-id="stat-att-saisie" class="clean-input combat-stat" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell">Direct</td><td class="value-cell"><input type="number" class="clean-input" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell">Circulaire</td><td class="value-cell"><input type="number" class="clean-input" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell">Saisie</td><td class="value-cell"><input type="number" data-id="stat-att-saisie" class="clean-input" value="0"></td></tr>
                                                             </table>
                                                         </td>
                                                         <td style="width: 4%;"></td>
@@ -327,9 +325,9 @@
                                                             </div>
                                                             <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
                                                                 <colgroup><col style="width: auto;"><col style="width: 35px;"></colgroup>
-                                                                <tr class="stat-row"><td class="label-cell stat-col-label">Tête</td><td class="value-cell stat-col-value"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell stat-col-label">Tronc</td><td class="value-cell stat-col-value"><input type="number" data-id="stat-att-tronc" class="clean-input combat-stat" value="0"></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell stat-col-label">Membres</td><td class="value-cell stat-col-value"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell stat-col-label">Tête</td><td class="value-cell stat-col-value"><input type="number" class="clean-input" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell stat-col-label">Tronc</td><td class="value-cell stat-col-value"><input type="number" data-id="stat-att-tronc" class="clean-input" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell stat-col-label">Membres</td><td class="value-cell stat-col-value"><input type="number" class="clean-input" value="0"></td></tr>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -352,9 +350,9 @@
                                                             </div>
                                                             <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
                                                                 <colgroup><col style="width: auto;"><col style="width: 35px;"></colgroup>
-                                                                <tr class="stat-row"><td class="label-cell stat-col-label"><span style="font-size:0.7em; margin-right:1px;">vs</span> Direct</td><td class="value-cell stat-col-value"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell stat-col-label"><span style="font-size:0.7em; margin-right:1px;">vs</span> Circu.</td><td class="value-cell stat-col-value"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell stat-col-label"><span style="font-size:0.7em; margin-right:1px;">vs</span> Saisie</td><td class="value-cell stat-col-value"><input type="number" class="clean-input combat-stat" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell stat-col-label"><span style="font-size:0.7em; margin-right:1px;">vs</span> Direct</td><td class="value-cell stat-col-value"><input type="number" class="clean-input" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell stat-col-label"><span style="font-size:0.7em; margin-right:1px;">vs</span> Circu.</td><td class="value-cell stat-col-value"><input type="number" class="clean-input" value="0"></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell stat-col-label"><span style="font-size:0.7em; margin-right:1px;">vs</span> Saisie</td><td class="value-cell stat-col-value"><input type="number" class="clean-input" value="0"></td></tr>
                                                             </table>
                                                         </td>
                                                         <td style="width: 4%;"></td>
@@ -366,9 +364,9 @@
                                                             </div>
                                                             <table class="w-full">
                                                                 <colgroup><col><col style="width: 32px;"><col style="width: 38px;"></colgroup>
-                                                                <tr class="stat-row"><td class="label-cell">Tête</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-tete" class="clean-input combat-stat" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tete" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell">Tronc</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-tronc" class="clean-input combat-stat" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tronc" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
-                                                                <tr class="stat-row"><td class="label-cell">Membres</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-membres" class="clean-input combat-stat" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-membres" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell">Tête</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-tete" class="clean-input" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tete" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell">Tronc</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-tronc" class="clean-input" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-tronc" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
+                                                                <tr class="stat-row"><td class="label-cell">Membres</td><td class="value-cell" style="padding-right: 2px;"><input type="number" data-id="res-nat-membres" class="clean-input" value="0"></td><td style="border-bottom: 1px solid rgba(0, 0, 0, 0.4); vertical-align: middle; text-align: center; white-space: nowrap;"><span class="font-digit font-bold text-black text-[1rem]">+</span><span data-id="res-arm-membres" class="font-digit font-bold text-black text-[1.3rem]">0</span></td></tr>
                                                             </table>
                                                         </td>
                                                     </tr>
@@ -602,8 +600,6 @@
             "DRAGON_FÉMININ": "portraits/portrait_femme_dragon.png",
             "PAGURE_MASCULIN": "portraits/portrait_homme_pagure.png",
             "PAGURE_FÉMININ": "portraits/portrait_femme_pagure.png",
-            "OGRE_MAGE_MASCULIN": "portraits/portrait_homme_ogre_mage.png",
-            "OGRE_MAGE_FÉMININ": "portraits/portrait_femme_ogre_mage.png"
         };
 
         const state = {
@@ -716,6 +712,7 @@
                         updateOffhandOptions(1);
                         updateOffhandOptions(2);
                     }
+                    // La ligne qui écrasait la race a été supprimée ici, on reste un DRAGON quoi qu'il arrive
                 } else if (raceSelect?.value === "PAGURE") {
                     if (e.target.value === "SANS_EXOSQUELETTE") {
                         const w1 = find('weapon-select-1');
@@ -976,10 +973,6 @@
             findAll('input, textarea').forEach(el => { el.value = ''; });
             findAll('select').forEach(el => el.selectedIndex = 0);
             findAll('input[type=number]').forEach(el => el.value = '0');
-            
-            // Réinitialisation du traqueur de polymorphisme pour éviter un décalage accidentel
-            if(find('dragon-poly-state')) find('dragon-poly-state').value = "false";
-            
             state.talents = {
                 athletisme: false, aptitude_feline: false, mecanique: false,
                 fourberie: false, perception: false, survie: false,
@@ -1081,8 +1074,7 @@
                 "ORQUE": ["athletisme", "survie"],
                 "PAGURE": ["aptitude_feline"],
                 "HUMAIN": [],
-                "DRAGON": [],
-                "OGRE_MAGE": ["savoir_acad", "athletisme"]
+                "DRAGON": []
             }
         };
 
@@ -1287,50 +1279,10 @@
             
             const isOgreMage = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
             const isDragon = bloodSelect && bloodSelect.value === "Dragon";
-            const isOgreMage = raceSelect && raceSelect.value === "OGRE_MAGE";
             const isPagure = raceSelect && raceSelect.value === "PAGURE";
-                // Cacher "Particularité : Sang d'Ogre Mage" si la race est déjà Ogre-Mage
-                if (bloodSelect) {
-                    const bloodContainer = bloodSelect.closest('.flex.items-center');
-                    if (bloodContainer) {
-                        if (isOgreMage) {
-                            bloodContainer.style.display = 'none'; // Cache le menu
-                            if (bloodSelect.value !== "") bloodSelect.value = ""; // Remet à vide
-                        } else {
-                            bloodContainer.style.display = 'flex'; // Montre le menu
-                        }
-                    }
-                }
             
             let isDragonTrueForm = isDragon && shapeSelect && shapeSelect.value === "DRAGON";
-            let isDragonPolymorphed = isDragon && shapeSelect && shapeSelect.value !== "DRAGON";
             let isPagureSansExo = isPagure && shapeSelect && shapeSelect.value === "SANS_EXOSQUELETTE";
-
-            let polymorphMalus = isDragonPolymorphed ? -1 : 0;
-
-            // --- TRANSITION DES STATISTIQUES LORS D'UN CHANGEMENT DE FORME DRACONIQUE ---
-            const polyStateInput = find('dragon-poly-state');
-            if (polyStateInput) {
-                let wasPolymorphed = polyStateInput.value === "true";
-                
-                // Le Dragon vient de prendre une forme humanoïde
-                if (isDragonPolymorphed && !wasPolymorphed) {
-                    findAll('.combat-stat').forEach(input => {
-                        input.value = (parseInt(input.value) || 0) - 1;
-                    });
-                    polyStateInput.value = "true";
-                    triggerSave(); 
-                } 
-                // Le Dragon humanoïde reprend sa forme de Dragon Véritable (ou perd le sang de dragon)
-                else if (!isDragonPolymorphed && wasPolymorphed) {
-                    findAll('.combat-stat').forEach(input => {
-                        input.value = (parseInt(input.value) || 0) + 1;
-                    });
-                    polyStateInput.value = "false";
-                    triggerSave(); 
-                }
-            }
-            // ----------------------------------------------------------------------------
 
             const labelHair = find('label-hair');
             if (labelHair) {
@@ -1403,9 +1355,9 @@
                     const hasFreeHand = isRightFree || isLeftFree || isPagureSansExo; 
                     
                     const isRightCatalyst = !["Main Libre","Torche"].includes(weaponName);
-                    const isLeftCatalyst = offhandSelect.value && !["Main Libre","Main Libre (Incantation)","Bouclier","Torche","Occupée","Occupée ou Libre"].includes(offhandSelect.value);
-
-                    const hasCatalyst = isRightCatalyst || isLeftCatalyst || isOgreMage || isDragonTrueForm || isPagureSansExo;
+                    const isLeftCatalyst = offhandName && !["Main Libre","Main Libre (Incantation)","Bouclier","Torche","Occupée","Occupée ou Libre"].includes(offhandName);
+                    
+                    const hasCatalyst = isRightCatalyst || isLeftCatalyst || isOgreMage || isDragon || isPagureSansExo; 
                     const canCast = hasFreeHand && hasCatalyst;
 
                     const initSpan = find(`init-val-${index}`);
@@ -1548,6 +1500,9 @@
                         let baseBonusInt = parseInt(state.talents[bonusKey]) || 0;
                         
                         let isDragonTalent = isDragon && (t.id === 'athletisme' || t.id === 'perception');
+                        let isDragonPolymorphed = isDragon && shapeSelect && shapeSelect.value !== "DRAGON";
+                        let polymorphMalus = isDragonPolymorphed ? -1 : 0;
+
                         let isPagureSansExoTalentBonus = isPagureSansExo && (t.id === 'aptitude_feline');
                         let isPagureSansExoTalentMalus = isPagureSansExo && (t.id === 'mecanique' || t.id === 'fourberie');
                         
