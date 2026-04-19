@@ -251,6 +251,7 @@
                                         <option value="NAIN">NAIN</option>
                                         <option value="ORQUE">ORQUE</option>
                                         <option value="PAGURE">PAGURE</option>
+                                        <option value="OGRE_MAGE">OGRE-MAGE</option>
                                         <option value="DRAGON" hidden>DRAGON</option>
                                     </select>
                                     <input type="hidden" data-id="original-race" value="HUMAIN">
@@ -1074,6 +1075,7 @@
                 "ORQUE": ["athletisme", "survie"],
                 "PAGURE": ["aptitude_feline"],
                 "HUMAIN": [],
+                "OGRE_MAGE": ["athletisme", "savoir_acad"],
                 "DRAGON": []
             }
         };
@@ -1277,7 +1279,9 @@
             const raceSelect = find('race-select');
             const shapeSelect = find('shape-select');
             
-            const isOgreMage = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
+            const isOgreMageBlood = bloodSelect && bloodSelect.value === "Sang d'Ogre Mage";
+            const isOgreMageRace  = raceSelect && raceSelect.value === "OGRE_MAGE";
+            const isOgreMage      = isOgreMageBlood || isOgreMageRace;
             const isDragon = bloodSelect && bloodSelect.value === "Dragon";
             const isPagure = raceSelect && raceSelect.value === "PAGURE";
             
