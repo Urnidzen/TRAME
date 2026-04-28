@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livret 1 - Mécanismes (TRAME v1.0)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+.card-start, .card-end { margin: 1rem 0; }
+        .rule-item { margin: 0.5rem 0; }
+        .pseudo-li { margin-left: 1rem; }
+        .pseudo-li-level2 { margin-left: 2rem; }
+
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+            line-height: 1.6;
+            color: #1c1917;
+        }
+        h2, h3, h4 { font-family: 'Cinzel', serif; color: #451a03; }
+        h2 { border-bottom: 2px solid #92400e; padding-bottom: 0.3rem; }
+        h3 { border-bottom: 1px solid #d97706; padding-bottom: 0.2rem; }
+</style>
+</head>
+<body>
+
+<script type="application/json" id="doc-index">
+{
+    "id": "livret1",
+    "icon": "⚙️",
+    "title": "Livret 1",
+    "subtitle": "Mécanismes",
+    "index": [
+        {"id": "partie-1", "title": "1. Combat et Magie", "level": 1},
+        {"id": "section-actions", "title": "Actions", "level": 2},
+        {"id": "section-deroulement", "title": "Déroulement", "level": 2},
+        {"id": "section-obligation", "title": "Les Tours de combats", "level": 3},
+        {"id": "section-initiative", "title": "La hiérarchie de l'Initiative", "level": 3},
+        {"id": "section-egalite-priorite", "title": "Résolution des égalités", "level": 3},
+        {"id": "section-matrice", "title": "Les Compétences", "level": 2},
+        {"id": "type-attaque", "title": "Le Type", "level": 3},
+        {"id": "section-cible", "title": "La Cible", "level": 3},
+        {"id": "section-defense", "title": "La Défense", "level": 3},
+        {"id": "section-resistance", "title": "La Résistance", "level": 3},
+        {"id": "section-moteur", "title": " Résolution", "level": 2},
+        {"id": "section-surnombre", "title": "La Loi du Surnombre", "level": 3},
+        {"id": "section-avantage", "title": "L'Avantage Tactique", "level": 3},
+        {"id": "section-comparaison", "title": "L'opposition", "level": 3},
+        {"id": "section-incantation", "title": "L'Incantation Libre", "level": 3},
+        {"id": "section-attaques-multiples", "title": "Attaques Étendues et Multiples", "level": 3},
+        {"id": "section-maintien-sort", "title": "Maintien d’un sort", "level": 3},
+        {"id": "section-malus-sort", "title": "Malus et Conditions de Lancement des sorts", "level": 3},
+        {"id": "section-sorts-sans-opposant", "title": "Sorts sans opposant", "level": 3},
+        {"id": "section-restauration", "title": "La Magie de Restauration", "level": 3},
+        {"id": "section-armure", "title": "La protection des armures", "level": 3},
+        {"id": "section-resultats", "title": "Résultats de la Comparaison", "level": 3},
+        {"id": "section-impact", "title": "Conséquences", "level": 2},
+        {"id": "section-exploration", "title": "2. Savoir et Aptitudes (Talents)", "level": 1},
+        {"id": "section-talent", "title": "Talents", "level": 2},
+        {"id": "section-diff", "title": "Difficulté", "level": 2},
+        {"id": "section-test", "title": "Test", "level": 2},
+        {"id": "section-social", "title": "3. Interactions sociales", "level": 1}
+    ]
+}
+</script>
+
+<div class="intro-narrative">
+    <h3>La Fureur de la Carrière</h3>
+    <p><strong>Bienvenue dans TRAME.</strong> Pour vous accompagner dans l'apprentissage des règles, ce livret est illustré d'une ficelle narrative progressive intitulée <em>"La Fureur de la Carrière"</em>. Vous y suivrez trois personnages joueurs <strong>débutants</strong> — <strong>Kael</strong> le guerrier humain (épée longue + bouclier), <strong>Lira</strong> l'archère elfe (arc + dagues doubles) et <strong>Morgrim</strong> le forgeron-mage nain (hache 2 mains + bâton focalisateur) — ainsi que leurs adversaires, dans un combat sur la route d'Aubergenville à Port-Gris. Chaque encadré <strong>📘 En pratique</strong> déploie les règles fraîchement apprises dans une situation de jeu concrète, avec les dialogues entre joueurs et Maître du Jeu.</p>
+    <p>Les encadrés sont <strong>cumulatifs</strong> : chaque nouvel exemple mobilise toutes les règles déjà présentées, vous permettant de construire votre compréhension pas à pas, du premier échange de coups jusqu'aux manœuvres les plus complexes.</p>
+</div>
+
+<h2 id="partie-1">
+<img src="images/livret1_embuscade.jpg" alt="L'embuscade sur la route" class="illustration">
+<p class="illustration-caption">L'embuscade — Les Vauriens surgissent des fourrés</p>
+1. Combat et Magie</h2>
+
+<h3 id="section-actions">Actions</h3>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Pour réaliser une action physique ou magique, chaque personnage doit choisir <strong>UNE</strong> option parmi les suivantes :</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>L'Attaque (Offensive) :</strong><br>
+    Le personnage choisit un Type et une Cible pour tenter de toucher un adversaire. Il peut méler son attaque à l'utilisation de ses talents si ils sont en lien direct avec son action (ex : une feinte, utilisera l'action d'attaque et le talent Fourberie).<br>
+    <em>Note : Si un personnage a une arme courte dans chaque main, il peut effectuer une attaque par arme qu'il possède sans malus de cible ou d'attaque multiple.</em></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>La Manœuvre Défensive (Tactique) :</strong><br>
+    Le personnage se concentre exclusivement sur sa protection. Il choisit un type de Défense (vs Direct, vs Circulaire ou vs Saisie) dans laquelle il gagne un bonus temporaire de +1 dans cette compétence pour se protéger jusqu'au début de son prochain tour.<br>
+    <em>Restriction : Seuls les PJ et PNJ intelligents peuvent utiliser la Défense.</em></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>L'Attente (Action Retardée) :</strong><br>
+    Le personnage ne fait rien dans l'immédiat, attendant le moment qu'il juge opportun pour agir et déterminer son action.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Autre :</strong><br>
+    Le personnage réalise une action ne relevant pas directement du combat : escalader (Athlétisme), crocheter (Mécanique), sprinter (Athlétisme), etc. Le MJ est seul juge de la durée nécessaire.</p>
+</div>
+<div class="card-end"></div>
+<!-- 📘 Exemple 1.1 — Actions : L'Attaque -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.1 : L'embuscade</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Les trois PJ escortent Théo, un marchand, sur la route d'Aubergenville. Soudain, deux Vauriens jaillissent des fourrés en hurlant, haches à la main.</p>
+    <p><span class="speaker">MJ :</span> « Deux bandits surgissent devant vous ! Lira, tu es la plus en avant avec ton arc. Que fais-tu ? »</p>
+    <p><span class="speaker">Lira (joueuse) :</span> « Je décoche une flèche sur celui de gauche ! »</p>
+    <p><span class="speaker">MJ :</span> « Très bien. Pour attaquer, tu dois choisir un <strong>Type</strong> et une <strong>Cible</strong>. On verra les détails bientôt, mais pour l'instant, décris-moi ton geste. »</p>
+    <p><span class="speaker">Lira :</span> « Un tir droit en plein torse. »</p>
+    <p><span class="speaker">MJ :</span> « Noté. Kael, toi, que fais-tu ? »</p>
+    <p><span class="speaker">Kael (joueur) :</span> « Je charge avec mon épée, une estocade au ventre ! »</p>
+    <p><span class="speaker">MJ :</span> « Parfait. Morgrim, tu étais à l'arrière avec ta hache à deux mains — tu n'es pas encore au contact. Veux-tu sprinter pour rejoindre le combat ? »</p>
+    <p><span class="speaker">Morgrim (joueur) :</span> « Oui, je cours vers eux ! »</p>
+    <p class="narrator">Le MJ note les actions de chacun : Lira attaque, Kael attaque, Morgrim sprinte. Chacun a choisi <strong>UNE</strong> action parmi les options possibles. 
+<img src="images/livret1_kael_combat.jpg" alt="Kael au combat" class="illustration">
+<p class="illustration-caption">Kael le guerrier humain affronte un Vaurien</p>
+Le détail des Types, Cibles et de l'ordre de passage viendra dans les sections suivantes.</p>
+    </div>
+</div>
+<h3 id="section-deroulement">Déroulement</h3>
+
+<h4 id="section-obligation">Les Tours de combats</h4>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Chaque scène de combat est découpée en Tours qui représentent une séquence d'actions où chaque combattant agit à son tour, comme si tous agissaient en même temps dans l'univers fictionnel, mais séquentiellement à la table de jeu pour permettre aux joueurs de réfléchir et d'intervenir.</p>
+</div>
+<div class="rule-item">
+    <p>Durant chaque tour, le Maître du Jeu (MJ) doit s'assurer que tous les acteurs (Personnages Joueurs, PNJ, créatures) qui ne sont pas hors de combat (mort, KO) aient agit avant de passer au tour suivant.</p>
+</div>
+<div class="card-end"></div>
+
+<h4 id="section-initiative">La hiérarchie de l'initiative</h4>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>L'ordre de passage durant un Tour n'est pas déterminé par un jet de dé systématique, mais par une priorité technique liée à l'équipement et à la situation.</p>
+</div>
+<div class="rule-item">
+    <p><strong>L'ordre est le suivant :</strong></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 0 : L'Initiative Sacrifiée :</strong><br>
+    Une créature intelligente peut réduire son Score Total d'Attaque de 1 pour agir immédiatement, avant la Priorité 1. Si plusieurs êtres choisissent cette option, l'ordre entre eux se détermine selon la hiérarchie habituelle (en appliquant les sous-catégories des Priorités 1 à 8) et les règles de résolution des égalités.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 1 : Le Tir (ou Lancer) à Distance :</strong><br>
+    Armes à Distance (ex : Arcs, Arbalètes, Armes de jet), uniquement si le tireur n'est engagé par aucun adversaire au corps-à-corps.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 2 : La Magie « Libre » (Soutien) :</strong><br>
+    Sortilèges et Prières, uniquement si le lanceur n'est engagé par aucun adversaire au corps-à-corps.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 3 : Le Sprint :</strong><br>
+    Se déplacer pour s'éloigner ou rejoindre un lieu (nombre de tours à l'appréciation du MJ). Une acrobatie (talent : aptitude féline) peut être nécessaire pour se désengager.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 4 : Allonge Longue (La Mêlée) :</strong><br>
+    Armes à deux mains (ex : Lances, Espadons, Masses).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 5 : Allonge Moyenne (La Mêlée) :</strong><br>
+    Armes à une main (ex : Épées, Haches).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 6 : Allonge Courte (La Mêlée) :</strong><br>
+    Dagues, Poings, Saisies.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 7 : Le Tir (ou Lancer) en Mêlée :</strong><br>
+    Armes à Distance alors que le tireur est engagé par au moins un adversaire au corps-à-corps.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Priorité 8 : La Magie « Sous Pression » :</strong><br>
+    Sortilèges et Prières si le lanceur a au moins un adversaire au corps-à-corps.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Note sur le Déplacement :</strong><br>
+    Toute action de combat inclut par défaut un déplacement stratégique ou une charge sur une distance raisonnable (jugée par le MJ). Cette distance peut être augmentée avec un talent d'Athlétisme (+1) et, si le terrain est complexe, nécessite aussi Aptitude Féline (+1). L'utilisation du talent Aptitude Féline est requise pour se désengager sauf circonstance particulière (désavantage de l'adversaire ou avantage tactique).</p>
+</div>
+<div class="card-end"></div>
+
+<h4 id="section-egalite-priorite">Résolution des égalités de priorité</h4>
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Si deux personnages se trouvent dans la même catégorie de priorité, on utilise les règles suivantes pour trancher :</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>La Loi de la Compétence (Expérience) :</strong><br>
+    Le combattant avec la Statistique la plus élevée (dans l'action entreprise ou sa stat principale) agit en premier.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>La Loi du Regard (Départage) :</strong><br>
+    En cas d'égalité parfaite, chaque combattant lance 1D6. Le plus haut score agit en premier.</p>
+</div>
+<div class="card-end"></div>
+<!-- 📘 Exemple 1.2 — Tours + Initiative + Égalité priorité -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.2 : Qui agit en premier ?</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Le MJ annonce le début du combat structuré.</p>
+    <p><span class="speaker">MJ :</span> « Nous entrons en <strong>tour de combat</strong>. Chaque tour, tous les acteurs vivants doivent agir avant de passer au suivant. Voici l'ordre de passage selon l'<strong>Initiative</strong> : »</p>
+    <p><span class="speaker">MJ :</span> « Lira, tu portes un arc et tu n'es engagée par personne au corps-à-corps : tu agis en <strong>Priorité 1 — Tir à Distance</strong>. Tu passes donc la première. »</p>
+    <p><span class="speaker">Lira :</span> « Parfait ! »</p>
+    <p><span class="speaker">MJ :</span> « Kael, ton épée est une arme à une main : tu agiras en <strong>Priorité 5 — Allonge Moyenne</strong>. Les bandits ont des haches à une main : eux aussi Priorité 5. »</p>
+    <p><span class="speaker">Kael :</span> « On agit en même temps, alors ? »</p>
+    <p><span class="speaker">MJ :</span> « Égalité de priorité ! On applique la <strong>Loi de la Compétence</strong> : qui a la stat la plus élevée dans l'action entreprise ? Kael, ton Attaque Directe est +1. Le Vaurien, la sienne est 0. Tu agis donc avant lui. Si vos stats avaient été égales, on aurait lancé un <strong>D6</strong> (Loi du Regard) pour départager. »</p>
+    <p><span class="speaker">Morgrim :</span> « Et moi ? »</p>
+    <p><span class="speaker">MJ :</span> « Tu es à l'arrière avec ta hache à deux mains : tu arriveras en <strong>Priorité 4 — Allonge Longue</strong>, mais seulement au prochain tour car ton sprint pour rejoindre le combat occupe ce tour. »</p>
+    <p class="narrator">Le MJ note : Lira (P1) → Kael + Vauriens (P5, Kael gagne la compétence) → Morgrim (P4 au tour suivant). Tous les acteurs agiront avant de passer au tour suivant.</p>
+<img src="images/livret1_lira_arc.jpg" alt="Lira l'archère" class="illustration">
+<p class="illustration-caption">Lira, elfe archère des Hauts-Canopées</p>
+    </div>
+</div>
+<h3 id="section-matrice">Les Compétences</h3>
+
+    <p>Au nombre de 12 (6 en Attaque, 6 en Protection), elles sont utilisées pour déterminer l'issue d'une action qui utilise une arme (naturelle ou manufacturée) ou pour lancer un sort.</p>
+    <p>Ici, pas de liste de sorts ni de techniques spéciales aux effets prédéterminés. C'est le descriptif que vous faites qui indique quel Type et quelle Cible vont être utilisés pour déterminer l'issue de l'action, comme indiqué dans les tableaux ci-dessous.</p>
+
+
+<h4>Les Compétences d'Attaque :</h4>
+
+<div class="card-start"></div>
+<div class="rule-item">
+<h5 id="type-attaque"><strong>Le Type :</strong> Son mode d'exécution qui peut être Direct, Circulaire ou Saisie.</h5>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Direct</strong><br>
+    <em>Arme Naturelle ou Manufacturée :</em> Attaque d'Estoc, Jab, Tir, Lancé, …<br>
+    <em>Effet Magique ou Surnaturel :</em> Projectile, Rayon, flux linéaire, …</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Circulaire</strong><br>
+    <em>Arme Naturelle ou Manufacturée :</em> Attaque de Taille, Coup de pied circulaire, Crochet, Balayage, ...<br>
+    <em>Effet Magique ou Surnaturel :</em> Disque, Demi-lune, …</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Saisie</strong><br>
+    <em>Arme Naturelle ou Manufacturée :</em> Clé, Projection, Écrasement, Constriction, ...<br>
+    <em>Effet Magique ou Surnaturel :</em> Télékinésie, Entrave, Manipulation, Écrasement, Constriction, ...</p>
+</div>
+<div class="card-end"></div>
+
+<div class="card-start"></div>
+<div class="rule-item">
+<h5 id="section-cible"><strong>La Cible :</strong> Viser un point spécifique.</h5>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Tête</strong><br>
+    <em>Morphologique :</em> Tête, Cou, Yeux, Cheveux, …<br>
+    <em>Conceptuelle :</em> Esprit, Mental, Sens, Illusions, …</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Tronc</strong><br>
+    <em>Morphologique :</em> Plexus, Foie, Coeur, Poumons, Côtes, …<br>
+    <em>Conceptuelle :</em> Altération du corps entier, Vie, Chair, Création, …</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Membres</strong><br>
+    <em>Morphologique :</em> Bras, Jambes, Pattes, …<br>
+    <em>Conceptuelle :</em> Déplacement, Équilibre, Motricité, …</p>
+</div>
+<div class="card-end"></div>
+
+<!-- 📘 Exemple 1.3 — After Types/Cibles -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.3 : Les Compétences d'Attaque (Type et Cible)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Le MJ précise maintenant les Types et Cibles pour les attaques déclarées.</p>
+    <p><span class="speaker">MJ :</span> « Voici les 3 <strong>Types</strong> d'attaque : <strong>Direct</strong> (estoc, jab, tir), <strong>Circulaire</strong> (taille, balayage, crochet) et <strong>Saisie</strong> (clé, projection, écrasement). Et voici les 3 <strong>Cibles</strong> : <strong>Tête</strong>, <strong>Tronc</strong>, <strong>Membres</strong>. Lira, ton 'tir droit en plein torse' est donc : <strong>Direct + Tronc</strong>. Kael, ton estocade au ventre aussi : Direct + Tronc. »</p>
+    <p><span class="speaker">Lira :</span> « Et si je voulais viser la tête ? »</p>
+    <p><span class="speaker">MJ :</span> « Ce serait Direct + Tête. Le descriptif que tu donnes indique toujours quel Type et quelle Cible tu utilises. Un crochet de hache = Circulaire. Une clé de bras = Saisie. »</p>
+    <p><span class="speaker">Kael :</span> « Compris. Mon épée pourrait aussi faire un balayage = Circulaire. »</p>
+    <p><span class="speaker">MJ :</span> « Exactement. Tu as bien saisi le principe. »</p>
+    </div>
+</div>
+
+<h4>Les Compétences pour Se Protéger :</h4>
+
+<div class="card-start"></div>
+<div class="rule-item">
+<h5 id="section-defense"><strong>La Défense :</strong> Capacité à parer, esquiver ou vous libérer d'un des 3 types d'attaque possible.</h5>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">vs Direct</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">vs Circulaire</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">vs Saisie</p>
+</div>
+<div class="card-end"></div>
+
+<div class="card-start"></div>
+<div class="rule-item">
+<h5 id="section-resistance"><strong>La Résistance :</strong> Solidité de la cible, due à l'armure portée ou à la constitution naturelle.</h5>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Résistance Tête</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Résistance Tronc</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Résistance Membres</p>
+</div>
+<div class="card-end"></div>
+
+<!-- 📘 Exemple 1.4 — After Défense/Résistance -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.4 : Se protéger (Défense et Résistance)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Le MJ explique comment la cible se protège contre une attaque.</p>
+    <p><span class="speaker">MJ :</span> « Quand une attaque arrive, la cible se protège avec deux scores : sa <strong>Défense</strong> contre le Type utilisé, et sa <strong>Résistance</strong> de la zone visée. Ces 6 compétences de Protection s'opposent aux 6 compétences d'Attaque. »</p>
+    <p><span class="speaker">MJ :</span> « Le Vaurien que Lira vise n'a pas d'armure : sa Défense contre le Direct est faible, et sa Résistance au Tronc n'est que sa constitution naturelle. Autrement dit, il a peu de Protection. »</p>
+    <p><span class="speaker">Kael :</span> « Et moi ? J'ai un bouclier. »</p>
+    <p><span class="speaker">MJ :</span> « Ton bouclier améliore ta Défense contre le Direct. On verra les détails du calcul plus tard, mais pour l'instant, retiens : chaque attaque sera comparée à la Protection de la cible, qui vient de sa Défense + sa Résistance. »</p>
+    <p class="narrator">Les joueurs notent leurs scores. L'opposition exacte (Attaque vs Protection) sera expliquée dans la prochaine section.</p>
+    </div>
+</div>
+<h3 id="section-moteur">Résolution</h3>
+
+    <h4 id="section-surnombre">La Loi du Surnombre (L'Érosion Tactique)</h4>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>La Limite d'Engagement Dynamique :</strong><br>
+        Quelle que soit la taille des protagonistes, un combattant qui se défend ne reste jamais immobile. Ses mouvements de parade, d'esquive et ses contre-attaques créent naturellement une zone de turbulences qui limite physiquement le nombre d'assaillants pouvant l'atteindre simultanément sans s'entraver mutuellement.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Mêlée Rapprochée :</strong><br>
+        Pour toute attaque de catégorie <em>Allonge Moyenne</em> ou <em>Allonge Courte</em>, le maximum d'attaquants pouvant engager une même cible est de <strong>4</strong>, quelle que soit la taille relative des combattants. Au-delà, les assaillants se gênent trop pour être efficaces.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Mêlée Étagée :</strong><br>
+        Ce plafond passe à <strong>8 attaquants</strong> si des assaillants additionnels (ou l'ensemble des attaquants) combinent ces attaques rapprochées avec d'autres catégories (ex. : Allonge Longue, Tir à distance, Sort) <strong>et</strong> qu'ils sont positionnés sur le même niveau horizontal que la cible, autorisant une ligne de tireurs ou de piquiers à intervenir par-dessus/entre les combattants au contact.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Surplomb Tactique :</strong><br>
+        La limite s'étend à <strong>12 attaquants</strong> si une partie des assaillants bénéficie d'une différence de hauteur significative (mezzanine, talus, monture, créature géante) leur permettant de voir et de frapper au-dessus de leurs alliés au premier plan, <strong>exposant la cible sous tous les angles simultanément</strong>.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Responsabilité du MJ :</strong><br>
+        Déterminer, selon la géométrie du lieu (couloir, salle, plaine) et la disposition des combattants, combien d'attaquants peuvent effectivement utiliser chaque catégorie d'allonge sans risquer de se gêner mutuellement ou de toucher leurs alliés. Un ogre encerclé par 4 halflings à ses pieds verra ses 4 points épuisés par des attaques courtes, même s'il reste physiquement de la place autour de lui.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Malus d'Érosion :</strong><br>
+        Chaque attaque subie après la première réduit le score de Protection du personnage de façon cumulative. <em>Toutefois, ce malus ne peut jamais faire descendre la Protection en dessous du score d'Attaque de l'adversaire actuel.</em></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li">1ère Attaque reçue : Protection Normale.</p>
+        <p class="pseudo-li">2ème Attaque reçue : Malus de -1 au score de Protection (sous condition).</p>
+        <p class="pseudo-li">3ème Attaque reçue : Malus de -2 au score de Protection (sous condition).</p>
+        <p class="pseudo-li">4ème Attaque reçue : Malus de -3 au score de Protection (sous condition).</p>
+        <p class="pseudo-li">Nième Attaque reçue : Malus de -N au score de Protection (sous condition).</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.9 — Surnombre + Érosion (NO Sup/Inf/Égalité mentioned) -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.9 : Deux contre un (La Loi du Surnombre et l'Érosion)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Les deux Vauriens se retrouvent contre Kael en même temps.</p>
+    <p><span class="speaker">MJ :</span> « En Allonge Moyenne, jusqu'à <strong>4 attaquants</strong> peuvent engager une même cible sans se gêner. Vous n'êtes que deux, donc pas de problème de place. MAIS — règle de l'<strong>Érosion</strong> : Kael, tu subis une première attaque du Vaurien 1. Ta Protection est normale. »</p>
+    <p><span class="speaker">MJ :</span> « Puis le Vaurien 2 t'attaque aussi. C'est ta <strong>2ème attaque reçue ce tour</strong> : tu subis un <strong>malus de -1 à ta Protection</strong> pour cette deuxième résolution. Ta Protection passe de 2 à 1 contre le second coup. »</p>
+    <p><span class="speaker">Kael :</span> « Ça devient chaud… Et s'il y en avait 5 ? »</p>
+    <p><span class="speaker">MJ :</span> « Au-delà de 4 en Allonge Moyenne, ils se gênent trop. Par contre, si certains avaient des lances ou des arcs en plus, on passerait en <strong>Mêlée Étagée</strong> : jusqu'à 8 attaquants. Et avec un surplomb, ce serait 12. »</p>
+    <p class="narrator">L'érosion réduit la Protection de Kael. On verra dans les sections suivantes comment ce malus affecte le résultat de l'opposition.</p>
+    </div>
+</div>
+
+    <h4 id="section-avantage">L'Avantage Tactique</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Un personnage bénéficiant d'une situation favorable (effet de surprise, position surélevée, matériel de qualité, environnement propice, etc.) gagne un <strong>bonus de +1</strong> de circonstance.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Champ d'application :</strong><br>
+        Il s'applique à toute action qui semble pouvoir bénéficier de manière pertinente de cet avantage.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Calcul :</strong><br>
+        Le bonus s'ajoute au Score Total de l'action ou au Talent du personnage avant la comparaison avec la Protection ou la Difficulté.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Validation :</strong><br>
+        Ce bonus est ponctuel, narratif et validé par le MJ au cas par cas.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.11 — Avantage Tactique -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.11 : L'avantage du talus</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Lira est postée sur un petit talus à côté de la route, dominant la mêlée.</p>
+    <p><span class="speaker">MJ :</span> « Lira, tu tires depuis une position surélevée. C'est un <strong>Avantage Tactique</strong> : +1 à ton Score Total d'Attaque pour ce tir. »</p>
+    <p><span class="speaker">Lira :</span> « Je vise la Brute au torse ! »</p>
+    <p><span class="speaker">MJ :</span> « Direct +2, Tronc +1, Avantage +1 = ton Score Total d'Attaque est de 4. La Brute a une Protection plus faible. Ce bonus de +1, validé par le MJ au cas par cas, fait toute la différence. On verra le résultat exact quand on étudiera l'opposition et les cas de comparaison. »</p>
+    <p class="narrator">L'avantage tactique est ponctuel et narratif. Le MJ l'accorde parce que la position surélevée de Lira est logique et bénéfique à son action.</p>
+    </div>
+</div>
+
+    <h4 id="section-comparaison">L'opposition</h4>     
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Lorsqu'un acteur déclare une action d'attaque, il annonce un Type et une Cible (ex : « Attaque Directe au Tronc »). Le MJ compare le Score Total d'Attaque (type + cible) au Score Total de Protection (défense + résistance).</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Calcul de l'Attaque :</strong><br>
+        Score du Type utilisé + Score de la Cible visée.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Calcul de la Protection :</strong><br>
+        Score de Défense contre ce Type + Score de Résistance de la Cible visée.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Comparaison :</strong><br>
+        On compare les deux totaux.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple after Opposition — Sequence 1.5 -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.5 : L'opposition (Attaque vs Protection)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Le MJ calcule maintenant l'opposition entre les attaquants et les défenseurs.</p>
+    <p><span class="speaker">MJ :</span> « Lira, ton Attaque Directe vaut <strong>+1</strong> (tu es débutante) et ta Cible Tronc vaut 0. Ton <strong>Score Total d'Attaque</strong> = 1. Le Vaurien n'a aucune compétence en Défense vs Direct (0) ni en Résistance Tronc (0). Son <strong>Score Total de Protection</strong> = 0. »</p>
+    <p><span class="speaker">MJ :</span> « Kael, toi aussi : Direct +1, Tronc 0 (pas monté) = Attaque 1. Le second Vaurien a Protection 0. On <strong>compare les deux totaux</strong> pour savoir ce qui se passe. »</p>
+    <p><span class="speaker">Kael :</span> « 1 contre 0… ça devrait être bon pour moi ? »</p>
+    <p><span class="speaker">MJ :</span> « On verra les trois cas possibles dans la prochaine section : Supériorité, Infériorité, et Égalité. Mais oui, tes chances sont bonnes. »</p>
+    <p class="narrator">L'opposition pose les bases : Attaque (Type + Cible) vs Protection (Défense + Résistance). Le résultat de cette comparaison sera détaillé dans la section Résultats de la Comparaison.</p>
+    </div>
+</div>
+    <h4 id="section-incantation">L'Incantation Libre (Magie uniquement)</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Le mage peut choisir de ne pas focaliser son sort pour gagner en flexibilité :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Mode Focalisé (Type + Cible) :</strong><br>
+        Score complet pour un effet spécifique.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Mode Général (Type uniquement) :</strong><br>
+        Le mage utilise seulement son score de Type. L'attaque est comparée aux scores de défense des 3 zones de la cible (Tête, Tronc, Membres). L'impact a lieu là où la défense est la plus faible.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Mode Intuitif (Cible uniquement) :</strong><br>
+        Le mage utilise seulement son score de Cible pour imposer un effet pur sans forme technique précise.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.12 — Incantation Libre -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.12 : Morgrim le mage (Incantation Libre)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Morgrim est maintenant au contact et décide d'utiliser sa magie.</p>
+    <p><span class="speaker">Morgrim :</span> « Je lance une décharge de foudre sur la Brute ! »</p>
+    <p><span class="speaker">MJ :</span> « Quel mode d'incantation ? »</p>
+    <p><span class="speaker">Morgrim :</span> « <strong>Focalisé</strong> : je vise précisément. Circulaire +1, Tronc 0. »</p>
+    <p><span class="speaker">MJ :</span> « Attaque 4. Tu as le score complet pour un effet précis. On verra le résultat de l'opposition plus tard, mais c'est une attaque puissante. »</p>
+    <p class="narrator">Au tour suivant, Morgrim tente un sort de zone.</p>
+    <p><span class="speaker">Morgrim :</span> « Je veux frapper les deux Vauriens restants avec un arc électrique. »</p>
+    <p><span class="speaker">MJ :</span> « Tu utilises le mode <strong>Général</strong> (Circulaire uniquement = +1). L'arc électrique est comparé aux Défenses vs Circulaire des deux Vauriens. L'impact a lieu là où la défense est la plus faible — et ils n'ont aucune défense ! »</p>
+    <p><span class="speaker">MJ :</span> « Si tu avais voulu simplement 'paralyser' sans forme précise, tu aurais utilisé le mode <strong>Intuitif</strong> — Cible uniquement, mais avec moins de puissance technique. »</p>
+<img src="images/livret1_morgrim_magie.jpg" alt="Morgrim le forgeron-mage" class="illustration">
+<p class="illustration-caption">Morgrim canalise la foudre par son bâton runique</p>
+    </div>
+</div>
+
+    <h4 id="section-attaques-multiples">Attaques Étendues et Multiples (Cible Élargie)</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Dès qu'un acteur tente d'effectuer <strong>plus d'une action</strong> ou de frapper <strong>plus d'une cible</strong> au cours de son tour, un Malus est appliqué pour refléter la perte de précision.</p>
+    </div>
+    <div class="rule-item">
+        <p>Ce malus est calculé en fonction du nombre total d'éléments (actions ou cibles) et s'applique à <strong>toutes les résolutions</strong> (Score d'Attaque, Score de Talent lors d'une manœuvre, etc.) de cette séquence.</p>
+    </div>
+    <div class="rule-item">
+        <p>Exemples :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Attaquer 2 cibles simultanément :</strong><br>
+        L'attaquant subit un Malus de <strong>-1</strong> à son Score d'Attaque pour la résolution contre la Cible 1 <strong>et</strong> pour la résolution contre la Cible 2.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Tenter un Sort de Zone (3 cibles) :</strong><br>
+        Le Malus est de <strong>-2</strong> (3 - 1). Ce Malus de -2 est appliqué au Score d'attaque du mage pour la résolution contre la Cible 1, la Cible 2 <strong>et</strong> la Cible 3.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Frapper, puis Tenter une Manœuvre :</strong><br>
+        Le Malus est de <strong>-1</strong> (2 actions - 1). Ce Malus de -1 s'applique au Score d'Attaque de la frappe <strong>mais</strong> pas au Score de Talent de la Manœuvre.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.13 — Attaques Multiples -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.13 : La Brute balaie tout (Attaques Multiples)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">La Brute, enragée et blessée, tente un grand moulinet horizontal avec sa hache à deux mains.</p>
+    <p><span class="speaker">MJ :</span> « La Brute tente de frapper <strong>Kael et Morgrim simultanément</strong>. C'est une attaque sur <strong>2 cibles</strong>. Malus de <strong>-1</strong> à son Score d'Attaque pour les deux résolutions. »</p>
+    <p><span class="speaker">MJ :</span> « La Brute a Circulaire +1, Tronc 0. Malus -1 → son Score Total d'Attaque passe de 1 à 0 contre chaque cible. Avec un Score d'Attaque de 0, elle a peu de chances de passer vos Protections. »</p>
+    <p><span class="speaker">Kael :</span> « Pauvre Brute… elle se fatigue pour rien ! »</p>
+    <p class="narrator">Le malus de -1 pour 2 cibles reflète la perte de précision. Le calcul de l'opposition déterminera si l'attaque touche, mais ses chances sont faibles.</p>
+    </div>
+</div>
+
+    <h4 id="section-maintien-sort">Maintien d'un sort sur la durée</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Individuel</strong></p>
+    </div>
+    <div class="rule-item">
+        <p>Pour garder un sort actif :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Jet de 1D6 (Durée sans Malus) :</strong><br>
+        Le lanceur effectue un jet de 1D6. Le résultat indique le nombre de tours (le <em>Compteur de Maintien</em>) durant lesquels le sort est maintenu <strong>sans aucun malus</strong>.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Contrecoup (Malus de Maintien) :</strong><br>
+        Une fois le Compteur de Maintien à zéro, la charge mentale et la concentration requises pour maintenir le sort au-delà de ce délai réduisent temporairement toutes les stats de 1 point — comme si le lanceur accomplissait une action supplémentaire en permanence — jusqu'à annulation du maintien (Rupture, Annulation Tactique ou Sommeil).</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>La Rupture :</strong><br>
+        Si le lanceur subit un <strong>Impact ou une Saisie</strong> alors qu'il est sous l'effet d'un contrecoup, le sort cesse immédiatement (le Buff disparaît, la créature s'évapore).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Cercle Rituel (2 Mages & +)</strong></p>
+    </div>
+    <div class="rule-item">
+        <p>Un groupe de lanceur de sorts peut se réunir pour lancer un sort qu'ils ne pourraient pas réussir à lancer individuellement :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Effet :</strong><br>
+        Il dépend des stats du lanceur de sort le plus expérimenté (en général, celui qui a les plus hautes stats) + 1.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Lancement :</strong><br>
+        Un seul jet de 1D6 est réalisé pour l'ensemble des participants et détermine le <em>Compteur de Lancement</em> du sort qui indique le temps nécessaire pour lancer le sort. Un minimum de deux individus (lanceur le plus expérimenté inclus) doit rester concentré sur le lancement du sort et ne rien faire d'autre.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Contrecoup (Concentration) :</strong><br>
+        Tous subissent le Malus de <strong>-1 à toutes leurs stats</strong>, tant qu'ils se concentrent pour lancer ou maintenir le sort. Ils peuvent être remplacés ou relayés, cela ne rompt pas le sort tant qu'au moins un des participants reste concentré.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>L'Annulation :</strong><br>
+        Rompre les effets de son sort volontairement (ou non) ou de quitter un Cercle rituel permet de récupérer ses statistiques normales.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.14 — Maintien de Sort -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.14 : Bouclier de foudre (Maintien d'un Sort)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Morgrim décide de protéger Kael avec un sort de longue durée.</p>
+    <p><span class="speaker">Morgrim :</span> « Je maintiens une aura de foudre sur Kael qui étourdira quiconque le touchera. »</p>
+    <p><span class="speaker">MJ :</span> « Lance un <strong>D6</strong> pour la durée. »</p>
+    <p><span class="speaker">Morgrim :</span> « 3 ! »</p>
+    <p><span class="speaker">MJ :</span> « Le sort est maintenu <strong>3 tours sans malus</strong>. Après ces 3 tours, si tu le maintiens, tu subis le <strong>Contrecoup</strong> : -1 à toutes tes stats. Si quelqu'un te touche physiquement (Impact ou Saisie) pendant le contrecoup, le sort <strong>se rompt immédiatement</strong>. Tu peux aussi l'annuler volontairement à tout moment pour récupérer tes stats normales. »</p>
+    <p><span class="speaker">Morgrim :</span> « Noté. Trois tours de protection électrique, puis je déciderai. »</p>
+    <p class="narrator">Le maintien permet de garder un sort actif sur la durée, mais au prix d'un risque croissant. Le Cercle Rituel permettrait à plusieurs mages de partager cette charge.</p>
+    </div>
+</div>
+    <h4 id="section-malus-sort">Malus et Conditions de Lancement des sorts</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p class="pseudo-li">Le malus d'armure ne s'applique qu'aux sorts ciblant/incluant un ou des ennemis. Le malus lié à l'utilisation d'une arme manufacturée ou d'un objet, non listé dans la catégorie des focalisateurs magiques (cf. livret 3 chapitre B, Armes) s'applique dans tous les cas.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li">Pour lancer un sort (hors capacités innées), le personnage doit impérativement avoir <strong>au moins une main libre</strong> (pour les somatiques) <strong>ET</strong> tenir <strong>un focalisateur magique ou une arme manufacturée</strong>. Une arme tenue à deux mains peut être lâchée d'une main instantanément pour satisfaire cette condition.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.15 — Malus/Conditions de Lancement -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.15 : Lâcher la hache (Malus et Conditions de Lancement)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Morgrim, qui tenait sa hache à deux mains, veut relancer un sort.</p>
+    <p><span class="speaker">MJ :</span> « Tu dois avoir <strong>une main libre</strong> et un <strong>focalisateur</strong>. Ta hache est une arme manufacturée : elle peut servir de focalisateur, mais avec un <strong>malus de -1</strong> au sort car ce n'est pas un focalisateur magique dédié (bâton, grimoire, chapelet). De plus, comme c'est une arme à deux mains, tu peux lâcher une main instantanément pour incanter. »</p>
+    <p><span class="speaker">Morgrim :</span> « Dans ce cas, je lâche ma hache et je sors mon <strong>bâton</strong> de la ceinture. Aucun malus avec le bâton, c'est bien ? »</p>
+    <p><span class="speaker">MJ :</span> « Exactement. Le bâton est un focalisateur magique dédié. Et n'oublie pas : si tu cibles des ennemis, le malus d'armure s'appliquerait aussi selon ce que tu portes. Mais là, ton sort de protection sur Kael ne cible pas d'ennemi, donc pas de malus d'armure. »</p>
+    </div>
+</div>
+
+    <h4 id="section-sorts-sans-opposant">Sorts sans opposant</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Pour les sorts sans opposant, la résolution se fait par comparaison des Stats (2 stats au maximum) du lanceur impliquées par l'effet voulu du sort à la Difficulté :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Difficulté 0 (Initié) :</strong><br>
+        Sort simple. La majorité des sorts sans opposant.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Difficulté 2 (Expert) :</strong><br>
+        Sort complexe pouvant affecter une petite zone ou ayant des effets puissants.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Difficulté 4 (Maître) :</strong><br>
+        Sort extrêmement complexe pouvant affecter une grande zone ou ayant des effets extrêmement puissants.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Difficulté 7 (Mythique) :</strong><br>
+        Sort nécessitant généralement un Maître de haut niveau et un rituel pour être lancé, peut impacter un région significativement.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Cas particuliers :</strong></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Métamorphose ou Invocation :</strong><br>
+        La difficulté est égale à la Dangerosité de la créature +1 par créature additionnelle.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Bonus aux caracs, talents ou actions :</strong><br>
+        La difficulté est fixée à 2 pour un +1 global et ne semble pas pouvoir avoir un effet plus important même en augmentant la difficulté.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple — Sorts sans opposant -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Sorts sans opposant</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Morgrim veut allumer un feu magique pour le camp.</p>
+    <p><span class="speaker">Morgrim :</span> « Je crée une petite flamme pour allumer le bois. »</p>
+    <p><span class="speaker">MJ :</span> « Sort sans opposant. Allumer un feu est une tâche simple : <strong>Difficulté 0</strong>. Tu compares ta stat appropriée (Direct +1 pour la flamme) à la Difficulté. 1 > 0 : réussite automatique. Le feu crépite. »</p>
+    <p><span class="speaker">Morgrim :</span> « Et si je voulais invoquer un élémentaire de feu ? »</p>
+    <p><span class="speaker">MJ :</span> « Ce serait une <strong>Invocation</strong> : Difficulté = Dangerosité de la créature +1. Pour un élémentaire faible (Dangerosité 1), ce serait Difficulté 2. Il faudrait utiliser tes 2 meilleures stats impliquées et les comparer à cette Difficulté. On verra le détail des tests hors combat dans la section Talents. »</p>
+    </div>
+</div>
+
+    <h4 id="section-restauration">La Magie de Restauration (Soins)</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>La magie de soin <strong>ne remplit pas de PV</strong>. Un sort de réparation ou de soin, peut :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li">Restaurer <strong>1 Point de Durabilité</strong> (Armure ou Résistance Naturelle)</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li">Supprimer un <strong>désavantage de -1</strong> en traitant l'effet narratif associé (Saignement, Aveuglement, Fracture, etc.).</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li">Guérir entièrement une blessure corporelle ou mentale</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.16 — Magie de Restauration -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.16 : Soigner Kael</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Kael a reçu une entaille au bras lors du combat — une blessure au Membre qui lui donne un désavantage de -1.</p>
+    <p><span class="speaker">Morgrim :</span> « Je soigne son bras avec un sort de réparation. »</p>
+    <p><span class="speaker">MJ :</span> « La magie de soin <strong>ne redonne pas de 'points de vie'</strong> abstraits. Ici, elle supprime le <strong>désavantage de -1</strong> de Kael en refermant la plaie. Son bras est fonctionnel à nouveau. »</p>
+    <p><span class="speaker">MJ :</span> « Si son armure avait perdu de la durabilité, tu aurais pu restaurer 1 point. Tu peux aussi guérir entièrement une fracture ou un saignement, mais cela demanderait un sort plus puissant. »</p>
+    <p><span class="speaker">Kael :</span> « Merci, Morgrim ! Je peux tenir mon épée sans trembler. »</p>
+    </div>
+</div>
+
+    <h4 id="section-armure">La protection des armures</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Conséquence : Le Sacrifice de l'Armure :</strong><br>
+        Si le Malus d'Érosion réduit le score de Protection au point de créer une Infériorité (Attaque > Protection), mais que le bonus de Résistance de l'armure permet de maintenir une Égalité ou une Supériorité : L'attaque est parée/encaissée (Pas de conséquence physique).</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Règle d'Usure :</strong><br>
+        L'Armure perd immédiatement 1 Point de Durabilité (car elle a été nécessaire pour compenser l'érosion).</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.17 — Sacrifice d'Armure + Usure -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.17 : L'armure qui sauve</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">La Brute attaque Kael en Circulaire au Tronc. C'est déjà la troisième attaque que Kael subit ce tour.</p>
+    <p><span class="speaker">MJ :</span> « À cause de l'<strong>érosion</strong> (3ème attaque reçue), ta Protection baisse à 0. Sans armure, l'Attaque de la Brute (Circulaire +1 = 1) serait supérieure. MAIS Kael porte un gambison de cuir qui donne +1 en Résistance Tronc. Sa Protection remonte à 1. »</p>
+    <p><span class="speaker">MJ :</span> « L'<strong>armure a sacrifié</strong> son bonus pour compenser l'érosion. L'attaque est encaissée : la hache rebondit sur ton gambison. Pas de conséquence physique. Par contre, ton armure perd <strong>1 Point de Durabilité</strong>.  »</p>
+    <p><span class="speaker">Kael :</span> « Mon gambison a encaissé à ma place… Je dois le faire réparer plus tard ! »</p>
+    <p class="narrator">Le sacrifice de l'armure permet d'éviter l'Impact quand l'érosion aurait sinon créé une Infériorité. Mais chaque sacrifice coûte 1 point de Durabilité.</p>
+    </div>
+</div>
+    <h4 id="section-resultats">Résultats de la Comparaison</h4>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Cas A : Supériorité (Attaque &gt; protection)</strong></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Condition :</strong><br>
+        Le total de l'attaquant est strictement supérieur à celui qui se protège.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Résultat :</strong><br>
+        IMPACT IMMÉDIAT. (Voir section Conséquences de l'Impact).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Cas B : Infériorité (Attaque &lt; Protection)</strong></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Condition :</strong><br>
+        Le total de l'attaquant est strictement inférieur à celui qui se protège.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Résultat :</strong><br>
+        ÉCHEC AUTOMATIQUE.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Description :</strong><br>
+        L'attaque est parfaitement contrée. Le MJ décrit pourquoi l'action est inefficace.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Cas C : Égalité (Attaque = Protection)</strong></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Condition :</strong><br>
+        Les deux totaux sont identiques.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Résultat :</strong><br>
+        Test de compteur (D6).</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Procédure :</strong><br>
+        Un jet de 1D6 est effectué. Le MJ décide si le jet est caché ou ouvert, et s'il est effectué par lui-même ou par le joueur. Ce dé détermine le « Coût de la Réussite » (nombre d'échanges nécessaires pour atteindre sa cible) initiant un Compteur de Tours.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Persévérance :</strong><br>
+        Si le joueur/adversaire répète l'action, le compteur diminue de 1. À 0, L'IMPACT a lieu.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Changement :</strong><br>
+        Si l'attaquant change de Type/Cible, le compteur est abandonné et un nouveau test est effectué.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Descriptif nuancé :</strong><br>
+        Le descriptif qui découle de cette mécanique est nuancé suivant l'arme utilisée :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li-level2"><strong>Arme de CàC :</strong><br>
+        on décrit combien de coups avant de passer la garde de l'adversaire.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li-level2"><strong>Armes à distance :</strong><br>
+        le temps nécessaire pour réussir à ajuster un tir / lancé malgré les mouvements et assauts éventuels de la cible.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li-level2"><strong>Sorts :</strong><br>
+        le temps nécessaire pour réussir à lancer un sort malgré les mouvements et assauts éventuels de la cible.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Note au MJ :</strong><br>
+        Le MJ se doit de tenir un décompte en marge de la narration des Compteurs de Tours de chaque acteur participant aux combats et en état de combattre.</p>
+    </div>
+    <div class="card-end"></div>
+
+<h3 id="section-impact">Conséquences</h3>
+
+    <h4>Conséquences de l'Impact</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Lorsqu'une attaque aboutit (Supériorité ou fin du compteur D6), l'effet narratif est choisi par le MJ en fonction de la logique de la scène. Si le choix n'est pas la mort, un <strong>désavantage de -1 à toutes les actions</strong> sera appliqué à la victime jusqu'à guérison, annulation ou contournement de l'effet appliqué si pertinent :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Tête :</strong><br>
+        Mort, Blessure qui sans soins entraîne la mort à court terme, KO, Aveuglement.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Tronc :</strong><br>
+        Mort, Blessure qui sans soins entraîne la mort à court terme, Souffle coupé, Recul forcé, Hémorragie (malus constant).</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Membres :</strong><br>
+        Perte d'un membre, Désarmement, Lâcher prise, Fracture, Mise au sol, Chute, Boiterie.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.6 — Supériorité + Conséquences -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.6 : Toucher et blesser (Supériorité et Conséquences)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Le MJ résout maintenant les attaques de Lira et Kael contre les Vauriens, avec toutes les règles connues.</p>
+    <p><span class="speaker">MJ :</span> « Lira, ton Attaque 3 bat la Protection 0 du Vaurien : c'est une <strong>Supériorité</strong> (Attaque > Protection) → <strong>Impact immédiat</strong>. Ta flèche lui traverse le torse. Je choisis l'effet narratif sur le <strong>Tronc</strong> : <strong>Souffle coupé</strong> et <strong>Recul forcé</strong>. Le Vaurien tombe à genoux, incapable de reprendre son souffle. Il subit un <strong>désavantage de -1</strong> à toutes ses actions tant qu'il n'a pas reçu des soins. »</p>
+    <p><span class="speaker">Kael :</span> « Et mon estocade ? »</p>
+    <p><span class="speaker">MJ :</span> « Toi aussi : Attaque 2 > Protection 0, Supériorité, Impact immédiat. Ton estocade le fait tituber en arrière, <strong>Hémorragie</strong> au ventre. Même désavantage de -1 pour lui. »</p>
+    <p class="narrator">Quand l'Attaque est strictement supérieure à la Protection, l'Impact est immédiat. Le MJ choisit l'effet narratif selon la Cible touchée et la logique de la scène.</p>
+    </div>
+</div>
+
+<!-- 📘 Exemple 1.8 — Infériorité -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.8 : Infériorité (Échec automatique)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Le Vaurien 2, blessé mais debout, tente de riposter contre Kael.</p>
+    <p><span class="speaker">MJ :</span> « Le second Vaurien tente de te frapper en <strong>Circulaire</strong> — un coup de hache horizontal au Tronc. Son Attaque = Circulaire +1 + Tronc 0 = 1. Kael, ta Défense vs Circulaire est 0 (tu ne l'as pas montée) MAIS ton gambison de départ te donne +1 en Résistance Tronc. Ta Protection = 1. Ta <strong>Protection</strong> = 2. »</p>
+    <p><span class="speaker">MJ :</span> « 1 < 2 : c'est une <strong>Infériorité</strong> (Attaque < Protection). <strong>Échec automatique.</strong> Kael, tu bloques le coup de hache avec ton bouclier, le faisant dévier sans effort. La hache ricoche sur ton écu et le bandit perd l'équilibre. »</p>
+    <p><span class="speaker">Kael :</span> « Parfait, ma garde tient ! »</p>
+    <p class="narrator">Quand l'Attaque est strictement inférieure à la Protection, c'est un échec automatique. Le MJ décrit pourquoi l'action est inefficace.</p>
+    </div>
+</div>
+
+<!-- 📘 Exemple 1.10 — Égalité (Compteur D6) -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.10 : L'égalité serrée (Le Compteur D6)</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Revenons au moment où Kael subissait l'érosion. Le second Vaurien l'attaque avec sa Protection érodée.</p>
+    <p><span class="speaker">MJ :</span> « Kael, le second Vaurien t'attaque en Circulaire au Tronc : son Attaque 1 égale ta Protection érodée (1). C'est une <strong>Égalité</strong> (Attaque = Protection). Je lance le <strong>D6</strong> du compteur… Résultat : 4. Il faudra <strong>4 échanges</strong> avant qu'il passe ta garde. »</p>
+    <p><span class="speaker">MJ :</span> « Narrativement, vous vous affrontez pendant plusieurs secondes : le Vaurien assène des coups de hache que tu paries au corps-à-corps, mais tu recules sous la pression. Si le Vaurien répète la même attaque au prochain tour, le compteur descendra à 3, puis 2, puis 1, puis 0 → <strong>Impact</strong>. Si tu changes de garde ou qu'il change de cible, le compteur est abandonné et un nouveau test est effectué. »</p>
+    <p><span class="speaker">Kael :</span> « Je dois tenir le coup, alors ! »</p>
+    <p class="narrator">À égalité, le D6 du compteur détermine le nombre d'échanges nécessaires. Chaque répétition de l'action réduit le compteur de 1. Le MJ tient ce décompte en marge de la narration.</p>
+    </div>
+</div>
+<h2 id="section-exploration">2. Savoir et Aptitudes</h2>
+
+        <p>Toute action ne relevant pas du combat ni du social ni de la magie — qu'elle soit indépendante (escalade, crochetage) ou liée à une attaque (feinte) — est gérée par les Talents.</p>
+
+    <h4 id="section-talent">Les Talents</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Athlétisme :</strong><br>
+        Force et endurance.<br>
+        Efforts prolongés ou puissants (soulever, briser, sprinter, nager). Ne couvre pas l'agilité ni l'équilibre. Exemples : escalade en force (pas en finesse), sauter, courir, tenir une porte fermée, charger un blessé.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Aptitude Féline :</strong><br>
+        Équilibre et discrétion.<br>
+        Mouvements du corps nécessitant souplesse et contrôle. Inclut le déplacement silencieux, se cacher et les désengagements. Exemples : se faufiler, chute contrôlée, marcher en équilibre sur un sol instable, escalade en finesse, accrobatie.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Mécanique :</strong><br>
+        Outils et ingénierie.<br>
+        Confection ou Interaction avec des objets ou mécanismes physiques inanimés et non organique. Exemples : crocheter, forger, évaluation de la solidité d'une structure.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Fourberie :</strong><br>
+        Vol et feinte.<br>
+        Actions frauduleuses reposant sur la distraction ou la motricité fine. Ne couvre pas se cacher ni le déplacement silencieux ni crocheter. Peut s'utiliser avec une Attaque pour feinter. Exemples : vol à la tire, cacher un objet sur soi.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Perception :</strong><br>
+        Sens et détection.<br>
+        Détection immédiate de stimuli. Distinction avec Survie : Perception voit (embuscade, objet caché), Survie interprète des traces (pistage) découverte avec la Perception. Exemples : détection d'embuscades, fouille rapide, ouïe fine.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Survie :</strong><br>
+        Nature et pistage.<br>
+        Connaissance pratique du milieu naturel. Couvre la survie (se nourrir, s'abriter, trouver de l'eau), la connaissance de la flore et de la faune, le dépeçage et le tannage. Exemples : orientation (non magique), herboristerie, pistage (lecture de traces au sol), dressage.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Savoir Académique :</strong><br>
+        Théorie et histoire.<br>
+        Savoirs livresques et logique abstraite. Exemples : décrypter (pas crocheter), identifier un symbole historique, médecine, navigation astronomique.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <h4 id="section-diff">La Difficulté</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Sans opposant :</strong></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Difficulté 0 (Facile) :</strong><br>
+        Tâche simple.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Difficulté 1 (Ardue) :</strong><br>
+        Tâche exigeant une expertise.</p>
+    </div>
+    <div class="card-end"></div>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p><strong>Avec opposants :</strong></p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li">La Difficulté est égale au score de talent (ou de statistique) le plus élevé parmi les adversaires, choisi selon la logique de l'action entreprise.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <h4 id="section-test">Le Test</h4>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>On compare le Talent à la Difficulté :</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Supériorité (Talent &gt; Difficulté) :</strong><br>
+        Réussite Automatique.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Infériorité (Talent &lt; Difficulté) :</strong><br>
+        Échec Automatique.</p>
+    </div>
+    <div class="rule-item">
+        <p class="pseudo-li"><strong>Égalité (Talent = Difficulté) :</strong><br>
+        Test de Compteur (D6) pour déterminer, selon les cas : le temps nécessaire avant la réussite (ex: crochetage) ou l'échec (ex: discrétion), et/ou un coût en ressources supplémentaire (ex: forge).</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.18 — Talents + Difficulté + Test -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.18 : Le sprint de la fuite</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">Les Vauriens survivants, démoralisés, tentent de fuir dans les bois.</p>
+    <p><span class="speaker">MJ :</span> « Les bandits courent ! Vous pouvez les laisser filer ou tenter de les rattraper. Hors combat, on utilise les <strong>Talents</strong>. Voici les 7 talents disponibles : Athlétisme, Aptitude Féline, Mécanique, Fourberie, Perception, Survie et Savoir Académique. »</p>
+    <p><span class="speaker">Kael :</span> « Je cours après celui de gauche ! J'ai <strong>Athlétisme +1</strong>. »</p>
+    <p><span class="speaker">MJ :</span> « La <strong>Difficulté</strong> de courir sur un chemin plat est <strong>0</strong> (Facile). Tu compares ton Talent à la Difficulté : 1 > 0, c'est une <strong>Supériorité</strong> (Talent > Difficulté) → Réussite automatique. Tu rattrapes le fuyard. »</p>
+    <p><span class="speaker">Lira :</span> « Moi, je me faufile dans les buissons pour couper la route à l'autre. J'ai <strong>Aptitude Féline +1</strong>. »</p>
+    <p><span class="speaker">MJ :</span> « Le terrain est complexe : Difficulté 1. 1 = 1 : <strong>Égalité</strong> (Talent = Difficulté). Lance un D6 pour le compteur… »</p>
+    <p><span class="speaker">Lira :</span> « 2 ! »</p>
+    <p><span class="speaker">MJ :</span> « 2 échanges et tu auras coupé la route. Au prochain tour, si tu persévères, le compteur descend à 1, puis 0 → réussite. Si tu abandonnes ou changes de méthode, le compteur est perdu. »</p>
+    <p><span class="speaker">Morgrim :</span> « Et si je voulais crocheter la serrure de leur planque ? »</p>
+    <p><span class="speaker">MJ :</span> « <strong>Mécanique</strong> +1 contre Difficulté… disons 1 (serrure rustique). Égalité aussi, D6 pour le temps nécessaire. »</p>
+    </div>
+</div>
+
+<h2 id="section-social">3. Interactions Sociales</h2>
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <p>Le MJ est le seul juge de l'ingéniosité et de la crédibilité des actions sociales, c'est à lui de juger si le PJ est convaincant en fonction de la situation et des antécédents.</p>
+    </div>
+    <div class="card-end"></div>
+
+<!-- 📘 Exemple 1.19 — Interactions Sociales -->
+<div class="example-box">
+    <div class="example-header" onclick="toggleExample(this)">
+        <span class="example-toggle">&#9654;</span>
+        <span class="example-title">📘 En pratique — Séquence 1.19 : Négocier avec la Brute</span>
+    </div>
+    <div class="example-content">
+        <p class="narrator">La Brute, à terre et blessée par les flèches de Lira et les coups de Kael, lève la main en signe de reddition.</p>
+    <p><span class="speaker">Brute :</span> « Arrêtez ! J'abandonne ! »</p>
+    <p><span class="speaker">Kael :</span> « Je lève mon épée… Je hésite à l'achever. »</p>
+    <p><span class="speaker">Morgrim :</span> « Attends. Je tente de l'interroger : 'Qui vous a envoyés ?' »</p>
+    <p><span class="speaker">MJ :</span> « La Brute est un bandit de bas étage. Elle crache au sol et refuse de parler. Pas besoin de jet de dé : c'est crédible pour son profil. Kael, si tu veux l'intimider, <strong>décris comment</strong>. Ce sera mon appréciation qui tranchera, pas un dé. »</p>
+    <p><span class="speaker">Kael :</span> « Je pose mon pied sur sa hache et je lui dis que les prochains mots qu'elle prononcera décideront si elle repart avec ses jambes ou non. »</p>
+    <p><span class="speaker">MJ :</span> « Hmm… tu es convaincant, armé, et elle est à terre. Ça passe. Elle baisse les yeux : 'C'était… un contrat. On nous a payés pour le marchand. Rien de plus.' »</p>
+    <p class="narrator">Dans TRAME, le MJ est seul juge des interactions sociales. Pas de jets de dé : l'ingéniosité du joueur et la cohérence narrative priment.</p>
+    </div>
+</div>
+
+<!-- === CONCLUSION === -->
+<div class="intro-narrative">
+    <h3>Fin du Livret 1</h3>
+    <p>Vous avez suivi Kael, Lira et Morgrim depuis la première embuscade jusqu'à l'interrogatoire de la Brute. Les règles de combat, de magie, de talents et d'interactions sociales de <strong>TRAME</strong> n'ont plus de secret pour vous.</p>
+    <p>Le <strong>Livret 2</strong> vous emmènera en arrière-plan : vous découvrirez comment ces trois personnages ont été créés, leurs bonus d'espèce, leurs étapes de progression et les Points d'Amélioration. La ficelle narrative reprendra autour du feu de camp, après la victoire…</p>
+</div>
+
+</body>
+</html>
