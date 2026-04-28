@@ -663,142 +663,7 @@
                 page-break-inside: avoid !important;
             }
         }
-    
-
-        /* ===== EXEMPLES COLLAPSIBLES ===== */
-        .example-box {
-            background: #fdf6e3;
-            border-left: 4px solid #7c2d12;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-            font-family: 'Georgia', serif;
-            overflow: hidden;
-        }
-        .example-header {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            user-select: none;
-            transition: background 0.2s;
-        }
-        .example-header:hover { background: rgba(124, 45, 18, 0.08); }
-        .example-toggle {
-            font-size: 0.9rem;
-            color: #7c2d12;
-            transition: transform 0.2s;
-            display: inline-block;
-            width: 1rem;
-            flex-shrink: 0;
-        }
-        .example-box.expanded .example-toggle { transform: rotate(90deg); }
-        .example-box .example-title {
-            font-weight: bold;
-            color: #7c2d12;
-            font-family: 'Cinzel', serif;
-            font-size: 1.05rem;
-        }
-        .example-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, opacity 0.3s ease;
-            opacity: 0;
-            padding: 0 1.5rem;
-        }
-        .example-box.expanded .example-content {
-            max-height: 3000px;
-            opacity: 1;
-            padding: 0 1.5rem 1rem 1.5rem;
-        }
-        .example-content p { margin-bottom: 0.5rem; line-height: 1.6; }
-        .example-content .speaker { font-weight: 600; color: #44403c; }
-        .example-content .narrator { font-style: italic; color: #57534e; margin-bottom: 0.75rem; }
-
-        /* ===== VIGNETTES D'ESPÈCES ===== */
-        .vignette-box {
-            background: linear-gradient(to right, #f0fdf4, #dcfce7);
-            border-left: 4px solid #15803d;
-            padding: 1rem 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
-            font-family: 'Georgia', serif;
-        }
-        .vignette-title {
-            font-weight: bold;
-            color: #15803d;
-            margin-bottom: 0.75rem;
-            font-family: 'Cinzel', serif;
-            font-size: 1.05rem;
-        }
-        .vignette-box p { margin-bottom: 0.5rem; line-height: 1.6; }
-
-        /* ===== INTRO NARRATIVE ===== */
-        .intro-narrative {
-            background: linear-gradient(to right, #fef3c7, #fde68a);
-            border: 2px solid #b45309;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        .intro-narrative h3 {
-            font-family: 'Cinzel', serif;
-            color: #92400e;
-            margin-top: 0;
-        }
-
-        /* ===== ILLUSTRATIONS ===== */
-        .illustration {
-            width: 100%;
-            max-width: 100%;
-            border-radius: 8px;
-            margin: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            display: block;
-        }
-        .illustration-caption {
-            text-align: center;
-            font-style: italic;
-            color: #57534e;
-            font-size: 0.9rem;
-            margin-top: -0.5rem;
-            margin-bottom: 1rem;
-            font-family: 'Georgia', serif;
-        }
-
-        /* ===== TOGGLE EXEMPLES SIDEBAR ===== */
-        .examples-toggle {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid rgba(0,0,0,0.1);
-        }
-        .examples-toggle-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.75rem;
-            color: #1c1917;
-            margin-bottom: 8px;
-            opacity: 0.8;
-        }
-        .examples-toggle-buttons {
-            display: flex;
-            gap: 6px;
-        }
-        .examples-toggle-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 5px 10px;
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 4px;
-            background: rgba(255,255,255,0.6);
-            cursor: pointer;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-        }
-        .examples-toggle-btn:hover { background: rgba(124,45,18,0.1); }
-        .examples-toggle-btn.active { background: rgba(124,45,18,0.2); border-color: #7c2d12; color: #7c2d12; }
-</style>
+    </style>
     
 <script type="application/ld+json">
     {
@@ -818,19 +683,6 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Rechercher...">
             </div>
             <div id="documentsList"></div>
-
-            <div class="examples-toggle">
-                <div class="examples-toggle-label">Exemples narratifs</div>
-                <div class="examples-toggle-buttons">
-                    <button id="btnExamplesCollapsed" class="examples-toggle-btn active" onclick="setAllExamples(false)" title="Masquer tous les exemples">
-                        <span>▸</span> Masqués
-                    </button>
-                    <button id="btnExamplesExpanded" class="examples-toggle-btn" onclick="setAllExamples(true)" title="Déplier tous les exemples">
-                        <span>▾</span> Dépliés
-                    </button>
-                </div>
-            </div>
-
             <div style="margin-top: auto; padding-top: 20px; text-align: center; font-size: 0.6rem; opacity: 0.6; font-family: 'Cinzel', serif;">
                 © 2026 Urnidzen - TRAME<br>CC BY-NC-SA 4.0
             </div>
@@ -850,11 +702,11 @@
     <script>
         const documents = [
             { id: 'intro', file: 'introduction.v0.02.html', icon: '📜', title: 'Introduction', subtitle: 'Bienvenue au Codex' },
-            { id: 'livret1', file: 'TRAME_Livret1_Mecanismes_v1.0.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
-            { id: 'livret2', file: 'TRAME_Livret2_Creation_v1.0.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },
-            { id: 'livret3', file: 'TRAME_Livret3_Equipement_v1.0.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Ressssources & Équipement' },
-            { id: 'livret4', file: 'TRAME_Livret4_Rencontres_v1.0.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
-            { id: 'livret5', file: 'TRAME_Livret5_Bestiaire_v1.0.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
+            { id: 'livret1', file: 'Livret1-Mecanismes.v0.88.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
+            { id: 'livret2', file: 'Livret2-Creation.v0.75.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },
+            { id: 'livret3', file: 'Livret3-Ressources-Equipement.v0.80.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Ressssources & Équipement' },
+            { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
+            { id: 'livret5', file: 'Livret5-Bestiaire.v0.82.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'fiche', file: 'Fiche de personnage.v0.91.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
@@ -1144,36 +996,7 @@
             return html;
         }
         
-        
-        // ===== GESTION DES EXEMPLES COLLAPSIBLES =====
-        function toggleExample(header) {
-            const box = header.closest('.example-box');
-            box.classList.toggle('expanded');
-        }
-
-        function setAllExamples(expand) {
-            document.querySelectorAll('.example-box').forEach(box => {
-                box.classList.toggle('expanded', expand);
-            });
-            const btnCollapsed = document.getElementById('btnExamplesCollapsed');
-            const btnExpanded = document.getElementById('btnExamplesExpanded');
-            if (btnCollapsed) btnCollapsed.classList.toggle('active', !expand);
-            if (btnExpanded) btnExpanded.classList.toggle('active', expand);
-            try {
-                localStorage.setItem('trame_examples_state', expand ? 'expanded' : 'collapsed');
-            } catch(e) {}
-        }
-
-        function initExamples() {
-            let expand = false; // default: collapsed
-            try {
-                const saved = localStorage.getItem('trame_examples_state');
-                if (saved === 'expanded') expand = true;
-            } catch(e) {}
-            setAllExamples(expand);
-        }
-
-function renderDocumentsList() {
+        function renderDocumentsList() {
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.trim();
             
@@ -1534,7 +1357,6 @@ function renderDocumentsList() {
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
                         paginateContent(rawContentCache);
-                        initExamples();
                         renderDocumentsList();
                     });
                 });
@@ -1930,7 +1752,6 @@ function renderDocumentsList() {
                     // La largeur ne change pas (déjà 100%), donc on évite de détruire les highlights
                     if (!isMobile) {
                         paginateContent(rawContentCache);
-                        initExamples();
                         
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
@@ -1955,7 +1776,7 @@ function renderDocumentsList() {
             if (isMobile && sidebarOpen && !wasMobile) toggleSidebar();
             if (wasMobile !== isMobile) {
                  if (currentDoc === 'fiche') loadDocument('fiche');
-                 else if (rawContentCache) { paginateContent(rawContentCache); initExamples(); }
+                 else if (rawContentCache) paginateContent(rawContentCache);
             }
         }
 
@@ -1965,7 +1786,7 @@ function renderDocumentsList() {
             resizeTimeout = setTimeout(() => {
                 checkMobile();
                 if (currentDoc === 'fiche') resizeAllSheets();
-                else if (rawContentCache) { paginateContent(rawContentCache); initExamples(); }
+                else if (rawContentCache) paginateContent(rawContentCache);
             }, 300);
         });
 
