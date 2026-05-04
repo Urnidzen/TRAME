@@ -862,23 +862,51 @@
             return results;
         }
 
-        async function navigateToResult(docId, sectionId) {
+        async function navigateToResult(docId, searchTerm) {
+            if (!searchTerm || searchTerm.length < 2) return;
+            
             if (currentDoc !== docId) {
                 await selectDocument(docId);
-                // Attendre que la pagination soit terminée
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, 300));
             }
             
-            // Attendre le prochain cycle de rendu pour s'assurer que le DOM est prêt
-            requestAnimationFrame(() => {
-                if (sectionId) {
-                    scrollToElement(sectionId);
+            setTimeout(() => {
+                const wrapper = document.getElementById('bookSpreadsWrapper');
+                if (!wrapper) return;
+                
+                const normalizedSearch = normalizeText(searchTerm);
+                const walker = document.createTreeWalker(
+                    wrapper,
+                    NodeFilter.SHOW_TEXT,
+                    {
+                        acceptNode: function(node) {
+                            if (node.textContent && normalizeText(node.textContent).toLowerCase().includes(normalizedSearch)) {
+                                return NodeFilter.FILTER_ACCEPT;
+                            }
+                            return NodeFilter.FILTER_SKIP;
+                        }
+                    }
+                );
+                
+                const firstMatch = walker.nextNode();
+                if (firstMatch && firstMatch.parentNode) {
+                    firstMatch.parentNode.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                    
+                    const targetEl = firstMatch.parentNode;
+                    const originalOutline = targetEl.style.outline;
+                    targetEl.style.outline = '2px solid #7c2d12';
+                    targetEl.style.backgroundColor = 'rgba(124, 45, 18, 0.15)';
+                    setTimeout(() => {
+                        targetEl.style.outline = originalOutline;
+                        targetEl.style.backgroundColor = '';
+                    }, 2500);
                 }
-                const searchTerm = document.getElementById('searchInput').value;
-                if (searchTerm) {
-                    highlightSearchTerm(searchTerm);
-                }
-            });
+                
+                highlightSearchTerm(searchTerm);
+            }, 100);
         }
 
         function highlightSearchTerm(term) {
@@ -1042,7 +1070,7 @@
                             const pathLine = breadcrumb.join(' <span style="color:#ccc; font-size:0.9em;">›</span> ');
                             
                             html += `
-                                <div onclick="navigateToResult('${docResult.docId}', '${sec.section.id}')" 
+                                <div onclick="navigateToResult('${docResult.docId}', '${searchTerm.replace(/'/g, "\\'")}')" 
                                      style="cursor:pointer; padding:6px 8px; border-left:2px solid #7c2d12; 
                                             background:rgba(0,0,0,0.02); margin-bottom:3px; 
                                             font-size:0.8rem; line-height:1.3;"
