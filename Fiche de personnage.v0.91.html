@@ -1507,7 +1507,7 @@
                         
                         let isDragonTalent = isDragon && (t.id === 'athletisme' || t.id === 'perception');
                         let isDragonPolymorphed = isDragon && shapeSelect && shapeSelect.value !== "DRAGON";
-                        let polymorphMalus = isDragonPolymorphed ? -1 : 0;
+                        let polymorphMalus = 0;
 
                         let isPagureSansExoTalentBonus = isPagureSansExo && (t.id === 'aptitude_feline');
                         let isPagureSansExoTalentMalus = isPagureSansExo && (t.id === 'mecanique' || t.id === 'fourberie');
