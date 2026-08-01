@@ -975,36 +975,59 @@
             return results;
         }
 
+        function makeAccentInsensitiveRegex(term) {
+            const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const pattern = escaped
+                .replace(/[aàáâãäåAÀÁÂÃÄÅ]/g, '[aàáâãäåAÀÁÂÃÄÅ]')
+                .replace(/[eèéêëEÈÉÊË]/g, '[eèéêëEÈÉÊË]')
+                .replace(/[iìíîïIÌÍÎÏ]/g, '[iìíîïIÌÍÎÏ]')
+                .replace(/[oòóôõöOÒÓÔÕÖ]/g, '[oòóôõöOÒÓÔÕÖ]')
+                .replace(/[uùúûüUÙÚÛÜ]/g, '[uùúûüUÙÚÛÜ]')
+                .replace(/[cçCÇ]/g, '[cçCÇ]')
+                .replace(/[nñNÑ]/g, '[nñNÑ]');
+            return new RegExp(`(${pattern})`, 'gi');
+        }
+
         async function navigateToResult(docId, term, matchIndex, targetId) {
-            // 1. Si le résultat appartient à un autre document, on le charge d'abord
+            // 1. Charger le document si ce n'est pas celui en cours
             if (currentDoc !== docId) {
                 currentDoc = docId;
                 expandedId = docId;
                 await loadDocument(docId);
             }
             
-            // 2. Attendre que le rendu et la pagination soient appliqués
-            setTimeout(() => {
-                // Surligner visuellement le mot cherché dans le document
-                highlightSearchTerm(term);
-                
-                // 3. Défiler jusqu'à la section ou au mot surligné
-                if (targetId) {
-                    scrollToElement(targetId);
-                } else {
-                    const firstHighlight = document.querySelector('.search-highlight');
-                    if (firstHighlight) {
-                        const spread = firstHighlight.closest('.book-spread');
-                        if (spread) {
-                            const mainContainer = document.getElementById('mainContainer');
-                            mainContainer.scrollTo({
-                                top: spread.offsetTop,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
+            // Attente pour stabiliser l'affichage
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // 2. Surligner toutes les occurrences (tolérant aux accents)
+            highlightSearchTerm(term);
+            
+            let targetElement = null;
+            
+            // 3. Chercher l'élément par ID (titre)
+            if (targetId) {
+                const cleanId = targetId.replace('section-', '');
+                targetElement = document.getElementById(cleanId) || document.getElementById(targetId);
+            }
+            
+            // 4. Si pas d'ID (texte dans un paragraphe), cibler le surlignage correspondant au matchIndex
+            const highlights = document.querySelectorAll('.search-highlight');
+            if (!targetElement && highlights.length > 0) {
+                const idx = (matchIndex !== undefined && matchIndex < highlights.length) ? matchIndex : 0;
+                targetElement = highlights[idx];
+            }
+            
+            // 5. Faire défiler jusqu'à la double-page (spread) contenant l'élément
+            if (targetElement) {
+                const spread = targetElement.closest('.book-spread');
+                if (spread) {
+                    const mainContainer = document.getElementById('mainContainer');
+                    mainContainer.scrollTo({
+                        top: spread.offsetTop,
+                        behavior: 'smooth'
+                    });
                 }
-            }, 150);
+            }
         }
         
         function highlightSearchTerm(term) {
@@ -1013,13 +1036,18 @@
             // Nettoyer les anciens surlignages
             document.querySelectorAll('.search-highlight').forEach(el => {
                 const parent = el.parentNode;
-                parent.replaceChild(document.createTextNode(el.textContent), el);
-                parent.normalize();
+                if (parent) {
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                    parent.normalize();
+                }
             });
             
-            const normalizedTerm = normalizeText(term);
+            const regex = makeAccentInsensitiveRegex(term);
+            const wrapper = document.getElementById('bookSpreadsWrapper');
+            if (!wrapper) return;
+
             const walker = document.createTreeWalker(
-                document.getElementById('bookSpreadsWrapper'),
+                wrapper,
                 NodeFilter.SHOW_TEXT,
                 null,
                 false
@@ -1029,24 +1057,27 @@
             let node;
             
             while (node = walker.nextNode()) {
-                if (node.textContent && normalizeText(node.textContent).includes(normalizedTerm)) {
+                if (node.textContent && regex.test(node.textContent)) {
                     textNodes.push(node);
                 }
             }
             
             textNodes.forEach(node => {
-                const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-                const parts = node.textContent.split(regex);
+                const text = node.textContent;
+                regex.lastIndex = 0;
+                const parts = text.split(regex);
+                if (parts.length <= 1) return;
                 
                 const fragment = document.createDocumentFragment();
-                parts.forEach((part, i) => {
-                    if (normalizeText(part) === normalizedTerm) {
+                parts.forEach(part => {
+                    regex.lastIndex = 0;
+                    if (part && regex.test(part)) {
                         const mark = document.createElement('mark');
                         mark.className = 'search-highlight';
-                        mark.style.cssText = 'background-color:rgba(124,45,18,0.3);color:#1c1917;font-weight:bold;border-radius:2px;padding:0 2px;';
+                        mark.style.cssText = 'background-color:#fde047; color:#1c1917; font-weight:bold; border-radius:2px; padding:0 2px; box-shadow:0 0 4px rgba(0,0,0,0.3);';
                         mark.textContent = part;
                         fragment.appendChild(mark);
-                    } else {
+                    } else if (part) {
                         fragment.appendChild(document.createTextNode(part));
                     }
                 });
@@ -1566,12 +1597,15 @@
 
                 rawContentCache = cleanHtmlContent(tempDiv.innerHTML);
                 
-                // Attendre que les polices soient prêtes puis paginer
+                // Attendre les polices ET la fin du rendu des pages avant de résoudre
                 await document.fonts.ready;
-                requestAnimationFrame(() => {
+                await new Promise(resolve => {
                     requestAnimationFrame(() => {
-                        paginateContent(rawContentCache);
-                        renderDocumentsList();
+                        requestAnimationFrame(() => {
+                            paginateContent(rawContentCache);
+                            renderDocumentsList();
+                            resolve();
+                        });
                     });
                 });
 
