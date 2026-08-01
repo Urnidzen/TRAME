@@ -37,6 +37,8 @@
     <script>tailwind.config={content:[],theme:{extend:{}}}</script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;500;600;700" rel="stylesheet">
     <script src="registre.js"></script>
+    <!-- Convertisseur Markdown complet -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
         :root {
@@ -674,6 +676,38 @@
                 display: block !important;
                 page-break-inside: avoid !important;
             }
+
+            /* Styles additionnels pour le rendu Markdown */
+            .content-section blockquote {
+                border-left: 4px solid #7c2d12;
+                padding-left: 1rem;
+                margin: 1rem 0;
+                font-style: italic;
+                background: rgba(124, 45, 18, 0.05);
+            }
+    
+            .content-section code {
+                font-family: monospace;
+                background: rgba(0,0,0,0.08);
+                padding: 2px 5px;
+                border-radius: 3px;
+                font-size: 0.9em;
+            }
+    
+            .content-section pre {
+                background: #1c1917;
+                color: #f4ecd8;
+                padding: 1rem;
+                border-radius: 4px;
+                overflow-x: auto;
+                margin: 1rem 0;
+            }
+    
+            .content-section pre code {
+                background: transparent;
+                color: inherit;
+                padding: 0;
+            }
         }
     </style>
     
@@ -776,7 +810,11 @@
             if (searchIndex.has(doc.id)) return;
             try {
                 const response = await fetch(doc.file);
-                const html = await response.text();
+                let rawText = await response.text();
+                
+                // Si c'est du Markdown, on le convertit en HTML avant l'indexation
+                const html = doc.file.endsWith('.md') ? marked.parse(rawText) : rawText;
+                
                 const text = extractTextContent(html);
                 const normalized = normalizeText(text);
                 
@@ -1475,14 +1513,8 @@
                 let bodyContent = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
                 
                 if (doc.file.endsWith('.md')) {
-                    // Conversion simple des retours à la ligne pour le texte brut Markdown afin d'éviter la fusion en une ligne
-                    bodyContent = bodyContent
-                        .replace(/&/g, "&amp;")
-                        .replace(/</g, "&lt;")
-                        .replace(/>/g, "&gt;")
-                        .replace(/\n\n/g, '</p><p class="content-section">')
-                        .replace(/\n/g, '<br>');
-                    bodyContent = '<p class="content-section">' + bodyContent + '</p>';
+                    // Conversion Markdown intégrale vers HTML avec Marked.js
+                    bodyContent = `<div class="content-section">${marked.parse(bodyContent)}</div>`;
                 }
 
                 tempDiv.innerHTML = bodyContent;
