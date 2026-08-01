@@ -975,6 +975,38 @@
             return results;
         }
 
+        async function navigateToResult(docId, term, matchIndex, targetId) {
+            // 1. Si le résultat appartient à un autre document, on le charge d'abord
+            if (currentDoc !== docId) {
+                currentDoc = docId;
+                expandedId = docId;
+                await loadDocument(docId);
+            }
+            
+            // 2. Attendre que le rendu et la pagination soient appliqués
+            setTimeout(() => {
+                // Surligner visuellement le mot cherché dans le document
+                highlightSearchTerm(term);
+                
+                // 3. Défiler jusqu'à la section ou au mot surligné
+                if (targetId) {
+                    scrollToElement(targetId);
+                } else {
+                    const firstHighlight = document.querySelector('.search-highlight');
+                    if (firstHighlight) {
+                        const spread = firstHighlight.closest('.book-spread');
+                        if (spread) {
+                            const mainContainer = document.getElementById('mainContainer');
+                            mainContainer.scrollTo({
+                                top: spread.offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                }
+            }, 150);
+        }
+        
         function highlightSearchTerm(term) {
             if (!term) return;
             
@@ -1524,6 +1556,14 @@
                 
                 tempDiv.querySelectorAll('script, style, link[rel="stylesheet"], meta, title, base, noscript').forEach(el => el.remove());
                 
+                // Assurer que les titres reçoivent les mêmes ID automatiques que le moteur de recherche
+                tempDiv.querySelectorAll('h2, h3, h4').forEach(el => {
+                    if (!el.id) {
+                        const text = el.textContent.trim().replace(/\s+/g, ' ');
+                        el.id = 'auto-' + normalizeText(text).substring(0, 20).replace(/\s+/g, '-');
+                    }
+                });
+
                 rawContentCache = cleanHtmlContent(tempDiv.innerHTML);
                 
                 // Attendre que les polices soient prêtes puis paginer
