@@ -892,34 +892,89 @@
                 const rawText = docData.rawText;
                 const foldedText = foldAccents(rawText);
 
+                // 1. CHERCHER DANS LES TITRES ET SOUS-TITRES (Fil d'Ariane + 50 caractères APRÈS)
+                docData.sections.forEach(section => {
+                    const sectionFolded = foldAccents(section.title);
+                    if (sectionFolded.includes(searchQueryFolded)) {
+                        const pos = foldedText.indexOf(sectionFolded);
+                        let snippetAfter = "";
+
+                        if (pos !== -1) {
+                            // Prendre 50 caractères APRÈS le titre
+                            const start = pos + sectionFolded.length;
+                            const end = Math.min(rawText.length, start + 50);
+                            snippetAfter = rawText.substring(start, end).replace(/\s+/g, ' ').trim();
+                            if (end < rawText.length) snippetAfter += '...';
+                        }
+
+                        // Surligner le mot dans le titre
+                        const exactWord = section.title.substring(
+                            sectionFolded.indexOf(searchQueryFolded), 
+                            sectionFolded.indexOf(searchQueryFolded) + searchQueryFolded.length
+                        );
+                        
+                        const highlightedTitle = section.title.replace(
+                            exactWord,
+                            `<strong style="color:#7c2d12; background:rgba(124,45,18,0.15); padding:0 2px;">${exactWord}</strong>`
+                        );
+
+                        matchingItems.push({
+                            breadcrumb: `${docData.title} › ${section.title}`,
+                            snippet: `<strong>${highlightedTitle}</strong>${snippetAfter ? ' : ' + snippetAfter : ''}`,
+                            targetId: section.id,
+                            isTitle: true,
+                            matchIndex: 0
+                        });
+                    }
+                });
+
+                // 2. CHERCHER DANS LE CORPS DU TEXTE (Fil d'Ariane + 25 chars AVANT/APRÈS)
                 let pos = 0;
                 let matchCount = 0;
-                const maxMatchesPerDoc = 8; // Limite par document
+                const maxMatchesPerDoc = 6;
 
                 while ((pos = foldedText.indexOf(searchQueryFolded, pos)) !== -1 && matchCount < maxMatchesPerDoc) {
-                    // Extraire un extrait (snippet) de 25 caractères avant et après
-                    const start = Math.max(0, pos - 25);
-                    const end = Math.min(rawText.length, pos + searchQueryFolded.length + 25);
-                    
-                    let prefix = start > 0 ? '...' : '';
-                    let suffix = end < rawText.length ? '...' : '';
-                    
-                    // Récupération exacte du texte brut aux mêmes index
-                    let rawSnippet = rawText.substring(start, end).replace(/\s+/g, ' ');
-                    
-                    // Surligner le mot trouvé dans l'extrait
-                    const exactWordInText = rawText.substring(pos, pos + searchQueryFolded.length);
-                    const highlightedSnippet = rawSnippet.replace(
-                        exactWordInText, 
-                        `<strong style="color:#7c2d12; background:rgba(124,45,18,0.15); padding:0 2px; border-radius:2px;">${exactWordInText}</strong>`
-                    );
-
-                    matchingItems.push({
-                        snippet: prefix + highlightedSnippet + suffix,
-                        matchIndex: matchCount
+                    // Vérifier si cette position n'est pas déjà un titre traité
+                    const isTitleMatch = docData.sections.some(s => {
+                        const sFolded = foldAccents(s.title);
+                        const sPos = foldedText.indexOf(sFolded);
+                        return sPos !== -1 && pos >= sPos && pos < sPos + sFolded.length;
                     });
 
-                    pos += searchQueryFolded.length + 1; // Avancer dans le texte
+                    if (!isTitleMatch) {
+                        // Trouver la section parent pour le Fil d'Ariane
+                        let currentSectionTitle = docData.title;
+                        for (let s of docData.sections) {
+                            const sPos = foldedText.indexOf(foldAccents(s.title));
+                            if (sPos !== -1 && sPos <= pos) {
+                                currentSectionTitle = `${docData.title} › ${s.title}`;
+                            }
+                        }
+
+                        const start = Math.max(0, pos - 25);
+                        const end = Math.min(rawText.length, pos + searchQueryFolded.length + 25);
+
+                        let prefix = start > 0 ? '...' : '';
+                        let suffix = end < rawText.length ? '...' : '';
+
+                        let rawSnippet = rawText.substring(start, end).replace(/\s+/g, ' ');
+                        const exactWordInText = rawText.substring(pos, pos + searchQueryFolded.length);
+
+                        const highlightedSnippet = rawSnippet.replace(
+                            exactWordInText, 
+                            `<strong style="color:#7c2d12; background:rgba(124,45,18,0.15); padding:0 2px; border-radius:2px;">${exactWordInText}</strong>`
+                        );
+
+                        matchingItems.push({
+                            breadcrumb: currentSectionTitle,
+                            snippet: prefix + highlightedSnippet + suffix,
+                            targetId: '',
+                            isTitle: false,
+                            matchIndex: matchCount
+                        });
+                    }
+
+                    pos += searchQueryFolded.length + 1;
                     matchCount++;
                 }
 
@@ -1161,16 +1216,17 @@
                         docResult.items.forEach(item => {
                             pageCounter++;
                             const safeTerm = searchTerm.replace(/'/g, "\\'");
+                            const borderStyle = item.isTitle ? '3px solid #7c2d12' : '3px solid #a8a29e';
                             
                             html += `
-                                <div onclick="navigateToResult('${docResult.docId}', '${safeTerm}', ${item.matchIndex})" 
-                                     style="cursor:pointer; padding:8px; border-left:3px solid #7c2d12; 
+                                <div onclick="navigateToResult('${docResult.docId}', '${safeTerm}', ${item.matchIndex}, '${item.targetId || ''}')" 
+                                     style="cursor:pointer; padding:8px; border-left:${borderStyle}; 
                                             background:rgba(0,0,0,0.02); margin-bottom:6px; border-radius:0 4px 4px 0;
                                             font-size:0.8rem; line-height:1.3;"
                                      onmouseover="this.style.background='rgba(124,45,18,0.1)';" 
                                      onmouseout="this.style.background='rgba(0,0,0,0.02)';">
-                                    <div style="font-weight:700; color:#7c2d12; font-size:0.75rem; margin-bottom:2px;">
-                                        ${docResult.docIcon} ${docResult.docTitle}
+                                    <div style="font-weight:700; color:#7c2d12; font-size:0.7rem; margin-bottom:3px; opacity:0.85;">
+                                        ${docResult.docIcon} ${item.breadcrumb}
                                     </div>
                                     <div style="color:#1c1917;">
                                         "${item.snippet}"
@@ -1189,7 +1245,7 @@
                 return;
             }
             
-            // MODE NORMAL (Arborescence des documents)
+            // MODE NORMAL
             let html = '';
             let renderedLoreFolder = false;
 
