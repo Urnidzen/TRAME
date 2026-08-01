@@ -27,7 +27,6 @@
 
         h1, h2, h3, h4 { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
 
-        /* ===== ÉCRAN MOT DE PASSE ===== */
         #gate {
             position: fixed;
             inset: 0;
@@ -108,51 +107,12 @@
             font-style: italic;
         }
 
-        /* ===== CONTENU LORE ===== */
         #content {
             display: none;
             height: 100%;
             width: 100%;
             overflow: hidden;
             flex-direction: column;
-        }
-
-        /* Navigation des annexes */
-        .annex-nav {
-            display: flex;
-            gap: 0;
-            background: #1a1612;
-            border-bottom: 3px solid #1c1917;
-            flex-shrink: 0;
-            overflow-x: auto;
-        }
-
-        .annex-tab {
-            flex: 1;
-            min-width: 140px;
-            padding: 14px 18px;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            color: #e3d5b8;
-            background: transparent;
-            border: none;
-            border-right: 1px solid rgba(227, 213, 184, 0.15);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .annex-tab:last-child { border-right: none; }
-
-        .annex-tab:hover {
-            background: rgba(124, 45, 18, 0.35);
-        }
-
-        .annex-tab.active {
-            background: #7c2d12;
-            color: #f4ecd8;
         }
 
         .lore-scroll {
@@ -234,6 +194,25 @@
             color: #7c2d12;
         }
 
+        .lore-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .lore-page th, .lore-page td {
+            border: 1px solid rgba(28,25,23,0.25);
+            padding: 0.45rem 0.6rem;
+            text-align: left;
+        }
+
+        .lore-page th {
+            background: rgba(124, 45, 18, 0.1);
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+        }
+
         .legal {
             position: absolute;
             bottom: 1rem;
@@ -251,17 +230,11 @@
             }
             .lore-page h1 { font-size: 1.5rem; }
             .gate-box { padding: 30px 25px; }
-            .annex-tab {
-                font-size: 0.8rem;
-                padding: 12px 10px;
-                min-width: 110px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ÉCRAN DE VERROUILLAGE -->
     <div id="gate">
         <div class="gate-box">
             <h2>🕯️ Lore</h2>
@@ -273,13 +246,7 @@
         </div>
     </div>
 
-    <!-- CONTENU -->
     <div id="content">
-        <div class="annex-nav">
-            <button class="annex-tab active" data-file="lore/Annexe1-Atlas.md">Annexe 1 — Atlas</button>
-            <button class="annex-tab" data-file="lore/Annexe2-Aventures.md">Annexe 2 — Aventures</button>
-            <button class="annex-tab" data-file="lore/Annexe3-Personnages.md">Annexe 3 — Personnages</button>
-        </div>
         <div class="lore-scroll">
             <div class="lore-page">
                 <div id="markdownContent">Chargement…</div>
@@ -292,10 +259,17 @@
         const CORRECT_PASSWORD = "Trame-lore";
         const STORAGE_KEY = "trame_lore_unlocked";
 
-        const tabs = document.querySelectorAll(".annex-tab");
-        let currentFile = "lore/Annexe1-Atlas.md";
+        const ANNEXES = {
+            "1": "lore/Annexe1-Atlas.md",
+            "2": "lore/Annexe2-Aventures.md",
+            "3": "lore/Annexe3-Personnages.md"
+        };
 
-        // Vérifier si déjà déverrouillé dans cette session
+        // Lire le paramètre ?annex=1|2|3 (défaut = 1)
+        const params = new URLSearchParams(window.location.search);
+        let currentAnnex = params.get("annex") || "1";
+        if (!ANNEXES[currentAnnex]) currentAnnex = "1";
+
         if (sessionStorage.getItem(STORAGE_KEY) === "true") {
             unlock();
         }
@@ -305,13 +279,14 @@
             if (e.key === "Enter") tryUnlock();
         });
 
-        tabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                tabs.forEach(t => t.classList.remove("active"));
-                tab.classList.add("active");
-                currentFile = tab.dataset.file;
-                loadAnnex(currentFile);
-            });
+        // Écouter les changements de paramètre si le parent change l'URL de l'iframe
+        window.addEventListener("message", (e) => {
+            if (e.data && e.data.action === "loadAnnex" && ANNEXES[e.data.annex]) {
+                currentAnnex = e.data.annex;
+                if (sessionStorage.getItem(STORAGE_KEY) === "true") {
+                    loadAnnex(ANNEXES[currentAnnex]);
+                }
+            }
         });
 
         function tryUnlock() {
@@ -331,7 +306,7 @@
         function unlock() {
             document.getElementById("gate").style.display = "none";
             document.getElementById("content").style.display = "flex";
-            loadAnnex(currentFile);
+            loadAnnex(ANNEXES[currentAnnex]);
         }
 
         async function loadAnnex(file) {
@@ -342,7 +317,6 @@
                 if (!response.ok) throw new Error("Fichier introuvable");
                 const text = await response.text();
                 container.innerHTML = marked.parse(text);
-                // Remonter en haut
                 document.querySelector(".lore-scroll").scrollTop = 0;
             } catch (err) {
                 container.innerHTML = "<p style='color:#7c2d12'>Impossible de charger cette annexe.</p>";
