@@ -991,10 +991,9 @@
             return results;
         }
 
-        async function navigateToResult(docId, searchTerm, matchIndex = 0) {
+        async function navigateToResult(docId, searchTerm, matchIndex = 0, targetId = '') {
             if (!searchTerm || searchTerm.length < 2) return;
             
-            // Si on change de document, on le charge d'abord
             if (currentDoc !== docId) {
                 await selectDocument(docId);
                 await new Promise(resolve => setTimeout(resolve, 350));
@@ -1004,44 +1003,45 @@
                 const wrapper = document.getElementById('bookSpreadsWrapper');
                 if (!wrapper) return;
                 
-                const normalizedSearch = normalizeText(searchTerm);
-                
-                // Parcourir tous les nœuds de texte pour trouver l'occurrence exacte N (matchIndex)
-                const walker = document.createTreeWalker(
-                    wrapper,
-                    NodeFilter.SHOW_TEXT,
-                    {
-                        acceptNode: function(node) {
-                            if (node.textContent && normalizeText(node.textContent).includes(normalizedSearch)) {
-                                return NodeFilter.FILTER_ACCEPT;
+                let targetEl = null;
+
+                // 1. Si c'est un titre avec un ID de section
+                if (targetId) {
+                    const cleanId = targetId.replace('section-', '');
+                    targetEl = document.getElementById(cleanId) || document.getElementById(targetId);
+                }
+
+                // 2. Sinon, chercher par occurrence de texte dans le document
+                if (!targetEl) {
+                    const normalizedSearch = normalizeText(searchTerm);
+                    const walker = document.createTreeWalker(
+                        wrapper,
+                        NodeFilter.SHOW_TEXT,
+                        {
+                            acceptNode: function(node) {
+                                if (node.textContent && normalizeText(node.textContent).includes(normalizedSearch)) {
+                                    return NodeFilter.FILTER_ACCEPT;
+                                }
+                                return NodeFilter.FILTER_SKIP;
                             }
-                            return NodeFilter.FILTER_SKIP;
                         }
+                    );
+                    
+                    let currentIndex = 0;
+                    while (walker.nextNode()) {
+                        if (currentIndex === matchIndex) {
+                            targetEl = walker.currentNode.parentNode;
+                            break;
+                        }
+                        currentIndex++;
                     }
-                );
-                
-                let currentMatchNode = null;
-                let currentIndex = 0;
-                
-                while (walker.nextNode()) {
-                    if (currentIndex === matchIndex) {
-                        currentMatchNode = walker.currentNode;
-                        break;
-                    }
-                    currentIndex++;
+                    if (!targetEl && walker.currentNode) targetEl = walker.currentNode.parentNode;
                 }
 
-                // Si l'index exact n'est pas trouvé (ex: fin de document), on prend le dernier trouvé
-                if (!currentMatchNode && walker.currentNode) {
-                    currentMatchNode = walker.currentNode;
-                }
-
-                if (currentMatchNode && currentMatchNode.parentNode) {
-                    const targetEl = currentMatchNode.parentNode;
+                if (targetEl) {
                     const spread = targetEl.closest('.book-spread');
                     const mainContainer = document.getElementById('mainContainer');
                     
-                    // Défiler jusqu'à la double-page correspondante
                     if (spread && mainContainer) {
                         mainContainer.scrollTo({
                             top: spread.offsetTop,
@@ -1051,7 +1051,6 @@
                         targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                     
-                    // Surligner temporairement l'élément précis
                     const originalBg = targetEl.style.backgroundColor;
                     const originalOutline = targetEl.style.outline;
                     targetEl.style.outline = '2px solid #7c2d12';
