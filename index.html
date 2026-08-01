@@ -721,6 +721,9 @@
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.82.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'fiche', file: 'Fiche de personnage.v0.91.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
+            { id: 'lore1', file: 'lore.html?annex=1', icon: '🕯️', title: 'Lore — Atlas', subtitle: 'Annexe 1 (privé)' },
+            { id: 'lore2', file: 'lore.html?annex=2', icon: '🗡️', title: 'Lore — Aventures', subtitle: 'Annexe 2 (privé)' },
+            { id: 'lore3', file: 'lore.html?annex=3', icon: '👤', title: 'Lore — Personnages', subtitle: 'Annexe 3 (privé)' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
 
@@ -768,6 +771,7 @@
 
         async function indexDocument(doc) {
             if (searchIndex.has(doc.id)) return;
+            if (doc.id.startsWith('lore')) return;
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
@@ -1358,7 +1362,7 @@
                 return;
             }
 
-            if (docId === 'contact') {
+            if (docId === 'contact' || docId.startsWith('lore')) {
                 rawContentCache = "";
                 renderContactPage(doc.file);
                 renderDocumentsList();
@@ -1787,7 +1791,7 @@
             setTimeout(() => { 
                 if (currentDoc === 'fiche') {
                     resizeAllSheets();
-                } else if (rawContentCache && currentDoc !== 'contact') {
+                } else if (rawContentCache && currentDoc !== 'contact' && !currentDoc.startsWith('lore')) {
                     // CORRECTION : Sur mobile, pas besoin de repaginer car la sidebar est en overlay
                     // La largeur ne change pas (déjà 100%), donc on évite de détruire les highlights
                     if (!isMobile) {
