@@ -720,11 +720,17 @@
             { id: 'livret3', file: 'Livret3-Ressources-Equipement.v0.80.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Ressssources & Équipement' },
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.82.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
+            // Annexes de Lore
+            { id: 'lore_atlas', file: 'Annexe1-Atlas.md', icon: '🗺️', title: 'Annexe 1 : Atlas', subtitle: 'Géographie du monde', isLore: true },
+            { id: 'lore_chronologie', file: 'Annexe2-Aventures.md', icon: '⏳', title: 'Annexe 2 : Chronologie', subtitle: 'Ligne temporelle', isLore: true },
+            { id: 'lore_personnages', file: 'Annexe3-Personnages.md', icon: '👥', title: 'Annexe 3 : Personnages', subtitle: 'Figures du monde', isLore: true },
             { id: 'fiche', file: 'Fiche de personnage.v0.91.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
 
         let currentDoc = 'intro';
+        let loreUnlocked = sessionStorage.getItem('lore_unlocked') === 'true';
+        let loreExpanded = false;
         let expandedId = null;
         let expandedSections = new Set();
         let sidebarOpen = true;
@@ -828,6 +834,12 @@
             const results = [];
             
             searchIndex.forEach((docData, docId) => {
+                // Ignore le contenu du Lore si l'onglet est verrouillé
+                const associatedDoc = documents.find(d => d.id === docId);
+                if (associatedDoc && associatedDoc.isLore && !loreUnlocked) {
+                    return;
+                }
+
                 // On cherche dans quelles sections le terme apparaît
                 const matchingSections = [];
                 
@@ -1107,7 +1119,33 @@
             }
             
             // MODE NORMAL
-            container.innerHTML = documents.map(doc => {
+            let html = '';
+            let renderedLoreFolder = false;
+
+            documents.forEach(doc => {
+                // Gestion groupée de l'onglet "Lore"
+                if (doc.isLore) {
+                    if (!renderedLoreFolder) {
+                        renderedLoreFolder = true;
+                        const isFolderActive = ['lore_atlas', 'lore_chronologie', 'lore_personnages'].includes(currentDoc);
+                        html += `
+                            <div class="doc-item">
+                                <div class="doc-header ${isFolderActive ? 'active' : ''}" onclick="toggleLoreFolder()">
+                                    <span class="doc-icon">🗺️</span>
+                                    <div>
+                                        <div class="doc-title">Lore</div>
+                                        <div class="doc-subtitle">Annexes du Monde</div>
+                                    </div>
+                                </div>
+                                <div class="doc-index ${loreExpanded ? 'expanded' : ''}">
+                                    ${renderLoreSubMenu()}
+                                </div>
+                            </div>
+                        `;
+                    }
+                    return; // On passe l'itération des documents de Lore individuels
+                }
+
                 const isActive = doc.id === currentDoc;
                 const isExpanded = doc.id === expandedId;
                 
@@ -1117,6 +1155,65 @@
                     if (doc.id === 'fiche') {
                         indexHtml = renderCharactersList();
                     } else if (currentIndex && currentIndex.length > 0) {
+                        indexHtml = currentIndex.map((item, idx, arr) => {
+                            if (!item || !item.id) return '';
+                            
+                            const originalId = item.id;
+                            const jsEscapedId = String(item.id).replace(/'/g, "\\'");
+                            const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                            
+                            const nextItem = arr[idx + 1];
+                            const hasChildren = item.level && nextItem && nextItem.level > item.level;
+                            
+                            // Calcul de visibilité : niveau 1 toujours visible, les autres seulement si leur parent est expanded
+                            let isVisible = item.level === 1;
+                            if (item.level > 1) {
+                                // Chercher le parent immédiat en remontant
+                                for (let j = idx - 1; j >= 0; j--) {
+                                    if (arr[j].level === item.level - 1) {
+                                        isVisible = expandedSections.has(arr[j].id);
+                                        break;
+                                    }
+                                    if (arr[j].level < item.level - 1) break;
+                                }
+                            }
+                            
+                            const displayStyle = isVisible ? 'flex' : 'none';
+                            const isExpanded = expandedSections.has(originalId);
+                            const paddingLeft = item.level ? (8 + (item.level-1)*12) : 8;
+                            
+                            return `
+                                <div class="index-item ${isExpanded ? 'expanded' : ''}" 
+                                     data-section="${originalId}" 
+                                     data-level="${item.level || 0}"
+                                     style="padding-left:${paddingLeft}px; display:${displayStyle}; cursor: pointer;"
+                                     onclick="toggleIndexItem('${jsEscapedId}', ${hasChildren})">
+                                    <span style="flex:1;">
+                                        ${safeTitle}
+                                    </span>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+                
+                html += `
+                    <div class="doc-item">
+                        <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
+                            <span class="doc-icon">${doc.icon}</span>
+                            <div>
+                                <div class="doc-title">${doc.title}</div>
+                                <div class="doc-subtitle">${doc.subtitle}</div>
+                            </div>
+                        </div>
+                        <div class="doc-index ${isExpanded ? 'expanded' : ''}">
+                            ${indexHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
                         indexHtml = currentIndex.map((item, idx, arr) => {
                             if (!item || !item.id) return '';
                             
@@ -1385,7 +1482,19 @@
                 });
 
                 const tempDiv = document.createElement('div');
-                const bodyContent = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
+                let bodyContent = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
+                
+                if (doc.file.endsWith('.md')) {
+                    // Conversion simple des retours à la ligne du Markdown pour préserver l'affichage HTML brut
+                    bodyContent = bodyContent
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                        .replace(/\n\n/g, '</p><p class="content-section">')
+                        .replace(/\n/g, '<br>');
+                    bodyContent = '<p class="content-section">' + bodyContent + '</p>';
+                }
+
                 tempDiv.innerHTML = bodyContent;
                 
                 tempDiv.querySelectorAll('script, style, link[rel="stylesheet"], meta, title, base, noscript').forEach(el => el.remove());
@@ -1770,6 +1879,55 @@
                     target.style.backgroundColor = '';
                 }, 2000);
             });
+        }
+
+        function toggleLoreFolder() {
+            loreExpanded = !loreExpanded;
+            renderDocumentsList();
+        }
+
+        function renderLoreSubMenu() {
+            if (!loreUnlocked) {
+                return `
+                    <div style="padding: 10px; background: rgba(124, 45, 18, 0.05); border-radius: 4px; margin-top: 5px; border: 1px solid rgba(124, 45, 18, 0.2);">
+                        <div style="font-size: 0.8rem; font-weight: bold; color: #7c2d12; margin-bottom: 5px; font-family: 'Cinzel', serif;">Accès Protégé</div>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="password" id="lorePasswordInput" class="search-input" placeholder="Mot de passe" style="padding: 5px 8px; font-size: 0.85rem; height: auto;" onkeydown="if(event.key==='Enter') checkLorePassword()">
+                            <button onclick="checkLorePassword()" style="background: #7c2d12; color: #f4ecd8; border: none; padding: 5px 10px; font-size: 0.8rem; cursor: pointer; border-radius: 4px; font-family: 'Cinzel', serif;">OK</button>
+                        </div>
+                        <div id="loreErrorMsg" style="color: #dc2626; font-size: 0.75rem; margin-top: 4px; display: none;">Mot de passe incorrect</div>
+                    </div>
+                `;
+            }
+
+            const loreDocs = documents.filter(d => d.isLore);
+            return loreDocs.map(doc => {
+                const isSubActive = doc.id === currentDoc;
+                return `
+                    <div class="index-item ${isSubActive ? 'expanded' : ''}" 
+                         style="padding-left: 15px; font-weight: ${isSubActive ? 'bold' : 'normal'}; display: flex; align-items: center; gap: 6px;" 
+                         onclick="selectDocument('${doc.id}')">
+                        <span>${doc.icon}</span>
+                        <span>${doc.title}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function checkLorePassword() {
+            const input = document.getElementById('lorePasswordInput');
+            const error = document.getElementById('loreErrorMsg');
+            if (!input) return;
+
+            if (input.value === "Trame-lore") {
+                loreUnlocked = true;
+                sessionStorage.setItem('lore_unlocked', 'true');
+                renderDocumentsList();
+            } else {
+                if (error) error.style.display = 'block';
+                input.value = '';
+                input.focus();
+            }
         }
 
         function toggleSidebar() {
