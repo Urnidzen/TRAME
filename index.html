@@ -864,10 +864,22 @@
             isIndexingComplete = true;
         }
 
+        function foldAccents(str) {
+            return str
+                .toLowerCase()
+                .replace(/[àáâãäå]/g, "a")
+                .replace(/[èéêë]/g, "e")
+                .replace(/[ìíîï]/g, "i")
+                .replace(/[òóôõö]/g, "o")
+                .replace(/[ùúûü]/g, "u")
+                .replace(/[ç]/g, "c")
+                .replace(/[ñ]/g, "n");
+        }
+        
         function performSearch(query) {
             if (!query || query.length < 2) return [];
-            const normalizedQuery = normalizeText(query);
-            if (!normalizedQuery) return [];
+            const searchQueryFolded = foldAccents(query.trim());
+            if (!searchQueryFolded) return [];
             
             const results = [];
             
@@ -878,28 +890,36 @@
 
                 const matchingItems = [];
                 const rawText = docData.rawText;
-                const normalizedText = docData.normalizedText;
+                const foldedText = foldAccents(rawText);
 
-                // Chercher toutes les occurrences dans le texte
                 let pos = 0;
                 let matchCount = 0;
-                const maxMatchesPerDoc = 8; // Limite par document pour garder une sidebar lisible
+                const maxMatchesPerDoc = 8; // Limite par document
 
-                while ((pos = normalizedText.indexOf(normalizedQuery, pos)) !== -1 && matchCount < maxMatchesPerDoc) {
-                    // Extraire un extrait (snippet) de 30 caractères avant et après
-                    const start = Math.max(0, pos - 30);
-                    const end = Math.min(rawText.length, pos + query.length + 30);
-                    let snippet = rawText.substring(start, end).replace(/\s+/g, ' ');
+                while ((pos = foldedText.indexOf(searchQueryFolded, pos)) !== -1 && matchCount < maxMatchesPerDoc) {
+                    // Extraire un extrait (snippet) de 25 caractères avant et après
+                    const start = Math.max(0, pos - 25);
+                    const end = Math.min(rawText.length, pos + searchQueryFolded.length + 25);
                     
-                    if (start > 0) snippet = '...' + snippet;
-                    if (end < rawText.length) snippet = snippet + '...';
+                    let prefix = start > 0 ? '...' : '';
+                    let suffix = end < rawText.length ? '...' : '';
+                    
+                    // Récupération exacte du texte brut aux mêmes index
+                    let rawSnippet = rawText.substring(start, end).replace(/\s+/g, ' ');
+                    
+                    // Surligner le mot trouvé dans l'extrait
+                    const exactWordInText = rawText.substring(pos, pos + searchQueryFolded.length);
+                    const highlightedSnippet = rawSnippet.replace(
+                        exactWordInText, 
+                        `<strong style="color:#7c2d12; background:rgba(124,45,18,0.15); padding:0 2px; border-radius:2px;">${exactWordInText}</strong>`
+                    );
 
                     matchingItems.push({
-                        snippet: snippet,
+                        snippet: prefix + highlightedSnippet + suffix,
                         matchIndex: matchCount
                     });
 
-                    pos += normalizedQuery.length + 5; // Passer à la suite du texte
+                    pos += searchQueryFolded.length + 1; // Avancer dans le texte
                     matchCount++;
                 }
 
@@ -1140,7 +1160,6 @@
                     results.forEach(docResult => {
                         docResult.items.forEach(item => {
                             pageCounter++;
-                            const safeSnippet = item.snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
                             const safeTerm = searchTerm.replace(/'/g, "\\'");
                             
                             html += `
@@ -1153,8 +1172,8 @@
                                     <div style="font-weight:700; color:#7c2d12; font-size:0.75rem; margin-bottom:2px;">
                                         ${docResult.docIcon} ${docResult.docTitle}
                                     </div>
-                                    <div style="color:#1c1917; font-style:italic;">
-                                        "${safeSnippet}"
+                                    <div style="color:#1c1917;">
+                                        "${item.snippet}"
                                     </div>
                                 </div>
                             `;
@@ -1170,7 +1189,7 @@
                 return;
             }
             
-            // MODE NORMAL
+            // MODE NORMAL (Arborescence des documents)
             let html = '';
             let renderedLoreFolder = false;
 
@@ -1200,7 +1219,6 @@
                 const isActive = doc.id === currentDoc;
                 const isExpanded = doc.id === expandedId;
                 
-                // Préparer le contenu de l'index seulement si actif ET expanded
                 let indexHtml = '';
                 if (isActive && isExpanded) {
                     if (doc.id === 'fiche') {
@@ -1216,10 +1234,8 @@
                             const nextItem = arr[idx + 1];
                             const hasChildren = item.level && nextItem && nextItem.level > item.level;
                             
-                            // Calcul de visibilité : niveau 1 toujours visible, les autres seulement si leur parent est expanded
                             let isVisible = item.level === 1;
                             if (item.level > 1) {
-                                // Chercher le parent immédiat en remontant
                                 for (let j = idx - 1; j >= 0; j--) {
                                     if (arr[j].level === item.level - 1) {
                                         isVisible = expandedSections.has(arr[j].id);
