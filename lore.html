@@ -113,8 +113,52 @@
             display: none;
             height: 100%;
             width: 100%;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        /* Navigation des annexes */
+        .annex-nav {
+            display: flex;
+            gap: 0;
+            background: #1a1612;
+            border-bottom: 3px solid #1c1917;
+            flex-shrink: 0;
+            overflow-x: auto;
+        }
+
+        .annex-tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 18px;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #e3d5b8;
+            background: transparent;
+            border: none;
+            border-right: 1px solid rgba(227, 213, 184, 0.15);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .annex-tab:last-child { border-right: none; }
+
+        .annex-tab:hover {
+            background: rgba(124, 45, 18, 0.35);
+        }
+
+        .annex-tab.active {
+            background: #7c2d12;
+            color: #f4ecd8;
+        }
+
+        .lore-scroll {
+            flex: 1;
             overflow-y: auto;
-            padding: 40px 20px;
+            padding: 30px 20px 50px;
         }
 
         .lore-page {
@@ -122,68 +166,68 @@
             margin: 0 auto;
             background: #e3d5b8;
             background-image: url("parchment.png");
-            padding: 50px 60px 80px;
+            padding: 45px 55px 70px;
             border-radius: 6px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.45);
-            min-height: calc(100vh - 80px);
             position: relative;
+            min-height: calc(100% - 20px);
         }
 
         .lore-page h1 {
-            font-size: 2rem;
+            font-size: 1.9rem;
             border-bottom: 2px solid #1c1917;
-            padding-bottom: 0.6rem;
-            margin-bottom: 1.5rem;
+            padding-bottom: 0.55rem;
+            margin-bottom: 1.4rem;
         }
 
         .lore-page h2 {
-            font-size: 1.45rem;
+            font-size: 1.4rem;
             border-bottom: 1px solid rgba(28,25,23,0.4);
-            padding-bottom: 0.4rem;
-            margin: 2.2rem 0 1rem;
+            padding-bottom: 0.35rem;
+            margin: 2rem 0 0.9rem;
         }
 
         .lore-page h3 {
-            font-size: 1.2rem;
-            margin: 1.8rem 0 0.7rem;
+            font-size: 1.15rem;
+            margin: 1.6rem 0 0.6rem;
             color: #1c1917;
             border-left: 3px solid #7c2d12;
-            padding-left: 0.8rem;
+            padding-left: 0.75rem;
         }
 
         .lore-page h4 {
             font-size: 1.05rem;
-            margin: 1.4rem 0 0.5rem;
+            margin: 1.3rem 0 0.45rem;
             font-weight: 700;
         }
 
         .lore-page p {
-            margin-bottom: 1rem;
+            margin-bottom: 0.95rem;
             line-height: 1.7;
-            font-size: 1.1rem;
+            font-size: 1.08rem;
         }
 
         .lore-page ul, .lore-page ol {
-            margin: 1rem 0 1.2rem 1.5rem;
+            margin: 0.9rem 0 1.1rem 1.5rem;
         }
 
         .lore-page li {
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.35rem;
             line-height: 1.6;
         }
 
         .lore-page blockquote {
             border-left: 4px solid #7c2d12;
             background: rgba(124, 45, 18, 0.06);
-            padding: 0.8rem 1.2rem;
-            margin: 1.2rem 0;
+            padding: 0.75rem 1.1rem;
+            margin: 1.1rem 0;
             font-style: italic;
         }
 
         .lore-page hr {
             border: none;
             border-top: 1px solid rgba(28,25,23,0.25);
-            margin: 2rem 0;
+            margin: 1.8rem 0;
         }
 
         .lore-page strong {
@@ -192,21 +236,26 @@
 
         .legal {
             position: absolute;
-            bottom: 1.2rem;
+            bottom: 1rem;
             left: 0;
             width: 100%;
             text-align: center;
             font-family: 'Cinzel', serif;
-            font-size: 0.55rem;
-            color: rgba(28, 25, 23, 0.55);
+            font-size: 0.5rem;
+            color: rgba(28, 25, 23, 0.5);
         }
 
         @media (max-width: 700px) {
             .lore-page {
-                padding: 30px 22px 60px;
+                padding: 28px 20px 55px;
             }
-            .lore-page h1 { font-size: 1.6rem; }
+            .lore-page h1 { font-size: 1.5rem; }
             .gate-box { padding: 30px 25px; }
+            .annex-tab {
+                font-size: 0.8rem;
+                padding: 12px 10px;
+                min-width: 110px;
+            }
         }
     </style>
 </head>
@@ -215,7 +264,7 @@
     <!-- ÉCRAN DE VERROUILLAGE -->
     <div id="gate">
         <div class="gate-box">
-            <h2>📜 Lore</h2>
+            <h2>🕯️ Lore</h2>
             <p>Archives privées du Codex TRAME</p>
             <input type="password" id="passwordInput" placeholder="Mot de passe" autocomplete="off" autofocus>
             <br>
@@ -226,15 +275,25 @@
 
     <!-- CONTENU -->
     <div id="content">
-        <div class="lore-page">
-            <div id="markdownContent">Chargement…</div>
-            <div class="legal">© 2026 Urnidzen — Archives privées</div>
+        <div class="annex-nav">
+            <button class="annex-tab active" data-file="lore/Annexe1-Atlas.md">Annexe 1 — Atlas</button>
+            <button class="annex-tab" data-file="lore/Annexe2-Aventures.md">Annexe 2 — Aventures</button>
+            <button class="annex-tab" data-file="lore/Annexe3-Personnages.md">Annexe 3 — Personnages</button>
+        </div>
+        <div class="lore-scroll">
+            <div class="lore-page">
+                <div id="markdownContent">Chargement…</div>
+                <div class="legal">© 2026 Urnidzen — Archives privées</div>
+            </div>
         </div>
     </div>
 
     <script>
         const CORRECT_PASSWORD = "Trame-lore";
         const STORAGE_KEY = "trame_lore_unlocked";
+
+        const tabs = document.querySelectorAll(".annex-tab");
+        let currentFile = "lore/Annexe1-Atlas.md";
 
         // Vérifier si déjà déverrouillé dans cette session
         if (sessionStorage.getItem(STORAGE_KEY) === "true") {
@@ -244,6 +303,15 @@
         document.getElementById("unlockBtn").addEventListener("click", tryUnlock);
         document.getElementById("passwordInput").addEventListener("keydown", (e) => {
             if (e.key === "Enter") tryUnlock();
+        });
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                currentFile = tab.dataset.file;
+                loadAnnex(currentFile);
+            });
         });
 
         function tryUnlock() {
@@ -262,18 +330,22 @@
 
         function unlock() {
             document.getElementById("gate").style.display = "none";
-            document.getElementById("content").style.display = "block";
-            loadLore();
+            document.getElementById("content").style.display = "flex";
+            loadAnnex(currentFile);
         }
 
-        async function loadLore() {
+        async function loadAnnex(file) {
+            const container = document.getElementById("markdownContent");
+            container.innerHTML = "<p style='opacity:0.6;font-style:italic'>Chargement…</p>";
             try {
-                const response = await fetch("lore.md");
+                const response = await fetch(file);
+                if (!response.ok) throw new Error("Fichier introuvable");
                 const text = await response.text();
-                document.getElementById("markdownContent").innerHTML = marked.parse(text);
+                container.innerHTML = marked.parse(text);
+                // Remonter en haut
+                document.querySelector(".lore-scroll").scrollTop = 0;
             } catch (err) {
-                document.getElementById("markdownContent").innerHTML =
-                    "<p style='color:#7c2d12'>Impossible de charger le lore.</p>";
+                container.innerHTML = "<p style='color:#7c2d12'>Impossible de charger cette annexe.</p>";
             }
         }
     </script>
