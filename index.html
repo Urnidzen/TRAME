@@ -35,7 +35,6 @@
     <title>JDR TRAME - Codex Officiel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config={content:[],theme:{extend:{}}}</script>
-    </script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;500;600;700" rel="stylesheet">
     <script src="registre.js"></script>
 
@@ -729,8 +728,6 @@
         ];
 
         let currentDoc = 'intro';
-        let loreUnlocked = sessionStorage.getItem('lore_unlocked') === 'true';
-        let loreExpanded = false;
         let expandedId = null;
         let expandedSections = new Set();
         let sidebarOpen = true;
@@ -742,6 +739,9 @@
         let isMobile = window.innerWidth <= 1024;
         let currentIndex = [];
         let rawContentCache = ""; 
+
+        let loreUnlocked = sessionStorage.getItem('lore_unlocked') === 'true';
+        let loreExpanded = false;
 
         const LEGAL_HTML = `
             <div class="legal-notice">
@@ -1053,7 +1053,7 @@
             const container = document.getElementById('documentsList');
             const searchTerm = document.getElementById('searchInput').value.trim();
             
-            // MODE RECHERCHE ACTIF (inchangé)
+            // MODE RECHERCHE ACTIF
             if (searchTerm.length > 2) {
                 const results = performSearch(searchTerm);
                 
@@ -1123,7 +1123,6 @@
             let renderedLoreFolder = false;
 
             documents.forEach(doc => {
-                // Gestion groupée de l'onglet "Lore"
                 if (doc.isLore) {
                     if (!renderedLoreFolder) {
                         renderedLoreFolder = true;
@@ -1143,7 +1142,7 @@
                             </div>
                         `;
                     }
-                    return; // On passe l'itération des documents de Lore individuels
+                    return;
                 }
 
                 const isActive = doc.id === currentDoc;
@@ -1214,63 +1213,55 @@
             });
 
             container.innerHTML = html;
-                        indexHtml = currentIndex.map((item, idx, arr) => {
-                            if (!item || !item.id) return '';
-                            
-                            const originalId = item.id;
-                            const jsEscapedId = String(item.id).replace(/'/g, "\\'");
-                            const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                            
-                            const nextItem = arr[idx + 1];
-                            const hasChildren = item.level && nextItem && nextItem.level > item.level;
-                            
-                            // Calcul de visibilité : niveau 1 toujours visible, les autres seulement si leur parent est expanded
-                            let isVisible = item.level === 1;
-                            if (item.level > 1) {
-                                // Chercher le parent immédiat en remontant
-                                for (let j = idx - 1; j >= 0; j--) {
-                                    if (arr[j].level === item.level - 1) {
-                                        isVisible = expandedSections.has(arr[j].id);
-                                        break;
-                                    }
-                                    if (arr[j].level < item.level - 1) break;
-                                }
-                            }
-                            
-                            const displayStyle = isVisible ? 'flex' : 'none';
-                            const isExpanded = expandedSections.has(originalId);
-                            const paddingLeft = item.level ? (8 + (item.level-1)*12) : 8;
-                            
-                            return `
-                                <div class="index-item ${isExpanded ? 'expanded' : ''}" 
-                                     data-section="${originalId}" 
-                                     data-level="${item.level || 0}"
-                                     style="padding-left:${paddingLeft}px; display:${displayStyle}; cursor: pointer;"
-                                     onclick="toggleIndexItem('${jsEscapedId}', ${hasChildren})">
-                                    <span style="flex:1;">
-                                        ${safeTitle}
-                                    </span>
-                                </div>
-                            `;
-                        }).join('');
-                    }
-                }
-                
+        }
+
+        function toggleLoreFolder() {
+            loreExpanded = !loreExpanded;
+            renderDocumentsList();
+        }
+
+        function renderLoreSubMenu() {
+            if (!loreUnlocked) {
                 return `
-                    <div class="doc-item">
-                        <div class="doc-header ${isActive ? 'active' : ''}" onclick="selectDocument('${doc.id}')">
-                            <span class="doc-icon">${doc.icon}</span>
-                            <div>
-                                <div class="doc-title">${doc.title}</div>
-                                <div class="doc-subtitle">${doc.subtitle}</div>
-                            </div>
+                    <div style="padding: 10px; background: rgba(124, 45, 18, 0.05); border-radius: 4px; margin-top: 5px; border: 1px solid rgba(124, 45, 18, 0.2);">
+                        <div style="font-size: 0.8rem; font-weight: bold; color: #7c2d12; margin-bottom: 5px; font-family: 'Cinzel', serif;">Accès Protégé</div>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="password" id="lorePasswordInput" class="search-input" placeholder="Mot de passe" style="padding: 5px 8px; font-size: 0.85rem; height: auto; width: 100%;" onkeydown="if(event.key==='Enter') checkLorePassword()">
+                            <button onclick="checkLorePassword()" style="background: #7c2d12; color: #f4ecd8; border: none; padding: 5px 10px; font-size: 0.8rem; cursor: pointer; border-radius: 4px; font-family: 'Cinzel', serif;">OK</button>
                         </div>
-                        <div class="doc-index ${isExpanded ? 'expanded' : ''}">
-                            ${indexHtml}
-                        </div>
+                        <div id="loreErrorMsg" style="color: #dc2626; font-size: 0.75rem; margin-top: 4px; display: none;">Mot de passe incorrect</div>
+                    </div>
+                `;
+            }
+
+            const loreDocs = documents.filter(d => d.isLore);
+            return loreDocs.map(doc => {
+                const isSubActive = doc.id === currentDoc;
+                return `
+                    <div class="index-item ${isSubActive ? 'expanded' : ''}" 
+                         style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-bottom: 4px; padding-left: 15px; font-weight: ${isSubActive ? '600' : 'normal'}; display: flex; align-items: center; gap: 6px;" 
+                         onclick="selectDocument('${doc.id}')">
+                        <span>${doc.icon}</span>
+                        <span>${doc.title}</span>
                     </div>
                 `;
             }).join('');
+        }
+
+        function checkLorePassword() {
+            const input = document.getElementById('lorePasswordInput');
+            const error = document.getElementById('loreErrorMsg');
+            if (!input) return;
+
+            if (input.value === "Trame-lore") {
+                loreUnlocked = true;
+                sessionStorage.setItem('lore_unlocked', 'true');
+                renderDocumentsList();
+            } else {
+                if (error) error.style.display = 'block';
+                input.value = '';
+                input.focus();
+            }
         }
         
         function toggleIndexItem(id, hasChildren) {
@@ -1485,7 +1476,7 @@
                 let bodyContent = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
                 
                 if (doc.file.endsWith('.md')) {
-                    // Conversion simple des retours à la ligne du Markdown pour préserver l'affichage HTML brut
+                    // Conversion simple des retours à la ligne pour le texte brut Markdown afin d'éviter la fusion en une ligne
                     bodyContent = bodyContent
                         .replace(/&/g, "&amp;")
                         .replace(/</g, "&lt;")
@@ -1879,55 +1870,6 @@
                     target.style.backgroundColor = '';
                 }, 2000);
             });
-        }
-
-        function toggleLoreFolder() {
-            loreExpanded = !loreExpanded;
-            renderDocumentsList();
-        }
-
-        function renderLoreSubMenu() {
-            if (!loreUnlocked) {
-                return `
-                    <div style="padding: 10px; background: rgba(124, 45, 18, 0.05); border-radius: 4px; margin-top: 5px; border: 1px solid rgba(124, 45, 18, 0.2);">
-                        <div style="font-size: 0.8rem; font-weight: bold; color: #7c2d12; margin-bottom: 5px; font-family: 'Cinzel', serif;">Accès Protégé</div>
-                        <div style="display: flex; gap: 5px;">
-                            <input type="password" id="lorePasswordInput" class="search-input" placeholder="Mot de passe" style="padding: 5px 8px; font-size: 0.85rem; height: auto;" onkeydown="if(event.key==='Enter') checkLorePassword()">
-                            <button onclick="checkLorePassword()" style="background: #7c2d12; color: #f4ecd8; border: none; padding: 5px 10px; font-size: 0.8rem; cursor: pointer; border-radius: 4px; font-family: 'Cinzel', serif;">OK</button>
-                        </div>
-                        <div id="loreErrorMsg" style="color: #dc2626; font-size: 0.75rem; margin-top: 4px; display: none;">Mot de passe incorrect</div>
-                    </div>
-                `;
-            }
-
-            const loreDocs = documents.filter(d => d.isLore);
-            return loreDocs.map(doc => {
-                const isSubActive = doc.id === currentDoc;
-                return `
-                    <div class="index-item ${isSubActive ? 'expanded' : ''}" 
-                         style="padding-left: 15px; font-weight: ${isSubActive ? 'bold' : 'normal'}; display: flex; align-items: center; gap: 6px;" 
-                         onclick="selectDocument('${doc.id}')">
-                        <span>${doc.icon}</span>
-                        <span>${doc.title}</span>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function checkLorePassword() {
-            const input = document.getElementById('lorePasswordInput');
-            const error = document.getElementById('loreErrorMsg');
-            if (!input) return;
-
-            if (input.value === "Trame-lore") {
-                loreUnlocked = true;
-                sessionStorage.setItem('lore_unlocked', 'true');
-                renderDocumentsList();
-            } else {
-                if (error) error.style.display = 'block';
-                input.value = '';
-                input.focus();
-            }
         }
 
         function toggleSidebar() {
