@@ -717,10 +717,11 @@
             { id: 'intro', file: 'introduction.v0.02.html', icon: '📜', title: 'Introduction', subtitle: 'Bienvenue au Codex' },
             { id: 'livret1', file: 'Livret1-Mecanismes.v0.88.html', icon: '⚙️', title: 'Livret 1', subtitle: 'Mécanismes' },
             { id: 'livret2', file: 'Livret2-Creation.v0.75.html', icon: '📖', title: 'Livret 2', subtitle: 'Création & Évolution' },
-            { id: 'livret3', file: 'Livret3-Ressources-Equipement.v0.80.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Ressssources & Équipement' },
+            { id: 'livret3', file: 'Livret3-Ressources-Equipement.v0.80.html', icon: '🛡️', title: 'Livret 3', subtitle: 'Ressources & Équipement' },
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.82.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'fiche', file: 'Fiche de personnage.v0.91.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
+            { id: 'lore', file: 'lore.html', icon: '🕯️', title: 'Lore', subtitle: 'Archives privées' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
 
@@ -768,6 +769,8 @@
 
         async function indexDocument(doc) {
             if (searchIndex.has(doc.id)) return;
+            // Ne pas indexer le lore (privé)
+            if (doc.id === 'lore') return;
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
@@ -1122,7 +1125,7 @@
                             
                             const originalId = item.id;
                             const jsEscapedId = String(item.id).replace(/'/g, "\\'");
-                            const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                            const safeTitle = String(item.title || '').replace(/</g, '<').replace(/>/g, '>');
                             
                             const nextItem = arr[idx + 1];
                             const hasChildren = item.level && nextItem && nextItem.level > item.level;
@@ -1358,7 +1361,7 @@
                 return;
             }
 
-            if (docId === 'contact') {
+            if (docId === 'contact' || docId === 'lore') {
                 rawContentCache = "";
                 renderContactPage(doc.file);
                 renderDocumentsList();
@@ -1436,7 +1439,7 @@
             spread.style.overflowX = 'hidden';
             
             const content = `
-                <div class="page page-left" style="flex: 1; min-width: 0; padding: 20px; overflow-x: hidden; overflow-y: auto; box-sizing: border-box;">
+                <div class="page page-left" style="flex: 1; min-width: 0; padding: 0; overflow-x: hidden; overflow-y: hidden; box-sizing: border-box;">
                     <iframe src="${fileUrl}" style="width: 100%; height: 100%; border: none; background: transparent; display: block; min-width: 0;"></iframe>
                 </div>
             `;
@@ -1787,7 +1790,7 @@
             setTimeout(() => { 
                 if (currentDoc === 'fiche') {
                     resizeAllSheets();
-                } else if (rawContentCache && currentDoc !== 'contact') {
+                } else if (rawContentCache && currentDoc !== 'contact' && currentDoc !== 'lore') {
                     // CORRECTION : Sur mobile, pas besoin de repaginer car la sidebar est en overlay
                     // La largeur ne change pas (déjà 100%), donc on évite de détruire les highlights
                     if (!isMobile) {
