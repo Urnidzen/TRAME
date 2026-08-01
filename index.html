@@ -872,52 +872,43 @@
             const results = [];
             
             searchIndex.forEach((docData, docId) => {
-                // Ignore le contenu du Lore si l'onglet est verrouillé
+                // Ignorer le lore verrouillé
                 const associatedDoc = documents.find(d => d.id === docId);
-                if (associatedDoc && associatedDoc.isLore && !loreUnlocked) {
-                    return;
+                if (associatedDoc && associatedDoc.isLore && !loreUnlocked) return;
+
+                const matchingItems = [];
+                const rawText = docData.rawText;
+                const normalizedText = docData.normalizedText;
+
+                // Chercher toutes les occurrences dans le texte
+                let pos = 0;
+                let matchCount = 0;
+                const maxMatchesPerDoc = 8; // Limite par document pour garder une sidebar lisible
+
+                while ((pos = normalizedText.indexOf(normalizedQuery, pos)) !== -1 && matchCount < maxMatchesPerDoc) {
+                    // Extraire un extrait (snippet) de 30 caractères avant et après
+                    const start = Math.max(0, pos - 30);
+                    const end = Math.min(rawText.length, pos + query.length + 30);
+                    let snippet = rawText.substring(start, end).replace(/\s+/g, ' ');
+                    
+                    if (start > 0) snippet = '...' + snippet;
+                    if (end < rawText.length) snippet = snippet + '...';
+
+                    matchingItems.push({
+                        snippet: snippet,
+                        matchIndex: matchCount
+                    });
+
+                    pos += normalizedQuery.length + 5; // Passer à la suite du texte
+                    matchCount++;
                 }
 
-                // On cherche dans quelles sections le terme apparaît
-                const matchingSections = [];
-                
-                docData.sections.forEach((section, index) => {
-                    // Vérifier si le terme est dans le titre de la section
-                    if (section.normalized.includes(normalizedQuery)) {
-                        matchingSections.push({
-                            section: section,
-                            parentTitle: index > 0 ? docData.sections[index - 1].title : docData.title
-                        });
-                    }
-                });
-                
-                // Si on a trouvé des sections correspondantes, on les groupe par document
-                if (matchingSections.length > 0) {
+                if (matchingItems.length > 0) {
                     results.push({
                         docId: docId,
                         docTitle: docData.title,
                         docIcon: docData.icon,
-                        sections: matchingSections
-                    });
-                }
-                
-                // On vérifie aussi si le terme est dans le texte général mais pas dans les titres de section
-                // Dans ce cas, on associe à la première section ou au document racine
-                if (docData.normalizedText.includes(normalizedQuery) && matchingSections.length === 0) {
-                    results.push({
-                        docId: docId,
-                        docTitle: docData.title,
-                        docIcon: docData.icon,
-                        sections: [{
-                            section: { 
-                                id: docData.sections[0]?.id || '', 
-                                title: 'Contenu', 
-                                normalized: 'contenu',
-                                level: 2 
-                            },
-                            parentTitle: docData.title,
-                            isGeneric: true
-                        }]
+                        items: matchingItems
                     });
                 }
             });
@@ -925,12 +916,13 @@
             return results;
         }
 
-        async function navigateToResult(docId, searchTerm) {
+        async function navigateToResult(docId, searchTerm, matchIndex = 0) {
             if (!searchTerm || searchTerm.length < 2) return;
             
+            // Si on change de document, on le charge d'abord
             if (currentDoc !== docId) {
                 await selectDocument(docId);
-                await new Promise(resolve => setTimeout(resolve, 300));
+                await new Promise(resolve => setTimeout(resolve, 350));
             }
             
             setTimeout(() => {
@@ -938,12 +930,14 @@
                 if (!wrapper) return;
                 
                 const normalizedSearch = normalizeText(searchTerm);
+                
+                // Parcourir tous les nœuds de texte pour trouver l'occurrence exacte N (matchIndex)
                 const walker = document.createTreeWalker(
                     wrapper,
                     NodeFilter.SHOW_TEXT,
                     {
                         acceptNode: function(node) {
-                            if (node.textContent && normalizeText(node.textContent).toLowerCase().includes(normalizedSearch)) {
+                            if (node.textContent && normalizeText(node.textContent).includes(normalizedSearch)) {
                                 return NodeFilter.FILTER_ACCEPT;
                             }
                             return NodeFilter.FILTER_SKIP;
@@ -951,25 +945,51 @@
                     }
                 );
                 
-                const firstMatch = walker.nextNode();
-                if (firstMatch && firstMatch.parentNode) {
-                    firstMatch.parentNode.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
+                let currentMatchNode = null;
+                let currentIndex = 0;
+                
+                while (walker.nextNode()) {
+                    if (currentIndex === matchIndex) {
+                        currentMatchNode = walker.currentNode;
+                        break;
+                    }
+                    currentIndex++;
+                }
+
+                // Si l'index exact n'est pas trouvé (ex: fin de document), on prend le dernier trouvé
+                if (!currentMatchNode && walker.currentNode) {
+                    currentMatchNode = walker.currentNode;
+                }
+
+                if (currentMatchNode && currentMatchNode.parentNode) {
+                    const targetEl = currentMatchNode.parentNode;
+                    const spread = targetEl.closest('.book-spread');
+                    const mainContainer = document.getElementById('mainContainer');
                     
-                    const targetEl = firstMatch.parentNode;
+                    // Défiler jusqu'à la double-page correspondante
+                    if (spread && mainContainer) {
+                        mainContainer.scrollTo({
+                            top: spread.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    
+                    // Surligner temporairement l'élément précis
+                    const originalBg = targetEl.style.backgroundColor;
                     const originalOutline = targetEl.style.outline;
                     targetEl.style.outline = '2px solid #7c2d12';
-                    targetEl.style.backgroundColor = 'rgba(124, 45, 18, 0.15)';
+                    targetEl.style.backgroundColor = 'rgba(124, 45, 18, 0.25)';
+                    
                     setTimeout(() => {
                         targetEl.style.outline = originalOutline;
-                        targetEl.style.backgroundColor = '';
+                        targetEl.style.backgroundColor = originalBg;
                     }, 2500);
                 }
                 
                 highlightSearchTerm(searchTerm);
-            }, 100);
+            }, 150);
         }
 
         function highlightSearchTerm(term) {
@@ -1118,29 +1138,23 @@
                     let pageCounter = 0;
             
                     results.forEach(docResult => {
-                        docResult.sections.forEach(sec => {
+                        docResult.items.forEach(item => {
                             pageCounter++;
-                       
-                            let breadcrumb = [];
-                            breadcrumb.push(`<span style="color:#7c2d12; font-weight:700;">${docResult.docIcon} ${docResult.docTitle}</span>`);
-                            
-                            if (sec.parentTitle && sec.parentTitle !== docResult.docTitle) {
-                                breadcrumb.push(`<span style="color:#666;">${sec.parentTitle}</span>`);
-                            }
-                            
-                            breadcrumb.push(`<span style="color:#1c1917; font-weight:600;">${sec.section.title}</span>`);
-                            
-                            const pathLine = breadcrumb.join(' <span style="color:#ccc; font-size:0.9em;">›</span> ');
+                            const safeSnippet = item.snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
+                            const safeTerm = searchTerm.replace(/'/g, "\\'");
                             
                             html += `
-                                <div onclick="navigateToResult('${docResult.docId}', '${searchTerm.replace(/'/g, "\\'")}')" 
-                                     style="cursor:pointer; padding:6px 8px; border-left:2px solid #7c2d12; 
-                                            background:rgba(0,0,0,0.02); margin-bottom:3px; 
+                                <div onclick="navigateToResult('${docResult.docId}', '${safeTerm}', ${item.matchIndex})" 
+                                     style="cursor:pointer; padding:8px; border-left:3px solid #7c2d12; 
+                                            background:rgba(0,0,0,0.02); margin-bottom:6px; border-radius:0 4px 4px 0;
                                             font-size:0.8rem; line-height:1.3;"
-                                     onmouseover="this.style.background='rgba(124,45,18,0.08)';" 
+                                     onmouseover="this.style.background='rgba(124,45,18,0.1)';" 
                                      onmouseout="this.style.background='rgba(0,0,0,0.02)';">
-                                    <div style="display:flex; align-items:center;">
-                                        <span>${pathLine}</span>
+                                    <div style="font-weight:700; color:#7c2d12; font-size:0.75rem; margin-bottom:2px;">
+                                        ${docResult.docIcon} ${docResult.docTitle}
+                                    </div>
+                                    <div style="color:#1c1917; font-style:italic;">
+                                        "${safeSnippet}"
                                     </div>
                                 </div>
                             `;
