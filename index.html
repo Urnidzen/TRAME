@@ -1513,8 +1513,7 @@
                 let bodyContent = (docElement.body && docElement.body.innerHTML) ? docElement.body.innerHTML : html;
                 
                 if (doc.file.endsWith('.md')) {
-                    // Conversion Markdown intégrale vers HTML avec Marked.js
-                    bodyContent = `<div class="content-section">${marked.parse(bodyContent)}</div>`;
+                    bodyContent = marked.parse(bodyContent);
                 }
 
                 tempDiv.innerHTML = bodyContent;
