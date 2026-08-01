@@ -1269,6 +1269,9 @@
 
         function toggleLoreFolder() {
             loreExpanded = !loreExpanded;
+            if (loreExpanded) {
+                expandedId = null; // Ferme le sous-menu de tout autre document ouvert
+            }
             renderDocumentsList();
         }
 
@@ -1472,12 +1475,19 @@
         }
         
         async function selectDocument(docId) {
+            const doc = documents.find(d => d.id === docId);
+            
+            // Si on clique sur un document normal (pas du Lore), on ferme le dossier Lore
+            if (doc && !doc.isLore) {
+                loreExpanded = false;
+            }
+
             if (currentDoc === docId) {
                 expandedId = (expandedId === docId) ? null : docId;
                 renderDocumentsList();
             } else {
                 currentDoc = docId;
-                expandedId = docId;
+                expandedId = (doc && doc.isLore) ? null : docId;
                 await loadDocument(docId);
             }
         }
