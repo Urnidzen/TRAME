@@ -812,45 +812,55 @@
                 const response = await fetch(doc.file);
                 let rawText = await response.text();
                 
-                // Si c'est du Markdown, on le convertit en HTML avant l'indexation
+                // Si c'est du Markdown, on le convertit en HTML
                 const html = doc.file.endsWith('.md') ? marked.parse(rawText) : rawText;
                 
                 const text = extractTextContent(html);
                 const normalized = normalizeText(text);
+                const foldedText = foldAccents(text);
                 
-                // Extraction des sections avec leur contenu pour la hiérarchie
                 const parser = new DOMParser();
                 const docEl = parser.parseFromString(html, 'text/html');
                 const sections = [];
                 
-                // On récupère tous les éléments avec ID de section ou les titres
                 const sectionElements = docEl.querySelectorAll('h2, h3, h4');
+                let lastFoundPos = 0;
                 
-                sectionElements.forEach((el, index) => {
-                    // Chercher l'ID sur le titre lui-même, ou sur le parent (div/section)
+                sectionElements.forEach((el) => {
                     let id = el.id || el.closest('[id^="section-"]')?.id || '';
-                    
-                    // Si toujours pas d'ID, générer un hash du texte
                     if (!id) {
                         id = 'auto-' + normalizeText(el.textContent).substring(0, 20).replace(/\s+/g, '-');
-                        el.id = id; // Optionnel : assigner au DOM pour navigation future
+                        el.id = id;
                     }
                     
                     const title = el.textContent.trim();
                     const level = parseInt(el.tagName.charAt(1)) || 2;
+                    const foldedTitle = foldAccents(title);
+
+                    // Chercher la position du titre de manière séquentielle (après le titre précédent)
+                    let pos = foldedText.indexOf(foldedTitle, lastFoundPos);
+                    if (pos === -1) pos = foldedText.indexOf(foldedTitle); // Fallback
+                    
+                    if (pos !== -1) {
+                        lastFoundPos = pos + foldedTitle.length;
+                    }
                     
                     sections.push({
                         id: id,
                         title: title,
-                        normalized: normalizeText(title),
                         level: level,
+                        pos: pos !== -1 ? pos : 0
                     });
                 });
+                
+                // Trier les sections par leur position exacte dans le texte
+                sections.sort((a, b) => a.pos - b.pos);
                 
                 searchIndex.set(doc.id, {
                     ...doc,
                     rawText: text,
                     normalizedText: normalized,
+                    foldedText: foldedText,
                     sections: sections
                 });
             } catch (e) {
@@ -883,35 +893,64 @@
             
             const results = [];
             
+            // Fonction utilitaire pour construire le Fil d'Ariane exact H2 > H3 > H4 à une position donnée
+            function getBreadcrumbAtPos(docTitle, sections, pos) {
+                let h2 = "";
+                let h3 = "";
+                let h4 = "";
+
+                for (let s of sections) {
+                    if (s.pos <= pos) {
+                        if (s.level === 2) {
+                            h2 = s.title;
+                            h3 = ""; // Réinitialise les sous-sections quand un nouveau H2 apparaît
+                            h4 = "";
+                        } else if (s.level === 3) {
+                            h3 = s.title;
+                            h4 = "";
+                        } else if (s.level === 4) {
+                            h4 = s.title;
+                        }
+                    } else {
+                        break; // Les sections suivantes sont après notre position
+                    }
+                }
+
+                let path = [docTitle];
+                if (h2) path.push(h2);
+                if (h3) path.push(h3);
+                if (h4) path.push(h4);
+
+                return path.join(' › ');
+            }
+
             searchIndex.forEach((docData, docId) => {
-                // Ignorer le lore verrouillé
                 const associatedDoc = documents.find(d => d.id === docId);
                 if (associatedDoc && associatedDoc.isLore && !loreUnlocked) return;
 
                 const matchingItems = [];
                 const rawText = docData.rawText;
-                const foldedText = foldAccents(rawText);
+                const foldedText = docData.foldedText || foldAccents(rawText);
 
-                // 1. CHERCHER DANS LES TITRES ET SOUS-TITRES (Fil d'Ariane + 50 caractères APRÈS)
+                // 1. RECHERCHE DANS LES TITRES DE SECTIONS
                 docData.sections.forEach(section => {
                     const sectionFolded = foldAccents(section.title);
                     if (sectionFolded.includes(searchQueryFolded)) {
-                        const pos = foldedText.indexOf(sectionFolded);
                         let snippetAfter = "";
-
-                        if (pos !== -1) {
-                            // Prendre 50 caractères APRÈS le titre
-                            const start = pos + sectionFolded.length;
-                            const end = Math.min(rawText.length, start + 50);
+                        const start = section.pos + sectionFolded.length;
+                        const end = Math.min(rawText.length, start + 50);
+                        
+                        if (start < rawText.length) {
                             snippetAfter = rawText.substring(start, end).replace(/\s+/g, ' ').trim();
                             if (end < rawText.length) snippetAfter += '...';
                         }
 
+                        // Construire le chemin hiérarchique jusqu'à ce titre
+                        const breadcrumb = getBreadcrumbAtPos(docData.title, docData.sections, section.pos);
+
                         // Surligner le mot dans le titre
-                        const exactWord = section.title.substring(
-                            sectionFolded.indexOf(searchQueryFolded), 
-                            sectionFolded.indexOf(searchQueryFolded) + searchQueryFolded.length
-                        );
+                        const matchIndexInTitle = sectionFolded.indexOf(searchQueryFolded);
+                        const exactWord = section.title.substring(matchIndexInTitle, matchIndexInTitle + searchQueryFolded.length);
                         
                         const highlightedTitle = section.title.replace(
                             exactWord,
@@ -919,7 +958,7 @@
                         );
 
                         matchingItems.push({
-                            breadcrumb: `${docData.title} › ${section.title}`,
+                            breadcrumb: breadcrumb,
                             snippet: `<strong>${highlightedTitle}</strong>${snippetAfter ? ' : ' + snippetAfter : ''}`,
                             targetId: section.id,
                             isTitle: true,
@@ -928,28 +967,20 @@
                     }
                 });
 
-                // 2. CHERCHER DANS LE CORPS DU TEXTE (Fil d'Ariane + 25 chars AVANT/APRÈS)
+                // 2. RECHERCHE DANS LE CORPS DU TEXTE
                 let pos = 0;
                 let matchCount = 0;
                 const maxMatchesPerDoc = 6;
 
                 while ((pos = foldedText.indexOf(searchQueryFolded, pos)) !== -1 && matchCount < maxMatchesPerDoc) {
-                    // Vérifier si cette position n'est pas déjà un titre traité
-                    const isTitleMatch = docData.sections.some(s => {
+                    // Ignorer si la position tombe exactement dans un titre (déjà traité au-dessus)
+                    const isInsideSectionTitle = docData.sections.some(s => {
                         const sFolded = foldAccents(s.title);
-                        const sPos = foldedText.indexOf(sFolded);
-                        return sPos !== -1 && pos >= sPos && pos < sPos + sFolded.length;
+                        return pos >= s.pos && pos < s.pos + sFolded.length;
                     });
 
-                    if (!isTitleMatch) {
-                        // Trouver la section parent pour le Fil d'Ariane
-                        let currentSectionTitle = docData.title;
-                        for (let s of docData.sections) {
-                            const sPos = foldedText.indexOf(foldAccents(s.title));
-                            if (sPos !== -1 && sPos <= pos) {
-                                currentSectionTitle = `${docData.title} › ${s.title}`;
-                            }
-                        }
+                    if (!isInsideSectionTitle) {
+                        const breadcrumb = getBreadcrumbAtPos(docData.title, docData.sections, pos);
 
                         const start = Math.max(0, pos - 25);
                         const end = Math.min(rawText.length, pos + searchQueryFolded.length + 25);
@@ -966,7 +997,7 @@
                         );
 
                         matchingItems.push({
-                            breadcrumb: currentSectionTitle,
+                            breadcrumb: breadcrumb,
                             snippet: prefix + highlightedSnippet + suffix,
                             targetId: '',
                             isTitle: false,
@@ -989,81 +1020,6 @@
             });
             
             return results;
-        }
-
-        async function navigateToResult(docId, searchTerm, matchIndex = 0, targetId = '') {
-            if (!searchTerm || searchTerm.length < 2) return;
-            
-            if (currentDoc !== docId) {
-                await selectDocument(docId);
-                await new Promise(resolve => setTimeout(resolve, 350));
-            }
-            
-            setTimeout(() => {
-                const wrapper = document.getElementById('bookSpreadsWrapper');
-                if (!wrapper) return;
-                
-                let targetEl = null;
-
-                // 1. Si c'est un titre avec un ID de section
-                if (targetId) {
-                    const cleanId = targetId.replace('section-', '');
-                    targetEl = document.getElementById(cleanId) || document.getElementById(targetId);
-                }
-
-                // 2. Sinon, chercher par occurrence de texte dans le document
-                if (!targetEl) {
-                    const normalizedSearch = normalizeText(searchTerm);
-                    const walker = document.createTreeWalker(
-                        wrapper,
-                        NodeFilter.SHOW_TEXT,
-                        {
-                            acceptNode: function(node) {
-                                if (node.textContent && normalizeText(node.textContent).includes(normalizedSearch)) {
-                                    return NodeFilter.FILTER_ACCEPT;
-                                }
-                                return NodeFilter.FILTER_SKIP;
-                            }
-                        }
-                    );
-                    
-                    let currentIndex = 0;
-                    while (walker.nextNode()) {
-                        if (currentIndex === matchIndex) {
-                            targetEl = walker.currentNode.parentNode;
-                            break;
-                        }
-                        currentIndex++;
-                    }
-                    if (!targetEl && walker.currentNode) targetEl = walker.currentNode.parentNode;
-                }
-
-                if (targetEl) {
-                    const spread = targetEl.closest('.book-spread');
-                    const mainContainer = document.getElementById('mainContainer');
-                    
-                    if (spread && mainContainer) {
-                        mainContainer.scrollTo({
-                            top: spread.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                    
-                    const originalBg = targetEl.style.backgroundColor;
-                    const originalOutline = targetEl.style.outline;
-                    targetEl.style.outline = '2px solid #7c2d12';
-                    targetEl.style.backgroundColor = 'rgba(124, 45, 18, 0.25)';
-                    
-                    setTimeout(() => {
-                        targetEl.style.outline = originalOutline;
-                        targetEl.style.backgroundColor = originalBg;
-                    }, 2500);
-                }
-                
-                highlightSearchTerm(searchTerm);
-            }, 150);
         }
 
         function highlightSearchTerm(term) {
