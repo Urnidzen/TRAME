@@ -123,7 +123,9 @@ La cité s'organise en anneaux concentriques le long du fleuve qui la traverse d
 - **Le Quartier des Marchands** : Rues pavées abritant échoppes de maîtres artisans, apothicaires et tailleurs de soie.
 - **La Basse-Ville** : Faubourgs agricoles aux rues de terre battue, entrepôts à grains et demeures des paysans.
 ### Points d'Intérêt
-- Le Palais Royal : Structure baroque de pierre blanche et marbre gris.
+- Le Palais Royal : Structure baroque de pierre blanche et marbre gris, dominant le quartier de la Couronne.
+- Les Archives Occidentales : Section retirée des archives du Palais Royal, peu fréquentée en dehors des besoins administratifs. Elle dissimule l'accès à plusieurs passages de service réservés à la Couronne.
+- Le Cabinet Privé de la Régente : Petite pièce circulaire accessible par un passage secret depuis les Archives Occidentales. Kaelia l'utilise pour travailler ou recevoir confidentiellement certains interlocuteurs loin du protocole, des gardes et des regards de la Cour.
 - La Forge Naine (voir section 6.1) : Massif de granit émergeant entre deux places commerçantes.
 - L'Amphithéâtre du Sénat : Bâtiment à colonnes.
 - Les Thermes Publics : Établissements de bain fréquentés par la bourgeoisie.
