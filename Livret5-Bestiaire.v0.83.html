@@ -1,0 +1,1760 @@
+<script type="application/json" id="doc-index">
+{
+    "id": "livret5",
+    "icon": "🐾",
+    "title": "Livret 5",
+    "subtitle": "Bestiaire",
+    "index": [
+        {"id": "guide-mj-lexique", "title": "Guide", "level": 1},
+        {"id": "regle-omission", "title": "Règle d'Omission", "level": 2},
+        {"id": "legende-abreviations", "title": "Légende des Abréviations", "level": 2},
+        {"id": "tags-profils", "title": "Profils & Échelonnement", "level": 2},
+        {"id": "dangerosite-decodage", "title": "Décodage de la Dangerosité", "level": 2},
+        {"id": "exemple-lecture", "title": "Exemple de Lecture", "level": 2},
+        {"id": "section-butin-ressources", "title": "Butin et Ressources", "level": 2},
+        {"id": "renvois-croises", "title": "Renvois Croisés", "level": 2},
+        {"id": "section-creatures", "title": "Créatures", "level": 1},
+        {"id": "section-araignees", "title": "Araignées", "level": 2},
+        {"id": "section-bandits", "title": "Bandits", "level": 2},
+        {"id": "section-chevaux", "title": "Chevaux", "level": 2},
+        {"id": "section-dragons", "title": "Dragons", "level": 2},
+        {"id": "section-drakes", "title": "Drakes", "level": 2},
+        {"id": "section-felins", "title": "Félins", "level": 2},
+        {"id": "section-gobelins", "title": "Gobelins", "level": 2},
+        {"id": "section-indigenes", "title": "Indigènes", "level": 2},
+        {"id": "section-kobolds", "title": "Kobolds", "level": 2},
+        {"id": "section-loups", "title": "Loups", "level": 2},
+        {"id": "section-mercenaires", "title": "Mercenaires & Soldats", "level": 2},
+        {"id": "section-mortsvivants", "title": "Morts Vivants", "level": 2},
+        {"id": "section-ogre", "title": "Ogre", "level": 2},
+        {"id": "section-ours", "title": "Ours", "level": 2},
+        {"id": "section-peuple", "title": "Peuple", "level": 2},
+        {"id": "section-pirates", "title": "Pirates des Brumes", "level": 2},
+        {"id": "section-rapaces", "title": "Rapaces", "level": 2},
+        {"id": "section-rats", "title": "Rats", "level": 2},
+        {"id": "section-requins", "title": "Requins", "level": 2},
+        {"id": "section-sangliers", "title": "Sangliers", "level": 2},
+        {"id": "section-serpents", "title": "Serpents de Mer", "level": 2},
+        {"id": "section-esprits-de-la-foret", "title": "Esprits de la foret", "level": 2}
+    ]
+}
+</script>
+
+<style>
+/* À garder dans chaque fichier Livret (spécifique au contenu) */
+.tag-danger {
+    background: #1c1917;
+    color: #f4ecd8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.tag-echelon {
+    background: #e7e5e4;
+    color: #44403c;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Grilles spécifiques au Livret 5 */
+.rule-item.lexique-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.lexique-grid.header {
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid #1c1917;
+}
+
+.rule-item.ressources-grid {
+    display: grid;
+    grid-template-columns: 8% 32% 60%;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.rule-item.ressources-grid.header {
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid #1c1917;
+}
+
+.rule-item.ressources-grid > :first-child {
+    text-align: center;
+    color: #7c2d12;
+    font-weight: 600;
+}
+</style>
+
+<h2 id="guide-mj-lexique">1. Guide de Lecture & Lexique</h2>
+
+<h3 id="regle-omission">Règle Fondamentale : L'Omission</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p><strong>Toute statistique non mentionnée dans une fiche est égale à 0.</strong> Pour alléger la lecture, seules les valeurs modifiées (bonus, malus, particularités) sont indiquées.</p>
+</div>
+<div class="rule-item">
+    <p><em>Exemple concret : Si une créature affiche :</em></p>
+</div>
+<div class="rule-item">
+    <p><strong>Stats:</strong> Att: dir +1, Tal: Surv +1</p>
+</div>
+<div class="rule-item">
+    <p><em>cela signifie automatiquement que toutes ses autres Attaques, toutes ses Protections, et tous ses autres Talents sont à <strong>0</strong>.</em></p>
+</div>
+<div class="card-end"></div>
+
+<h3 id="legende-abreviations">Légende des Abréviations</h3>
+
+<div class="card-start"></div>
+<div class="rule-item lexique-grid header">
+    <div>Combat</div>
+    <div>Type / Cible</div>
+    <div>Talents</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div><strong>Att:</strong> Attaquer</div>
+    <div><strong>dir:</strong> Direct</div>
+    <div><strong>Tal:</strong> Talents</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div><strong>Pro:</strong> Se Protéger</div>
+    <div><strong>cir:</strong> Circulaire</div>
+    <div><strong>Athlé:</strong> Athlétisme</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div><strong>Type:</strong> Type</div>
+    <div><strong>saisie:</strong> Saisie</div>
+    <div><strong>Félin:</strong> Aptitude Féline</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div><strong>Cible:</strong> Cible</div>
+    <div><strong>tête:</strong> Tête</div>
+    <div><strong>Méca:</strong> Mécanique</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div><strong>Def:</strong> Défense</div>
+    <div><strong>tronc:</strong> Tronc</div>
+    <div><strong>Fourb:</strong> Fourberie</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div><strong>Res:</strong> Résistance</div>
+    <div><strong>mbre:</strong> Membres</div>
+    <div><strong>Percep:</strong> Perception</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div></div>
+    <div></div>
+    <div><strong>Surv:</strong> Survie</div>
+</div>
+<div class="rule-item lexique-grid">
+    <div></div>
+    <div></div>
+    <div><strong>Sav Acad:</strong> Savoir Académique</div>
+</div>
+<div class="card-end"></div>
+
+<h3 id="tags-profils">Profils & Échelonnement (Étiquettes)</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Ces étiquettes, placées à droite du nom de la créature à côté de sa Dangerosité, indiquent les bonus d'espèce qu'elle possède automatiquement (cf. <strong>Livret 2</strong> & <strong>Livret 4</strong>) :</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Figurant :</strong> Profil de base, sans bonus d'expérience. Représente la norme biologique ou professionnelle (ex: un paysan, un gobelin éclaireur, un rat).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Évolué :</strong> Individu expérimenté ayant développé une partie de son héritage biologique. Le MJ peut lui attribuer de <strong>1 à 4 bonus d'espèce</strong>, justifiés par son vécu ou son rôle narratif.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Majeur :</strong> Figure d'exception ou Personnage Joueur. Possède systématiquement <strong>l'intégralité</strong> des bonus liés à son espèce.</p>
+</div>
+<div class="rule-item">
+    <p>Note MJ : Vous pouvez moduler ces étiquettes (surclassement ou déclassement) en ajoutant ou retirant des bonus d'espèce, tant que la justification narrative reste cohérente avec la démographie et la longévité de l'espèce (cf. Livret 4, Ch. 2).</p>
+</div>
+<div class="card-end"></div>
+
+<h3 id="dangerosite-decodage">Décodage de la Dangerosité (X / X+)</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Ce score est votre principal outil d'équilibrage (cf. <strong>Livret 4, Ch. 3 - Règle de Comparaison</strong>) :</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Le Chiffre (X) :</strong> Correspond au <strong>Score Total d'Attaque le plus élevé</strong> de la créature (somme du Type + Cible). C'est la valeur technique brute qui détermine si elle peut rivaliser avec les PJ.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Le Signe (+) :</strong> Un <strong>+</strong> indique une <strong>menace contextuelle</strong>. La créature est plus dangereuse que son chiffre ne le laisse paraître, généralement grâce à une armure lourde, un talent de furtivité, un environnement favorable, un poison, ou un avantage tactique. Le <strong>+</strong> ne modifie pas le calcul technique, mais justifie un surclassement lors de l'évaluation de la rencontre.</p>
+</div>
+<div class="card-end"></div>
+
+<h3 id="exemple-lecture">Exemple de Lecture Pas-à-Pas</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Voici comment lire et interpréter une fiche de créature :</p>
+</div>
+<div class="rule-item">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem; margin-top: 1rem;">
+        <h4 style="margin: 0;">Brute (Bandit)</h4>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="tag-echelon">Évolué</span>
+            <span class="tag-danger">Dangerosité : 1+</span>
+        </div>
+    </div>
+</div>
+<div class="rule-item">
+    <p><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
+</div>
+<div class="rule-item">
+    <p><strong>Stats:</strong> Att: cir +1 et saisie +1, Pro: tronc et mbre +1 (Armure de cuir, Dur: 6).</p>
+</div>
+<div class="rule-item">
+    <p><strong>Décryptage :</strong></p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>L'Allonge (Initiative) :</strong> L'allonge <em>Longue</em> indique qu'il agit en <strong>Priorité 4</strong> lors du tour de combat (avant les armes moyennes et courtes). Cela définit également sa place dans la Loi du Surnombre (permettant une mêlée étagée).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Échelonnement :</strong> Tag <em>Évolué</em> signifie qu'elle possède déjà des bonus d'espèce appliqués. Cela indique au MJ les variantes qu'il peut créer (cf livret 4 chapitre 2.2).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Le + :</strong> Justifié ici par son armure de cuir (<strong>Pro: tronc/mbre +1</strong>) qui compense l'érosion et augmente sa résilience.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Attaque :</strong> Son score max est <strong>cir +1</strong> (Type) + <strong>tronc +0</strong> (Cible non listée = 0) = <strong>1</strong>. D'où Dangerosité <strong>1</strong>.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>En combat :</strong> Elle frappe en <strong>cir +1</strong>. Si une attaque circulaire la cible au tronc, sa Protection vaut <strong>Def vs cir (0) + Res tronc (+1) = 1</strong>. Son armure a 6 points de Durabilité.</p>
+</div>
+<div class="card-end"></div>
+
+<h2 id="section-butin-ressources">Butin et Ressources</h2>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p>Le butin des créatures alimente directement le système de <strong>Ressources</strong> (échelle 0 à 4) décrit dans le <strong>Livret 3 – Ressources & Équipement</strong>.</p>
+</div>
+<div class="rule-item">
+    <p>Chaque créature ou petit groupe vaincu représente généralement <strong>1 Unité de Butin (UB)</strong> correspondant à son <strong>niveau de Ressources</strong>.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Fouille complète</strong> → <strong>1 UB</strong> du niveau exact de la créature (ou du groupe).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Vol à la tire</strong> (fouiller rapidement poches/sac) → <strong>1 UB de rang inférieur</strong> (minimum 0).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Groupe significatif</strong> (campement, caravane, petite colonie) → 1 UB de niveau égal ou <strong>supérieur</strong>. Le MJ peut attribuer plusieurs UB pour un butin exceptionnel.</p>
+</div>
+<div class="rule-item">
+    <p><strong>Rappel Livret 3 :</strong> Investir 1 UB de niveau supérieur = montée immédiate de Ressources.<br>
+    Accumuler 10 UB de son niveau actuel = montée d'un palier.</p>
+</div>
+<div class="card-end"></div>
+
+<h3>Niveau de Ressources des Créatures</h3>
+
+<p>Chaque fiche indique le <strong>Niveau de Ressources</strong> de la créature. Cela détermine la valeur de l'UB qu'elle fournit.</p>
+
+<div class="card-start"></div>
+<div class="rule-item ressources-grid header">
+    <div>Niveau</div>
+    <div>Exemples de créatures</div>
+    <div>Contenu typique (inspiré Livret 3)</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>0<br><span style="font-size: 0.8em; font-weight: normal; color: #78716c;">Mendiant</span></strong></div>
+    <div>Rat Géant, Squelette, Zombie, Loup Gris, Éclaireur Gobelin, Paysan</div>
+    <div>Haillons, quelques deniers de cuivre, couteau rouillé, besace vide.</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>1<br><span style="font-size: 0.8em; font-weight: normal; color: #78716c;">Peuple</span></strong></div>
+    <div>Bandit Vaurien, Brute Bandit, Araignée Géante, Ogre Brute, Garde</div>
+    <div>Bourse de pièces d'argent, arme courante (lance, dague), gambison, contrat d'esclave de labeur.</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>2<br><span style="font-size: 0.8em; font-weight: normal; color: #78716c;">Riche</span></strong></div>
+    <div>Ogre Mage, Chef de bande, Chevalier, Wyverne, Serpent de Mer Géant, Tréant</div>
+    <div>Épée ou hache de qualité, cotte de mailles, bourse conséquente, acte de petite maison + esclave de maison.</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>3<br><span style="font-size: 0.8em; font-weight: normal; color: #78716c;">Opulent</span></strong></div>
+    <div>Liche Jeune, Liche Ancienne</div>
+    <div>Harnois, destrier, bijoux d'or, manoir fortifié, esclaves de plaisir, composants rares (sang d'ogre mage, chitine, etc.).</div>
+</div>
+<div class="rule-item ressources-grid">
+    <div><strong>4<br><span style="font-size: 0.8em; font-weight: normal; color: #78716c;">Crésus</span></strong></div>
+    <div>Dragon Véritable, Liche Immémoriale</div>
+    <div>Lingots de mithril/adamantite, reliques, parchemins de château, réseau de traite d'esclaves, cassette royale.</div>
+</div>
+<div class="card-end"></div>
+
+<p>Les armures, armes ou objets notables portés par la créature font partie de l'UB (sauf si détruits en combat).</p>
+
+<h3>Règle pratique pour le MJ</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p class="pseudo-li">Décrivez le butin comme un ensemble cohérent (voir tableaux « Décrire un Trésor » du Livret 3 section 7).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Les <strong>objets magiques</strong> restent exceptionnels et doivent être justifiés narrativement (ils ne font pas partie de l'UB standard).</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li">Pour un lieu (antre, camp, nécropole) : traitez-le comme un « grand entrepôt » → 1 UB de niveau supérieur ou plusieurs UB.</p>
+</div>
+<div class="card-end"></div>
+
+<h3 id="renvois-croises">Renvois Croisés Essentiels</h3>
+
+<div class="card-start"></div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Livret 1 :</strong> Résolution des actions, Érosion tactique, Initiative, Magie & Talents.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Livret 2 :</strong> Bonus d'Espèce détaillés, Création de personnage, Plafonds des Talents.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Livret 3 :</strong> Ressources & Équipement, Niveaux des Objets, Règles d'Achat, Test de Fortune, Unités de Butin (UB), Progression de Ressources et tableaux de Trésors.</p>
+</div>
+<div class="rule-item">
+    <p class="pseudo-li"><strong>Livret 4 :</strong> Ajustement des PNJ (Figurant/Évolué/Majeur), Règle de Comparaison, Équilibrage des rencontres.</p>
+</div>
+<div class="card-end"></div>
+
+<div class="page-break"></div>
+
+<h2 id="section-creatures">2. Créatures</h2>
+
+<h3 id="section-araignees">Araignées</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Géante</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, généralement tapie au plafond ou dans les grands arbres.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Pattes), Courte (Crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: saisie +1, Pro: vs dir +1, Tal: Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — En fouillant les restes de cocons à moitié dissous, on découvre les possessions des victimes précédentes : quelques pièces d'argent, un bijou simple, une arme courante comme une lance ou une dague en bon état, un outil de métier fonctionnel, ou divers petits objets de voyage (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple — une amulette en cuivre polie, un collier de perles de verre, une dague avec un fourreau usé mais une lame intacte, etc. — ou exceptionnellement enrichir ou appauvrir le butin par la malchance d'une victime : mendiant sans le sou, ou voyageur porteur d'une lettre scellée, d'un insigne ou d'une clé offrant une amorce narrative). La soie d'araignée est extrêmement solide et peut servir à fabriquer des cordes ou des vêtements particulièrement résistants et doux au toucher (soyeux). Les glandes à venin peuvent être extraites, mais l'opération est délicate (Test de Survie Difficulté 1).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Caméléon</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Créature cauchemardesque de la taille d'un poney, change naturellement de couleur pour se fondre dans son environnement, généralement tapie au plafond ou dans les grands arbres.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Pattes), Courte (Crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: saisie +1, Pro: vs dir +1, Tal: Surv +1, Félin +1 (caméléon).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Quasi invisible (corps qui se fond dans l'environnement), tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Dissimulés dans les enchevêtrements de soie qui adopte la teinte exacte de son environnement pour se fondre parfaitement dans le décor, les cocons et leur contenu ne se révèlent qu'à une observation minutieuse (Test de Perception Difficulté 1). Les dépouilles des victimes offrent leurs possessions habituelles de voyageur : quelques pièces d'argent, un bijou simple, une arme courante, un outil usuel, ou divers petits objets personnels (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple — une amulette en cuivre, un collier de perles de verre, une dague avec son fourreau, etc. — ou exceptionnellement enrichir ou appauvrir le butin par la malchance d'une victime : mendiant sans le sou, ou voyageur porteur d'une lettre scellée, d'un insigne ou d'une clé offrant une amorce narrative). La véritable valeur réside dans la soie caméléon elle-même : sa couleur s'adapte instantanément à son environnement pour se confondre avec les teintes environnantes, la rendant quasi invisible une fois tissée. Elle est extrêmement solide et d'une douceur soyeuse. Bien qu'on puisse l'utiliser pour fabriquer des cordes ou des vêtements résistants, on lui préférera la confection d'une cape de soie d'araignée caméléon (voir Livret 3, section Objets Magiques), ou exceptionnellement une toile de tente, afin de profiter pleinement de ses propriétés de dissimulation. Les glandes à venin peuvent être extraites, mais l'opération est délicate (Test de Survie Difficulté 1).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Colossale</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 2</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, souvent à la tête d'une colonie d'araignées géantes.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie +2, dir +1, Pro: vs dir et saisie +1, tronc, mbre et tête +1 (Chitine, Dur: 6), Tal: Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Au cœur de son antre, l'entassement de vastes cocons révèle les possessions de nombreuses victimes accumulées : plusieurs armes courantes, une collection de bijoux simples, outils de métiers variés, équipements de voyage et bourses contenant une quantité significative de pièces d'argent (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple — plusieurs amulettes en cuivre polies, colliers de perles de verre, dagues avec fourreaux usés mais lames intactes, etc. — ou y découvrir dissimulée parmi le lot une petite richesse inattendue : une bourse bien garnie, un bijou de meilleure facture, ou un objet singulier comme une lettre scellée, un insigne ou une clé offrant une amorce narrative). La grande quantité de soie récoltée sur ces cocons volumineux est extrêmement solide et peut servir à fabriquer des cordes ou des vêtements particulièrement résistants et doux au toucher (soyeux). Les glandes à venin peuvent être extraites des crochets massifs, mais l'opération est délicate (Test de Survie Difficulté 1).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Caméléon Colossale</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Une très vieille araignée géante qui au fil du temps est devenue encore plus grande et dangereuse, change naturellement de couleur pour se fondre dans son environnement, souvent à la tête d'une colonie d'araignées géantes caméléons.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Toile), Moyenne (Crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie +2, dir +1, Pro: vs dir et saisie +1, tronc, mbre et tête +1 (Chitine, Dur: 6), Tal: Surv +1, Félin +2 (caméléon).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Quasi invisible (corps qui se fond dans l'environnement), tente une Att saisie (Toile) pour entraver la cible avant de l'empoisonner avec une Att dir (crochets).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>4 à 6 UB Riche</strong> — Dissimulés dans les enchevêtrements massifs de soie qui adopte la teinte exacte de son environnement pour se fondre parfaitement dans le décor, les vastes cocons et leur contenu ne se révèlent qu'à une observation minutieuse (Test de Perception Difficulté 1). L'entassement révèle les possessions de nombreuses victimes accumulées : plusieurs armes courantes, une collection de bijoux simples, outils de métiers variés, équipements de voyage et bourses contenant une quantité significative de pièces d'argent (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple — plusieurs amulettes en cuivre polies, colliers de perles de verre, dagues avec fourreaux usés mais lames intactes, etc. — ou y découvrir dissimulée parmi le lot une petite richesse inattendue : une bourse bien garnie, un bijou de meilleure facture, ou un objet singulier comme une lettre scellée, un insigne ou une clé offrant une amorce narrative). La grande quantité de soie caméléon récoltée, dont la couleur s'adapte instantanément à son environnement pour se confondre avec les teintes environnantes, est extrêmement solide et d'une douceur soyeuse. On lui préférera la confection d'une cape de soie d'araignée caméléon (voir Livret 3, section Objets Magiques), ou exceptionnellement une toile de tente, afin de profiter pleinement de ses propriétés de dissimulation. Les glandes à venin peuvent être extraites des crochets massifs, mais l'opération est délicate (Test de Survie Difficulté 1).</p>
+    </div>
+    <div class="card-end"></div>
+
+<h3 id="section-bandits">Bandits</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4>Vaurien <span class="tag-cat">(Figurant)</span></h4>
+            <span style="background: #1c1917; color: #f4ecd8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">Dangerosité : 1</span>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Brigand armé d'une hache ou d'une masse.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: cir +1, Tal: Fourb +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Met tout son poids dans des coups larges pour briser la garde.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le corps ou dans les possessions du vaurien : une hache ou une masse de facture courante, une dague dans la ceinture, une bourse contenant quelques pièces d'argent, et divers objets de la vie de hors-la-loi (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une longueur de corde solide, un masque de tissu pour dissimuler les traits, une flasque d'alcool, des dés marqués, une carte grossière de la région avec des croix au crayon, une liste de proies potentielles griffonnée sur un bout de parchemin, un insigne de milice volé, ou une bague tirée d'un doigt).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Brute</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Colosse cicatrisé avec armure de cuir et hache lourde, souvent chef d'un groupe de Vaurien.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Hache à deux mains).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: cir +1 et saisie +1, Pro: tronc et mbre +1 (Armure de cuir, Dur: 6).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Privilégie les attaques lourdes (Att cir); utilise sa force pour une Att saisie et jeter au sol si l'adversaire esquive ou bloque trop.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur la Brute ou dans ses affaires : une hache à deux mains, une armure de cuir, une bourse contenant une poignée de pièces d'argent, et divers objets de chef de petit groupe (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple un cornet ou un sifflet pour donner le signal, un petit livre de comptes griffonné, une outre de vin ou de bière, un jeu de dés en os, une longueur de corde pour lier les prisonniers, une amulette porte-bonheur, ou une marque de gang tatouée ou en médaillon).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Camp ou repaire :</strong> <strong>1 à 4 UB Peuple</strong> — Si la Brute et son groupe ont établi un campement (campement de route, grotte de fortune ou cavée forestière), son contenu varie selon leur activité récente. Il peut s'agir de simples provisions de subsistance (nourriture, boisson, couvertures, tentes rudimentaires), de butin récent encore mal rangé (sacs de marchandises volées, ballots de tissu, caisses d'outils), ou exceptionnellement d'une cage de transport contenant un esclave de labeur ou un prisonnier destiné à la rançon. Chaque campement doit refléter la spécialité momentanée du groupe : pillage de caravane, rançonnage de voyageurs, ou commerce de contrebande.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Coupe-jarret</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Brigand coutumier des pillages et des embuscades.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Arc, Arbalète ou fronde) et Moyenne (Arme à une main) ou Courte (Dague).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir et saisie +1, Tal: Athlé et Félin +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Leurs embuscades depuis une position dissimulée (Félin +1) sont redoutables et difficile à détecter pour éviter la surprise (attention l'avantage que confère une attaque surprise est redoutable pour les PJ, souvent mortelle).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le corps ou dissimulé dans ses cachettes : une dague affilée, un arc court ou une arbalète de poing avec quelques munitions, une sacoche contenant des outils de cambrioleur, et une bourse avec quelques pièces d'argent (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple un grappin léger, une fiole de poison, un capuchon de laine, une paire de gants sans doigts, une longueur de corde fine, un masque de cuir, un carnet de codes de rues, ou une clef de serrure).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Chef de bande</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Chef de groupe hétéroclite (divers types de bandits) ou homogène (même type de bandits) de bandits humains, peuvent parfois avec leur groupe s'associer à d'autres espèces ou groupe d'autres espèces.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Arc, Arbalète ou fronde) et Moyenne  (Arme à une main) ou Courte (Dague).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir et saisie +2, Pro: vs dir, cir et saisie +1, tronc et mbre +1 (Armure de cuir, Dur: 6), Tal: Percep, Athlé et Félin +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Reste discret pour repérer l'ennemi le plus problématique et établir une stratégie pour l'occire rapidement. </p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Sur le chef ou dans ses affaires : une épée ou une hache de qualité, une armure de cuir bien entretenue, une bourse conséquente de pièces d'argent et quelques pièces d'or, des bijoux, et divers objets d'autorité et de gestion de troupe (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche : par exemple une carte détaillée d'un camp caché, un acte de propriété d'une maison de ville, un contrat d'esclave de maison, un insigne de milice ou de garde volé, une bague de sceau, une corne de signalisation, un registre de rançons payées, ou un coffret contenant des pièces d'or).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Camp ou repaire :</strong> <strong>3 à 7 UB Peuple</strong> — Si le Chef dispose d'un repaire établi (antre fortifié, camp retranché ou maison de maître occupée), sa nature dépend de l'orientation criminelle de la bande. Un repaire de rançonneurs abrite des prisonniers de valeur (nobles ou marchands) dans des cellules ou des cages, avec leurs effets personnels confisqués. Un comptoir de contrebande renferme des entrepôts de marchandises (tissus, armes, alcools, épices) empaquetées pour la revente. Un camp de traite contient des esclaves de labeur ou de maison sous bonne garde, avec les chaînes et contrats correspondants. Un simple refuge de brigands ne contiendra que des réserves de subsistance (nourriture, boisson, tentes) proportionnelles à la taille de la troupe. Le MJ détermine l'activité principale du repaire selon les besoins narratifs.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-chevaux">Chevaux</h3>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Mule</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Bête de somme endurante, sûre sur les sentiers escarpés et peu coûteuse.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne (Sabots).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Tal: Athlé, Surv et Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente de repousser violemment l'attaquant avec ses sabots. Ne peut pas attaquer si monté.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Robuste et endurant, moins rapide qu'un cheval mais plus sûr sur les sentiers escarpés et moins coûteux à entretenir (Le MJ peut librement varier la qualité et l'état de l'animal selon ses besoins narratifs : par exemple une mule âgée mais résistante, une jeune têtue, ou une bête de somme docile).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Harnachement et chargement :</strong> <strong>0 à 1 UB Peuple</strong> — Si la mule est équipée (bât, selles de bât, ou simplement en liberté dans un enclos), on trouve un harnais de cuir simple avec des sacoches ou un bât contenant les effets de son propriétaire : de 1 UB Mendiant (sacoches vides ou percées, harnais rapiécé, quelques carottes fanées) à 1 UB Peuple (bourse avec pièces d'argent, outils de voyage, couverture, provisions, ou marchandises de colporteur).</p>
+    </div>
+    <div class="card-end"></div>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">De trait</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Cheval massif et puissant, destiné au labour et à la traction lourde.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne (Sabots).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Tal: Athlé, Surv et Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente de repousser violemment l'attaquant avec ses sabots. Ne peut pas attaquer si monté.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>2 UB Peuple</strong> — La bête massive et puissante, destinée au labour des champs ou au tirage de chariots lourds, possédant une force de traction considérable mais peu de vélocité (Le MJ peut librement varier la qualité et l'état de l'animal selon ses besoins narratifs : par exemple un cheval de labour lourd, un percheron de charroi, ou un bidet de ferme encore jeune).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Harnachement et attelage :</strong> <strong>0 à 1 UB Peuple</strong> — Si l'animal est harnaché (selon son usage : attelé à une charrette, sellé de bât, ou en box), on y trouve un harnais de traction renforcé, des traits de cuir épais, et dans les coffres du véhicule ou les sacoches les outils du voyageur ou du fermier : de 1 UB Mendiant (harnais usé aux coutures, charrette branlante vide) à 1 UB Peuple (outils agricoles solides, petite caisse de marchandises, provisions pour la route, ou couvertures de laine).</p>
+    </div>
+    <div class="card-end"></div>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">De monte</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Cheval rapide et endurant.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne (Sabots).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Tal: Athlé, Surv et Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente de repousser violemment l'attaquant avec ses sabots. Ne peut pas attaquer si monté.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>2 UB Peuple</strong> — La bête elle-même, monture rapide et endurante apte aux longues distances (Le MJ peut librement varier la qualité et l'état de l'animal selon ses besoins narratifs : par exemple un hongre calme, un étalon capricieux, ou une jument de valeur reproductrice).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Harnachement et affaires :</strong> <strong>0 à 1 UB Peuple</strong> — Si le cheval est équipé (ce qui dépend de son origine : monture active de voyageur, animal sellé en écurie, ou bête sauvage/non harnachée), on y trouve une selle basique en cuir et des rênes simples, ainsi que dans les sacoches les effets de son cavalier : de 1 UB Mendiant (harnais usé, sacoche vide ou contenant juste une pomme et une longueur de ficelle) à 1 UB Peuple (bourse avec quelques pièces d'argent, gourde pleine, couverture de laine roulée, corde solide, carte grossière de la région, ou couteau de métal).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">De Guerre (Destrier)</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 1 (1+ barde)</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Cheval robuste et puissant, entraîné au combat.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne (Sabots).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: dir +1, Tal: Athlé, Surv et Percep +1. Si barde: Pro tête, tronc et mbre +2 (Dur 8), Athlé 0.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente de repousser violemment l'attaquant avec ses sabots, ne peut pas attaquer si monté.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Le destrier lui-même, cheval robuste et puissant, entraîné au combat, apte à porter un chevalier lourd et à résister aux tumultes de la mêlée (Le MJ peut librement varier la qualité et l'état de l'animal selon ses besoins narratifs : par exemple un hongre de bataille aguerri, un étalon de parade capricieux).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Harnachement et barda :</strong> <strong>0 à 1 UB Peuple</strong> — Le destrier porte une selle de qualité en cuir renforcé avec des rênes ornées, et les sacoches contiennent les effets d'un chevalier ou d'un noble : une bourse garnie de pièces d'argent et quelques pièces d'or, une pierre à aiguiser fine, une carte de patrouille ou un registre de comptes militaire, un insigne ou un sceau de maison noble, une flasque d'alcool de qualité, ou des rations de voyage (Le MJ peut librement varier la quantité, la diversité et l'état selon les besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche), plus 1 UB Riche si le destrier est bardé.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-dragons">Dragons</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(124, 45, 18, 0.3); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Dragon Véritable</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 6+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <div class="rule-item">
+    <p><strong>Description :</strong> Une entité millénaire dont l'existence même est liée aux flux magiques du monde. Sa présence impose généralement la terreur ou le respect absolu. Extrêmement puissant mais aussi étonnamment agile, que ce soit sur terre, dans les airs, ou sous les eaux les plus profondes. En usant de magie (via un sort de métamorphose qu'il maintient sans malus), il peut prendre l'apparence d'un humain ou de toute autre créature, en appliquant les règles générales de la Métamorphose détaillées au Livret 2 (le choix de la forme est limité par sa plus haute statistique de combat ; il perd ses facultés morphologiques physiques comme son armure d'écailles de +3, mais conserve l'intégralité de ses capacités d'essence magique).<br>
+        Les Dragons maléfiques ont souvent des centaines de Kobold voir plusieurs milliers pour les plus anciens, qui sont à leur service et leur vouent une adoration sans limites</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Souffle / Magie), Longue (Queue / Griffes / Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: dir +6 (Souffle, Magie, Griffes, Morsure), saisie +6 (Serres, Mâchoires), Pro: res tronc, mbre et tête +3, armure tronc, mbre et tête +3 (Écailles et cuir, Dur: 20).</p>
+    </div>
+<div class="rule-item">
+    <p><strong>• Magie Innée :</strong> Catalyseur vivant. Il lance ses sorts sans focalisateur et peut maintenir un unique sort actif en permanence sans subir de malus de maintien (généralement utilisé pour altérer son environnement direct : brume, chaleur ou froid extrême, pousse accélérée de végétaux fleuris, etc.). Tout sort additionnel maintenu au-delà de ce premier sort sans malus de maintien provoque les effets et malus normaux.</p>
+</div>
+    <div class="rule-item">
+        <p><strong>• Talents:</strong> Percep +2, Sav Acad +1, Athlé +2, Félin +1, Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Autre:</strong> Vol, nage, creuse dans la terre et la roche, aussi bien qu'il marche. Respiration aquatique, vision parfaite dans le noir, perception des vibrations. Possède une immunité en rapport à la couleur de ses écailles (ex. : rouge, immunité au feu).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Particulièrement intelligent, il est capable d'une grande capacité d'adaptation et de réponse stratégique à toutes les situations. Généralement territorial, avide de richesses et collectionneur. Pas un seul Dragon Véritable ne se ressemble au niveau de ses idéaux que de ses habitudes (certains sont bienveillants, d'autres neutres ou purement maléfiques).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 à 4 UB Crésus</strong> Dans l'antre du prédateur millénaire s'accumulent les richesses de siècles de pillage et de tributs : lingots de métaux précieux, gemmes étincelantes, pièces d'or et d'argent en cascades, coffrets d'ébène et d'ivoire, oeuvres d'art (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Crésus : par exemple des titres de propriété de domaines entiers, des réseaux de traite d'esclaves, des focalisateurs magiques anciens, ou des armures de chevaliers vaincus). Ses écailles d'une dureté exceptionnelle et son cuir sont utilisables pour la confection d'armures et de protections magiques, sans oublier son sang pour des potions et son cœur pour un rituel risqué (voir Livret 3).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(124, 45, 18, 0.3); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Wyverne</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 3+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Prédateur aérien reptilien mesurant près de neuf mètres de long de la gueule au bout de la queue. Son corps musculeux, recouvert d'épaisses écailles ternes, est dépourvu de pattes avant : celles-ci forment de vastes ailes membraneuses. Au sol, elle se dresse sur deux puissantes pattes arrière dotées de serres capables de broyer une cage thoracique. Sa mâchoire est garnie d'innombrables crocs acérés, et sa très longue queue articulée se termine par un dard effilé suintant un venin mortel.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Dard empoisonné, Morsure, Serres).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir +3 (Dard) et saisie +2 (Serres, Morsure). Pro: armure tête, tronc et mbre +2 (Écailles dures, Dur: 10). Tal: Athlé +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Fond sur sa proie en piqué pour la verrouiller dans ses serres ou ses mâchoires (Att: saisie) afin de l'empêcher de fuir ou de l'emporter dans les airs. Une fois la cible immobilisée, elle frappe implacablement avec sa queue (Att: dir). En cas d'Impact avec le dard, le poison fulgurant foudroie la victime. Si la blessure n'entraîne pas une mort immédiate, le venin impose le désavantage de -1 à toutes les actions (paralysie partielle, nécrose) et nécessite des soins en extrême urgence (Magie de Restauration ou antidote préparé via le talent Survie/Savoir) pour survivre.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Le cuir épais de la wyverne, matériau prestigieux pour la confection d'armures de cuir de grande qualité, ainsi que les glandes à venin permettant de préparer un poison redoutable (extraction délicate, Test de Survie Difficulté 1).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Nid :</strong> <strong>1 UB Peuple</strong> — Accessible uniquement après un Test d'Athlétisme ou d'Aptitude Féline Difficulté 1 pour gravir le piton rocheux, l'affleurement de basalte ou les ruines où la bête a établi sa tanière. Au fond du nid gisent les restes non digérés de proies récentes : os rongés, lambeaux d'armure, et sacoches déchirées contenant les effets personnels des malheureux (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une bourse contenant quelques pièces d'argent, un bracelet en bronze, une dague émoussée par les sucs digestifs, une bague prise sur un doigt, ou une carte trempée mais lisible).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-drakes">Drakes</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Rocheux</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Gros lézard trapu aux écailles rocheuses de la taille d'un cheval.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne (Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Pro: tronc, mbre et tête +2 (Globale, Dur: 8), vs saisie +1, Tal: Félin et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Reste immobile, ressemblant à un rocher, en attendant de surprendre une malheureuse proie qui s'approche trop près, peu rapide il ne poursuit pas une proie qui le fuit, si il la manque.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Dissimulé parmi les rochers où le lézard guettait, ou dans son terrier voisin, on trouve les possessions des malheureuses proies surprises par son attaque soudaine : quelques pièces d'argent éparpillées, un bijou simple, une arme ou un outil échappé des mains tremblantes (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une bourse en cuir contenant une poignée de pièces, un bracelet de bronze, une dague au fourreau simple, ou une amulette en cuivre). Les écailles de la bête, semblables à des morceaux de roche, sont trop lourdes pour être utilisées dans la confection d'armures. Ses crocs et griffes sont utilisables en trophées, mais dénués de valeur marchande significative.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-felins">Félins</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Léopard des Steppes</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Prédateur solitaire et nocturne arpentant l'Immensité Grise. Son pelage tacheté lui offre un camouflage naturel redoutable dans les herbes hautes et les affleurements de basalte.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Courte (Morsure, Griffes).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir et saisie +1. Tal: Félin +1, Percep +1, Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Chasseur d'embuscade opérant la nuit. Il utilise sa furtivité (Félin +1) pour approcher sa cible sans être détecté. Il bondit pour la plaquer violemment au sol (Att: saisie) avant de tenter une morsure fatale à la gorge (Att: dir).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> —  Dissimulés dans les hautes herbes ou perchés dans les branches où le prédateur traîne ses proies, on découvre les possessions des victimes : quelques pièces d'argent, un bijou simple, une arme courte comme une dague ou une épée de petit format, un outil de voyage, ou divers petits objets personnels (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une amulette en cuivre polie, un collier de perles de verre, une dague avec son fourreau, une bourse de cuir contenant quelques pièces d'argent, etc., ou exceptionnellement enrichir ou appauvrir le butin par la malchance d'une victime : mendiant sans le sou, ou voyageur porteur d'une lettre scellée, d'un insigne ou d'une clé offrant une amorce narrative). La fourrure tachetée du léopard constitue un matériau recherché pour sa chaleur et son poil soyeux.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-gobelins">Gobelins</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Eclaireur</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Petit, vicieux et très mobile, jamais seul.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Longue (Fronde) et Courte (Dague).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Pro: vs cir +1, Tal: Athlé et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> À distance, utilise leur fronde pour harceler leurs adversaires, engagé au CàC, poignarde les membres pour avoir l'opportunité de reprendre de la distance. Dresse parfois des Loups Gris pour les aider à pister ou combattre, tandis qu'ils restent à distance.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Sur le corps du gobelin ou dans ses affaires : une fronde rudimentaire avec un ballot de pierres lisses, une dague au fil irrégulier, et une bourse en peau mal tannée contenant quelques pièces de cuivre (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple un collier de dents de loup ou de rats géants, une carte grossière tracée au charbon sur un bout de peau, une outre de liquide suspect, des dés taillés dans des os, une longueur de corde fine pour les pièges, ou des sacs de provisions avariées mais comestibles).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Bagarreur</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Petit, vicieux et teigneux.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Massue) ou Courte (Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Pro: vs cir et dir +1, Tal: Athlé et Félin +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Se cache en embuscade devant les éclaireurs. Utilise maladroitement une arme trop grande pour eux. Rageux : si l'adversaire évite 2x leur attaque, ils lâchent leur arme pour bondir et tenter de le mordre.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Sur le corps du gobelin ou dans ses affaires : une massue trop lourde pour sa taille, une dague de fortune fournie dans la ceinture, et une bourse contenant quelques pièces de cuivre (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple un sac de provisions encore comestibles, un flacon de substance nauséabonde, des cailloux brillants ramassés, un os rongé utilisé comme outil, ou des bouts de cuir pour des réparations).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Chef</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Grand gobelin armé d'une massue.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Massue cloutée à deux mains).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: cir et saisie +1, Pro: vs cir et dir +1, Tal: Athlé et Félin +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Donne ses ordres en restant caché puis sort de sa cachette pour achever les ennemis et montrer sa force aux autres Gobelins.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le Chef ou dans ses affaires : une massue cloutée à deux mains ornée de marques de victoires, des bijoux ostentatoires de statut (collier de trophées, anneaux d'os ou de métal), et une bourse contenant des pièces de cuivre et d'argent (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une corne ou un sifflet de commandement, un insigne de chef gravé dans l'os, une petite hache de jet de réserve, une cape de fourrure grossière, ou un contrat de domination sur un esclave de labeur).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-indigenes">Indigènes</h3>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Chasseur</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Pisteur aguerri des terres sauvages, armé d'une lance rudimentaire et protégé par un bouclier de peau tendue.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Lance rudimentaire).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: dir +1, Pro: vs dir +1 sous condition (Bouclier de peau, Dur: 6), Tal: Félin et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Se dissimule dans le terrain grâce à son agilité, observe les déplacements de sa proie puis frappe de sa lance depuis la plus grande allonge possible. Face aux projectiles et aux assauts frontaux, il utilise activement son bouclier de peau.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Une lance rudimentaire à pointe de pierre, d'os ou de bois durci, un bouclier de peau tendue (Dur: 6), quelques outils de chasse et de petites réserves tirées du milieu naturel (Le MJ peut librement varier leur nature selon l'environnement : corde végétale, silex, collets, herbes médicinales, viande séchée, dents ou plumes servant d'ornements).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Shaman</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 2</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Gardien des rites et de la mémoire de son peuple, capable d'invoquer une force qui enserre le corps de ses adversaires. La manifestation de ce sort dépend de chaque shaman : racines jaillissant du sol, esprits agrippant la victime, liens d'ombre, bourrasque comprimant la poitrine ou toute autre forme adaptée à sa tradition.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Magie).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: saisie +1 et tronc +1 (Magie), Tal: Percep, Sav Acad et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Saisie rituelle :</strong> Quelle que soit son apparence, le sort est toujours résolu comme une Att saisie au tronc, pour un Score d'Attaque total de 2. Sa manifestation est propre au shaman et ne modifie ni son score, ni son effet mécanique.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Reste à distance, repère les adversaires les plus dangereux et tente d'immobiliser ou d'étouffer leur élan par sa saisie rituelle pendant que les chasseurs profitent de l'ouverture. Il se replie si un ennemi parvient au contact.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Un bâton, un masque, une idole ou un autre catalyseur rituel, accompagné d'herbes, de pigments, d'osselets gravés et de remèdes traditionnels (Le MJ peut librement adapter ces objets à la manifestation magique et à la culture du shaman ; certains peuvent porter une information, un symbole ou une marque utile à l'aventure).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-kobolds">Kobolds</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Traqueur</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Créature chétive mais rapide et adroite.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne (Petite Lance).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir +1, Tal: Percep, Surv et Athlé +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Charge rapidement sa proie pour lui percer le torse avec sa lance.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Sur le kobold ou dans ses affaires : une petite lance rudimentaire à la pointe d'os taillé, une bourse de peau contenant quelques pièces de cuivre, et des sacs de provisions moisies encore comestibles (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple un morceau d'écorce gravé d'un plan grossier, un collier de dents ou de griffes de petit animal, une longueur de corde de chanvre pour les pièges, un sifflet d'os pour les signaux, ou une outre d'eau).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Shaman</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Kobold aux écailles vives maniant un bâton orné d'os, dirige un petit groupe de Kobold.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Magie).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: cir et saisie (Magie) +1, Pro: vs dir +1, Tal: Percep et Athlé +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente d'immobiliser ses adversaires pour permettre aux Kobolds Traqueurs de les achever avec leur lance. Seul ou si les Kobolds Traqueurs sont trop loin, attaque avec des sorts de zone.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le Shaman ou dans ses affaires : un bâton orné d'os gravés servant de catalyseur improvisé, une bourse contenant quelques pièces d'argent et de cuivre, et divers composants magiques rudimentaires (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple des herbes séchées dans des sachets de peau, des os gravés de runes approximatives, un petit talisman en os ou en pierre, une fiole de sang de reptile, des dents de kobold montées en collier, ou un parchemin de formules magiques grossières).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-loups">Loups</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Gris</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Prédateur rapide cherchant à mettre sa proie au sol.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Courte (Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: saisie +1, Tal: Athlé, Surv et Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Charge pour mordre les membres et forcer une mise au sol via Att saisie.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>2 UB mendiant</strong> — Aux alentours de la tanière gisent les restes de proies récentes : os blanchis, lambeaux de tissu, et objets rejetés ou échappés des mâchoires du prédateur (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple quelques pièces de cuivre, une bague en bronze simple, un couteau de fortune, ou une amulette en cuivre). La fourrure grise du loup constitue le principal récupérable, avec crocs et griffes comme trophées.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Géant (Worg)</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Loup très rusé, de la taille d'un cheval.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne (Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie et dir +1, Tal: Athlé, Surv et Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Cherche à renverser la cible (Att saisie).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Aux abords de la tanière ou dans l'estomac de la bête gisent les restes de proies imposantes : os broyés, lambeaux d'armure, et effets personnels des malheureux (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une bourse contenant quelques pièces d'argent, un bracelet en bronze, une dague simple, ou une amulette en cuivre). La peau épaisse de worg constitue un matériau robuste pour la confection de vêtements chauds. On récupère également crocs et griffes de grande taille comme trophées.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-mercenaires">Mercenaires, milice et armée</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Garde ou fantassin</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Soldat, milicien ou mercenaire employé pour protéger un lieu, une personne ou un convoie.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Longue (Lance).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: dir +1, Pro: vs dir +1 sous condition (Bouclier, Dur 12).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Utilise son allonge et se met en défense s'il est menacé en attendant des renforts.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le corps ou dans ses affaires : une lance de facture courante, un bouclier de bois renforcé de cuir, et une bourse contenant quelques pièces d'argent pour les dépenses courantes (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une ration militaire séchée, une flasque d'eau ou de bière, un insigne de compagnie ou de ville, une lettre de famille froissée).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Vétéran</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Dirige souvent un groupe de garde ou constitue un groupe d'élite.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Lance).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: dir +1, Pro: vs dir, cir, saisie +1, vs dir +1 suppl (Bouclier), tronc et mbre +1 (Cuir, Dur 6), Athlé 0, Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Se regrouper en formation pour combattre efficacement et durablement.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>2 UB Peuple</strong> — Sur le vétéran ou dans ses affaires : une lance de bonne facture, un bouclier solide, une armure de cuir, et une bourse contenant une poignée de pièces d'argent (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple un insigne de grade ou de campagne, une petite flasque d'alcool fort, une carte de patrouille, un carnet de comptes militaires, ou des dés en os pour les veilles de garnison).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Chevalier</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Combattant d'élite souvent au service  d'un noble, généralement chevauchant un cheval de guerre.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> À cheval : Longue (Lance d'arçon), à pied : Moyenne (Épée longue ou Masse d'arme).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: dir et cir +2, Pro: vs dir, cir, saisie +1, vs dir +1 suppl (Bouclier), tête/tronc/mbre +3 (Plaques, Dur 10). Tal: Athlé 0, Percep -1, Sav Acad +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> charge à cheval profitant de l'avantage d'une position surélevée (bonus d'Att applicable).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Sur le chevalier ou dans ses affaires : une épée longue ou une masse d'arme de qualité, un bouclier solide, un harnois complet (avec casque), et une bourse rebondie contenant des pièces pièces d'or et quelques pièces d'argent (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche : par exemple un blason ou un sceau de maison noble en or). Si le chevalier était monté, son destrier (cheval de guerre) constitue un butin supplémentaire de valeur qui inclura une lance d'arçon.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-mortsvivants">Morts vivants</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Squelette</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Squelette d'une créature (Rat Géant, Loup Gris, Cheval, Humain, Orque, Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Variable suivant la créature et si elle possédait une arme de son vivant.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Pro: vs dir +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Avance et frappe mécaniquement.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>0 à 1 UB Mendiant</strong> — Une arme rouillée, dont l'état détermine sa valeur (Le MJ peut librement varier la quantité, la diversité et l'état selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple une lame complètement oxydée sans valeur, ou une arme peu rouillée pouvant être remise en état).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Zombie</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Corps plus ou moins décomposé d'une  créature (Rat Géant, Loup Gris, Cheval, Humain, Orque,  Elfe, Nain, Gobelin, Kobold) animé par magie.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Courte (Saisie ou Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: saisie +1, Pro: tronc, mbre et tête +1 (Globale, Dur: 6).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Humanoïde : une fois sa proie attrapée via Att saisie, tente de profiter de l'avantage de la saisie pour mordre. Animal : tente de mordre.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Les haillons qui couvre le corps déchu contiennent les dernières possessions de la personne réanimée : quelques deniers de cuivre dans une bouse déchirée, un anneau de fer, ou d'autres effets personnels (Le MJ peut librement varier la quantité, la diversité et l'état selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple une bague en bronze, une clef rouillée, un médaillon avec un portrait effacé, ou une amulette de cuivre).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Amas de corps</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Évolué</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Assemblage chaotique de cadavres humanoïdes en une énorme masse difforme doté de nombreux bras et visages affichant une expression de souffrance extrême.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne (Saisie avec bras multiples).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie +2, Pro: tronc, mbre et tête +2 (Globale, Dur : 8).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Cherche le contact pour utiliser ses bras multiples en Att saisie et étouffer ses victimes qu'il incorpore à son propre corps.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>2 à 4 UB Peuple</strong> — L'amas répand ses entrailles putrides dans une marée de chair composite, révélant les possessions de plusieurs victimes : bourses de cuir, armes plus ou moins rouillées, outils de métier, bijoux et effets personnels enchevêtrés dans la masse (Le MJ peut librement varier la quantité, la diversité et l'état selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple plusieurs dagues, des poignées de pièces d'argent, des anneaux en bronze et cuivre, ou un objet singulier comme une lettre scellée, un insigne ou une clé offrant une amorce narrative).</p>
+    </div>
+    <div class="card-end"></div>
+  
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0; color: #4a2c1f;">Liches</h4>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description :</strong> Mage humain qui, pour échapper à la mort, sacrifie des centaines à des milliers de vies afin de distiller leur essence en un élixir (Sav Acad Dif. 2, possible progressivement ou en un seul grand rituel). Seuls les lanceurs de sorts avec Att cible tronc ≥ 3 peuvent l'assimiler. Le corps se dessèche et se putréfie lentement ; les parties détruites ou trop abîmées sont remplacées par une forme spectrale. Les plus anciennes ne sont souvent plus qu'une silhouette spectrale avec quelques vestiges physiques (crâne ou main).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge :</strong> Distance (Magie).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Capacités :</strong> Le corps ne vieillit plus mais continue à se dégrader (accéléré par les combats, impossible à soigner). Animation et contrôle des morts.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Catalyseur :</strong> Le focaliseur utilisé de son vivant peut être rappelé et réparé instantanément (1 action).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique :</strong> Utilise des actions multiples pour attaquer avec de puissants sorts et se protéger avec un sort d'armure magique lui conférant protection +3 (durée 1D6, qu'il renouvelle dès le temps écoulé), tout en dirigeant ses serviteurs morts-vivants. Obsédée par ses recherches, elle ignore généralement les intrusions mineures tant qu'elles ne menacent pas ses expériences ou son territoire. Elle peut cependant s'allier ou chercher vengeance si cela sert ses objectifs (nouveaux ingrédients, expansion ou règlement de comptes).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Habitat :</strong> Territoires ravagés autour d'une nécropole qu'elle contrôle avec son armée de morts-vivants.</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Liche Jeune</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 5+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description :</strong> Liche récemment transformée. Son corps ressemble à celui d'un zombi.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats :</strong> Att (magie): saisie, dir et cir +2, tronc +3, Pro: vs dir, cir, saisie +2, tronc, mbre et tête +1 (Globale, Dur: 6). Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Capacités :</strong> Anime jusqu'à une centaine de morts-vivants pour défendre son territoire.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Opulent</strong> — Son antre dans la nécropole qu'elle occupe depuis un siècle ou plus témoigne à la fois de son rituel de transformation et de son activité de recherche ininterrompue. Les possessions des centaines de victimes sacrifiées sont méthodiquement répertoriées : bourses de cuivre et d'argent des paysans, coffrets de marchands contenant des épices et des étoffes, bijoux de famille arrachés aux nobles égorgés. Le laboratoire adjacent est organisé avec rigueur : grimoires ouverts sur des pupitres et truffés de notes de recherche complexes, étagères chargées de fioles d'ingrédients soigneusement étiquetées, alambics et aludels disposés sur des brasiers, et parchemins expérimentaux classés. Le focalisateur de la liche — bâton ou grimoire — repose près de sa dépouille. (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Opulent : des cartes de terres confisquées, des sceaux de familles éteintes, ou exceptionnellement enrichir le butin par la malchance d'une victime particulière : un émissaire porteur d'une lettre scellée du roi, d'un insigne d'ordre chevaleresque ou d'une clé de coffre fort offrant une amorce narrative.).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Liche Ancienne</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 7+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description :</strong> Liche âgée de plusieurs siècles. Son corps est déjà très abîmé, avec de nombreuses zones spectrales visibles.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats :</strong> Att (magie): saisie, dir et cir +3, tronc +4, Pro: vs dir, cir, saisie +3, tronc, mbre et tête +3. Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Capacités :</strong> Vol sans effort. Anime plusieurs centaines à un millier de morts-vivants.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>2 à 9 UB Opulent</strong> — Son mausolée ou crypte monumentale renferme les richesses de plusieurs milliers de victimes accumulées avec méthode sur des siècles. Des coffres ordonnés débordent de pièces d'or et d'argent frappées par des royaumes oubliés, des reliquaires contiennent diadèmes et joyaux de couronne de dynasties éteintes, des armures complètes de chevaliers défunts sont rangées sur des présentoirs, et des œuvres d'art ainsi que des objets de préciosité disparus depuis des générations occupent des salles dédiées. Une bibliothèque murale s'étend sur plusieurs niveaux, abritant des grimoires et traités occultes rares couvrant des siècles de connaissances interdites. Le laboratoire alchimique est complet et parfaitement entretenu : fournaise à soufre, distillateurs en cristal, et rangées de bocaux contenant des ingrédients préservés en quantités substantielles. Le focalisateur de la liche — bâton ou grimoire — demeure auprès de ses restes, tels des reliques d'une existence antérieure. (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Opulent : par exemple des titres de propriété de domaines entiers devenus des terres maudites, des cartes détaillées de nécropoles souterraines complexes, ou exceptionnellement enrichir le butin par la malchance d'une victime oubliée : un héritier disparu portant un sceau royal, un messager d'une guilde secrète avec un code de trésor.)</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Liche Immémoriale</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 9+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description :</strong> Liche millénaire dont le corps physique n'est plus qu'un vague souvenir. Seuls quelques vestiges (crâne ou main décharnée) flottent au sein d'une silhouette spectrale.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats :</strong> Att (magie): saisie, dir et cir +4, tronc +5, Pro: vs dir, cir, saisie +4, tronc, mbre et tête +4. Tal: Sav Acad +1, Percep +1 (bonus octroyé par le focalisateur de la liche déjà inclus).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Capacités :</strong> Vol permanent. Peut animer plusieurs milliers de morts-vivants.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique :</strong> Considère rarement les intrus comme une menace.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Crésus et +</strong> — L'antre millénaire de cette entité constitue un trésor légendaire amassé au fil des âges. Des salles monumentales regorgent de lingots d'or et d'argent empilés avec ordre, de gemmes taillées par des artisans oubliés depuis mille ans, de reliques sacrées dérobées à des temples détruits, d'armures et d'armes prises à des héros tombés, et de statues ainsi que d'œuvres d'art d'une valeur inestimable. Une bibliothèque labyrinthine contient les savoirs perdus de civilisations englouties et des grimoires originaux de magie oubliée. Le laboratoire archaïque fonctionne encore, équipé d'alambics complexes actionnés par des mécanismes hydrauliques et de réservoirs de composants diverses en abondance. Le focalisateur de la liche, d'une puissance et d'une valeur inestimables, repose auprès de ses vestiges physiques subsistants, généralement un crâne ou une main momifiée. (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Crésus : par exemple des titres de propriété de cités entières englouties, des cartes de réseaux de nécropoles continentales, ou exceptionnellement enrichir le butin par la malchance d'une victime sacrifiée il y a des siècles : un prince exilé porteur d'un objet magique ou une clé ouvrant des portes scellées offrant une amorce narrative.)
+</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-ogre">Ogre</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Brute</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Colosse de 3 mètres maniant un tronc ou un pilier. Il s'associe parfois à un grand groupe de Gobelin.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (À deux mains).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: cir +2 et saisie +1, Pro: vs saisie +1, tronc, mbre, tête +1 (Dur: 6), Tal: Athlé +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Effectue de grands moulinets pour balayer ou broyer plusieurs ennemis.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le colosse ou dans son baluchon de toile grossière trainee dans la boue séchée : le tronc noueux servant d'arme massive, une bourse de cuir contenant une poignée de pièces de cuivre et d'argent mélangées sans discernement, des sacs de provisions contenant des restes de viande séchée et des os rongés, et divers objets pillés récemment ou extorqués aux gobelins qu'il domine, contenant des babioles brillantes sans valeur réelle qu'il collectionne par pure cupidité infantile. (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : un baluchon contenant un tonneau de vin ou des effets personnels d'une valeur sentimentale pour lui comme une dent de monstre percée en collier.)</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Mage</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Evolué</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Colosse de 3 mètres capable de lancer des sorts sans focalisateur et d'en maintenir un en permanence sans subir de malus de maintien (généralement son invisibilité ou son vol ; les sorts additionnels provoquent les effets et malus normaux). Intelligent, il dirige en général un groupe d'Ogre Brute.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Variable (Sort).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: tronc et mbre +2, saisie +1, Pro: vs saisie +1, tronc, mbre, tête +2 (Dur : 8), Tal: Sav Acad et Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Tactique:</strong> Utilise généralement son maintien gratuit pour aborder le combat sous invisibilité ou en vol. Il alterne ensuite avec de la transposition ou de l'immobilisation (saisie) avant de dévorer ses cibles.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Dans son antre méthodiquement organisé ou sur sa personne : une bourse bien garnie contenant des pièces d'or et d'argent accumulées par l'extorsion systématique des voyageurs et les tributs des gobelins qu'il dirige, plusieurs fioles de verre scellées contenant des composants (sang de créatures, herbes distillées, poudres alchimiques), un grimoire relié de cuir contenant des sorts anciens, et des bijoux arrachés aux doigts des nobles tombés sous ses sorts (anneaux, chaînes d'or ou pierres précieuses serties). (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche : par exemple une amulette gravée de runes, une carte détaillée du territoire ogre avec les positions des groupes de brutes, un contrat d'alliance avec une tribu de gobelins, ou exceptionnellement enrichir le butin par la malchance d'une victime récente : un messager porteur d'une lettre scellée d'un seigneur, d'un insigne de magicien ou d'une clé de bibliothèque offrant une amorce narrative.)</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-ours">Ours</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Brun Adulte</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Bête massive.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne (Pattes).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Stats:</strong> Att: cir et saisie +1, Pro: tronc, mbre et tête +1 (Globale, Dur: 6), Tal: Percep et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Se dresse pour intimider, puis frappe en Att cir ou tente d'écraser la cible (Att saisie).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Près de la tanière ou dans l'estomac de la bête gisent les restes de proies récentes : os broyés, lambeaux de vêtements, et effets personnels de voyageurs malchanceux (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une bourse contenant quelques pièces d'argent, un bracelet de bronze, une dague au fourreau, ou une amulette en cuivre). La fourrure épaisse et chaude de l'ours constitue le principal récupérable, avec crocs et griffes de grande taille comme trophées.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-peuple">Peuple</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Paysan</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Villageois avec un outil de ferme.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne ou Courte (outil de ferme).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Tal: Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Sur le corps du villageois ou dans sa besace : un outil de ferme (faux, houe ou hachette), une gourde, une ration de pain et fromage, et une bourse de cuir contenant quelques pièces de cuivre (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple un couteau de cuisine, une cape de laine rapiécée, une lettre de famille).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Marchand</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Dans son échoppe ou sur la route avec un chariot tiré par une âne ou un cheval (quand leur finance le permet, ils emploient des gardes pour protéger leur marchandises).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Courte (Dague).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> toutes à 0.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 à 3 UB Peuple</strong> — Sur le marchand ou dans son chariot : une dague, une bourse contenant plusieurs pièces d'argent, des marchandises selon sa spécialité (tissus, épices, ou petits outils), un registre de comptes, et des effets de voyage (carte commerciale, insigne de guilde, ou contrat de fourniture). (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple : par exemple une flasque d'eau-de-vie pour les négociations, une liste de clients, ou des marchandises de qualité supérieure selon la prospérité du défunt.)</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-pirates">Pirates des Brumes</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Écumeur</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Marin endurci naviguant sur des éperonniers légers depuis les îlots non cartographiés du nord-ouest. Habitué à la rudesse de la Mer de Jade, il survit grâce à la piraterie et à la pêche côtière de subsistance.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Harpon léger ou Arbalète) et Moyenne (Sabre d'abordage) ou Courte (Dague).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir, cir et saisie +1. Tal: Athlé, Félin et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Leurs embuscades depuis la brume marine (Aptitude Féline +1) sont redoutables. Au corps-à-corps, ils profitent du roulis et du pont glissant pour asséner de larges coups de sabre imprévisibles (Att: cir) ou harponner leurs cibles (Att: dir). Hors combat, leur talent de Survie leur permet de pêcher pour nourrir l'équipage.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Peuple</strong> — Sur le corps ou dans son sac : un sabre d'abordage ou un harpon léger avec cordages, une dague, et une bourse contenant des pièces d'argent. L'équipement de maraudage comprend une corde de dix mètres avec grappin, une flasque d'alcool fort, et parfois une carte marine. (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Peuple.)</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Capitaine Pirate</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Vétéran impitoyable ayant survécu aux tempêtes de sillage et aux monstres marins de la Mer de Jade. Il dirige les abordages avec brutalité et connaît parfaitement les routes indirectes entre les récifs.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Distance (Harpon lourd ou Arbalète) et Moyenne (Sabre lourd) ou Courte (Dague vicieuse).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir, cir et saisie +2. Pro: vs dir, cir et saisie +1, tronc et mbre +1 (Armure de cuir, Dur: 6). Tal: Percep, Athlé, Félin et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Reste discret dans la brume du navire pour repérer l'ennemi le plus problématique (Perception). Il établit une stratégie pour l'occire rapidement, exploitant les mouvements du navire pour l'empaler (Att: dir) ou le projeter brutalement par-dessus bord (Att: saisie).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> — Sur le capitaine ou dans sa cabine : un sabre d'abordage, une armure de cuir, et une bourse contenant des pièces d'or et d'argent. Ses affaires de commandement incluent une carte marine détaillée des routes de la Mer de Jade, un sextant ou des instruments de navigation, un journal de bord avec les comptes du butin, et des effets personnels de valeur (bijoux de prise, insigne de capitaine). (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche : par exemple une carte indiquant un repaire secret ou une lettre scellée d'un commanditaire noble offrant une amorce narrative.)</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-rapaces">Rapaces</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Aigle Géant</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Oiseau de proie massif nichant sur les pics isolés et les rocs noirs de la steppe. Son envergure immense et sa force musculaire lui permettent d'emporter des proies de la taille d'un loup, d'un orque ou d'un humain.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne (Serres, Bec).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir et saisie +1. Tal: Athlé +1, Percep +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Repère ses cibles de haut grâce à sa vue perçante (Perception +1). Il fond en piqué à grande vitesse pour verrouiller sa proie dans ses serres (Att: saisie), cherchant à l'emporter dans les airs ou à la lacérer de coups de bec fulgurants (Att: dir).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Dans le nid tissé de branches et situé en hauteur : quelques plumes de grande qualité, serres et bec acéré pour trophées, ainsi que les petits objets brillants accumulés par l'oiseau (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple 2-3 pièces d'argent, une bague en bronze, un pendentif, ou des plumes particulièrement belles).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-rats">Rats</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Géant</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 0</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Bête de la taille d'un chien, sale et affamée.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Courte (Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> toutes à 0.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Le nombre fait la force.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Fouillant la tanière ou les débris où rodent ces créatures : une bourse de cuir simple, quelques pièces de cuivre, un couteau de cuisine, et parfois un petit objet brillant volé et dissimulé dans le nid (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple une bague en cuivre, une clef de grange).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-requins">Requins</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Gris</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Prédateur redoutable arpentant les eaux profondes. Chassant systématiquement en bande, ils sont frénétiquement attirés par l'odeur du sang.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Courte (Morsure).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie +1. Tal: Athlé, Percep et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Tente de mordre pour verrouiller ses mâchoires (Att: saisie) et entraîner sa proie vers le fond. L'environnement aquatique exigeant de nager (Talent Athlétisme), les créatures terrestres subissent naturellement une difficulté constante et des malus d'actions multiples.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Dans l'estomac de la bête ou près de sa carcasse : dents de requin pour trophées, et objets avalés avec les proies (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple une boucle de ceinture, un petit couteau, une bague en bronze).</p>
+    </div>
+    <div class="card-end"></div>
+
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Grand Requin Blanc</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 2</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Gigantesque prédateur solitaire.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Moyenne (Morsure colossale).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie +2. Tal: Athlé, Percep et Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Rôde en solitaire et frappe mortellement par en dessous pour broyer sa proie dans ses mâchoires titanesques (Att: saisie). Tout comme pour le Requin Gris, le fait de devoir nager en combattant (Talent Athlétisme) impose naturellement aux créatures terrestres une difficulté constante et des malus d'actions multiples.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 à 3 UB Mendiant</strong> — Dans l'estomac du grand prédateur : dents de requin pour trophées, ainsi que des objets plus volumineux avalés avec les proies (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Mendiant : par exemple un poignard, une bourse de cuir contenant des pièces, un médaillon).</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-sangliers">Sangliers</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Géant</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 1+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Bête musculeuse aux défenses acérées.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Allonge:</strong> Moyenne (Crocs).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: dir +1, Pro: tronc et tête +1 (Dur: 6).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Charge de face pour un impact frontal puissant.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Mendiant</strong> — Sa peau épaisse fournit un cuir robuste et sa chair est nourrissante et goûtue.</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+
+<h3 id="section-serpents">Serpents de Mer</h3>
+        
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Serpent de Mer Géant</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Majeur</span>
+                <span class="tag-danger">Dangerosité : 5+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Monstre aquatique mythique et titanesque mesurant entre 30 et 40 mètres de long. Sa tête est lourdement cuirassée par des plaques osseuses extrêmement épaisses et dures. Sa vision étant très faible, il se fie aux lourdes vibrations dans l'eau et prend souvent les coques des grands navires pour de grosses proies. Les petites embarcations ne produisent pas assez de perturbations pour l'intéresser et sont totalement ignorées.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Morsure colossale / Engloutissement).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: saisie +5. Pro: res tête, tronc et mbre +3, armure tête +4 (Plaques osseuses, Dur: 20). Tal: Athlé +2, Percep -1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Il ne cherche pas à affronter les marins, qu'il voit très mal et qui sont des cibles bien trop petites pour lui. Son seul but est de s'attaquer au gros navire qu'il prend pour une proie : il surgit pour mordre ou engloutir une large partie de la coque (Att: saisie). S'il est physiquement capable d'avaler une petite chaloupe tout rond, il ne la perçoit pas comme une proie digne d'intérêt et ne l'attaque pas. Porté par sa force colossale (Athlé +2), il éventre ou ampute systématiquement le grand bateau attaqué. Constatant que le bois n'est pas à son goût, il s'éloigne ensuite pour chercher un meilleur repas, laissant irrémédiablement le navire couler. S'en cacher est d'ailleurs assez facile (Perception -1).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 à 3 UB Riche</strong> — Dans son estomac, au milieu des restes non totalement digérés d'un ou plusieurs petits bateaux : coffres, pièces d'or et d'argent, armes, armures et objets de valeur provenant de navires avalés. (Le MJ peut librement varier la quantité, la diversité et l'état des objets selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche : par exemple un coffret encore intact rempli de gemmes, reste de figure de proue sculptée.)</p>
+    </div>
+    <div class="card-end"></div>
+</div>
+    
+<h3 id="section-esprits-de-la-foret">Esprits de la Forêt</h3>
+    
+    <div class="card-start"></div>
+    <div class="rule-item">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.2); margin-bottom: 1rem; padding-bottom: 0.5rem;">
+            <h4 style="margin: 0;">Tréants</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tag-echelon">Figurant</span>
+                <span class="tag-danger">Dangerosité : 2+</span>
+            </div>
+        </div>
+    </div>
+    <div class="rule-item">
+        <p><strong>Description:</strong> Arbre colossal animé par une conscience ancienne. Gardien implacable des bois sacrés, il semble se fondre parfaitement dans son environnement.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Allonge:</strong> Longue (Branches et Racines).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Stats:</strong> Att: cir +2 (balayage), saisie +2 (étreinte), Pro: res tronc, mbre et tête +2.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Immobilité :</strong> Lorsqu'il ne bouge pas, il est quasi impossible de le différencier d'un arbre normal (nécessite un test de Perception Difficulté 1).</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>Talents:</strong> Athlé +1 (Bien que lent sa Force est implacable), Percep +1, Surv +1.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Tactique:</strong> Si non découvert, attend que les intrus soient à portée pour les saisir avec ses racines (Att saisie) ou les balayer d'un coup de tronc massif (Att cir). Sa lenteur est compensée par sa portée et sa résistance.</p>
+    </div>
+    <div class="rule-item">
+        <p><strong>• Butin :</strong> <strong>1 UB Riche</strong> —  Le bois dur et semi vivant de tréant est un matériau précieux et recherché pour la création de focalisateurs ou d'arcs de grande qualité. (Le MJ peut librement varier la qualité et la quantité des matériaux selon ses besoins narratifs, tout en restant dans l'esprit d'un butin de niveau Riche : par exemple un fragment de bois portant des marques anciennes ou des runes naturelles ou exceptionnellement enrichir le butin par la présence d'un objet oublié dans le tronc : comme une clé offrant une amorce narrative.)</p>
+    </div>
+    <div class="card-end"></div>
+</div>
