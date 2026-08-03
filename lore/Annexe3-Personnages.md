@@ -220,3 +220,94 @@ Ceux qui profitaient des filles et des esclaves vendus par le Patron ont été f
     * **Aptitude Féline +1** *(Agilité, acrobatie, déplacements totalement silencieux, équilibre parfait sur roche vitrifiée).*
     * **Survie +1** *(Pistage souterrain, herboristerie de caverne, orientation dans les réseaux désaffectés).*
   - **📍 Rôle & Fonction** : Éclaireuse des tréfonds & Jardinière. Furtivité, escalade, pistage, herboristerie souterraine. Gère l'unité d'élite des Kobolds (Les Spectres de la Pierre).
+
+## S) ARC DE MÉLÉANDRE — PERSONNAGES ACTIFS ET FUTURS
+
+> **Cloisonnement MJ :** Les rôles secrets et les localisations marqués **[MJ]** ne sont connus ni d'Elkyriel ni des PNJ qui n'ont pas obtenu ces informations en jeu. Cette section garantit la continuité de l'arc ; elle ne vaut pas révélation automatique.
+
+### Le prince Méléandre de Varethis
+- **Espèce** : Humain.
+- **Identité** : Prince de Varethis, adulte, envoyé dans le royaume de Kaelia pour une mission diplomatique.
+- **Situation publique** : Disparu durant son voyage. Une lettre falsifiée portant le sceau personnel de Kaelia doit servir à accuser la Régente de son assassinat.
+- **Vérité [MJ]** : Enlevé par le réseau d'Odran, puis échappé lors de l'accident du Pont-Cassé de la Veyre. Il se cache au Moulin de Brumecendre, blessé et fiévreux.
+- **Connaissances utiles** : A vu certains ravisseurs et entendu un intermédiaire mentionner « Mornefond ». Il ne connaît ni Odran ni le projet complet de lichification.
+- **Caractère** : Instruit, fier sans être inconscient, entraîné au protocole et à l'équitation. Sa captivité l'a rendu méfiant ; il veut rejoindre Varethis, mais comprend que son retour sans preuves pourrait déclencher exactement la crise recherchée.
+
+### Odran Sorell — Grand Chancelier et nécromancien **[MJ : TRAÎTRE PRINCIPAL]**
+- **Espèce** : Humain.
+- **Identité publique** : Grand Chancelier de la Couronne, serviteur ancien de l'État. Supervise actes sensibles, correspondances diplomatiques, chiffres, itinéraires et archivistes autorisés.
+- **Physique** : Humain vieillissant à la tenue impeccable, cheveux gris coupés courts, visage étroit et mains toujours gantées de cuir noir. Sa voix demeure basse et mesurée, même lorsqu'il menace.
+- **Caractère public** : Austère, méthodique, avare de paroles, réputé indispensable. Il ne recherche ni faveur visible ni proximité affective avec Kaelia.
+- **Vérité [MJ]** : Nécromancien encore humain préparant un rituel de lichification exigeant des centaines ou milliers de vies. Il provoque la guerre afin d'obtenir captifs vivants, blessés et cadavres tout en dissimulant leur disparition.
+- **Méthode** : Cloisonne strictement son réseau. Les agents de terrain ignorent son identité ; les intermédiaires reçoivent des ordres chiffrés et jetables. Il a fait reproduire le sceau de Kaelia, compromis un archiviste, puis fait assassiner et relever celui-ci.
+- **Limite mécanique** : Son profil TRAME de magicien nécromancien reste à établir avant toute confrontation. Ne pas employer le profil d'une Liche Jeune et ne lui accorder aucun pouvoir non défini au moment du BTT.
+
+### Maël Corven — archiviste disparu **[MJ : VICTIME COMPROMISE]**
+- **Espèce** : Humain.
+- **Fonction** : Archiviste subalterne des Archives Occidentales, chargé des consultations nocturnes et du reclassement des actes diplomatiques.
+- **Compromission** : D'abord acheté pour laisser consulter des registres et détourner de faibles quantités de fournitures ; il a compris trop tard l'ampleur du complot.
+- **Statut [MJ]** : Assassiné sur ordre d'Odran puis relevé en zombie. Son corps peut être identifié grâce à une fracture ancienne de l'index, à une bague d'archiviste limée et aux registres médicaux du Palais.
+- **Fonction dans l'enquête** : Fausse piste initiale, puis preuve que l'exécutant supposé était une victime et qu'un supérieur dirigeait l'opération.
+
+### Hadrien Vol — graveur clandestin
+- **Espèce** : Humain.
+- **Identité** : Graveur travaillant officiellement aux enseignes et matrices commerciales dans la Basse-Ville de la Capitale.
+- **Implication** : A reproduit l'empreinte du sceau de Kaelia à partir d'un moulage fourni par un commanditaire masqué sous le nom de « Maître Orris ».
+- **Connaissances** : Ignore l'identité d'Odran et la finalité politique. Peut reconnaître la qualité du moulage, la cire du Palais et la main de l'intermédiaire venu le payer.
+- **Caractère** : Prudent, cupide et convaincu d'avoir seulement participé à une fraude successorale. Il cherchera d'abord à fuir plutôt qu'à combattre.
+
+### Orven
+- **Espèce** : Humain.
+- **Identité** : Ancien contremaître des carrières de Rochebrune, père de Colm, installé dans une bâtisse isolée de la combe.
+- **Implication** : Trompé par de faux agents royaux qui prétendaient protéger Méléandre contre un enlèvement de Varethis. A accepté de cacher une caisse sans connaître son contenu.
+- **Situation actuelle** : Dans sa maison avec Elkyriel et Colm. Sa dague est entre les mains d'Elkyriel. Il comprend désormais qu'il a été manipulé et menacé.
+- **Connaissances** : Visages de plusieurs agents, itinéraire des carrières, Grange des Trois-Saules et caractéristiques des caisses. Ignore Odran, Mornefond et le projet de liche.
+
+### Colm
+- **Espèce** : Humain.
+- **Identité** : Fils adulte d'Orven, robuste mais peu aguerri, habitué aux chevaux et aux chemins des carrières.
+- **Implication** : A aidé son père à déplacer la caisse puis à enfermer le zombie. Il n'est pas un conspirateur conscient.
+- **Situation actuelle** : Relâché par Elkyriel, à couvert derrière la table, bouleversé. Son arbalète déchargée est au sol.
+- **Connaissances** : A entendu un cavalier évoquer « les Trois-Saules » et peut reconnaître un cheval du relais.
+
+### Varek
+- **Espèce** : Humain.
+- **Identité** : Charretier et récupérateur de pierre fréquentant les carrières abandonnées.
+- **Rôle dans l'enquête** : Source ayant signalé sept étrangers à cheval, six caisses blanches et des bruits provenant du chargement sur la route de Rochebrune.
+- **Caractère** : Observateur, méfiant envers les autorités, plus disposé à parler à qui le traite comme un témoin qu'à qui l'interroge comme un suspect.
+
+### Les deux cavaliers capturés
+- **Espèce** : Humains.
+- **Profil** : Vétérans. Agents de terrain du réseau, disciplinés mais non initiés au projet de lichification.
+- **Situation actuelle** : Vivants et blessés dans la cour d'Orven après l'Impact provoqué par la porte. Le premier est projeté hors de portée de son épée ; le second est pris sous le battant.
+- **Connaissances** : Grange des Trois-Saules, surnom de leur intermédiaire (« le Prévôt »), consigne de reprendre le zombie et d'éliminer les témoins. Ils ne peuvent pas dénoncer directement Odran.
+
+### Ysilde de Brumecendre **[MJ : PROTECTRICE DE MÉLÉANDRE]**
+- **Espèce** : Humaine.
+- **Identité** : Meunière d'une cinquantaine d'années, veuve, vivant au Moulin de Brumecendre avec son neveu Teren.
+- **Caractère** : Sèche, lucide, hospitalière sans naïveté. Elle refuse de livrer un blessé mais n'entend pas sacrifier inutilement son neveu.
+- **Situation [MJ]** : A recueilli Méléandre sans connaître d'abord son identité. Elle soigne sa fièvre avec des moyens limités.
+- **Connaissances** : Direction d'arrivée du prince, blessures observées, recherches menées par les cavaliers et achat récent de remèdes susceptible d'attirer l'attention.
+
+### Teren
+- **Espèce** : Humain.
+- **Identité** : Neveu adulte d'Ysilde, meunier et pêcheur de rivière.
+- **Caractère** : Courageux, nerveux et mauvais menteur. Connaît parfaitement les sentiers de rive.
+- **Rôle possible** : Guide vers le Pont-Cassé ou messager ; a vu trois cavaliers fouiller une ferme voisine et peut reconnaître leurs manteaux.
+
+### Beran Doss — « le Prévôt » **[MJ : INTERMÉDIAIRE RÉGIONAL]**
+- **Espèce** : Humain.
+- **Identité publique** : Ancien prévôt de péage révoqué pour extorsion, désormais marchand de chevaux à Rochebrune.
+- **Rôle secret** : Coordonne les agents de terrain, les relais et les caisses entre Rochebrune, la Veyre et Mornefond. Il reçoit des ordres chiffrés sans rencontrer directement Odran.
+- **Caractère** : Courtois, brutal dès qu'il se croit en position de force, obsédé par l'effacement des témoins.
+- **Connaissances** : Grange des Trois-Saules, Salines de Mornefond, Chapelle des Deux-Couronnes et identité de l'officier de liaison au Palais ; il connaît Odran seulement sous un chiffre et un titre codé.
+
+### Ronce
+- **Espèce** : Mule.
+- **Nature et rôle** : Mule accompagnant Elkyriel pendant la mission. Ironique, prudente et capable d'initiatives tactiques cohérentes sans décider des choix d'Elkyriel.
+- **Communication** : Ronce ne parle aucune langue intelligible pour les humanoïdes. Elkyriel ne comprend ses paroles animales que lorsqu'il utilise **Langage animal**. Sans ce sort, ni lui ni les autres humanoïdes ne comprennent ce qu'elle exprime. Elle peut naturellement communiquer avec d'autres mules ; un autre lanceur de sorts utilisant **Langage animal**, ou une créature disposant d'une capacité équivalente, peut également la comprendre et lui répondre.
+- **Situation actuelle** : Placée entre les chevaux des cavaliers et l'unique sortie aisée de la combe afin d'empêcher une fuite.
+
+### Exhaustivité de la liste pour l'arc
+
+Les PNJ nommés et établis à ce stade sont : **Méléandre, Odran Sorell, Maël Corven, Hadrien Vol, Orven, Colm, Varek, Ysilde, Teren, Beran Doss et Ronce**. Les deux cavaliers demeurent volontairement anonymes tant qu'ils ne se présentent pas ou ne sont pas identifiés en jeu. Aucun autre traître proche de Kaelia n'est établi : Silas et Lucretia sont innocents du complot, et Maël Corven est un exécutant compromis devenu victime.

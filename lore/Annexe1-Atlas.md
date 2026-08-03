@@ -17,6 +17,13 @@ Le royaume s'étend sur une péninsule continentale bordée à l'ouest par la Me
 | Capitale ↔ Tour Blanche | 8 jours | 4 jours | Impossible | Trajet direct à travers l'Immensité Grise |
 | Aldhaven ↔ Les Saillans | - | - | 12 jours | Route maritime indirecte, contourne les récifs de la côte ouest |
 | Tour Blanche ↔ Cratère du Syndicat | 4 heures | 1 heure | Impossible | Au cœur de la steppe, terrain accidenté |
+| Capitale ↔ Rochebrune | 4 jours | 2 jours | Impossible | Route royale de l'est, puis route de carrière au sud-est |
+| Rochebrune ↔ Anciennes carrières | 4 heures | 1 h 30 | Impossible | Chemin pierreux praticable aux chariots |
+| Anciennes carrières ↔ Bâtisse d'Orven | 2 heures | 30 minutes | Impossible | Piste étroite montant dans une combe boisée |
+| Rochebrune ↔ Pont-Cassé de la Veyre | 2 jours | 1 jour | Impossible | Ancienne route frontalière, peu surveillée |
+| Pont-Cassé de la Veyre ↔ Moulin de Brumecendre | 6 heures | 2 heures | Impossible | Sentier de rive et chemins de meuniers |
+| Rochebrune ↔ Passe des Trois-Bornes | 6 jours | 3 jours | Impossible | Route vers Varethis ; contrôles frontaliers irréguliers |
+| Capitale ↔ Cité royale de Varethis | 18 jours | 9 jours | 12 jours dans le sens du courant, puis route | Axe diplomatique par Rochebrune et la Passe des Trois-Bornes |
 
 ### Climat et Saisons
 - **Côtes et Capitale** : Tempéré océanique à continental. Hivers humides, étés doux. Brumes fréquentes sur la mer.
@@ -315,4 +322,98 @@ La Tour Blanche a historiquement servi de prison dorée pour Lysandra, où son p
 - **L'Oasis** : À la base de la tour, contrastant radicalement avec l'aridité de la steppe, s'étend un oasis de verdure luxuriant alimenté par des résurgences souterraines.
 - **Les Souterrains** : Les tréfonds de la tour abritent des sources thermales naturelles alimentant de vastes bassins de pierre, ainsi qu'un Cercle de Téléportation secret relié directement au complexe de la Forge Naine à la Capitale.
 ### Statut et Occupation Actuels
+
+---
+
+## 10. LES MARCHES ORIENTALES ET LA ROUTE DE VARETHIS
+
+> **Statut des informations :** La géographie générale et les temps de trajet sont utilisables par tous. Les lieux marqués **[MJ — NON DÉCOUVERT]** appartiennent à la préparation de l'arc Méléandre et ne constituent pas des connaissances d'Elkyriel tant qu'ils n'ont pas été découverts en jeu.
+
+### 10.1. Organisation géographique
+
+À l'est et au sud-est de la Capitale, les plaines agricoles se resserrent progressivement entre des collines d'ardoise. La route royale suit d'abord le fleuve vers l'amont, puis s'en écarte à Rochebrune pour franchir les Marches orientales. Elle atteint la Passe des Trois-Bornes avant de descendre vers Varethis. Les anciennes routes de carriers, les chemins forestiers et les domaines abandonnés offrent de nombreux itinéraires permettant d'éviter les postes officiels.
+
+L'arc Méléandre se déploie selon l'axe suivant : **Capitale → Rochebrune → Anciennes carrières → combe d'Orven → vallée de la Veyre → Passe des Trois-Bornes → Varethis**. Les relais clandestins d'Odran exploitent les embranchements secondaires de cet axe sans former une route unique facile à remonter.
+
+### 10.2. Rochebrune
+
+Bourg fortifié d'environ deux mille habitants, établi à deux jours de cheval au sud-est de la Capitale. Ses maisons sont bâties dans une pierre brun-rouge extraite autrefois des collines voisines. Rochebrune vit désormais du passage des convois, de l'élevage et de la récupération de matériaux dans les carrières abandonnées.
+
+- **Porte de l'Ouest :** arrivée de la route de la Capitale ; poste de péage et écuries.
+- **Place des Tailleurs :** marché, auberges et anciens bureaux des carriers.
+- **Route de la Veyre :** quitte le bourg vers l'est et mène à la frontière de Varethis.
+- **Chemin des Carrières :** embranchement au nord-est, officiellement peu utilisé mais praticable par des cavaliers et des chariots légers.
+
+Rochebrune n'est pas acquise au complot. Quelques agents y exploitent surtout l'anonymat du passage et l'habitude qu'ont les habitants de ne pas questionner les cargaisons dûment scellées.
+
+### 10.3. Anciennes carrières de Rochebrune
+
+Ensemble de fronts de taille, rampes de pierre et hangars ruinés à une heure et demie de cheval du bourg. Plusieurs pistes s'y croisent avant de disparaître dans les collines. Varek y a observé le passage de sept étrangers à cheval et de six caisses blanches, dont l'une produisait des bruits provenant manifestement d'un être enfermé.
+
+Les carrières offrent des traces exploitables : ornières, fers de chevaux, éclats de peinture blanche provenant des caisses et abris où les convois peuvent attendre la nuit. Un ancien bureau de pesage sert ponctuellement de boîte morte au réseau, sans qu'aucun agent permanent y réside.
+
+### 10.4. Bâtisse d'Orven et de Colm — situation actuelle
+
+Maison de carriers isolée au fond d'une combe boisée, à trente minutes de cheval au nord-est des carrières. Une cour de terre, une petite écurie et une bâtisse robuste en pierre s'organisent autour de l'ancien chemin d'extraction. La combe ne possède qu'une sortie aisément praticable à cheval, actuellement surveillée par Ronce.
+
+Orven et Colm y ont entreposé une caisse remise par de faux agents royaux. Après l'agitation du zombie qu'elle contenait, ils ont transféré le cadavre animé dans l'arrière-salle et l'ont retenu par un collier de transport relié à un anneau mural. Deux cavaliers du réseau sont venus reprendre cette preuve et imposer leur silence. La scène en cours se déroule immédiatement après qu'Elkyriel a arraché la porte extérieure et projeté les deux hommes dans la cour.
+
+### 10.5. Grange des Trois-Saules **[MJ — NON DÉCOUVERT]**
+
+Grange isolée à quatre heures de cheval au sud-est de la bâtisse d'Orven, dissimulée derrière une levée de terre et trois saules visibles depuis l'ancienne route. Elle sert de relais intermédiaire au réseau : changement de chevaux, redistribution des caisses et transmission d'ordres apportés depuis la Capitale.
+
+Le site ne contient aucune preuve désignant directement Odran. On peut toutefois y trouver des fragments d'ordres chiffrés, la marque du fabricant des colliers de zombies et un registre incomplet mentionnant le Pont-Cassé de la Veyre sous le terme « Rupture ».
+
+### 10.6. Pont-Cassé de la Veyre **[MJ — NON DÉCOUVERT]**
+
+Ancien pont de pierre à une journée de cheval à l'est de Rochebrune. Une crue a emporté son arche centrale ; un gué voisin permet encore aux cavaliers de franchir la rivière. C'est ici que le convoi de Méléandre a subi l'incident ayant permis sa fuite : un cheval effrayé par l'agitation d'un zombie a renversé une caisse, provoqué la rupture d'un attelage et ouvert une brève faille dans la surveillance.
+
+Méléandre a gagné la rive boisée à pied. Les ravisseurs ont volontairement effacé une partie des traces, mais du sang, une boucle d'équipement princier et les marques d'une poursuite permettent de confirmer qu'il était vivant après l'accident.
+
+### 10.7. Moulin de Brumecendre **[MJ — LOCALISATION DE MÉLÉANDRE]**
+
+Moulin isolé sur un bras secondaire de la Veyre, à deux heures de cheval ou six heures à pied du Pont-Cassé. Sa roue fonctionne mal et le chemin principal l'évite depuis plusieurs années. **Méléandre s'y cache actuellement**, blessé, fiévreux et incapable de poursuivre seul sa route vers Varethis.
+
+La meunière Ysilde l'a recueilli sans connaître d'abord son identité. Son neveu Teren a vu des cavaliers fouiller les fermes voisines. Le moulin offre une étape de sauvetage et de protection, mais devient dangereux dès qu'un agent apprend qu'Ysilde a acheté des remèdes inhabituels.
+
+### 10.8. Chapelle des Deux-Couronnes **[MJ — LIEU DU MEURTRE PRÉVU]**
+
+Chapelle diplomatique abandonnée à une demi-journée de cheval au nord de la Passe des Trois-Bornes. Elle fut construite après une ancienne paix entre les deux royaumes ; les armes des deux Couronnes figurent encore sur son fronton. Odran a choisi ce symbole pour faire retrouver le corps de Méléandre avec la fausse lettre de Kaelia.
+
+Des agents ont préparé sous la chapelle une cache contenant vêtements royaux contrefaits, cire du Palais, armes provenant des arsenaux de la Capitale et matériel destiné à maquiller la scène. La découverte prématurée de cette cache peut prouver la préméditation sans révéler encore le commanditaire.
+
+### 10.9. Salines de Mornefond **[MJ — COMPLEXE NÉCROMANTIQUE]**
+
+Anciennes galeries de sel situées à deux jours de cheval au sud-est de Rochebrune, accessibles par une piste quittant la route de Varethis avant le Pont-Cassé. L'air sec ralentit la décomposition ; Odran y a installé son principal centre régional de conservation des captifs, d'animation des cadavres et de préparation des convois.
+
+Le complexe comprend des cellules pour les vivants, une salle d'embaumement sommaire, un atelier de colliers et de caisses, ainsi qu'un ossuaire. Il ne s'agit pas encore du lieu du rituel final de lichification : Mornefond constitue une infrastructure de récolte dont les registres peuvent révéler l'ampleur du projet et l'existence d'autres dépôts.
+
+### 10.10. Passe des Trois-Bornes et Varethis
+
+La Passe des Trois-Bornes est le principal franchissement des collines orientales. Trois monolithes délimitent l'ancien territoire du royaume de Kaelia, les marches neutres et le royaume de Varethis. Un fort de péage contrôle la route officielle, mais des sentiers de chevriers permettent le passage de petits groupes.
+
+Varethis s'étend au-delà des collines, dans une vallée plus froide irriguée par les sources du fleuve. Sa cité royale se trouve à trois jours de cheval de la passe. La disparition de Méléandre fragilise déjà les relations diplomatiques ; la découverte de son corps à la Chapelle des Deux-Couronnes avec de fausses preuves aurait fourni le symbole nécessaire à une mobilisation rapide.
+
+### 10.11. Lieux annexes pour intrigues secondaires
+
+| Lieu | Localisation | Temps depuis Rochebrune | Usage secondaire possible |
+|---|---|---:|---|
+| **Val-Serein** | Hameau viticole au sud de la route royale | 3 h à cheval / 8 h à pied | Disparitions récentes attribuées aux loups ; en réalité, un recruteur du réseau sélectionne les voyageurs isolés. |
+| **Lac d'Ardoise** | Ancienne carrière noyée au nord de Rochebrune | 2 h à cheval / 6 h à pied | Contrebande, trésor de carriers, monstre aquatique ou témoin caché ayant vu passer les caisses. |
+| **Auberge de la Lanterne Fendue** | Carrefour entre la route de la Veyre et le chemin de Mornefond | 5 h à cheval / 1 jour à pied | Rumeurs, voyageurs de Varethis, espionnage mutuel et possible tentative d'empoisonnement. |
+| **Bois des Pendus** | Lisière orientale des carrières | 1 h à cheval / 3 h à pied | Ancien gibet, repaire de pillards sans lien avec Odran ; fausse piste ou histoire courte. |
+| **Prieuré de Sainte-Orme** | Collines au nord de la Passe des Trois-Bornes | 1 jour à cheval / 2 jours à pied | Refuge neutre, bibliothèque diplomatique et témoignages sur l'ancienne paix entre les royaumes. |
+
+### 10.12. Repères de trajet pour la conduite de l'arc
+
+Les temps ci-dessous supposent huit à dix heures de déplacement quotidien et une monture ménagée. Une poursuite, un cheval frais à chaque relais ou la forme draconique d'Elkyriel peuvent réduire fortement ces durées ; ces avantages doivent être traités selon les décisions du joueur et les risques de révélation du Secret draconique.
+
+| Étape | À pied | À cheval | Fonction narrative |
+|---|---:|---:|---|
+| Bâtisse d'Orven → Grange des Trois-Saules | 1 jour | 4 h | Premier relais et documents fragmentaires |
+| Grange des Trois-Saules → Pont-Cassé | 1,5 jour | 7 h | Reconstitution de la fuite |
+| Pont-Cassé → Moulin de Brumecendre | 6 h | 2 h | Retrouver et protéger Méléandre |
+| Pont-Cassé → Chapelle des Deux-Couronnes | 2 jours | 1 jour | Découvrir la mise en scène politique |
+| Grange des Trois-Saules → Salines de Mornefond | 3 jours | 1,5 jour | Révéler le réseau nécromantique |
+| Chapelle → Passe des Trois-Bornes | 1 jour | 4 h | Frontière et conséquences diplomatiques |
 La tour est actuellement fermée, verrouillée et totalement inoccupée, ses secrets intérieurs restant préservés. Cependant, l'oasis de verdure à ses pieds sert régulièrement de point de halte et de campement temporaire pour les clans d'Orques nomades qui viennent s'y établir de temps à autre au cours de leurs migrations dans la steppe.
