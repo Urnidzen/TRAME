@@ -1214,7 +1214,7 @@
                 if (doc.isLore) {
                     if (!renderedLoreFolder) {
                         renderedLoreFolder = true;
-                        const isFolderActive = ['lore_atlas', 'lore_chronologie', 'lore_personnages'].includes(currentDoc);
+                        const isFolderActive = ['lore_atlas', 'lore_aventures1', 'lore_aventures2', 'lore_personnages'].includes(currentDoc);
                         html += `
                             <div class="doc-item">
                                 <div class="doc-header ${isFolderActive ? 'active' : ''}" onclick="toggleLoreFolder()">
