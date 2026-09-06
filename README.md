@@ -11,7 +11,7 @@
 | [Livret 3 - Ressources & Équipement](https://urnidzen.github.io/TRAME/Livret3-Ressources-Equipement.v0.80.html) | v0.80 | Ressources, armures, armes et objets |
 | [Livret 4 - Rencontres](https://urnidzen.github.io/TRAME/Livret4-Rencontres.v0.81.html) | v0.81 | Équilibrage des rencontres et guide du MJ |
 | [Livret 5 - Bestiaire](https://urnidzen.github.io/TRAME/Livret5-Bestiaire.v0.85.html) | v0.85 | Créatures et adversaires |
-| [Fiche de Personnage](https://urnidzen.github.io/TRAME/Fiche%20de%20personnage.v0.91.html) | v0.91 | Fiche interactive en ligne |
+| [Fiche de Personnage](https://urnidzen.github.io/TRAME/Fiche%20de%20personnage.v0.92.html) | v0.92 | Fiche interactive en ligne |
 
 ## 🎲 Philosophie du Système
 
@@ -48,4 +48,4 @@ Pour toute demande d'utilisation commerciale ou question de licence : [ajoutez v
 Ce site est indexé via un [sitemap.xml](https://urnidzen.github.io/TRAME/sitemap.xml) pour les moteurs de recherche.
 
 ---
-*Dernier update : Février 2026*
+*Dernier update : Septembre 2026*
