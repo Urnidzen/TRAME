@@ -1130,13 +1130,15 @@
                 html += `
                     <div class="index-item" style="display:flex; justify-content:space-between; align-items:center; padding-right:5px; gap:8px;">
                         <span onclick="scrollToCharacter(${index})" style="flex-grow:1; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${profile.name || 'Sans Nom'}</span>
-                        <div style="display:flex; gap:4px; flex-shrink:0;">
-                            <span onclick="toggleCharacterNotesPage('${profile.id}')" style="cursor:pointer; opacity:${profileHasNotesPage(profile) ? '1' : '0.4'}; font-size:0.9rem; ${profileHasNotesPage(profile) ? 'color:#7c2d12;' : ''}" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=${profileHasNotesPage(profile) ? '1' : '0.4'}" title="Page de notes">${profileHasNotesPage(profile) ? '🗒️' : '📄'}</span>
-                            <span onclick="resetCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Réinitialiser">↺</span>
-                            <span onclick="exportCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Sauvegarder">💾</span>
-                            <span onclick="importCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Importer">📂</span>
-                            <span onclick="printCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Imprimer">🖨️</span>
-                            <span onclick="deleteCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Supprimer">🗑️</span>
+                        <div style="display:flex; gap:4px; flex-shrink:0; align-items:center;">
+                            <span onclick="deleteCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Supprimer ce personnage">🗑️</span>
+                            <span onclick="resetCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Effacer le contenu">↺</span>
+                            <span style="color:#000; font-size:1.1rem; cursor:default; opacity:0.5;">|</span>
+                            <span onclick="exportCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Sauvegarder JSON local">💾</span>
+                            <span onclick="importCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Charger une sauvegarde">📂</span>
+                            <span style="color:#000; font-size:1.1rem; cursor:default; opacity:0.5;">|</span>
+                            <span onclick="printCharacter('${profile.id}')" style="cursor:pointer; opacity:0.4; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4" title="Imprimer cette fiche">🖨️</span>
+                            <span onclick="toggleCharacterNotesPage('${profile.id}')" style="cursor:pointer; opacity:${profileHasNotesPage(profile) ? '1' : '0.4'}; font-size:0.9rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=${profileHasNotesPage(profile) ? '1' : '0.4'}" title="Page de notes supplémentaire">${profileHasNotesPage(profile) ? '🗒️' : '📄'}</span>
                         </div>
                     </div>
                 `;
