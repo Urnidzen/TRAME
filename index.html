@@ -757,7 +757,7 @@
             { id: 'lore_aventures1', file: 'lore/Annexe2.1-Aventures-Prelude-au-J301-matin.v.0.01.md', icon: '⏳', title: 'Annexe 2 : Aventures 1', subtitle: 'Ligne temporelle 1', isLore: true },
             { id: 'lore_aventures2', file: 'lore/Annexe2.2-Aventures-J301-et-suite.md', icon: '⏳', title: 'Annexe 2 : Aventures 2', subtitle: 'Ligne temporelle 2', isLore: true },
             { id: 'lore_personnages', file: 'lore/Annexe3-Personnages.v0.04.md', icon: '👥', title: 'Annexe 3 : Personnages', subtitle: 'Figures du monde', isLore: true },
-            { id: 'fiche', file: 'Fiche de personnage.v0.91.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
+            { id: 'fiche', file: 'Fiche de personnage.v0.92.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
 
@@ -1533,7 +1533,7 @@
             const profile = TRAME_Registre.getProfile(id);
             if (!profile) return;
             
-            const printWindow = window.open(`Fiche de personnage.v0.91.html?uid=${id}`, '_blank');
+            const printWindow = window.open(`Fiche de personnage.v0.92.html?uid=${id}`, '_blank');
             printWindow.onload = () => {
                 setTimeout(() => {
                     printWindow.print();
