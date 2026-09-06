@@ -79,7 +79,29 @@
         .btn-action:hover { opacity: 1; }
         .btn-reset:hover { color: #ea580c; }
         .btn-export:hover { color: #2563eb; }
-        .btn-print:hover { color: #1e293b; } 
+        .btn-print:hover { color: #1e293b; }
+        .btn-notes-page.active { opacity: 1; color: #7c2d12; }
+
+        .page-notes {
+            display: none;
+            flex-direction: column;
+        }
+        body.notes-only .page-notes {
+            display: flex;
+        }
+        body.notes-only .page-main {
+            display: none !important;
+        }
+        body.notes-only .layout-wrapper {
+            flex-direction: column;
+        }
+        .notes-fullpage {
+            flex: 1 1 auto;
+            height: auto !important;
+            min-height: 0;
+            margin-top: 0;
+            margin-bottom: 36px;
+        } 
 
         .label-cell {
             padding: 4px 0;
@@ -190,16 +212,29 @@
         .stat-row { height: 34px; }
 
         @media print {
+            html, body { height: auto !important; overflow: visible !important; }
             .header-actions { display: none !important; }
+            .layout-wrapper {
+                display: block !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
             .sheet-container { 
                 transform: none !important; 
-                margin: 0 !important; 
+                margin: 0 auto !important; 
                 width: 794px !important; 
-                height: 1123px !important; 
+                height: 1123px !important;
+                page-break-after: always;
+                break-after: page;
             }
-            .layout-wrapper { display: block !important; height: auto !important; }
-            .sheet-container > div:last-child {
-                position: fixed !important;
+            .page-notes { display: none; }
+            body.print-notes .page-notes,
+            body.notes-only .page-notes {
+                display: flex !important;
+            }
+            body.notes-only .page-main { display: none !important; }
+            .sheet-container .legal-notice-sheet {
+                position: absolute !important;
                 bottom: 15px !important;
             }
         }
@@ -207,8 +242,9 @@
 </head>
 <body class="font-body text-black">
     <div class="layout-wrapper">
-        <div class="sheet-container zoom-target">
+        <div class="sheet-container zoom-target page-main">
             <input type="file" data-id="file-upload" style="display:none" accept=".json">
+            <input type="hidden" data-id="notes-page-enabled" value="0">
 
             <table class="w-full">
                 <tr style="height: 175px;">
@@ -237,7 +273,8 @@
                                             <button data-action="export" class="btn-action btn-export" title="Sauvegarder JSON local">💾</button>
                                             <button data-action="import" class="btn-action btn-import" title="Charger une sauvegarde">📂</button>
                                             <span style="color:#000; font-size:1.1rem; cursor:default;">|</span>
-                                            <button data-action="print" class="btn-action btn-print" title="Imprimer cette fiche" onclick="window.print()">🖨️</button>
+                                            <button data-action="print" class="btn-action btn-print" title="Imprimer cette fiche">🖨️</button>
+                                            <button data-action="toggle-notes-page" class="btn-action btn-notes-page" title="Page de notes supplémentaire">🗒️</button>
                                         </div>
                                     </div>
                                 </td>
@@ -567,11 +604,19 @@
             </table>
 
             <!-- Mention légale -->
-            <div style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; color: rgba(28, 25, 23, 0.5); pointer-events: none; line-height: 1.4; padding: 0 20px;">
+            <div class="legal-notice-sheet" style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; color: rgba(28, 25, 23, 0.5); pointer-events: none; line-height: 1.4; padding: 0 20px;">
                 Copiez, modifiez, enrichissez ! seul le commerce est interdit.<br>
                 © 2026 Urnidzen | Licence CC BY-NC-SA 4.0 | Images assistées par IA
             </div>
             
+        </div>
+
+        <div class="sheet-container page-notes" data-id="notes-page">
+            <textarea class="area-textarea notes-fullpage" data-id="notes-extra"></textarea>
+            <div class="legal-notice-sheet" style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; color: rgba(28, 25, 23, 0.5); pointer-events: none; line-height: 1.4; padding: 0 20px;">
+                Copiez, modifiez, enrichissez ! seul le commerce est interdit.<br>
+                © 2026 Urnidzen | Licence CC BY-NC-SA 4.0 | Images assistées par IA
+            </div>
         </div>
     </div>
 
@@ -587,6 +632,34 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const currentUid = root ? root.getAttribute('data-uid') : urlParams.get('uid');
+        const notesOnlyView = urlParams.get('page') === 'notes';
+
+        function isNotesPageEnabled() {
+            const el = find('notes-page-enabled');
+            return el && (el.value === '1' || el.value === 'true');
+        }
+
+        function applyNotesPageMode() {
+            const enabled = isNotesPageEnabled();
+            document.body.classList.toggle('print-notes', enabled);
+            document.body.classList.toggle('notes-only', notesOnlyView);
+            const btn = context.querySelector('[data-action="toggle-notes-page"]');
+            if (btn) btn.classList.toggle('active', enabled);
+        }
+
+        function setNotesPageEnabled(enabled) {
+            const el = find('notes-page-enabled');
+            if (el) el.value = enabled ? '1' : '0';
+            applyNotesPageMode();
+            triggerSave();
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    action: 'notesPageToggled',
+                    uid: currentUid,
+                    enabled: !!enabled
+                }, '*');
+            }
+        }
 
         const CUSTOM_PORTRAITS_URLS = {
             "HUMAIN_MASCULIN": "portraits/portrait_homme_humain.png",
@@ -766,6 +839,31 @@
             const btnExport = context.querySelector('[data-action="export"]');
             if(btnExport) btnExport.onclick = exportSingleJSON;
 
+            const btnPrint = context.querySelector('[data-action="print"]');
+            if (btnPrint) btnPrint.onclick = () => {
+                if (typeof TRAME_Registre !== 'undefined' && currentUid) {
+                    TRAME_Registre.reload();
+                    const profile = TRAME_Registre.getProfile(currentUid);
+                    const extra = find('notes-extra');
+                    if (extra && profile && profile.content && profile.content['notes-extra'] != null) {
+                        extra.value = profile.content['notes-extra'];
+                    }
+                    if (profile && profile.content && profile.content['notes-page-enabled'] != null) {
+                        const flag = find('notes-page-enabled');
+                        if (flag) flag.value = profile.content['notes-page-enabled'];
+                        applyNotesPageMode();
+                    }
+                }
+                window.print();
+            };
+
+            const btnNotesPage = context.querySelector('[data-action="toggle-notes-page"]');
+            if (btnNotesPage) {
+                btnNotesPage.onclick = () => setNotesPageEnabled(!isNotesPageEnabled());
+            }
+
+            if (notesOnlyView) document.body.classList.add('notes-only');
+
             const btnImport = context.querySelector('[data-action="import"]');
             if(btnImport) btnImport.onclick = () => {
                 const fileInput = find('file-upload');
@@ -836,6 +934,7 @@
                                 
                                 updateUI();
                                 updatePortrait();
+                                applyNotesPageMode();
                                 triggerSave();
                                 alert('Personnage chargé avec succès !');
                             } else {
@@ -863,6 +962,7 @@
                 }
             };
 
+            applyNotesPageMode();
             adjustZoom();
             window.addEventListener('resize', adjustZoom);
             updatePortrait();
@@ -933,38 +1033,64 @@
             updateOffhandOptions(2);
             updateUI();
             updatePortrait();
+            applyNotesPageMode();
         }
 
         function setupAutoSave() {
-            findAll('input, select, textarea').forEach(el => {
+            const targets = notesOnlyView
+                ? findAll('[data-id="notes-extra"]')
+                : findAll('input, select, textarea');
+            targets.forEach(el => {
                 el.addEventListener('input', triggerSave);
                 el.addEventListener('change', triggerSave);
             });
         }
 
-        function triggerSave() {
-            if (!currentUid || typeof TRAME_Registre === 'undefined') return;
-
+        function collectSheetData() {
             const data = {};
             findAll('input[data-id], select[data-id], textarea[data-id]').forEach(el => {
                 const id = el.getAttribute('data-id');
-                if(el.type === 'checkbox') data[id] = el.checked;
+                if (el.type === 'checkbox') data[id] = el.checked;
                 else data[id] = el.value;
             });
-            
             findAll('.clean-input:not([data-id])').forEach((el, index) => {
                 data[`__clean_input_${index}`] = el.value;
             });
             findAll('.area-textarea:not([data-id])').forEach((el, index) => {
                 data[`__area_${index}`] = el.value;
             });
-            
             data.__state_talents = state.talents;
+            return data;
+        }
 
-            const nameVal = find('char-name').value || "Sans Nom";
+        function triggerSave() {
+            if (!currentUid || typeof TRAME_Registre === 'undefined') return;
+
+            // updateProfile remplace tout le content : on recharge puis on fusionne
+            TRAME_Registre.reload();
+            const profile = TRAME_Registre.getProfile(currentUid);
+            const existing = (profile && profile.content) ? Object.assign({}, profile.content) : {};
+
+            let data;
+            let nameVal;
+
+            if (notesOnlyView) {
+                data = existing;
+                const extra = find('notes-extra');
+                if (extra) data['notes-extra'] = extra.value;
+                data['notes-page-enabled'] = '1';
+                nameVal = (profile && profile.name) || 'Sans Nom';
+            } else {
+                data = collectSheetData();
+                if (Object.prototype.hasOwnProperty.call(existing, 'notes-extra')) {
+                    data['notes-extra'] = existing['notes-extra'];
+                }
+                nameVal = find('char-name').value || 'Sans Nom';
+            }
+
             TRAME_Registre.updateProfile(currentUid, data, nameVal);
 
-            if(window.parent && window.parent !== window) {
+            if (window.parent && window.parent !== window) {
                 window.parent.postMessage({action: 'refreshSidebar'}, '*');
             }
         }
@@ -976,6 +1102,8 @@
             findAll('input, textarea').forEach(el => { el.value = ''; });
             findAll('select').forEach(el => el.selectedIndex = 0);
             findAll('input[type=number]').forEach(el => el.value = '0');
+            if (find('notes-page-enabled')) find('notes-page-enabled').value = '0';
+            if (find('notes-extra')) find('notes-extra').value = '';
             state.talents = {
                 athletisme: false, aptitude_feline: false, mecanique: false,
                 fourberie: false, perception: false, survie: false,
@@ -984,6 +1112,7 @@
             updateShapeOptions();
             updateUI();
             updatePortrait();
+            applyNotesPageMode();
             triggerSave();
         }
 
@@ -1507,7 +1636,7 @@
                         
                         let isDragonTalent = isDragon && (t.id === 'athletisme' || t.id === 'perception');
                         let isDragonPolymorphed = isDragon && shapeSelect && shapeSelect.value !== "DRAGON";
-                        let polymorphMalus = 0;
+                        let polymorphMalus = isDragonPolymorphed ? -1 : 0;
 
                         let isPagureSansExoTalentBonus = isPagureSansExo && (t.id === 'aptitude_feline');
                         let isPagureSansExoTalentMalus = isPagureSansExo && (t.id === 'mecanique' || t.id === 'fourberie');
