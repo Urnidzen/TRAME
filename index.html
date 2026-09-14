@@ -1248,44 +1248,8 @@
                 if (isActive && isExpanded) {
                     if (doc.id === 'fiche') {
                         indexHtml = renderCharactersList();
-                    } else if (currentIndex && currentIndex.length > 0) {
-                        indexHtml = currentIndex.map((item, idx, arr) => {
-                            if (!item || !item.id) return '';
-                            
-                            const originalId = item.id;
-                            const jsEscapedId = String(item.id).replace(/'/g, "\\'");
-                            const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                            
-                            const nextItem = arr[idx + 1];
-                            const hasChildren = item.level && nextItem && nextItem.level > item.level;
-                            
-                            let isVisible = item.level === 1;
-                            if (item.level > 1) {
-                                for (let j = idx - 1; j >= 0; j--) {
-                                    if (arr[j].level === item.level - 1) {
-                                        isVisible = expandedSections.has(arr[j].id);
-                                        break;
-                                    }
-                                    if (arr[j].level < item.level - 1) break;
-                                }
-                            }
-                            
-                            const displayStyle = isVisible ? 'flex' : 'none';
-                            const isExpanded = expandedSections.has(originalId);
-                            const paddingLeft = item.level ? (8 + (item.level-1)*12) : 8;
-                            
-                            return `
-                                <div class="index-item ${isExpanded ? 'expanded' : ''}" 
-                                     data-section="${originalId}" 
-                                     data-level="${item.level || 0}"
-                                     style="padding-left:${paddingLeft}px; display:${displayStyle}; cursor: pointer;"
-                                     onclick="toggleIndexItem('${jsEscapedId}', ${hasChildren})">
-                                    <span style="flex:1;">
-                                        ${safeTitle}
-                                    </span>
-                                </div>
-                            `;
-                        }).join('');
+                    } else {
+                        indexHtml = renderIndexAccordion();
                     }
                 }
                 
@@ -1316,6 +1280,48 @@
             renderDocumentsList();
         }
 
+        function renderIndexAccordion() {
+            if (!currentIndex || currentIndex.length === 0) return '';
+
+            return currentIndex.map((item, idx, arr) => {
+                if (!item || !item.id) return '';
+
+                const originalId = item.id;
+                const jsEscapedId = String(item.id).replace(/'/g, "\\'");
+                const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+                const nextItem = arr[idx + 1];
+                const hasChildren = item.level && nextItem && nextItem.level > item.level;
+
+                let isVisible = item.level === 1;
+                if (item.level > 1) {
+                    for (let j = idx - 1; j >= 0; j--) {
+                        if (arr[j].level === item.level - 1) {
+                            isVisible = expandedSections.has(arr[j].id);
+                            break;
+                        }
+                        if (arr[j].level < item.level - 1) break;
+                    }
+                }
+
+                const displayStyle = isVisible ? 'flex' : 'none';
+                const isItemExpanded = expandedSections.has(originalId);
+                const paddingLeft = item.level ? (8 + (item.level - 1) * 12) : 8;
+
+                return `
+                    <div class="index-item ${isItemExpanded ? 'expanded' : ''}"
+                         data-section="${originalId}"
+                         data-level="${item.level || 0}"
+                         style="padding-left:${paddingLeft}px; display:${displayStyle}; cursor: pointer;"
+                         onclick="toggleIndexItem('${jsEscapedId}', ${hasChildren})">
+                        <span style="flex:1;">
+                            ${safeTitle}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function renderLoreSubMenu() {
             if (!loreUnlocked) {
                 return `
@@ -1333,12 +1339,16 @@
             const loreDocs = documents.filter(d => d.isLore);
             return loreDocs.map(doc => {
                 const isSubActive = doc.id === currentDoc;
+                const accordion = (isSubActive && currentIndex && currentIndex.length > 0)
+                    ? `<div style="margin-top:4px; margin-left:8px; padding-left:8px; border-left:2px solid rgba(0,0,0,0.12);">${renderIndexAccordion()}</div>`
+                    : '';
                 return `
-                    <div class="index-item ${isSubActive ? 'expanded' : ''}" 
-                         style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-bottom: 4px; padding-left: 15px; font-weight: ${isSubActive ? '600' : 'normal'}; display: flex; align-items: center; gap: 6px;" 
+                    <div class="index-item ${isSubActive ? 'expanded' : ''}"
+                         style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-bottom: 4px; padding-left: 15px; font-weight: ${isSubActive ? '600' : 'normal'}; display: flex; flex-direction: column; align-items: stretch; gap: 6px;"
                          onclick="selectDocument('${doc.id}')">
                         <span>${doc.title}</span>
                     </div>
+                    ${accordion}
                 `;
             }).join('');
         }
@@ -1562,7 +1572,7 @@
                 renderDocumentsList();
             } else {
                 currentDoc = docId;
-                expandedId = (doc && doc.isLore) ? null : docId;
+                expandedId = docId;
                 await loadDocument(docId);
             }
         }
