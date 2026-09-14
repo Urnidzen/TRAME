@@ -1,3 +1,3 @@
-# Carte : Ardélie et Immensité Grise
+# Carte : Ardélie
 
 ![Ardelie](lore/cartes/ardelie.png)
