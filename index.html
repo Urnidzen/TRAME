@@ -1339,7 +1339,7 @@
             const loreDocs = documents.filter(d => d.isLore);
             return loreDocs.map(doc => {
                 const isSubActive = doc.id === currentDoc;
-                const accordion = (isSubActive && currentIndex && currentIndex.length > 0)
+                const accordion = (isSubActive && expandedId === doc.id && currentIndex && currentIndex.length > 0)
                     ? `<div style="margin-top:4px; margin-left:8px; padding-left:8px; border-left:2px solid rgba(0,0,0,0.12);">${renderIndexAccordion()}</div>`
                     : '';
                 return `
