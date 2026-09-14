@@ -1590,6 +1590,24 @@
             }
         }
 
+        function bindCarteFallbacks(root) {
+            if (!root) return;
+            const exts = ['.png', '.webp', '.jpg', '.jpeg', '.jfif', '.gif'];
+            root.querySelectorAll('img').forEach(img => {
+                const raw = img.getAttribute('src') || '';
+                if (!raw.includes('lore/cartes/')) return;
+                const base = raw.replace(/\.[a-z0-9]+$/i, '');
+                let i = 0;
+                const tryNext = () => {
+                    if (i >= exts.length) return;
+                    img.src = base + exts[i++];
+                };
+                img.addEventListener('error', tryNext);
+                if (!/\.[a-z0-9]+$/i.test(raw)) tryNext();
+            });
+        }
+
+        
         async function loadDocument(docId) {
             expandedSections.clear();
             document.querySelectorAll('style[id^="injected-style-"]').forEach(el => el.remove());
@@ -1659,6 +1677,7 @@
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
                             paginateContent(rawContentCache);
+                            bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
                             renderDocumentsList();
                             resolve();
                         });
