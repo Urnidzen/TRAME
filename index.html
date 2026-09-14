@@ -450,6 +450,46 @@
             display: block;
         }
 
+        .content-wrapper img {
+            cursor: zoom-in;
+        }
+
+        .img-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(12, 10, 8, 0.92);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            cursor: zoom-out;
+        }
+        .img-lightbox.open {
+            display: flex;
+        }
+        .img-lightbox img {
+            max-width: 96vw;
+            max-height: 94vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            box-shadow: 0 12px 50px rgba(0,0,0,0.6);
+            cursor: default;
+        }
+        .img-lightbox .lb-close {
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            color: #f4ecd8;
+            font-size: 2rem;
+            font-family: 'Cinzel', serif;
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+        }
+
         /* ===== FICHES PERSONNAGES ===== */
         .sheet-container-frame {
             position: relative;
@@ -743,7 +783,10 @@
             </div>
     </div>
 
-    <div id="hiddenStaging" style="position:absolute; visibility:hidden; width: 100%; pointer-events:none; top:-9999px;"></div>
+    <div id="imgLightbox" class="img-lightbox" hidden>
+        <button type="button" class="lb-close" aria-label="Fermer">×</button>
+        <img alt="">
+    </div>
 
     <script>
         const documents = [
@@ -1607,6 +1650,40 @@
             });
         }
 
+        function bindImageLightbox(root) {
+            const box = document.getElementById('imgLightbox');
+            if (!box || !root) return;
+            const boxImg = box.querySelector('img');
+
+            const close = () => {
+                box.classList.remove('open');
+                box.hidden = true;
+                boxImg.removeAttribute('src');
+            };
+            const open = (src, alt) => {
+                boxImg.src = src;
+                boxImg.alt = alt || '';
+                box.hidden = false;
+                box.classList.add('open');
+            };
+
+            if (!box.dataset.lbReady) {
+                box.dataset.lbReady = '1';
+                box.addEventListener('click', (e) => {
+                    if (e.target !== boxImg) close();
+                });
+                box.querySelector('.lb-close').addEventListener('click', close);
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && box.classList.contains('open')) close();
+                });
+            }
+
+            root.querySelectorAll('.content-wrapper img').forEach(img => {
+                if (img.dataset.lbBound) return;
+                img.dataset.lbBound = '1';
+                img.addEventListener('click', () => open(img.currentSrc || img.src, img.alt));
+            });
+        }
         
         async function loadDocument(docId) {
             expandedSections.clear();
@@ -1678,6 +1755,7 @@
                         requestAnimationFrame(() => {
                             paginateContent(rawContentCache);
                             bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
+                            bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
                             renderDocumentsList();
                             resolve();
                         });
@@ -2079,6 +2157,8 @@
                     // La largeur ne change pas (déjà 100%), donc on évite de détruire les highlights
                     if (!isMobile) {
                         paginateContent(rawContentCache);
+                        bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
+                        bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
                         
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
@@ -2103,7 +2183,11 @@
             if (isMobile && sidebarOpen && !wasMobile) toggleSidebar();
             if (wasMobile !== isMobile) {
                  if (currentDoc === 'fiche') loadDocument('fiche');
-                 else if (rawContentCache) paginateContent(rawContentCache);
+                 else if (rawContentCache) {
+                     paginateContent(rawContentCache);
+                     bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
+                     bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
+                 }
             }
         }
 
@@ -2113,7 +2197,11 @@
             resizeTimeout = setTimeout(() => {
                 checkMobile();
                 if (currentDoc === 'fiche') resizeAllSheets();
-                else if (rawContentCache) paginateContent(rawContentCache);
+                else if (rawContentCache) {
+                    paginateContent(rawContentCache);
+                    bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
+                    bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
+                }
             }, 300);
         });
 
