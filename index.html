@@ -754,9 +754,20 @@
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.85.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'lore_atlas', file: 'lore/Annexe1-Atlas.v0.06.md', icon: '🗺️', title: 'Annexe 1 : Atlas', subtitle: 'Géographie du monde', isLore: true },
-            { id: 'lore_aventures1', file: 'Annexe2.1-Aventures-calendrier-1247-1248.v0.02.md', icon: '⏳', title: 'Annexe 2 : Aventures 1', subtitle: 'Ligne temporelle 1', isLore: true },
-            { id: 'lore_aventures2', file: 'Annexe2.2-Aventures-calendrier-1248.v0.02.md', icon: '⏳', title: 'Annexe 2 : Aventures 2', subtitle: 'Ligne temporelle 2', isLore: true },
+            { id: 'lore_aventures1', file: 'lore/Annexe2.1-Aventures-calendrier-1247-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.1 : Chronologie 1247–1248', subtitle: 'Prélude à mai 1248', isLore: true },
+            { id: 'lore_aventures2', file: 'lore/Annexe2.2-Aventures-calendrier-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.2 : Chronologie 1248', subtitle: 'Mai à juillet 1248', isLore: true },
+            { id: 'lore_aventures3', file: 'lore/Annexe2.3-Aventures-calendrier-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.3 : Chronologie 1248–1249', subtitle: 'Juillet 1248 à mai 1249', isLore: true },
+            { id: 'lore_aventures4', file: 'lore/Annexe2.4-Aventures-calendrier-1249.v0.01.md', icon: '⏳', title: 'Annexe 2.4 : Chronologie 1249', subtitle: 'Mai à juillet 1249', isLore: true },
+            { id: 'lore_aventures5', file: 'lore/Annexe2.5-Aventures-calendrier-1249.v0.01.md', icon: '⏳', title: 'Annexe 2.5 : Chronologie 1249–1250', subtitle: 'Juillet 1249 à l’été 1250', isLore: true },
             { id: 'lore_personnages', file: 'Annexe3-Personnages.v0.07.html', icon: '👥', title: 'Annexe 3 : Personnages', subtitle: 'Figures du monde', isLore: true },
+            { id: 'lore_domaines', file: 'lore/Annexe4-Organisation_domaines_Elkyriel.v0.03.md', icon: '🏰', title: 'Annexe 4 : Domaines', subtitle: 'Organisation d’Elkyriel et de la Traverse', isLore: true },
+            { id: 'lore_mj1', file: 'lore/Livret6-MJ-Partie1.v5.03.md', icon: '⚖️', title: 'Livret 6.1 : Cadre MJ', subtitle: 'Classification et interdictions', isLore: true },
+            { id: 'lore_mj2', file: 'lore/Livret6-MJ-Partie2.v5.03.md', icon: '⚔️', title: 'Livret 6.2 : CAS Action', subtitle: 'Combat et BTI', isLore: true },
+            { id: 'lore_mj3', file: 'lore/Livret6-MJ-Partie3.v5.02.md', icon: '💬', title: 'Livret 6.3 : CAS Calme', subtitle: 'Social et BTT', isLore: true },
+            { id: 'lore_mj4', file: 'lore/Livret6-MJ-Partie4.v5.02.md', icon: '💫', title: 'Livret 6.4 : CAS Intime', subtitle: 'Séduction', isLore: true },
+            { id: 'lore_mj5', file: 'lore/Livret6-MJ-Partie5.v5.03.md', icon: '🌅', title: 'Livret 6.5 : CAS Transition', subtitle: 'Première rencontre', isLore: true },
+            { id: 'lore_mj6', file: 'lore/Livret6-MJ-Partie6.v5.04.md', icon: '🧮', title: 'Livret 6.6 : Résolution IA', subtitle: 'Moteur de calcul', isLore: true },
+            { id: 'lore_ia7', file: 'lore/Livret7-IA.v0.03.md', icon: '🤖', title: 'Livret 7 : Automatisation IA', subtitle: 'Protocoles Mode A / B', isLore: true },
             { id: 'fiche', file: 'Fiche de personnage.v0.92.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discutions', subtitle: "Échangez sur le TRAME" }
         ];
@@ -1222,7 +1233,7 @@
                 if (doc.isLore) {
                     if (!renderedLoreFolder) {
                         renderedLoreFolder = true;
-                        const isFolderActive = ['lore_atlas', 'lore_aventures1', 'lore_aventures2', 'lore_personnages'].includes(currentDoc);
+                        const isFolderActive = ['lore_atlas', 'lore_aventures1', 'lore_aventures2', 'lore_aventures3', 'lore_aventures4', 'lore_aventures5', 'lore_personnages', 'lore_domaines', 'lore_mj1', 'lore_mj2', 'lore_mj3', 'lore_mj4', 'lore_mj5', 'lore_mj6', 'lore_ia7'].includes(currentDoc);
                         html += `
                             <div class="doc-item">
                                 <div class="doc-header ${isFolderActive ? 'active' : ''}" onclick="toggleLoreFolder()">
