@@ -799,7 +799,7 @@
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.85.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'lore_atlas', file: 'lore/Annexe1-Atlas.v0.07.md', icon: '🗺️', title: 'Annexe 1 : Atlas', subtitle: 'Géographie du monde', isLore: true },
-            { id: 'lore_carte_avarre', file: 'lore/Carte-Bassin-Avarre.md', icon: '🗺️', title: 'Carte : Bassin d’Avarre', subtitle: 'Bassin d’Avarre', isLore: true },
+            { id: 'lore_carte_enclave', file: 'lore/Carte-Enclave-des-cinq-trones.md', icon: '🗺️', title: 'Carte : Enclave des cinq trônes', subtitle: 'Enclave des cinq trônes', isLore: true },
             { id: 'lore_carte_ardelie', file: 'lore/Carte-Ardelie.md', icon: '🗺️', title: 'Carte : Ardélie', subtitle: 'Ardélie, Côte et steppe', isLore: true },
             { id: 'lore_aventures1', file: 'lore/Annexe2.1-Aventures-calendrier-1247-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.1 : Chronologie 1247–1248', subtitle: 'Prélude à mai 1248', isLore: true },
             { id: 'lore_aventures2', file: 'lore/Annexe2.2-Aventures-calendrier-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.2 : Chronologie 1248', subtitle: 'Mai à juillet 1248', isLore: true },
@@ -1281,7 +1281,7 @@
                 if (doc.isLore) {
                     if (!renderedLoreFolder) {
                         renderedLoreFolder = true;
-                        const isFolderActive = ['lore_atlas', 'lore_carte_avarre', 'lore_carte_ardelie','lore_aventures1', 'lore_aventures2', 'lore_aventures3', 'lore_aventures4', 'lore_aventures5', 'lore_personnages', 'lore_domaines', 'lore_annexe5', 'lore_mj1', 'lore_mj2', 'lore_mj3', 'lore_mj4', 'lore_mj5', 'lore_mj6', 'lore_ia7'].includes(currentDoc);
+                        const isFolderActive = ['lore_atlas', 'lore_carte_enclave', 'lore_carte_ardelie','lore_aventures1', 'lore_aventures2', 'lore_aventures3', 'lore_aventures4', 'lore_aventures5', 'lore_personnages', 'lore_domaines', 'lore_annexe5', 'lore_mj1', 'lore_mj2', 'lore_mj3', 'lore_mj4', 'lore_mj5', 'lore_mj6', 'lore_ia7'].includes(currentDoc);
                         html += `
                             <div class="doc-item">
                                 <div class="doc-header ${isFolderActive ? 'active' : ''}" onclick="toggleLoreFolder()">
