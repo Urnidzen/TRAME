@@ -799,8 +799,7 @@
             { id: 'livret4', file: 'Livret4-Rencontres.v0.81.html', icon: '⚔️', title: 'Livret 4', subtitle: 'Rencontres' },
             { id: 'livret5', file: 'Livret5-Bestiaire.v0.85.html', icon: '🐾', title: 'Livret 5', subtitle: 'Bestiaire' },
             { id: 'lore_atlas', file: 'lore/Annexe1-Atlas.v0.07.md', icon: '🗺️', title: 'Annexe 1 : Atlas', subtitle: 'Géographie du monde', isLore: true },
-            { id: 'lore_carte_enclave', file: 'lore/Carte-Enclave-des-cinq-trones.md', icon: '🗺️', title: 'Carte : Enclave des cinq trônes', subtitle: 'Enclave des cinq trônes', isLore: true },
-            { id: 'lore_carte_ardelie', file: 'lore/Carte-Ardelie.md', icon: '🗺️', title: 'Carte : Ardélie', subtitle: 'Ardélie, Côte et steppe', isLore: true },
+            { id: 'lore_cartes', file: 'lore/Cartes.md', icon: '🗺️', title: 'Cartes', subtitle: 'Ardélie & Enclave des 5 Trônes', isLore: true },
             { id: 'lore_aventures1', file: 'lore/Annexe2.1-Aventures-calendrier-1247-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.1 : Chronologie 1247–1248', subtitle: 'Prélude à mai 1248', isLore: true },
             { id: 'lore_aventures2', file: 'lore/Annexe2.2-Aventures-calendrier-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.2 : Chronologie 1248', subtitle: 'Mai à juillet 1248', isLore: true },
             { id: 'lore_aventures3', file: 'lore/Annexe2.3-Aventures-calendrier-1248.v0.02.md', icon: '⏳', title: 'Annexe 2.3 : Chronologie 1248–1249', subtitle: 'Juillet 1248 à mai 1249', isLore: true },
@@ -1281,7 +1280,7 @@
                 if (doc.isLore) {
                     if (!renderedLoreFolder) {
                         renderedLoreFolder = true;
-                        const isFolderActive = ['lore_atlas', 'lore_carte_enclave', 'lore_carte_ardelie','lore_aventures1', 'lore_aventures2', 'lore_aventures3', 'lore_aventures4', 'lore_aventures5', 'lore_personnages', 'lore_domaines', 'lore_annexe5', 'lore_mj1', 'lore_mj2', 'lore_mj3', 'lore_mj4', 'lore_mj5', 'lore_mj6', 'lore_ia7'].includes(currentDoc);
+                        const isFolderActive = ['lore_atlas', 'lore_cartes', 'lore_aventures1', 'lore_aventures2', 'lore_aventures3', 'lore_aventures4', 'lore_aventures5', 'lore_personnages', 'lore_domaines', 'lore_annexe5', 'lore_mj1', 'lore_mj2', 'lore_mj3', 'lore_mj4', 'lore_mj5', 'lore_mj6', 'lore_ia7'].includes(currentDoc);
                         html += `
                             <div class="doc-item">
                                 <div class="doc-header ${isFolderActive ? 'active' : ''}" onclick="toggleLoreFolder()">
@@ -1636,23 +1635,6 @@
             }
         }
 
-        function bindCarteFallbacks(root) {
-            if (!root) return;
-            const exts = ['.png', '.webp', '.jpg', '.jpeg', '.jfif', '.gif'];
-            root.querySelectorAll('img').forEach(img => {
-                const raw = img.getAttribute('src') || '';
-                if (!raw.includes('lore/cartes/')) return;
-                const base = raw.replace(/\.[a-z0-9]+$/i, '');
-                let i = 0;
-                const tryNext = () => {
-                    if (i >= exts.length) return;
-                    img.src = base + exts[i++];
-                };
-                img.addEventListener('error', tryNext);
-                if (!/\.[a-z0-9]+$/i.test(raw)) tryNext();
-            });
-        }
-
         function bindImageLightbox(root) {
             const box = document.getElementById('imgLightbox');
             if (!box || !root) return;
@@ -1757,7 +1739,6 @@
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
                             paginateContent(rawContentCache);
-                            bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
                             bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
                             renderDocumentsList();
                             resolve();
@@ -2160,7 +2141,6 @@
                     // La largeur ne change pas (déjà 100%), donc on évite de détruire les highlights
                     if (!isMobile) {
                         paginateContent(rawContentCache);
-                        bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
                         bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
                         
                         requestAnimationFrame(() => {
@@ -2188,7 +2168,6 @@
                  if (currentDoc === 'fiche') loadDocument('fiche');
                  else if (rawContentCache) {
                      paginateContent(rawContentCache);
-                     bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
                      bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
                  }
             }
@@ -2202,7 +2181,6 @@
                 if (currentDoc === 'fiche') resizeAllSheets();
                 else if (rawContentCache) {
                     paginateContent(rawContentCache);
-                    bindCarteFallbacks(document.getElementById('bookSpreadsWrapper'));
                     bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
                 }
             }, 300);
