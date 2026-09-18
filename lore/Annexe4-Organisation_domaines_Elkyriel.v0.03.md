@@ -4,13 +4,14 @@
 
 ## 1. Forces, population et ressources
 
-### Statut extérieur d’Elkyriel
+### Statut et reconnaissance d’Elkyriel
 
-Les titres et la reconnaissance politique d'Elkyriel dépendent strictement de l'endroit où il se trouve et des connaissances des souverains locaux.
+Les titres et la reconnaissance politique d'Elkyriel dépendent strictement du lieu, des interlocuteurs et du niveau de secret :
 
-- **En Traverse :** Sa Majesté Elkyriel, Roi de Traverse, Souverain des Neuf Cités.
-- **À Gor-Kadar :** Roi de Traverse et Frère de Sang de la Couronne Orque.
-- **En Ardélie et Varethis :** Seigneur Mercenaire. (Ces royaumes ignorent totalement l'existence de l'Enclave des Cinq Trônes, des Steppes Grises et du nouveau Royaume de Traverse. Pour eux, Elkyriel demeure un puissant seigneur indépendant).
+- **En Traverse (Sujets et autorités civiles) :** Sa Majesté Elkyriel, Roi de Traverse, Souverain des Dix Cités. (Connu sous son apparence elfique ; le peuple et les comtes ignorent sa nature draconique).
+- **À Gor-Kadar (Royaume Orque) :** Roi de Traverse et Frère de Sang de la Couronne. (Allié suprême de la Voix-Couronne Kharza Peau-de-Neige, qui ignore sa véritable forme de dragon).
+- **En Ardélie et à Varethis (Façade extérieure) :** Seigneur Mercenaire. (Ces royaumes ignorent totalement l'existence du Royaume de Traverse, de l'Enclave et de sa condition de dragon ; pour eux, il demeure un puissant chef de guerre indépendant).
+- **Auprès des Initiés (Strate -3, Ogres, Kobolds et premier cercle) :** **Elkyriel-Aethelvahr**, dit **« l'Adamantin »**. (Son nom d'âme véritable de Dragon Noble, prononcé avec respect et dévotion lors des conseils secrets et des rituels de la montagne).
 
 ### Alliance avec Gor-Kadar
 

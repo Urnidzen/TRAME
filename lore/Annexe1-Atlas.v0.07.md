@@ -132,11 +132,11 @@ Pour un trajet inverse, le temps reste identique et l'orientation est opposée, 
 - **Côtes et Maritime** : Proches des ports (mouettes, goélands, crabes géants). Haute mer dangereuse (serpents de mer 10-40m, méduses géantes luminescentes, requins). Quelques équipages pirates et groupes isolés subsistent dans les îles brumeuses, sans retrouver l'ancienne puissance des Pirates des Brumes.
 - **Souterrains - La Forteresse-Monde et Nœud de Calde** : Chauves-souris géantes, rats cavernicoles, serpents aveugles, Araignées Géantes et Araignées Géantes Colossales, Drakes Rocheux.
 - **Dragons résidents répertoriés** :
-  - **Elkyriel** : Dragon Véritable (écailles d'adamantite sombre à reflets dorés), Souverain de Traverse, maître de la Forteresse-Monde et de la Forge.
-  - **Saoriel** : Dragon Noble, résidant dans un observatoire rocheux isolé au-dessus de Lumérys (Astréane).
-  - **Mordrakh** : Dragon Bestial, nichant dans une ancienne carrière géothermique au nord-est de Kez-Bruma (Dhor-Kez).
-  - **Rauk-Griffe** : Dragon Bestial, occupant un canyon sauvage au nord des Sources de Rauk (Gor-Kadar).
-  - **Nymorath** : Dragon Noble, vivant sous l'apparence humaine du collectionneur « Maître Nymor » dans la vallée de la Traverse.
+  - **Elkyriel-Aethelvahr** : Dragon Noble d'Adamantite (écailles d'adamantite sombre à reflets dorés), dit « l'Adamantin », Souverain de Traverse, maître de la Forteresse-Monde et de la Forge.
+  - **Ilysthéra** : Dragonne Noble (*La Dame des Brumes Hautes*), résidant dans son observatoire au-dessus de Lumérys (Astréane).
+  - **Kaldrielle** : Dragonne Bestiale (*La Mère des Brasiers*), nichant dans une carrière géothermique au nord-est de Kez-Bruma (Dhor-Kez).
+  - **Isilvrya** : Dragonne Bestiale (*L'Aile d'Hiver*), occupant les hauts pics sauvages des Hautes-Lames au nord des Sources de Rauk (Gor-Kadar).
+  - **Nathalysse** : Dragonne Noble (*La Dame aux Mille Parchemins*), vivant sous l'apparence mortelle de « Dame Thalysse de Mirande », curatrice et antiquaire à Élyria.
 
 ---
 
@@ -993,7 +993,7 @@ Royaume exclusivement orque établi sur les hauts plateaux septentrionaux (popul
 - **Haut-Bois — (10,60 ; 29,70)** : Foyer septentrional des éleveurs et tanneurs du clan de Rhazka.
 - **Haut-Varek — (14,20 ; 28,80)** : Ville thermale et grand marché de bétail ; dispose d'une enceinte fermée réservée au séjour des étrangers.
 - **Gorge du Premier Serment — (13,90 ; 14,90)** : Canyon rituel méridional dont les parois de roche portent gravées les répartitions anciennes des sources.
-- **Dragon résident** : **Rauk-Griffe**, Dragon Bestial territorial occupant un canyon sauvage au nord des Sources de Rauk.
+- **Dragon résident** : **Isilvrya**, Dragonne Bestiale (*L'Aile d'Hiver*), prédatrice territoriale occupant les cimes et canyons au nord des Sources de Rauk.
 
 ---
 
@@ -1028,7 +1028,7 @@ Ancien ensemble de cités marchandes indépendantes unifié sous la couronne de 
 - **Ordre de l'Adamant** : 80 chevaliers d'élite assurant la garde royale directe.
 - **Cavalerie des Wyvernes** : 60 cavalières d'élite montées sur wyvernes sous les ordres de Faelia.
 - **Tributs de labeur** : 1 200 golems de travail et 10 000 morts-vivants cantonnés aux chantiers insalubres et aux mines profondes.
-- **Dragon résident** : **Nymorath**, Dragon Noble vivant sous les traits de « Maître Nymor », collectionneur d'art et de cartes anciennes.
+- **Dragon résident** : **Nathalysse**, Dragonne Noble vivant sous les traits de « Dame Thalysse de Mirande », curatrice de manuscrits et de reliques anciennes à Élyria.
 
 ---
 
@@ -1038,7 +1038,7 @@ Royaume magocratique du nord (environ 620 000 habitants, 8 000 combattants). Soc
 - **Lumérys — (19,40 ; 37,70)** : Capitale bâtie en terrasses de pierre blanche autour de serres de cristal et de hautes tours-focalisateurs luminescentes qui luisent sans flamme la nuit.
 - **Val-Opale — (18,20 ; 38,50)** : Immense vallée de serres magiquement chauffées assurant la subsistance alimentaire du Concordat.
 - **Nacrelac — (18,40 ; 31,00)** : Cité lacustre noire abritant les manufactures de cristal et de focalisateurs de la corporation des Liants.
-- **Dragon résident** : **Saoriel**, Dragon Noble observant le monde depuis un observatoire haut perché au-dessus de Lumérys.
+- **Dragon résident** : **Ilysthéra**, Dragonne Noble (*La Dame des Brumes Hautes*), observant le monde depuis son observatoire haut perché au-dessus de Lumérys.
 
 ---
 
@@ -1048,8 +1048,7 @@ Confédération industrielle de six cités-usines à l'est (environ 480 000 habi
 - **Kez-Bruma — (33,00 ; 23,10)** : Métropole industrielle colossale couverte de cheminées de cuivre, de grues à vapeur, de presses mécaniques et de fonderies monumentales.
 - **Dhor-Siphon — (31,90 ; 19,60)** : Cité-usine construite autour du puits de forage géothermique le plus profond du Bassin.
 - **Kez-Marteau — (35,40 ; 20,90)** : Cité de forges et de manufactures indépendantes, fief de la faction des *Ateliers Libres*.
-- **Dragon résident** : **Mordrakh**, Dragon Bestial nichant dans une carrière géothermique au nord-est de Kez-Bruma.
-
+- **Dragon résident** : **Kaldrielle**, Dragonne Bestiale (*La Mère des Brasiers*), nichant dans une carrière géothermique au nord-est de Kez-Bruma.
 ---
 
 ### 12.6. Royaume d'Orsenn
