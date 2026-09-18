@@ -10,7 +10,7 @@ Les titres et la reconnaissance politique d'Elkyriel dépendent strictement de l
 
 - **En Traverse :** Sa Majesté Elkyriel, Roi de Traverse, Souverain des Neuf Cités.
 - **À Gor-Kadar :** Roi de Traverse et Frère de Sang de la Couronne Orque.
-- **En Ardélie et Varethis :** Seigneur Mercenaire. (Ces royaumes ignorent totalement l'existence du Bassin d'Avarre, des Steppes Grises et du nouveau Royaume de Traverse. Pour eux, Elkyriel demeure un puissant seigneur indépendant).
+- **En Ardélie et Varethis :** Seigneur Mercenaire. (Ces royaumes ignorent totalement l'existence de l'Enclave des Cinq Trônes, des Steppes Grises et du nouveau Royaume de Traverse. Pour eux, Elkyriel demeure un puissant seigneur indépendant).
 
 ### Alliance avec Gor-Kadar
 
@@ -46,10 +46,10 @@ Le Royaume de Traverse est devenu une superpuissance militaire, forte d'une popu
 
 - **Lance de Huit :** huit chevaliers humains lourdement équipés.
 - **Escouade d'intervention :** dix combattants d'élite multi-espèces.
-- **Mercenaires de Goran :** environs cent vingt combattants recrutés pour protéger les commerces liés à la Forge.
-- **Automates de la Tour Blanche :** 4 Golems de guerre lourds de Dhor-Kez stationnés en permanence à la Tour Blanche.
-- **Population kobolde :** plus de mille deux cents individus.
-- **Ogres Brutes et Ogres-Mages :** environ une centaine de brutes et une dizaine de mages dirigés par Vel'Shara.
+- **Mercenaires de Goran :** environ deux cent cinquante à trois cents combattants recrutés pour protéger discrètement les commerces, convois et routes d'Ardélie liés à la Forge.
+- **Automates de la Tour Blanche :** 24 Golems de guerre lourds stationnés en permanence à la Tour Blanche (les 4 unités capturées à la Brèche, renforcées par la production des ateliers royaux).
+- **Population kobolde :** environ sept mille individus au sein de la Forteresse-Monde (Strate -3), en pleine croissance.
+- **Ogres Brutes et Ogres-Mages :** environ cent soixante-cinq individus (150 brutes et 15 mages) intégrés à la colonie sous l'autorité de Vel'Shara.
 
 ### Les Corbeaux et la Tour Blanche
 
@@ -75,8 +75,8 @@ La Forge de Rivecour ne peut pas accueillir seule toutes ces montures. Des écur
 
 #### Le Royaume de Traverse (10 Cités)
 
-- **Serrance (Capitale) :** Siège du pouvoir, palais royal, gérée au quotidien par le Conseil des Sceaux.
-- **Calde, Sept-Ponts, Pont-des-Cendres, Quais de Serrance, Asten, Rive-Noire, Haute-Rive, Val-Morne :** Les 8 cités administrées par leurs Comtes/Comtesses respectifs.
+- **Élyria (Capitale) :** Siège du pouvoir, palais royal, gérée au quotidien par le Conseil des Sceaux.
+- **Calde-sur-Rive, Clair-Verger, Grands-Vergers, Rive-Noire, Asten, Haute-Rive, Bois-Serein, Puits de Veyr :** Les 8 cités administrées par leurs Comtes/Comtesses respectifs.
 - **Forteresse-Monde :** La 10ème cité du royaume, habitat, mines et grandes forges, gouvernée par Vel'Shara.
 - **Réseau de Portails et Cités-Jardins :** Place royale luxueuse centrée sur des arches magiques permanentes reliant les cités entre elles et à la Cité-Monde. La végétation luxuriante des cités-jardins est entretenue par des cercles de druides et d'elfes.
 
@@ -100,7 +100,7 @@ Le royaume est structuré par une hiérarchie féodale stricte et absolue, soute
 
 #### Le Conseil des Sceaux (Administration centrale)
 
-- **Eryx :** Grand Intendant du Royaume et Grand Sénéchal de Serrance (gère la capitale en l'absence du Roi).
+- **Eryx :** Grand Intendant du Royaume et Grand Sénéchal d'Élyria (gère la capitale en l'absence du Roi).
 - **Nymira :** Maîtresse des Archives et des Sceaux.
 - **Mirelle Auvray :** Trésorière Générale.
 
@@ -111,16 +111,16 @@ Le royaume est structuré par une hiérarchie féodale stricte et absolue, soute
 - **Talyra :** Cartographe Royale et Maîtresse des Domaines.
 - **Lysandra :** Voix des Ombres (Renseignement).
 
-#### Les Comtes et Comtesses (Vassaux directs des 10 Cités)
+#### Les Comtes et Comtesses
 
 - **Calde :** Comte Pell.
-- **Sept-Ponts :** Comte Dhorg.
-- **Pont-des-Cendres :** Comtesse Sera.
-- **Quais de Serrance :** Comtesse Virelle Senn.
-- **Asten :** Comte Enric.
+- **Clair-Verger :** Comte Dhorg.
+- **Grands-Vergers :** Comtesse Sera.
 - **Rive-Noire :** Comtesse Ysel.
+- **Asten :** Comte Enric.
 - **Haute-Rive :** Comtesse Maura.
-- **Val-Morne :** Comtesse Siane.
+- **Bois-Serein :** Comtesse Siane.
+- **Puits de Veyr :** Comtesse Virelle Senn.
 - **Forteresse-Monde :** Comtesse Vel'Shara.
 
 #### Les Barons et Baronnes
@@ -129,7 +129,9 @@ Affranchis méritants et proches du Roi, tous d'une loyauté absolue, administra
 
 #### Le Harem Libre
 
-Guidé par la première concubine Faelia, le harem libre rassemble les compagnes intimes du Roi qui vivent cette place au grand jour auprès de lui : Faelia, Lysandra, Nymira, Sariel, Lysa, Liriel, Lirael, Talyra, Sera, Siane, Myrène, Lethielle et Néria. C'est un cercle de pouvoir, de plaisirs et d'affection absolue, où les femmes vivent leurs passions sans jalousie. Hors du harem, malgré une relation intime : Rose (foyer aux Saillans), Kaelia et Ysoria (liaisons secrètes et souveraines), Alise (ne connaît que Urnidzen) et Mireva.
+Guidé par la première concubine Faelia, le harem libre rassemble les compagnes intimes du Roi qui vivent cette place au grand jour auprès de lui à la cour d'Élyria : Faelia, Lysandra, Nymira, Sariel, Lysa, Liriel, Lirael, Talyra, Sera, Siane, Myrène et Lethielle. C'est un cercle de pouvoir, de plaisirs et d'affection absolue, où les femmes vivent leurs passions sans jalousie. 
+
+Hors du harem de cour, malgré une relation intime : Rose (foyer aux Saillans), Néria (résidente libre à la Forge de Rivecour), Kaelia et Ysoria (liaisons secrètes souveraines), Alise (ne connaît qu'Urnidzen) et Mireva (batelière aux Quais d'Élyria).
 
 ### Les Domaines Personnels (Forge, Tour Blanche, Karsenne)
 
@@ -166,7 +168,7 @@ La qualité des parfums, du cristal et de l'accueil place l’établissement par
 
 ### Le Royaume de Traverse : Révolutions technologiques et Cités-Jardins
 
-- **Technologie et Etherium :** Les ateliers secrets de Serrance et Calde, dirigés par des ingénieurs nains et des mages, ont disséqué les golems de Dhor-Kez et les protocoles d'Orsenn. Grâce aux recherches d'Elkyriel sur l'Etherium, le royaume utilise des « Filtres de l'Érudit » et des amulettes de protection. Les ouvriers travaillent par roulement strict. Les mutations sont devenues un souvenir du passé, ce qui renforce la loyauté du peuple.
+- **Technologie et Etherium :** Les ateliers secrets d’Élyria et Calde, dirigés par des ingénieurs nains et des mages, ont disséqué les golems de Dhor-Kez et les protocoles d'Orsenn. Grâce aux recherches d'Elkyriel sur l'Etherium, le royaume utilise des « Filtres de l'Érudit » et des amulettes de protection. Les ouvriers travaillent par roulement strict. Les mutations sont devenues un souvenir du passé, ce qui renforce la loyauté du peuple.
 - **Cités-Jardins et Portails :** Par de vastes rituels magiques, forêts et jardins suspendus ont été intégrés aux neuf cités, purifiant l'air. Le réseau de portails magiques, surveillé par la Garde des Portails (une division multiraciale d'élite) et maintenu par des mages elfes et des kobolds, a relégué les anciennes routes au rang de chemins secondaires.
 - **Économie et Ressources :** Les serres magiques copiées d'Astréane et les champs cultivés par les morts-vivants produisent des surplus massifs. Le royaume est entièrement autosuffisant et en période d'opulence. Aucun commerce avec l'extérieur n'est nécessaire.
 
@@ -188,11 +190,11 @@ Vel'Shara endoctrine progressivement ces groupes dans la vénération des Dragon
 
 ### Wyvernes
 
-Toutes les wyvernes de l’Archipel se sont soumises à l’autorité d’Elkyriel. Leur population est estimée à environ cent individus, dont une trentaine de petits. Leur répartition varie généralement de une à trois wyvernes par île, le plus souvent deux adultes et un petit.
+Toutes les wyvernes de l’Archipel se sont soumises à l’autorité d’Elkyriel. Leur population est estimée à environ cent quatre-vingts individus, dont une soixantaine de petits et jeunes spécimens. Leur répartition varie généralement de deux à quatre wyvernes par île dans les zones sauvages.
 
 Faelia dirige seule le travail lié aux wyvernes. Sa maîtrise du combat et de la magie, ses capacités élevées et son expérience en font la personne idéale pour dresser ces monstres et former leurs cavaliers.
 
-Réservées à des guerrières elfes personnellement entraînées par Faelia, une dizaine de wyvernes parfaitement dressées peuvent leur servir de redoutables montures de combat. Ces cavalières sont lourdement armées : lance, bouclier, arc et harnois. D’autres wyvernes sont en permanence en cours de dressage, de sorte que le nombre de montures utilisables continue d’évoluer.
+Réservées à des guerrières elfes personnellement entraînées par Faelia, soixante wyvernes adultes parfaitement dressées forment le corps d'élite de la Cavalerie des Wyvernes et leur servent de redoutables montures de combat. Ces cavalières sont lourdement armées : lance, bouclier, arc et harnois. D’autres wyvernes sont en permanence en cours de dressage, de sorte que le nombre de montures utilisables continue d’évoluer.
 
 Même dressées, les wyvernes conservent leur nature de prédateur. Elles restent dangereuses pour les personnes étrangères à leurs cavaliers et peuvent considérer comme une proie quiconque s'approche trop. Le dressage atténue progressivement ce comportement sans le supprimer.
 
@@ -214,5 +216,5 @@ La production repose sur les grandes forges à forte capacité de la Cité-Monde
 ## 5. Faiblesses actuelles
 
 - **Gestion d'un empire immense :** Maintenir la cohésion, la loyauté et la sécurité sur un royaume de 380 000 habitants et 10 cités nécessite une vigilance de tous les instants, bien que relayée par le Conseil des Sceaux et les Comtes.
-- **Secret draconique et géopolitique :** Maintenir le secret de la nature draconique d'Elkyriel, de l'existence du Bassin d'Avarre et de l'ampleur réelle de sa puissance militaire face aux royaumes d'Ardélie et de Varethis, qui le croient encore simple Seigneur Mercenaire.
+- **Secret draconique et géopolitique :** Maintenir le secret de la nature draconique d'Elkyriel, de l'existence de l'Enclave des Cinq Trônes et de l'ampleur réelle de sa puissance militaire face aux royaumes d'Ardélie et de Varethis, qui le croient encore simple Seigneur Mercenaire.
 - **Risque d’infiltration :** À mesure que les recrutements, les portails magiques et les implantations extérieures augmentent, le risque d'espionnage par les puissances voisines (Astréane, Dhor-Kez, Orsenn, Maison des Sept Clefs) reste une menace à surveiller via les Corbeaux.

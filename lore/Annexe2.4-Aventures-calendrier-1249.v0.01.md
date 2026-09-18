@@ -6,15 +6,15 @@
 
 ### Samedi 14 mai 1249 — après-midi et soir
 
-Le groupe redescend derrière le mur de Calde. Ils retrouvent la grande chambre déjà traversée la veille. Au centre se dresse la cuve colossale. Des tuyaux de bronze y puisent un flux de chaleur et de magie et l’envoient loin de la ville. Sous la cuve, un liquide visqueux et chaud stagne dans la veine. Dans la cuve et dans les conduites, ce n’est plus ce liquide : il s’est évaporé, et le flux qui en naît circule vers d’autres royaumes. Calde n’en prend presque plus.
+Le groupe redescend derrière le mur de Calde-sur-Rive. Ils retrouvent la grande chambre déjà traversée la veille. Au centre se dresse la cuve colossale. Des tuyaux de bronze y puisent un flux de chaleur et de magie et l’envoient loin de la ville. Sous la cuve, un liquide visqueux et chaud stagne dans la veine. Dans la cuve et dans les conduites, ce n’est plus ce liquide : il s’est évaporé, et le flux qui en naît circule vers d’autres royaumes. Calde-sur-Rive n’en prend presque plus.
 
 Ils quittent la passerelle haute et descendent jusqu’au pied de l’installation. Gaudric Fer-de-Puits les y attend. C’est un ancien chevalier de la garnison du Nœud. Quand la ville a muré les galeries, il est resté et s’est nourri de la source. Son corps a changé : peau minérale presque continue, gabarit trop grand pour un homme, harnois de chevalier encore porté par-dessus, déformé par la mutation. Deux drakes rocheux se tiennent à ses ordres. Une caisse cerclée est scellée trop près de la cuve.
 
-Gaudric nomme les fileuses mortes, la passerelle, et le fait que le Nœud ne sert plus Calde. Il se dit maître des lieux. Il a laissé un seul chemin ouvert pour voir qui le prendrait. Il offre aux quatre de le servir, de poser ce qu’ils portent, ou d’être gardés comme les ouvriers qui n’ont plus servi longtemps comme des vivants. Ce n’est pas une porte franche. Elkyriel refuse le marché. Il prend lance et bouclier et annonce un combat de chevalier.
+Gaudric nomme les fileuses mortes, la passerelle, et le fait que le Nœud ne sert plus Calde-sur-Rive. Il se dit maître des lieux. Il a laissé un seul chemin ouvert pour voir qui le prendrait. Il offre aux quatre de le servir, de poser ce qu’ils portent, ou d’être gardés comme les ouvriers qui n’ont plus servi longtemps comme des vivants. Ce n’est pas une porte franche. Elkyriel refuse le marché. Il prend lance et bouclier et annonce un combat de chevalier.
 
 Le flux que Gaudric projette n’ouvre pas le harnois d’Elkyriel. Les flèches de Talyra et de Sera, le marteau de Pell et la lance d’Elkyriel usent l’acier sans encore percer l’homme. Les deux drakes sautent sur les femmes : Talyra et Sera sont blessées au tronc. Elkyriel laisse Gaudric un instant, tue les deux bêtes d’estoc, soigne les plaies, puis revient au chevalier. Pell frappe en circulaire. Elkyriel vise la tête et maintient la même attaque jusqu’à ce que le fer diamantin passe le casque. Gaudric meurt. Ce qui tenait encore aux fils s’immobilise.
 
-Ils examinent la clé et le sceau que le chevalier portait. Elkyriel arrache le coffre et l’éloigne de la cuve assez pour que les autres s’en approchent. Talyra, Sera et Pell l’ouvrent : lingots de mithril et de diamantine, trop rares pour un marché de Calde, plus deux bourses, des outils et un focalisateur simple. Elkyriel propose que les trois cartographient encore les galeries, montent ce qu’ils peuvent, achètent quatre chevaux, et qu’ils vendent plus tard à parts égales. Talyra refuse de dormir près de la cuve : l’exposition peut transformer. Elkyriel demeure seul.
+Ils examinent la clé et le sceau que le chevalier portait. Elkyriel arrache le coffre et l’éloigne de la cuve assez pour que les autres s’en approchent. Talyra, Sera et Pell l’ouvrent : lingots de mithril et de diamantine, trop rares pour un marché de Calde-sur-Rive, plus deux bourses, des outils et un focalisateur simple. Elkyriel propose que les trois cartographient encore les galeries, montent ce qu’ils peuvent, achètent quatre chevaux, et qu’ils vendent plus tard à parts égales. Talyra refuse de dormir près de la cuve : l’exposition peut transformer. Elkyriel demeure seul.
 
 ### Nuit du samedi 14 au lundi 16 mai 1249
 
@@ -26,7 +26,7 @@ Il se sert de la clé pour fermer toutes les vannes. Rien n’est plus tiré des
 
 ### Lundi 16 mai 1249
 
-À l’aube, Elkyriel reprend le coffre sur l’épaule et remonte à Calde. À l’écurie du Seuil, il répartit les lingots dans les fontes. Il attend que l’aubergiste ouvre, paie le dû et un pourboire, commande des rations. Talyra le rejoint. Il lui dit que plus personne ne devrait pouvoir être contaminé là-dessous, et qu’ils peuvent reprendre la route. Sera et Pell arrivent. Ils chargent, remercient, se mettent en selle vers Serrance.
+À l’aube, Elkyriel reprend le coffre sur l’épaule et remonte à Calde-sur-Rive. À l’écurie du Seuil, il répartit les lingots dans les fontes. Il attend que l’aubergiste ouvre, paie le dû et un pourboire, commande des rations. Talyra le rejoint. Il lui dit que plus personne ne devrait pouvoir être contaminé là-dessous, et qu’ils peuvent reprendre la route. Sera et Pell arrivent. Ils chargent, remercient, se mettent en selle vers Élyria.
 
 ### Du lundi 16 au mercredi 18 mai 1249
 
@@ -38,7 +38,7 @@ Le lendemain, cinq hommes les attaquent sur la route. Elkyriel reste en réserve
 
 ### Mercredi 18 mai 1249 — soir et nuit
 
-Ils entrent à Serrance et descendent dans une auberge de passage. Derrière le bar, une Elfe sert les cruches. Elle porte au cou un **collier** de fer : la marque visible de l’esclavage, la preuve qu’un maître dispose d’elle. Sa tenue est faite pour être vue. Deux serveuses portent le même fer. À elles trois, elles sont tout le personnel de salle. La tenancière est humaine. Elle loue les chambres, la bière, et le corps quand cela rapporte.
+Ils entrent à Élyria et descendent dans une auberge de passage. Derrière le bar, une Elfe sert les cruches. Elle porte au cou un **collier** de fer : la marque visible de l’esclavage, la preuve qu’un maître dispose d’elle. Sa tenue est faite pour être vue. Deux serveuses portent le même fer. À elles trois, elles sont tout le personnel de salle. La tenancière est humaine. Elle loue les chambres, la bière, et le corps quand cela rapporte.
 
 Elkyriel n’aime pas que l’on tienne des personnes en esclavage. Il met en place un plan simple et audacieux : acheter aux trois colliers une fin de journée et une nuit de repos, une nuit où personne n’aura le droit de les toucher. Ce n’est pas l’achat de leurs corps comme marchandise de passage. C’est le prix payé à la tenancière pour qu’elle les retire du service jusqu’au matin.
 
@@ -48,11 +48,11 @@ Talyra et Sera paient chacune pour l’une des deux serveuses, sur le même prin
 
 ### Jeudi 19 mai 1249
 
-Le groupe cherche un acheteur pour le mithril et la diamantine tirés de la caisse du Nœud. Un changeur propose d’abord deux lingots seulement. Ils refusent la halle aux enchères et portent le tout au Comptoir Hélème, vente privée, une seule visite. La transaction est conclue là. Le Comptoir paie l’ensemble. Le trésor de Calde ne circule plus dans les fontes.
+Le groupe cherche un acheteur pour le mithril et la diamantine tirés de la caisse du Nœud. Un changeur propose d’abord deux lingots seulement. Ils refusent la halle aux enchères et portent le tout au Comptoir Hélème, vente privée, une seule visite. La transaction est conclue là. Le Comptoir paie l’ensemble. Le trésor de Calde-sur-Rive ne circule plus dans les fontes.
 
 ### Du vendredi 20 au dimanche 31 mai 1249
 
-Elkyriel veut un toit à Serrance où l’on vive sans collier, pas une cage plus jolie. Talyra, Sera et Pell l’accompagnent. Talyra s’arrête devant une maison de pierre claire, un figuier au-dessus du mur, un jardin derrière la grille. Deux servantes portent de l’eau dans la cour. Elles portent le collier.
+Elkyriel veut un toit à Élyria où l’on vive sans collier, pas une cage plus jolie. Talyra, Sera et Pell l’accompagnent. Talyra s’arrête devant une maison de pierre claire, un figuier au-dessus du mur, un jardin derrière la grille. Deux servantes portent de l’eau dans la cour. Elles portent le collier.
 
 L’or change de mains. L’affiche sort de la grille. Le marché comprend la maison, le jardin, et les deux colliers : on les prend avec les murs pour les faire sortir du fer ensuite, pas pour les laisser à la vente d’à côté. Une intendante prend une chambre à l’étage, pas le cellier, puis s’efface.
 
@@ -120,7 +120,7 @@ Albe semble ouvrir les yeux. Elle mesure que sa colère joue largement contre el
 
 ### Mercredi 14 juillet 1249
 
-Olan Vespre, prévôt de Serrance, se présente à la maison. Albe l’a déjà vu. Il interroge Elkyriel sur la rixe devant l’échoppe, puis sur l’incendie de l’Atelier des Trois Navettes.
+Olan Vespre, prévôt d'Élyria, se présente à la maison. Albe l’a déjà vu. Il interroge Elkyriel sur la rixe devant l’échoppe, puis sur l’incendie de l’Atelier des Trois Navettes.
 
 Sur la rixe, Elkyriel répond qu’un homme se doit de protéger ses employées quand on les agresse. Il l’a fait en deux temps, et devant témoins : d’abord raisonner l’agresseur ; puis, devant la montée de violence, le neutraliser et le renvoyer chez lui. Il ne porte pas plainte. Pour lui l’affaire est close. Il met le coup sur une jalousie, ou une impulsivité mal placée. Il sait pourtant que l’armateur n’en restera probablement pas là.
 
@@ -130,14 +130,12 @@ Talyra demande des comptes. Elkyriel lui dit que le prévôt est douteux, et pro
 
 Elkyriel le prend mal. Il dit adieu et quitte la maison.
 
-L’IA qui tient le MJ n’assume alors aucun autre personnage. Elle ne joue aucune réaction à la dispute, aucune prise de parti, aucun mot sur le départ. Ce n’est pas un oubli de détail. C’est un échec majeur de conduite de table : les liens bâtis entre Elkyriel et les siens — Talyra, Sera, Pell, Lise, Maura, Rhea, Ysel, Naela, Siane, Dhorg, Enric — sont traités comme s’ils n’existaient pas.
+Le départ brutal d'Elkyriel plonge la maisonnée dans la stupeur et l'angoisse. Les affranchis (Lise, Maura, Rhea, Ysel, Naela, Siane, Dhorg, Enric) ainsi que Sera et Pell éprouvent une vive rancœur envers Talyra : ils jugent inadmissible qu'elle n'ait pas retenu leur bienfaiteur et qu'elle l'ait laissé partir seul. 
 
-Ces gens ne sont pas un décor. Lise, Maura, Rhea, Ysel, Naela, Siane, Dhorg et Enric sont des affranchis ; Siane, Dhorg et Enric lui doivent aussi un corps tenable. Sera et Pell ne viennent pas du collier, mais ce n’est pas une raison de se taire. Sera a retrouvé son frère grâce à lui — mort, mais elle n’est plus à se demander s’il vit encore sous Calde. Pell porterait encore des sacs au quai : pas de bière, pas d’aventure, pas de harnois, pas de marteau, pas de part du trésor. Toutes les femmes de la maison en pincent pour Elkyriel, à des stades différents. Sera et Ysel ont couché avec lui. Elles ne laissent pas leur amant partir ainsi après une dispute avec Talyra. Talyra aurait au moins pris une gifle. Tous ont de quoi la désapprouver fortement, l’engueuler, voire la mettre à la porte, et de quoi courir après lui.
+Profitant immédiatement de l'absence du protecteur, les ennemis de l'atelier (les sbires d'Albe Cendre, de l'armateur Jorund Pellain et des associés corrompus des Sept Clefs) attaquent la villa par surprise. Dépourvus du commandement et de la puissance d'Elkyriel, les résidents ne parviennent pas à contenir l'assaut : la villa est saisie et le foyer est à nouveau soumis aux fers et à l'esclavage.
 
-Rien de cela n’a été joué. L’IA n’en tient pas compte, même quand le contexte et les consignes le lui rappellent. Des heures de jeu sont ruinées. L’ambiance de la villa est détruite. L’histoire est faussée par l’IA, pas par une décision des occupants.
-
-Il ne rentre pas. Depuis Calde, il sait qu’un collecteur sous Serrance alimente l’axe de la Traverse. La nuit qui suit l’adieu, il y va. Il lance d’abord un sort qu’il maintient sur toute la région : le ciel prend l’allure d’un orage d’été et la pluie tombe en nappe. Il se dévêt, se glisse dans le fleuve, gagne les profondeurs, reprend sa forme de dragon et creuse la rive jusqu’aux cuves du collecteur de Serrance. Il les éventre. Il recave ensuite jusqu’au fleuve, élargit le lit, et l’eau envahit le réseau d’approvisionnement et de distribution du flux. Les installations qui jouxtaient la rive arrachée partent avec le courant.
+Depuis Calde-sur-Rive, il sait qu’un collecteur sous Serrance alimente l’axe de la Traverse. La nuit qui suit l’adieu, il y va. Il lance d’abord un sort qu’il maintient sur toute la région : le ciel prend l’allure d’un orage d’été et la pluie tombe en nappe. Il se dévêt, se glisse dans le fleuve Avar, gagne les profondeurs, reprend sa forme de dragon et creuse la rive jusqu’aux cuves du collecteur d'Élyria. Il les éventre. Il recave ensuite jusqu’au fleuve, élargit le lit, et l’eau envahit le réseau d’approvisionnement et de distribution du flux. Les installations qui jouxtaient la rive arrachée partent avec le courant.
 
 Tout cela se fait sous l’eau ou sous la terre, hors des regards. Seules quelques traces de griffures pourraient trahir le passage d’une créature non identifiée, si les eaux du fleuve ne les emportent pas toutes. Elkyriel reprend sa forme d’elfe encore immergé, se laisse porter par la crue et s’échoue sur une rive hors de la ville.
 
-Serrance est presque à sec. Fermer le Nœud de Calde et éventrer le collecteur de Serrance coupe environ un tiers du flux que les royaumes voisins recevaient encore par l’axe central de la Traverse.
+Élyria est presque à sec. Fermer le Nœud de Calde et éventrer le collecteur de Serrance coupe environ un tiers du flux que les royaumes voisins recevaient encore par l’axe central de la Traverse.

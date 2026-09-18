@@ -8,7 +8,7 @@ Les éléments historiques sont toutefois conservés lorsqu'ils sont nécessaire
 
 Le royaume d'Ardélie occupe une péninsule continentale bordée à l'ouest par la Mer de Jade. Ses régions occidentales sont ouvertes sur le littoral et le grand axe fluvial reliant Aldhaven à Rivecour, tandis que les terres intérieures sont dominées par des plaines agricoles. Au nord s'étend l'Immensité Grise, vaste steppe continentale dont Ardélie ne contrôle réellement qu'une faible bordure méridionale malgré les revendications de la Couronne. Vers l'est, les plaines se prolongent jusqu'aux Marches orientales, puis laissent progressivement place aux collines et au massif montagneux formant la frontière naturelle avec Varethis.
 
-Au-delà des Hautes-Lames, au nord-nord-est de l'Immensité Grise, s'étend le Bassin d'Avarre, une vaste région continentale longtemps isolée des royaumes occidentaux, articulée autour du réseau hydrographique et géothermique des Veines Chaudes.
+Au-delà des Hautes-Lames, au nord-nord-est de l'Immensité Grise, s'étend l'Enclave des Cinq Trônes, une vaste région continentale longtemps isolée des royaumes occidentaux, articulée autour du réseau hydrographique et géothermique des Veines Chaudes.
 
 Les coordonnées utilisées dans l'Atlas prennent **Aldhaven pour origine (0,00 ; 0,00)**. L'est correspond à l'axe X positif et le nord à l'axe Y positif. Une unité cartographique représente environ une journée de marche théorique sur terrain terrestre ordinaire. Ces coordonnées indiquent la position horizontale des lieux et ne représentent pas leur altitude.
 
@@ -27,11 +27,11 @@ Les coordonnées utilisées dans l'Atlas prennent **Aldhaven pour origine (0,00 
 - **Débouché est de la Brèche — (19,40 ; 24,10)** : Sortie orientale du défilé souterrain des Hautes-Lames débouchant sur l'ouest de la Traverse.
 - **Rivet-de-Givre — (21,20 ; 25,20)** : Emplacement de l'ancien avant-poste de Dhor-Kez dans les Hautes-Lames, aujourd'hui en ruines.
 - **Kadar-Rauk (Gor-Kadar) — (11,00 ; 26,50)** : Capitale du Royaume Orque de Gor-Kadar, bâtie sur de hauts plateaux rocheux autour des Sources de Rauk (sources thermales géothermales). Siège du Palais du puy de la Voix-Couronne Kharza Peau-de-Neige.
-- **Serrance — (26,00 ; 28,60)** : Capitale du Royaume de Traverse, siège du Palais royal d'Elkyriel et de la Maison des Sept Clefs.
+- **Élyria — (26,00 ; 28,60)** : Capitale du Royaume de Traverse, siège du Palais royal d'Elkyriel et de la Maison des Sept Clefs.
 - **Asten — (19,70 ; 29,20)** : Sixième cité du Royaume de Traverse (Comté d'Asten). Cité restaurée en Cité-Jardin ; ses caves profondes abritent des araignées géantes.
 - **Puits de Veyr — (27,00 ; 24,30)** : Neuvième cité du Royaume de Traverse (Comté du Puits de Veyr). Cité-puits verticale.
 - **Lumérys — (19,40 ; 37,70)** : Capitale du Concordat d'Astréane.
-- **Brumeforge — (33,00 ; 23,10)** : Plus grande cité industrielle des Ligues de Dhor-Kez.
+- **Kez-Bruma — (33,00 ; 23,10)** : Plus grande cité industrielle des Ligues de Dhor-Kez.
 - **Orsenn — (33,70 ; 31,70)** : Capitale du Royaume d'Orsenn.
 
 ### Référentiel des trajets
@@ -123,7 +123,7 @@ Pour un trajet inverse, le temps reste identique et l'orientation est opposée, 
 - **Massif frontalier et Varethis** : La route s'élève à travers le massif jusqu'à la Passe des Trois Bornes, col de haute montagne, puis redescend vers la haute vallée où se trouve Karsenne. Cette vallée est froide et demeure sensiblement plus élevée que les plaines d'Ardélie, tout en étant plus basse que la Passe.
 - **Archipel des Tempêtes** : Milieu insulaire volcanique au climat tropical étouffant. Les îles sont couvertes d'une végétation luxuriante souvent difficile à traverser et ponctuées de fumerolles sulfureuses. Leurs côtes sont généralement ceinturées de récifs coralliens et fréquemment noyées dans une brume persistante.
 - **Hautes-Lames** : Chaîne abrupte orientée NW-SE de pics sombres, glaciers et couloirs d'avalanches. Hiver rigoureux, fonte brutale en mars-avril rendant les cols boueux et dangereux, étés courts et secs en altitude.
-- **Bassin d'Avarre et Veines Chaudes** : Vaste cuvette continentale régulée par un réseau géothermique et magique naturel, **les Veines Chaudes**, dans lesquelles circule un fluide énergétique appelé **l'Etherium**. L'Etherium est un liquide caloporteur naturel, compressible pour actionner vérins et machines, hautement conducteur de magie, mais extrêmement volatil à l'air libre. À très faible dose, il nourrit les sols et les corps ; à forte dose brute non filtrée (près des prises et des fuites de conduites), il provoque des déformations et mutations corporelles sévères. Dans le Royaume de Traverse, l'usage des *Filtres de l'Érudit* et d'amulettes de protection adaptées a assaini l'environnement urbain et agricole, transformant les cités en oasis tempérées verdoyantes (*Cités-Jardins*).
+- **Enclave des Cinq Trônes et Veines Chaudes** : Vaste cuvette continentale régulée par un réseau géothermique et magique naturel, **les Veines Chaudes**, dans lesquelles circule un fluide énergétique appelé **l'Etherium**. L'Etherium est un liquide caloporteur naturel, compressible pour actionner vérins et machines, hautement conducteur de magie, mais extrêmement volatil à l'air libre. À très faible dose, il nourrit les sols et les corps ; à forte dose brute non filtrée (près des prises et des fuites de conduites), il provoque des déformations et mutations corporelles sévères. Dans le Royaume de Traverse, l'usage des *Filtres de l'Érudit* et d'amulettes de protection adaptées a assaini l'environnement urbain et agricole, transformant les cités en oasis tempérées verdoyantes (*Cités-Jardins*).
 - **Forteresse-Monde et profondeurs** : Les conditions thermiques varient fortement avec la profondeur et la proximité des secteurs géothermiques. Les premières strates restent tempérées à chaudes, puis la température augmente fortement dans les niveaux profonds. La Strate -4 atteint couramment **150 à 200°C** dans les secteurs exposés, tandis que ses galeries techniques permettent un transit à des températures plus faibles (50-60°C). La Strate -5 présente une température moyenne de **28 à 30°C**, mais des variations locales extrêmes allant d'environ **10°C à près de 400°C** selon la proximité du lac de roche en fusion et l'influence de l'Éther-Basalte.
 
 ### Faune et populations
@@ -134,7 +134,7 @@ Pour un trajet inverse, le temps reste identique et l'orientation est opposée, 
 - **Dragons résidents répertoriés** :
   - **Elkyriel** : Dragon Véritable (écailles d'adamantite sombre à reflets dorés), Souverain de Traverse, maître de la Forteresse-Monde et de la Forge.
   - **Saoriel** : Dragon Noble, résidant dans un observatoire rocheux isolé au-dessus de Lumérys (Astréane).
-  - **Mordrakh** : Dragon Bestial, nichant dans une ancienne carrière géothermique au nord-est de Brumeforge (Dhor-Kez).
+  - **Mordrakh** : Dragon Bestial, nichant dans une ancienne carrière géothermique au nord-est de Kez-Bruma (Dhor-Kez).
   - **Rauk-Griffe** : Dragon Bestial, occupant un canyon sauvage au nord des Sources de Rauk (Gor-Kadar).
   - **Nymorath** : Dragon Noble, vivant sous l'apparence humaine du collectionneur « Maître Nymor » dans la vallée de la Traverse.
 
@@ -973,10 +973,10 @@ Une route quitte la région de Rivecour vers le sud-ouest et dessert successivem
 
 ---
 
-## 12. LE BASSIN D'AVARRE, LES HAUTES-LAMES ET LES PUISSANCES DU NORD
+## 12. L'ENCLAVE DES CINQ TRONES, LES HAUTES-LAMES ET LES PUISSANCES DU NORD
 
 ### 12.1. Les Hautes-Lames et les Accès Occidentaux
-Chaîne de montagnes rocheuses, escarpées et glacées marquant la frontière nord-nord-est de l'Immensité Grise et isolant le Bassin d'Avarre. L'ancienne voie occidentale s'étant effondrée il y a plus de six générations, le massif ne se franchit en surface que par des hauts cols d'altitude dangereux, praticables uniquement à la belle saison.
+Chaîne de montagnes rocheuses, escarpées et glacées marquant la frontière nord-nord-est de l'Immensité Grise et isolant l'Enclave des Cinq Trônes. L'ancienne voie occidentale s'étant effondrée il y a plus de six générations, le massif ne se franchit en surface que par des hauts cols d'altitude dangereux, praticables uniquement à la belle saison.
 
 - **Camp des Pierres-Froides — (5,40 ; 13,20)** : Ancien camp d'hivernage orque ruiné en steppe ouverte au pied des Hautes-Lames, dévasté par le détachement de Dhor-Kez.
 - **Brèche de Vard (entrée ouest) — (17,10 ; 23,40)** : Défilé d'accès occidental des Hautes-Lames et entrée du chantier de Dhor-Kez ; la foreuse est disloquée et l'entrée du tunnel est scellée sous un effondrement massif de basalte. Le secteur en ruines demeure sous la surveillance distante des patrouilles orques de Gor-Kadar.
@@ -990,8 +990,8 @@ Royaume exclusivement orque établi sur les hauts plateaux septentrionaux (popul
 
 - **Kadar-Rauk — (11,00 ; 26,50)** : Capitale du Royaume Orque de Gor-Kadar, bâtie sur de hauts plateaux rocheux autour des Sources de Rauk (sources thermales géothermales). Cité de pierre basse aux larges rampes ouvertes, abritant le **Cercle des Paroles** (amphithéâtre politique public) et le **Palais du puy** de la Voix-Couronne Kharza Peau-de-Neige (qui porte à sa ceinture l'épée en Fer Lunaire *Veyra-Kadar*). Territoire allié officiel d'Elkyriel, proclamé **Frère de Sang de la Couronne**.
 - **Sources de Rauk — (12,90 ; 27,80)** : Vastes bassins thermaux géothermaux, pâturages chauds et lieux de serment. Lieu de résidence surveillée des otages diplomatiques de Dhor-Kez (l'intendante Vessa Orm, 32 ouvriers et 42 gardes de Rivet-de-Givre).
-- **Kraal Cendre-Claire — (10,60 ; 29,70)** : Foyer septentrional des éleveurs et tanneurs du clan de Rhazka.
-- **Varek-Source — (14,20 ; 28,80)** : Ville thermale et grand marché de bétail ; dispose d'une enceinte fermée réservée au séjour des étrangers.
+- **Haut-Bois — (10,60 ; 29,70)** : Foyer septentrional des éleveurs et tanneurs du clan de Rhazka.
+- **Haut-Varek — (14,20 ; 28,80)** : Ville thermale et grand marché de bétail ; dispose d'une enceinte fermée réservée au séjour des étrangers.
 - **Gorge du Premier Serment — (13,90 ; 14,90)** : Canyon rituel méridional dont les parois de roche portent gravées les répartitions anciennes des sources.
 - **Dragon résident** : **Rauk-Griffe**, Dragon Bestial territorial occupant un canyon sauvage au nord des Sources de Rauk.
 
@@ -1010,14 +1010,14 @@ Ancien ensemble de cités marchandes indépendantes unifié sous la couronne de 
 
 #### Les Cités du Royaume
 
-1. **Serrance — (26,00 ; 28,60)** : Capitale royale. Siège du **Palais royal d'Elkyriel**, du Conseil des Sceaux (Eryx, Nymira, Mirelle Auvray), de l'autorité du prévôt Olan Vespre et de la **Maison des Sept Clefs** (placée sous tutelle royale, dirigée par Salomé d'Arqueval). Le quartier des *Quais de Serrance* forme le centre d'échange portuaire.
+1. **Élyria — (26,00 ; 28,60)** : Capitale royale. Siège du **Palais royal d'Elkyriel**, du Conseil des Sceaux (Eryx, Nymira, Mirelle Auvray), de l'autorité du prévôt Olan Vespre et de la **Maison des Sept Clefs** (placée sous tutelle royale, dirigée par Salomé d'Arqueval). Le quartier des *Quais d’Élyria* forme le centre d'échange portuaire.
 2. **Calde-sur-Rive — (24,70 ; 29,40)** : Siège du **Comté de Calde**, gouverné par le **Comte Pell**. Ancienne gardienne de l'accès au Nœud souterrain.
-3. **Sept-Ponts — (24,80 ; 26,70)** : Siège du **Comté de Sept-Ponts**, gouverné par le **Comte Dhorg**. Cité de canaux fortifiés et de ponts marchands.
-4. **Pont-des-Cendres — (28,30 ; 27,80)** : Siège du **Comté de Pont-des-Cendres**, gouverné par la **Comtesse Sera**. Ville-pont contrôlant le franchissement de l'Avar et d'immenses entrepôts.
+3. **Clair-Verger — (24,80 ; 26,70)** : Siège du **Comté de Clair-Verger**, gouverné par le **Comte Dhorg**. Cité de canaux fortifiés et de ponts marchands.
+4. **Grands-Vergers — (28,30 ; 27,80)** : Siège du **Comté de Grands-Vergers**, gouverné par la **Comtesse Sera**. Ville-pont contrôlant le franchissement de l'Avar et d'immenses entrepôts.
 5. **Rive-Noire — (34,20 ; 29,40)** : Siège du **Comté de Rive-Noire**, gouverné par la **Comtesse Ysel** assistée de la **Baronne Rhea**.
 6. **Asten — (19,70 ; 29,20)** : Siège du **Comté d'Asten**, gouverné par le **Comte Enric**. Ancienne cité restaurée ; ses caves profondes sous les vieux quartiers nord abritent une colonie de 12 Araignées Géantes et 2 Araignées Géantes Colossales.
 7. **Haute-Rive — (40,80 ; 22,50)** : Siège du **Comté de Haute-Rive**, gouverné par la **Comtesse Maura** assistée de la **Baronne Lise**, sur les marges orientales du royaume.
-8. **Val-Morne — (35,30 ; 23,70)** : Siège du **Comté de Val-Morne**, gouverné par la **Comtesse Siane** assistée de la **Baronne Naela**.
+8. **Bois-Serein — (35,30 ; 23,70)** : Siège du **Comté de Bois-Serein**, gouverné par la **Comtesse Siane** assistée de la **Baronne Naela**.
 9. **Puits de Veyr — (27,00 ; 24,30)** : Neuvième cité du Royaume de Traverse (Comté du Puits de Veyr), gouvernée par la **Comtesse Virelle Senn**. Cité-puits verticale abritant la flotte marchande confisquée à Jorund Pellain.
 10. **Forteresse-Monde** : Dixième cité du royaume (voir section 7).
 
@@ -1045,10 +1045,10 @@ Royaume magocratique du nord (environ 620 000 habitants, 8 000 combattants). Soc
 ### 12.5. Ligues de Dhor-Kez
 Confédération industrielle de six cités-usines à l'est (environ 480 000 habitants, 12 000 soldats et ouvriers armés). Technologie avancée de la vapeur, forages profonds, presses, rails et maîtrise des cœurs de golems. Société dominée par les dettes héréditaires et gouvernée par le **Conclave des Six Fumées** (mené par le premier syndic Dhoran Vesk).
 
-- **Brumeforge — (33,00 ; 23,10)** : Métropole industrielle colossale couverte de cheminées de cuivre, de grues à vapeur, de presses mécaniques et de fonderies monumentales.
-- **Siphon-Neuf — (31,90 ; 19,60)** : Cité-usine construite autour du puits de forage géothermique le plus profond du Bassin.
-- **Marteau-Brume — (35,40 ; 20,90)** : Cité de forges et de manufactures indépendantes, fief de la faction des *Ateliers Libres*.
-- **Dragon résident** : **Mordrakh**, Dragon Bestial nichant dans une carrière géothermique au nord-est de Brumeforge.
+- **Kez-Bruma — (33,00 ; 23,10)** : Métropole industrielle colossale couverte de cheminées de cuivre, de grues à vapeur, de presses mécaniques et de fonderies monumentales.
+- **Dhor-Siphon — (31,90 ; 19,60)** : Cité-usine construite autour du puits de forage géothermique le plus profond du Bassin.
+- **Kez-Marteau — (35,40 ; 20,90)** : Cité de forges et de manufactures indépendantes, fief de la faction des *Ateliers Libres*.
+- **Dragon résident** : **Mordrakh**, Dragon Bestial nichant dans une carrière géothermique au nord-est de Kez-Bruma.
 
 ---
 
@@ -1056,7 +1056,7 @@ Confédération industrielle de six cités-usines à l'est (environ 480 000 habi
 Royaume des plaines basses du sud-est (environ 710 000 vivants et 190 000 morts actifs ; 9 000 soldats vivants et jusqu'à 35 000 corps mobilisables). L'économie repose sur la nécromancie légale et la **Loi des corps** (*Service offert, Service de dette, Service pénal, Repos entier*). Gouverné par la reine vivante **Maélis d'Orsenn** et la **Chambre des Derniers Contrats**, conseillées par quatre Liches reconnues.
 
 - **Orsenn — (33,70 ; 31,70)** : Capitale fluviale et nécropole royale, découpée de canaux rectilignes où les morts travaillent au halage et à l'entretien urbain.
-- **Dorme-Rive — (37,30 ; 29,50)** : Port d'attache des convois de barges funéraires reliant les différentes nécropoles.
+- **Val-Morne — (37,30 ; 29,50)** : Port d'attache des convois de barges funéraires reliant les différentes nécropoles.
 - **Roseaux Noirs — (31,70 ; 33,80)** : Vastes domaines agricoles irrigués exploités par des équipes de travailleurs cadavériques.
 - **Les Quatre Liches Conseillères** :
   - *Archiviste Edran* (Liche Jeune) : Conservateur de la mémoire et des contrats funéraires.
