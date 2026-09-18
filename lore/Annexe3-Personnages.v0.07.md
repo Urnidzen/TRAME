@@ -63,7 +63,7 @@ Les fiches individuelles ajoutent leurs particularités aux éléments ci-dessus
 - **Fonction actuelle** : Musique et chant ; aide à Liriel et Mila.
 - **Caractère** : Calme en apparence, profondément marquée par sa servitude, silencieuse et observatrice.
 - **Rapport à Liriel** : Sœur jumelle qu’elle protège et soutient.
-- **Rapport à Elkyriel** : Voir REF-ELKYRIEL. Relation intime. Elle exprime ses sentiments avec davantage de réserve que sa sœur.
+- **Rapport à Elkyriel** : Voir REF-ELKYRIEL. Relation intime. Elle exprime ses sentiments avec davantage de réserve que sa sœur. Elle connaît sa nature de Dragon Véritable, sa sœur jumelle Liriel l’ayant mise dans la confidence, et préserve ce secret.
 - **Motivations actuelles** : Se reconstruire après ses années de servitude, protéger et soutenir sa sœur jumelle Liriel, et exprimer sa gratitude envers Elkyriel.
 
 ### Vespera
@@ -75,7 +75,7 @@ Les fiches individuelles ajoutent leurs particularités aux éléments ci-dessus
 - **Fonction actuelle** : Surveillance interne et observation.
 - **Physique** : Cheveux bleu nuit et corps athlétique.
 - **Caractère** : Discrète, silencieuse et timide dans les échanges directs. Curieuse, espiègle et voyeuriste, elle aime observer les scènes intimes et peut se caresser si elle demeure discrète.
-- **Rapport à Elkyriel** : Voir REF-ELKYRIEL.
+- **Rapport à Elkyriel** : Voir REF-ELKYRIEL. Il ignore sa nature de Dragon Véritable.
 
 ### Dravenna
 
@@ -485,7 +485,6 @@ Les fiches individuelles ajoutent leurs particularités aux éléments ci-dessus
 - **Espèce et genre** : Ogre-Mage, féminin.
 - **Fonction actuelle** : Comtesse de la Forteresse-Monde. Gouverne la Strate -3, dirige les populations ogres et koboldes, et co-commande la Garde des Veines avec Armand Vellec. Maîtresse alchimiste. Les nécromants liés aux morts-vivants du tribut relèvent aussi d’elle, avec Lysandra.
 - **Métier ou savoir-faire d’origine** : Alchimiste et gardienne des savoirs des Précurseurs.
-- **Fonction actuelle** : Gouverneure et maîtresse alchimiste de la Strate -3.
 - **Physique** : Colosse athlétique de trois mètres, peau pourpre-indigo, deux cornes noires gravées de runes, yeux violets et voix profonde.
 - **Caractère** : Intelligente, sage, cultivée et attachée aux savoirs anciens.
 - **Histoire personnelle** : Issue des Isolationnistes, elle s’établit dans la Strate -3 pour y mener ses recherches. Elle se rallia à Elkyriel.
@@ -897,8 +896,8 @@ Les fiches individuelles ajoutent leurs particularités aux éléments ci-dessus
 - **Rapport à Lethielle** : Amante ; compagne du harem libre.
 - **Rapport à Mireva** : Relation intime, hors du harem libre.
 - **Secret draconique (Liste nominative et précise) :**
-  - **Savent :** Faelia, Lysandra, Lysa, Nymira, Sariel, Liriel, l'ensemble des captifs rescapés de la Crique Sanglante (Thorne, Alden, Roran, Doran, Seraphine, Vespera, Eirik, Borin, Thalira, Liora, Alyndra, Kaela, Fiora), Vel'Shara (ainsi que les Kobolds et Ogres de la Forteresse-Monde), les rescapés de Mornefond et des Deux-Couronnes, ainsi que Vessa Orm et les 74 captifs de Rivet-de-Givre.
-  - **Ignorent :** Talyra, Sera, Siane, Naela, Myrène, Lethielle, Lirael, Rhea, Ysel, Maura, Lise, Néria, Mireva, Pell, Dhorg, Enric, Virelle Senn, Olan Vespre, Salomé d'Arqueval, Kharza Peau-de-Neige (et les Orques de Gor-Kadar), Reine Kaelia, Roi Aldous, Reine Ysoria, Prince Méléandre, Maëra et Alise.
+  - **Savent :** Faelia, Lysandra, Lysa, Nymira, Sariel, Liriel, Lirael, l'ensemble des captifs rescapés de la Crique Sanglante (Thorne, Alden, Roran, Doran, Seraphine, Vespera, Eirik, Borin, Thalira, Liora, Alyndra, Kaela, Fiora), Vel'Shara (ainsi que les Kobolds et Ogres de la Forteresse-Monde), les rescapés de Mornefond et des Deux-Couronnes, ainsi que Vessa Orm et les 74 captifs de Rivet-de-Givre.
+  - **Ignorent :** Talyra, Sera, Siane, Naela, Myrène, Lethielle, Rhea, Ysel, Maura, Lise, Néria, Mireva, Kaelen, Pell, Dhorg, Enric, Virelle Senn, Olan Vespre, Salomé d'Arqueval, les rescapés des Trois-Saules, Kharza Peau-de-Neige (et les Orques de Gor-Kadar), Reine Kaelia, Roi Aldous, Reine Ysoria, Prince Méléandre, Maëra et Alise.
 
 #### Faelia
 

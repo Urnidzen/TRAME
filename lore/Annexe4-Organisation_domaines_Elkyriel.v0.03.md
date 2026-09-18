@@ -83,7 +83,7 @@ La Forge de Rivecour ne peut pas accueillir seule toutes ces montures. Des écur
 #### Domaines personnels extra-territoriaux
 
 - **Forge naine de Rivecour :** résidence principale visible, production de pièces de très grande qualité, centre administratif et point d’ancrage du réseau de téléportation.
-- **Tour Blanche :** Centre principal des Corbeaux, pôle commercial avec Gor-Kadar, poste de garde des 4 Golems.
+- **Tour Blanche :** Centre principal des Corbeaux, pôle commercial avec Gor-Kadar, poste de garde permanent des 24 Golems de guerre lourds.
 - **Parfumerie de Karsenne :** maison, boutique de luxe, verrerie, distillerie. Publiquement dirigée par maître Leirykle.
 - **Réseau de Cercles de Téléportation et Portail permanent du Grand Air.**
 - **Navire :** bâtiment placé sous le commandement de Kaelen.
@@ -176,7 +176,7 @@ La qualité des parfums, du cristal et de l'accueil place l’établissement par
 
 L'Oasis de la Tour Blanche est devenue un carrefour diplomatique et commercial majeur entre les domaines d’Elkyriel et les Kraals de Gor-Kadar.
 
-Un comptoir d'échange permet aux Orques d’acquérir des armes, outils et pièces de forge de qualité contre des peaux, baies, minéraux et ingrédients d’altitude. Les 4 Golems de guerre de Dhor-Kez montent la garde permanente autour de l'Oasis et de l’entrée du désert.
+Un comptoir d'échange permet aux Orques d’acquérir des armes, outils et pièces de forge de qualité contre des peaux, baies, minéraux et ingrédients d’altitude. Les 24 Golems de guerre lourds montent la garde permanente autour de l'Oasis et de l’entrée du désert.
 
 ### Ogres et Ogres-Mages
 
@@ -184,7 +184,7 @@ Les Ogres ordinaires ne constituent pas seuls des clans. Les clans sont dirigés
 
 Vel'Shara dirige un clan complet d'Ogres Brutes et d'Ogres-Mages. Sa vénération des Dragons la plaçait dès l’origine à part des autres chefs, et la pureté exceptionnelle de son sang renforce son autorité sur les siens. Son clan veille, avec les Kobolds, à servir le Dragon qu’ils vénèrent en Elkyriel.
 
-La faction actuelle rassemble environ cent Ogres Brutes et dix Ogres-Mages. Elle comprend le clan initial de Vel'Shara, une ancienne faction agressive dont le chef a été tué et qui s'est rangée sous l'autorité de Vel'Shara par la force et la domination d'Elkyriel, ainsi qu'une ancienne faction isolationniste convaincue de changer. D'autres groupes dirigés par des Ogres-Mages se sont ensuite joints à eux.
+La faction actuelle rassemble environ cent cinquante Ogres Brutes et quinze Ogres-Mages (165 individus au total). Elle comprend le clan initial de Vel'Shara, une ancienne faction agressive dont le chef a été tué et qui s'est rangée sous l'autorité de Vel'Shara par la force et la domination d'Elkyriel, ainsi qu'une ancienne faction isolationniste convaincue de changer. D'autres groupes dirigés par des Ogres-Mages se sont ensuite joints à eux.
 
 Vel'Shara endoctrine progressivement ces groupes dans la vénération des Dragons et dans leur nouvelle ambition commune : accomplir ce que leurs ancêtres n'ont pas réussi à faire en vivant pleinement avec les autres peuples.
 

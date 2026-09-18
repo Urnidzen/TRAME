@@ -17,7 +17,7 @@ Ce mémo chronologique rappelle les étapes majeures ayant conduit au statu quo 
   * Exploration du Nœud souterrain de Calde-sur-Rive avec Talyra, Sera et Pell. Élimination du mutant Gaudric Fer-de-Puits.
   * Elkyriel s'expose au flux : ses écailles s'élèvent à l'adamantite, il acquiert ses capacités de mutation contrôlée et nomme le fluide **Etherium**. Fermeture et verrouillage des vannes centrales pour stopper la fuite anarchique d'énergie.
 * **Juillet 1249 (Prise d'Élyria et Naissance du Royaume de Traverse) :**
-  * Installation d'un atelier textile novateur à Élyria *(ex-Serrance)* ; conflits avec l'armateur esclavagiste Jorund Pellain et la fabricante Albe Cendre.
+* Installation d'un atelier textile novateur à Élyria ; conflits avec l'armateur esclavagiste Jorund Pellain et la fabricante Albe Cendre.
 * Dispute avec Talyra provoquant le départ d'Elkyriel. Profitant de son absence, les marchands esclavagistes attaquent la villa et remettent le foyer aux fers.
   * Elkyriel éventre le collecteur fluvial corrompu d'Élyria (coupant un tiers du flux), revient libérer les siens et sécurise son foyer. Face à la rancœur de la maisonnée envers Talyra, Elkyriel demande à chacun d'apaiser ce ressentiment par le pardon, tout en agissant pour que Talyra apprenne à se pardonner à elle-même.
   * Coup d'État d'Elkyriel : élimination des dirigeants corrompus (Veyle et Lysa), mise sous tutelle royale exclusive de Salomé d'Arqueval (Maison des Sept Clefs), abolition immédiate et totale de l'esclavage sous peine de mort.
@@ -136,15 +136,15 @@ Les puissances voisines subissent de plein fouet les quotas d'Etherium et s'enli
 
 | Personnage / Groupe | Secret Draconique d'Elkyriel | Existence du Royaume de Traverse | Réalité du quota de flux (1/20e) | Réseau des 10 Portails Royaux | Secret des Filtres d'Etherium |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Faelia, Lysandra, Nymira, Sariel, Lysa, Liriel** | **OUI** | **OUI** | **OUI** | **OUI** | **OUI** |
+| **Faelia, Lysandra, Nymira, Sariel, Liriel, Lirael** | **OUI** | **OUI** | **OUI** | **OUI** | **OUI** |
 | **Vel'Shara & Ogres / Kobolds (Strate -3)** | **OUI** | **OUI** | **OUI** | **OUI** | **OUI** |
 | **Rescapés Crique Sanglante, Mornefond, Deux-Couronnes** | **OUI** | **OUI** | **OUI** | **OUI** | Connaissance pratique |
 | **Vessa Orm & Otages de Rivet-de-Givre (Gor-Kadar)** | **OUI** | **OUI** | **OUI** | **NON** | **NON** |
-| **Talyra, Sera, Siane, Myrène, Lethielle, Naela, Lirael** | **NON** (forme elfe) | **OUI** | **OUI** | **OUI** | **OUI** |
+| **Talyra, Sera, Siane, Myrène, Lethielle, Naela** | **NON** (forme elfe) | **OUI** | **OUI** | **OUI** | **OUI** |
 | **Comtes de Traverse (Pell, Dhorg, Enric, Virelle, etc.)** | **NON** (forme elfe) | **OUI** | **OUI** | **OUI** | Connaissance pratique |
 | **Kharza Peau-de-Neige (Gor-Kadar)** | **NON** (soupçons/rumeurs) | **OUI** (alliée) | **OUI** (informée) | **OUI** | **NON** |
 | **Salomé d’Arqueval (Sept Clefs)** | **NON** | **OUI** | **OUI** (exécutante) | **OUI** | **NON** |
-| **Néria & Foyer de la Forge de Rivecour** | **NON** | **OUI** | **OUI** | **OUI** | **NON** |
+| **Néria & résidents civils de la Forge (Mila, Trois-Saules, Kaelen...)** | **NON** | **NON** (sanctuaire souterrain seul) | **NON** | **NON** | **NON** |
 | **Aélis Vaer (Astréane)** | **NON** | **OUI** (voisine) | **OUI** (subit le quota) | **NON** (rumeurs) | **NON** |
 | **Dhoran Vesk (Dhor-Kez)** | **NON** | **OUI** (voisin) | **OUI** (subit le quota) | **NON** (rumeurs) | **NON** |
 | **Reine Maélis (Orsenn)** | **NON** | **OUI** (voisine) | **OUI** (subit le quota) | **NON** (rumeurs) | **NON** |

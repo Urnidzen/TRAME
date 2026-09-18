@@ -8,15 +8,15 @@
 
 Elkyriel quitte Élyria et éventre le collecteur sous le fleuve, coupant définitivement un tiers du flux de l'axe central et plongeant la ville et les royaumes voisins dans une pénurie immédiate. Pendant son absence, la Maison des Sept Clefs et le prévôt Olan Vespre, profitant du chaos et de son départ suite à sa dispute avec Talyra, saisissent sa villa et réduisent en esclavage son foyer sous les manigances d'Albe Cendre et Jorund Pellain.
 
-### Du jeudi 15 au samedi 18 juillet 1249
+### Du jeudi 15 au dimanche 18 juillet 1249
 
 De retour, Elkyriel libère les siens par la magie et les exile dans la Cité-Monde naine. Face à la rancœur des habitants de la maison envers Talyra à qui ils reprochent de ne pas l'avoir retenu, Elkyriel leur demande d'apaiser cette rancœur en pardonnant, et agit pour que Talyra se pardonne à elle-même. Il contraint secrètement Salomé d'Arqueval à accepter sa tutelle et à abolir l'esclavage sous la menace de ses titres de Seigneur Mercenaire et de Frère de Sang des Orques. Il installe trois de ses conseillers à la table des Sept Clefs, efface les dettes du prévôt Olan, et partage des nuits torrides de réconciliation et de passion avec Talyra, Mireva, Lethielle et Myrène, transformant son refuge souterrain en un havre de plaisirs assumés et de dévotion.
 
-### Dimanche 19 et lundi 20 juillet 1249
+### Lundi 19 et mardi 20 juillet 1249
 
 Après avoir sécurisé ses arrières et retrouvé l'intimité de ses compagnes, Elkyriel déploie son armée autour de Élyria, assassine les dirigeants corrompus Veyle et Lysa, et proclame la vallée de la Traverse comme son propre royaume. Il y interdit l'esclavage sous peine de mort, s'empare de toutes les structures commerciales, et offre une nouvelle vie affranchie à ses anciens esclaves qui s'activent aux premiers grands travaux, tandis qu'Albe et Jorund sont jugés et condamnés pour clore définitivement leurs arcs respectifs.
 
-### Du mardi 21 au mercredi 29 juillet 1249
+### Du mercredi 21 au mercredi 29 juillet 1249
 
 Le royaume s'organise à marche forcée : les cités libres envoient leurs représentants, les colliers tombent dans les neuf villes, et les chantiers de murailles et de routes emploient massivement le peuple affranchi. Elkyriel partage son temps entre la gestion macroscopique de son nouveau domaine, l'accueil de sa famille élargie dans la Cité-Monde, et des moments d'intimité retrouvée et explicite avec ses compagnes, dont Siane, Mireva et Lethielle, désormais en sécurité.
 
@@ -26,7 +26,9 @@ Le couronnement d'Elkyriel en tant que roi de Traverse se tient dans la grande s
 
 ### Début août 1249
 
-Face aux représentants d'Astréane, Orsenn et Dhor-Kez, Elkyriel leur impose une réduction drastique du flux à un vingtième, prétextant un épuisement imminent des veines magiques s'ils ne financent pas d'urgence la prospection de nouveaux gisements. La ruse est magistrale : il les contraint à "investir" en nature, soutirant à Dhor-Kez 600 golems de travail, à Orsenn 6 000 morts-vivants pour les tâches pénibles, et à Astréane 60 000 sacs de nourriture. En réalité, Elkyriel utilise cette main-d'œuvre et ces ressources gratuites — payées par le flux qu'il leur vend encore au prix fort — pour bâtir son propre empire, affaiblissant militairement et économiquement ses voisins tout en s'accaparant leurs meilleures technologies sans jamais avoir à leur livrer la totalité du flux promis.
+### Début août 1249
+
+Face au tarissement réel des Veines Chaudes provoqué par des siècles de surconsommation anarchique menaçant l'effondrement du réseau, Elkyriel impose aux représentants d'Astréane, Orsenn et Dhor-Kez une réduction drastique du flux à un vingtième, seul seuil assurant la préservation de la ressource. Pour stabiliser l'infrastructure et prospecter de nouveaux gisements au bénéfice de l'Enclave, il exige une participation collective sous forme d'investissements matériels : Dhor-Kez fournit 600 golems de travail, Orsenn 6 000 corps de labeur pour les tâches pénibles, et Astréane 60 000 sacs de grain. Elkyriel déploie cette main-d'œuvre et ces ressources pour sécuriser les conduites, assainir les cités et développer son royaume, tout en garantissant la pérennité énergétique de la région.
 
 ### Automne 1249
 
@@ -42,7 +44,7 @@ Elkyriel lève la Garde de la Traverse, une armée permanente de plusieurs milli
 
 ### Été 1250
 
-Par de vastes rituels magiques, Elkyriel fait croître forêts, jardins suspendus et canopées au cœur même des neuf cités, transformant les rues de pierre en cités-jardins à l'esthétique elfique où la végétation luxuriante purifie l'air et abrite une société et une population désormais pleinement multiraciales et libres — humains majoritaires, kobolds et orques nombreux, nains et elfes rares mais respectés, ogres et ogres mages peu communs mais intégrés. Elkyriel inaugure ensuite un vaste réseau de portails magiques reliant les dix cités du royaume (les neuf cités de surface — Élyria, Calde-sur-Rive, Clair-Verger, Grands-Vergers, Rive-Noire, Asten, Haute-Rive, Bois-Serein et le Puits de Veyr — ainsi que la Forteresse-Monde souterraine), chaque cité disposant d'une place royale monumentale où dix arches de basalte restent ouvertes en permanence et peuvent être closes en cas de menace. Une garde d'élite multiraciale est spécialement déployée pour surveiller ces carrefours et contrôler les voyageurs, garantissant la sécurité des échanges à travers tout le royaume, une révolution magique qui relègue instantanément les anciennes routes principales au rang de chemins secondaires.
+Par de vastes rituels magiques, Elkyriel fait croître forêts, jardins suspendus et canopées au cœur même des neuf cités, transformant les rues de pierre en cités-jardins à l'esthétique elfique où la végétation luxuriante purifie l'air et abrite une société et une population désormais pleinement multiraciales et libres — humains majoritaires, kobolds et orques nombreux, nains et elfes rares mais respectés, ogres et ogres mages peu communs mais intégrés. Elkyriel inaugure ensuite un vaste réseau de portails magiques reliant les dix cités du royaume (les neuf cités de surface — Élyria, Calde-sur-Rive, Clair-Verger, Grands-Vergers, Rive-Noire, Asten, Haute-Rive, Bois-Serein et le Puits de Veyr — ainsi que la Forteresse-Monde souterraine), chaque cité disposant d'une place royale monumentale où neuf arches de basalte restent ouvertes en permanence et peuvent être closes en cas de menace. Une garde d'élite multiraciale est spécialement déployée pour surveiller ces carrefours et contrôler les voyageurs, garantissant la sécurité des échanges à travers tout le royaume, une révolution magique qui relègue instantanément les anciennes routes principales au rang de chemins secondaires.
 Au palais de Élyria, la cour s'organise autour d'un harem libre où les compagnes d'Elkyriel, guidées par la première concubine Faelia respectée comme première épouse, vivent leurs passions et assouvissent leurs fantasmes entre elles sans retenue ni jalousie.
 Pendant ce temps, les royaumes voisins s'enlisent dans des crises économiques et des méfiances mutuelles, incapables de s'unir face à leur déclin, tandis que la Chef Orque Kharza et sa suite, considérées comme membres de la famille royale, circulent librement dans la vallée.
 
