@@ -1,7 +1,8 @@
 # 📜 ANNEXE 1 : ATLAS
 **État du monde de référence : Été 1250.**
-Cet Atlas décrit l'état factuel du monde à cette date : géographie, lieux, distances, structures, occupations, présences et créatures. Il ne retient que les lieux récurrents ou significatifs à l’échelle du monde. Il ne recense donc pas systématiquement les chemins et sentiers locaux, les habitations ordinaires ni les lieux ponctuels servant uniquement au déroulement d’une scène. Il ne constitue pas une chronologie et n'a pas vocation à raconter le déroulement des événements.
-Les éléments historiques sont toutefois conservés lorsqu'ils sont nécessaires pour comprendre la structure, la fonction, l'origine ou l'état actuel d'un lieu.
+Cet Atlas décrit l'état factuel du monde à cette date : géographie, lieux, distances, structures, occupations, présences et créatures. 
+Les cités, forteresses, bourgs et villages répertoriés dans cet Atlas ne constituent en aucun cas une liste exhaustive. Chaque royaume et province abrite un maillage de nombreuses autres bourgades, villages agricoles, hameaux, relais, chemins locaux et domaines qui ne figurent pas dans ce document. L'Atlas s'efforce de donner une image représentative et structurée du monde, sans prétendre en recenser chaque établissement.
+Il ne constitue pas une chronologie et n'a pas vocation à raconter le déroulement des événements. Les éléments historiques sont toutefois conservés lorsqu'ils sont nécessaires pour comprendre la structure, la fonction, l'origine ou l'état actuel d'un lieu.
 
 ## 1. VUE D'ENSEMBLE DE LA RÉGION
 ### Géographie générale et repères cartographiques
@@ -123,7 +124,9 @@ Pour un trajet inverse, le temps reste identique et l'orientation est opposée, 
 - **Massif frontalier et Varethis** : La route s'élève à travers le massif jusqu'à la Passe des Trois Bornes, col de haute montagne, puis redescend vers la haute vallée où se trouve Karsenne. Cette vallée est froide et demeure sensiblement plus élevée que les plaines d'Ardélie, tout en étant plus basse que la Passe.
 - **Archipel des Tempêtes** : Milieu insulaire volcanique au climat tropical étouffant. Les îles sont couvertes d'une végétation luxuriante souvent difficile à traverser et ponctuées de fumerolles sulfureuses. Leurs côtes sont généralement ceinturées de récifs coralliens et fréquemment noyées dans une brume persistante.
 - **Hautes-Lames** : Chaîne abrupte orientée NW-SE de pics sombres, glaciers et couloirs d'avalanches. Hiver rigoureux, fonte brutale en mars-avril rendant les cols boueux et dangereux, étés courts et secs en altitude.
-- **Enclave des Cinq Trônes et Veines Chaudes** : Vaste cuvette continentale régulée par un réseau géothermique et magique naturel, **les Veines Chaudes**, dans lesquelles circule un fluide énergétique appelé **l'Etherium**. L'Etherium est un liquide caloporteur naturel, compressible pour actionner vérins et machines, hautement conducteur de magie, mais extrêmement volatil à l'air libre. À très faible dose, il nourrit les sols et les corps ; à forte dose brute non filtrée (près des prises et des fuites de conduites), il provoque des déformations et mutations corporelles sévères. Dans le Royaume de Traverse, l'usage des *Filtres de l'Érudit* et d'amulettes de protection adaptées a assaini l'environnement urbain et agricole, transformant les cités en oasis tempérées verdoyantes (*Cités-Jardins*).
+- **Enclave des Cinq Trônes et Veines Chaudes** : Vaste cuvette continentale régulée par un réseau géothermique et magique millénaire, **les Veines Chaudes**, dans lesquelles circule un fluide énergétique unique appelé **l'Etherium**.
+  - *Origine, monopole et infrastructure antique* : L'Etherium brut est **exclusivement présent dans le sous-sol du Royaume de Traverse**. L'ensemble du réseau de captage, de vannes cyclopéennes et de canalisations scellées traversant l'Enclave provient d'une **civilisation précurseur inconnue**, antérieure même aux premières dynasties naines. Les civilisations actuelles ne font qu'entretenir, exploiter et tenter d'analyser ces infrastructures sans être capables d'en reproduire la technologie. Toute prospection en dehors du gisement géologique de Traverse est vaine, et forer de nouveaux accès hors du réseau préexistant est extrêmement hasardeux. Les quatre autres puissances de l'Enclave (Astréane, Dhor-Kez, Orsenn et Gor-Kadar) dépendent donc entièrement des conduites antiques et des résurgences terminales issues de Traverse pour leur approvisionnement en flux.
+  - *Propriétés physiques et biologiques* : L'Etherium est un fluide caloporteur lourd, compressible pour actionner vérins et machineries, conducteur d'énergie magique pure, mais hautement volatil à l'air libre. À très faible dose, il nourrit les sols et adoucit le climat ; à forte dose brute non filtrée (au contact direct de prises ou de ruptures de conduites), il engendre de graves mutations corporelles et minérales. Dans le Royaume de Traverse, le déploiement des *Filtres de l'Érudit* a assaini les réseaux urbains et agricoles, transformant les agglomérations en oasis tempérées verdoyantes (*Cités-Jardins*).
 - **Forteresse-Monde et profondeurs** : Les conditions thermiques varient fortement avec la profondeur et la proximité des secteurs géothermiques. Les premières strates restent tempérées à chaudes, puis la température augmente fortement dans les niveaux profonds. La Strate -4 atteint couramment **150 à 200°C** dans les secteurs exposés, tandis que ses galeries techniques permettent un transit à des températures plus faibles (50-60°C). La Strate -5 présente une température moyenne de **28 à 30°C**, mais des variations locales extrêmes allant d'environ **10°C à près de 400°C** selon la proximité du lac de roche en fusion et l'influence de l'Éther-Basalte.
 
 ### Faune et populations
@@ -652,6 +655,8 @@ Après la Passe, la route reste d'abord sinueuse dans les montagnes, puis descen
 De nombreuses voies secondaires se détachent de cet axe principal. Anciennes routes de carriers, chemins ruraux, pistes forestières et sentiers desservent notamment la Bâtisse d'Orven et de Colm, la Grange des Trois-Saules, la Bergerie sous Roche, la Carrière de Beran et d'autres sites des Marches.
 Les Salines de Mornefond sont nettement séparées de cet axe : elles se trouvent très au sud de Deux-Couronnes, aux coordonnées **(13,04 ; -9,16)**. Leur itinéraire terrestre exact depuis Rochebrune n'est actuellement pas établi.
 
+*(Note régionale : Le royaume d'Ardélie et le royaume de Varethis comptent des centaines de hameaux, fermes fortifiées, prieurés et villages non répertoriés dans ce document).*
+
 ### 10.2. Rochebrune
 **Type : bourg humain fortifié.**
 
@@ -974,6 +979,7 @@ Une route quitte la région de Rivecour vers le sud-ouest et dessert successivem
 ---
 
 ## 12. L'ENCLAVE DES CINQ TRONES, LES HAUTES-LAMES ET LES PUISSANCES DU NORD
+*L'Enclave des Cinq Trônes constitue un espace fermé, articulé autour du réseau millénaire des Veines Chaudes. Les lieux décrits ci-après en offrent un aperçu représentatif, chaque nation comptant par ailleurs de nombreux autres bourgs, camps, manufactures et villages locaux. La géopolitique entière de l'Enclave repose sur l'acheminement de l'Etherium, dont l'unique gisement se trouve sous le Royaume de Traverse et dont les conduites souterraines traversent les frontières depuis des âges oubliés.*
 
 ### 12.1. Les Hautes-Lames et les Accès Occidentaux
 Chaîne de montagnes rocheuses, escarpées et glacées marquant la frontière nord-nord-est de l'Immensité Grise et isolant l'Enclave des Cinq Trônes. L'ancienne voie occidentale s'étant effondrée il y a plus de six générations, le massif ne se franchit en surface que par des hauts cols d'altitude dangereux, praticables uniquement à la belle saison.
@@ -986,7 +992,7 @@ Chaîne de montagnes rocheuses, escarpées et glacées marquant la frontière no
 - **Faune locale** : Meute de la Ravine Blanche (9 Loups Géants/Worgs à 3 j au nord-est des Pierres-Froides), 4 Drakes des Falaises nichant sur les corniches rocheuses, 6 Drakes Rocheux dans les failles chaudes.
 
 ### 12.2. Royaume Orque de Gor-Kadar
-Royaume exclusivement orque établi sur les hauts plateaux septentrionaux (population estimée à environ 360 000 orques, mobilisant 16 000 guerriers). La société repose sur la démocratie des Kraals, le Cercle des Paroles et l'incapacité biologique des orques à mentir.
+Royaume exclusivement orque établi sur les hauts plateaux septentrionaux (population estimée à environ 360 000 orques, mobilisant 16 000 guerriers répartis entre une multitude de camps, kraals d'estive et hameaux pastoraux). La société repose sur la démocratie des Kraals, le Cercle des Paroles et l'incapacité biologique des orques à mentir. L'alimentation thermique de la région provient d'exutoires et résurgences naturelles de surface marquant l'extrémité septentrionale des Veines Chaudes originaires de Traverse.
 
 - **Kadar-Rauk — (11,00 ; 26,50)** : Capitale du Royaume Orque de Gor-Kadar, bâtie sur de hauts plateaux rocheux autour des Sources de Rauk (sources thermales géothermales). Cité de pierre basse aux larges rampes ouvertes, abritant le **Cercle des Paroles** (amphithéâtre politique public) et le **Palais du puy** de la Voix-Couronne Kharza Peau-de-Neige (qui porte à sa ceinture l'épée en Fer Lunaire *Veyra-Kadar*). Territoire allié officiel d'Elkyriel, proclamé **Frère de Sang de la Couronne**.
 - **Sources de Rauk — (12,90 ; 27,80)** : Vastes bassins thermaux géothermaux, pâturages chauds et lieux de serment. Lieu de résidence surveillée des otages diplomatiques de Dhor-Kez (l'intendante Vessa Orm, 32 ouvriers et 42 gardes de Rivet-de-Givre).
@@ -1006,7 +1012,8 @@ Ancien ensemble de cités marchandes indépendantes unifié sous la couronne de 
 - **Assainissement de l'Etherium** : Utilisation des « Filtres de l'Érudit » et d'amulettes de protection sur les conduites, éliminant les mutations d'Etherium parmi les travailleurs.
 - **Le fleuve Avar** : Grand axe fluvial traversant la vallée centrale de la Traverse d'ouest en est.
 - **Le Lac Mirant** : Vaste plan d'eau bordant la frontière nord de Traverse, la séparant d'Orsenn à l'est et d'Astréane à l'ouest ; une conduite sous-lacustre d'Etherium traverse ses profondeurs.
-- **Le Nœud de Calde** : Complexe souterrain antique de basalte comprenant six puits verticaux, trois galeries de distribution et une chambre centrale où se croisent vapeur et flux magiques. Sécurisé, il abrite des Drakes Rocheux et d'anciennes salles scellées.
+- **Le Nœud de Calde et le Monopole de l'Etherium** : Complexe souterrain antique colossal de basalte et d'alliages inconnus, bâti par une civilisation précurseur mystérieuse. Il constitue la station maîtresse de pompage et de régulation de tout le Bassin. C'est ici, et exclusivement dans le sous-sol de Traverse, que prend sa source l'Etherium. Le Nœud régule les vannes primaires qui injectent le fluide sous pression dans les artères scellées alimentant les royaumes voisins. Les ingénieurs actuels se contentent d'assurer la maintenance préventive et d'analyser ce réseau sans pouvoir en reproduire les composants fondamentaux.
+- **Réseau d'habitat** : Outre les dix cités majeures (les neuf de surface et la Forteresse-Monde), la Traverse est sillonnée d'une multitude de bourgades, de villages et de stations secondaires.
 
 #### Les Cités du Royaume
 
@@ -1033,7 +1040,7 @@ Ancien ensemble de cités marchandes indépendantes unifié sous la couronne de 
 ---
 
 ### 12.4. Concordat d'Astréane
-Royaume magocratique du nord (environ 620 000 habitants, 8 000 combattants). Société divisée entre *Accordés* (lanceurs de sorts), *Liants* (artisans des focalisateurs) et *Sans-Étincelle* (travailleurs ordinaires sans magie). Gouverné par le **Collège des Sept Foyers** (dirigé par la Première Accordée Aélis Vaer).
+Royaume magocratique du nord (environ 620 000 habitants, 8 000 combattants, répartis entre les cités majeures, les cités-dortoirs d'ateliers et de nombreuses communautés rurales sous verres). Société divisée entre *Accordés* (lanceurs de sorts), *Liants* (artisans des focalisateurs) et *Sans-Étincelle* (travailleurs ordinaires sans magie). Gouverné par le **Collège des Sept Foyers** (dirigé par la Première Accordée Aélis Vaer). Le Concordat dépend totalement des conduites sous-lacustres provenant du réseau de Traverse pour alimenter ses tours-focalisateurs et ses serres vitales en fluide magique.
 
 - **Lumérys — (19,40 ; 37,70)** : Capitale bâtie en terrasses de pierre blanche autour de serres de cristal et de hautes tours-focalisateurs luminescentes qui luisent sans flamme la nuit.
 - **Val-Opale — (18,20 ; 38,50)** : Immense vallée de serres magiquement chauffées assurant la subsistance alimentaire du Concordat.
@@ -1043,16 +1050,16 @@ Royaume magocratique du nord (environ 620 000 habitants, 8 000 combattants). Soc
 ---
 
 ### 12.5. Ligues de Dhor-Kez
-Confédération industrielle de six cités-usines à l'est (environ 480 000 habitants, 12 000 soldats et ouvriers armés). Technologie avancée de la vapeur, forages profonds, presses, rails et maîtrise des cœurs de golems. Société dominée par les dettes héréditaires et gouvernée par le **Conclave des Six Fumées** (mené par le premier syndic Dhoran Vesk).
+Confédération industrielle de six cités-usines à l'est et d'un dense tissu de colonies minières, fonderies secondaires et cités ouvrières (environ 480 000 habitants, 12 000 soldats et ouvriers armés). Technologie avancée de la vapeur, forages profonds, presses, rails et maîtrise des cœurs de golems. Société dominée par les dettes héréditaires et gouvernée par le **Conclave des Six Fumées** (mené par le premier syndic Dhoran Vesk). Les manufactures et cœurs de golems dépendent des conduites haute-pression scellées reliées au réseau de Traverse.
 
 - **Kez-Bruma — (33,00 ; 23,10)** : Métropole industrielle colossale couverte de cheminées de cuivre, de grues à vapeur, de presses mécaniques et de fonderies monumentales.
-- **Dhor-Siphon — (31,90 ; 19,60)** : Cité-usine construite autour du puits de forage géothermique le plus profond du Bassin.
+- **Dhor-Siphon — (31,90 ; 19,60)** : Cité-usine construite autour du puits de forage géothermique le plus profond du Bassin. Malgré des profondeurs records, les forages de Dhor-Kez ne captent que de l'eau et de la vapeur tellurique ordinaire : aucune nappe d'Etherium n'existe sous leurs terres, confirmant l'impossibilité de s'affranchir du flux canalisé de Traverse.
 - **Kez-Marteau — (35,40 ; 20,90)** : Cité de forges et de manufactures indépendantes, fief de la faction des *Ateliers Libres*.
 - **Dragon résident** : **Kaldrielle**, Dragonne Bestiale (*La Mère des Brasiers*), nichant dans une carrière géothermique au nord-est de Kez-Bruma.
 ---
 
 ### 12.6. Royaume d'Orsenn
-Royaume des plaines basses du sud-est (environ 710 000 vivants et 190 000 morts actifs ; 9 000 soldats vivants et jusqu'à 35 000 corps mobilisables). L'économie repose sur la nécromancie légale et la **Loi des corps** (*Service offert, Service de dette, Service pénal, Repos entier*). Gouverné par la reine vivante **Maélis d'Orsenn** et la **Chambre des Derniers Contrats**, conseillées par quatre Liches reconnues.
+Royaume des plaines basses du sud-est comprenant de multiples bourgs funéraires, nécropoles secondaires et villages (environ 710 000 vivants et 190 000 morts actifs ; 9 000 soldats vivants et jusqu'à 35 000 corps mobilisables). L'économie repose sur la nécromancie légale et la **Loi des corps** (*Service offert, Service de dette, Service pénal, Repos entier*). Gouverné par la reine vivante **Maélis d'Orsenn** et la **Chambre des Derniers Contrats**, conseillées par quatre Liches reconnues. Les grands bassins de saumure et de conservation des corps dépendent des conduites terminales d'Etherium froid acheminées depuis le réseau antique de Traverse.
 
 - **Orsenn — (33,70 ; 31,70)** : Capitale fluviale et nécropole royale, découpée de canaux rectilignes où les morts travaillent au halage et à l'entretien urbain.
 - **Val-Morne — (37,30 ; 29,50)** : Port d'attache des convois de barges funéraires reliant les différentes nécropoles.
