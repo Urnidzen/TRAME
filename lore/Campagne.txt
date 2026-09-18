@@ -1,0 +1,167 @@
+# CAMPAGNE — L’ENCLAVE DES CINQ TRÔNES *(LES VEINES D’AVARRE)*
+
+> **Document de campagne — Contenu secret MJ.**  
+> **État du monde de référence : Été 1250.**
+
+---
+
+## 1. RÉCAPITULATIF SYNTHÉTIQUE DES ÉVÉNEMENTS CLÉS (1248 – 1250)
+
+Ce mémo chronologique rappelle les étapes majeures ayant conduit au statu quo actuel :
+
+* **Hiver 1248 – Printemps 1249 (Crise de la Brèche et Alliance Orque) :**
+  * Dhor-Kez et la Maison des Sept Clefs percent clandestinement un tunnel sous les Hautes-Lames ; le commandant Merek massacre le camp orque des Pierres-Froides.
+  * Elkyriel intervient : destruction de la foreuse, scellement de l'entrée ouest du tunnel (Brèche de Vard), capture de 4 Golems de guerre et saisie des ordres secrets de Salomé d'Arqueval portés par l'intendante Vessa Orm.
+  * Procès public de Kadar-Rauk (24 mars 1249) : exécution de Merek, otages de Dhor-Kez placés aux Sources de Rauk, bannissement de Salomé de Gor-Kadar. Elkyriel est proclamé **Frère de Sang de la Couronne de Gor-Kadar**.
+* **Mai 1249 (Sécurisation du Nœud de Calde-sur-Rive et Éveil à l'Etherium) :**
+  * Exploration du Nœud souterrain de Calde-sur-Rive avec Talyra, Sera et Pell. Élimination du mutant Gaudric Fer-de-Puits.
+  * Elkyriel s'expose au flux : ses écailles s'élèvent à l'adamantite, il acquiert ses capacités de mutation contrôlée et nomme le fluide **Etherium**. Fermeture et verrouillage des vannes centrales pour stopper la fuite anarchique d'énergie.
+* **Juillet 1249 (Prise d'Élyria et Naissance du Royaume de Traverse) :**
+  * Installation d'un atelier textile novateur à Élyria *(ex-Serrance)* ; conflits avec l'armateur esclavagiste Jorund Pellain et la fabricante Albe Cendre.
+* Dispute avec Talyra provoquant le départ d'Elkyriel. Profitant de son absence, les marchands esclavagistes attaquent la villa et remettent le foyer aux fers.
+  * Elkyriel éventre le collecteur fluvial corrompu d'Élyria (coupant un tiers du flux), revient libérer les siens et sécurise son foyer. Face à la rancœur de la maisonnée envers Talyra, Elkyriel demande à chacun d'apaiser ce ressentiment par le pardon, tout en agissant pour que Talyra apprenne à se pardonner à elle-même.
+  * Coup d'État d'Elkyriel : élimination des dirigeants corrompus (Veyle et Lysa), mise sous tutelle royale exclusive de Salomé d'Arqueval (Maison des Sept Clefs), abolition immédiate et totale de l'esclavage sous peine de mort.
+  * **30 juillet 1249 : Couronnement d'Elkyriel comme Roi de Traverse** en présence de la reine orque Kharza Peau-de-Neige.
+* **Août 1249 – Été 1250 (Régulation du Flux, Tributs et Révolution des Portails) :**
+  * Face au tarissement réel des Veines Chaudes provoqué par des siècles de surconsommation, Elkyriel impose aux puissances voisines (Astréane, Dhor-Kez, Orsenn) une réduction stricte du débit à **1/20e**, seul seuil assurant la pérennité du réseau. En contrepartie du maintien de ce flux vital et de la prospection, il exige un investissement en ressources : **600 golems de travail (Dhor-Kez), 6 000 corps de labeur (Orsenn) et 60 000 sacs de grains (Astréane)**.
+  * Ateliers royaux : réplication et entretien portés à 1 200 golems et 10 000 morts-vivants pour les grands chantiers ; adaptation des serres magiques.
+  * Mise au point des **Filtres de l'Érudit** (fin des mutations d'Etherium), transformation des dix cités en **Cités-Jardins** luxuriantes et inauguration du **Réseau des dix Portails royaux permanents**.
+
+---
+
+## 2. GÉOPOLITIQUE EXTÉRIEURE & PNJ CLÉS (ÉTÉ 1250)
+
+Les puissances voisines subissent de plein fouet les quotas d'Etherium et s'enlisent dans des difficultés économiques dues à leur ancienne surconsommation.
+
+---
+
+### A. Concordat d’Astréane (Magocratie du Nord)
+* **État en Été 1250 :** Le rationnement strict du flux a forcé l'extinction partielle des tours-focalisateurs et la réduction du chauffage des serres de Val-Opale. La livraison des 60 000 sacs de grains imposée pour maintenir l'approvisionnement en flux a créé une vive grogne chez les Sans-Étincelle.
+* **Aélis Vaer (Première Accordée — Elfe, 243 ans) :**
+  * *Profil :* **Indigène — Shaman** (focalisateur en verre).
+  * *Position :* Cherche à éviter un conflit armé mais subit la pression de la faction *Clarté Première*, qui réclame la réouverture forcée des vannes du Sud.
+* **Sévra Noll (Officière des Veilleurs de Verre — Humaine, 34 ans) :**
+  * *Profil :* **Kobold — Shaman** (statistiques) / Apparence humaine.
+  * *Position :* À la tête du mouvement de défense des Sans-Étincelle, qui refusent de payer le prix des restrictions magiques décidées par les élites.
+* **Dragon Saoriel (Dragon Noble) :** Réside dans son observatoire au-dessus de Lumérys. Conserve une neutralité distante et observe le déclin des tours d'Astréane.
+
+---
+
+### B. Ligues de Dhor-Kez (Confédération Industrielle de l'Est)
+* **État en Été 1250 :** La cession des 600 golems de travail et la baisse de débit de vapeur ont ralenti l'activité des cités-usines. Les Ligues peinent à adapter leurs machines à un modèle moins énergivore.
+* **Dhoran Vesk (Premier Syndic de Kez-Bruma — Nain, 133 ans) :**
+  * *Profil :* **Marchand**.
+  * *Position :* Hostile aux quotas imposés par Traverse, cherchant des solutions alternatives de forage profond malgré les risques d'effondrement.
+* **Brunna Khord (Maîtresse Ingénieure — Naine, 89 ans) :**
+  * *Profil :* **Vétéran**.
+  * *Position :* Tente de reconcevoir des chaudières à basse pression pour s'adapter à la réalité des quotas de flux sans briser les ouvriers.
+* **Léonie Varc (Meneuse des Ateliers Liés — Humaine, 29 ans) :**
+  * *Profil :* **Chef de bande**.
+  * *Position :* Mène les mouvements sociaux à Kez-Bruma contre les cadences forcées imposées pour compenser le départ des golems.
+* **Dragon Mordrakh (Dragon Bestial) :** Niche dans une ancienne carrière géothermique au nord-est de Kez-Bruma ; territorial et imprévisible.
+
+---
+
+### C. Royaume d’Orsenn (Royaume Nécromantique du Sud-Est)
+* **État en Été 1250 :** La cession de 6 000 corps de labeur pour compenser le soutien technique de Traverse a tendu l'économie agraire des Roseaux Noirs.
+* **Reine Maélis d’Orsenn (Humaine, 42 ans) :**
+  * *Profil :* **Marchand**.
+  * *Position :* Cherche à préserver la stabilité du royaume tout en gérant l'audit des contrats de service funéraire sous l'œil critique des Liches.
+* **Yseult Nérame (Juriste-Nécromancienne — Humaine, 36 ans) :**
+  * *Profil :* **Indigène — Shaman**.
+  * *Position :* Veille au strict respect de la Loi des corps face aux dérives créées par le manque de main-d'œuvre à Val-Morne et aux Roseaux Noirs.
+* **Les Quatre Liches Conseillères (*Edran, Dame Verrine, Silex, Aube-Sans-Souffle*) :**
+  * Suivent avec grand intérêt la gestion rationnelle et la stabilisation des flux par Traverse, tout en s'interrogeant sur la longévité de leurs propres réserves.
+
+---
+
+### D. Couronne de Gor-Kadar (Royaume Orque du Nord)
+* **État en Été 1250 :** Économie stable et sources chaudes préservées. Les échanges avec la Tour Blanche et Traverse fournissent des outils et de l'acier de haute qualité en échange de peaux, minéraux et produits d'altitude (Haut-Bois, Haut-Varek).
+* **Kharza Peau-de-Neige (Voix-Couronne — Orque, 35 ans) :**
+  * *Profil :* **Chevalier** (porte *Veyra-Kadar*).
+  * *Position :* Alliée fidèle d'Elkyriel. Libre circulation réciproque garantie. Elle ignore la forme draconique d'Elkyriel.
+* **Vorga Quatre-Cicatrices (Cheffe de la Marche du Nord — Orque, 40 ans) :**
+  * *Profil :* **Chef de bande**.
+  * *Position :* Respecte la force de Traverse mais maintient ses guerriers en alerte face à l'instabilité grandissante d'Astréane.
+* **Vessa Orm (Naine, 71 ans) :**
+  * *Profil :* **Coupe-jarret**.
+  * *Position :* Résidence surveillée aux Sources de Rauk, gérant avec rigueur la comptabilité des réparations de Dhor-Kez sous garde orque.
+
+---
+
+### E. Maison des Sept Clefs (Élyria)
+* **Salomé d’Arqueval (Humaine, 38 ans) :**
+  * *Profil :* **Chef de bande** / Maîtresse financière.
+  * *Position :* **Seule à la tête de la Maison**, débarrassée de ses associés corrompus et **strictement soumise à la tutelle royale d'Elkyriel**. Elle gère le réseau financier et logistique depuis les Quais d’Élyria au service exclusif de la Couronne de Traverse.
+
+---
+
+## 3. INTRIGUES SECRÈTES & TENSIONS ACTIVES (RÉSERVÉ AU MJ)
+
+### ⚠️ Tension 1 : La Pression des Quotas et le Ressentiment des Voisins
+* **Le Contexte :** Astréane, Dhor-Kez et Orsenn souffrent du rationnement à 1/20e et jalousent la prospérité éclatante des Cités-Jardins de Traverse (Élyria, Calde-sur-Rive, Clair-Verger, Grands-Vergers, Bois-Serein...), rendue possible par les Filtres et l'efficacité royale.
+* **Pistes MJ :** 
+  * Des factions extrémistes d'Astréane (*Clarté Première*) ou des maîtres de forge de Dhor-Kez envisagent des opérations armées ou des sabotages pour forcer les vannes de Calde-sur-Rive ou s'emparer d'un collecteur majeur sur le Lac Mirant.
+  * Tentatives de négociation sous tension ou création d'un front diplomatique commun contre les quotas d'Élyria.
+
+---
+
+### ⚠️ Tension 2 : Le Cloisonnement Géopolitique (Sud & Ouest)
+* **Le Contexte :** Ni l'Ardélie (Kaelia / Aldous) ni Varethis (Ysoria) ne soupçonnent qu'Elkyriel, qu'ils considèrent comme un simple Seigneur Mercenaire et parfumeur d'élite, règne sur un royaume unifié de 380 000 sujets dans l’Enclave des Cinq Trônes au-delà des montagnes. La traversée de l'Immensité Grise et l'accès aux cols septentrionaux sont bien trop sauvages, lointains et surveillés par Gor-Kadar pour qu'un voyageur ou fuyard ordinaire ne découvre le Nord par hasard.
+* **Pistes et risques réels pour le MJ :** 
+  * **Espionnage direct :** Envois d'espions de la Couronne d'Ardélie ou du Conseil de Varethis cherchant à percer le mystère de la richesse, des ressources matérielles ou des absences régulières du « Seigneur Mercenaire ».
+  * **Fuites et indiscrétions au Sud :** Risque de bavure ou de fuite parmi les employés, marchands, ateliers et commerces de façade d'Elkyriel (à Rivecour, Aldhaven ou dans la parfumerie de Karsenne).
+  * **Surveillance des Cercles :** Tentative de filature ou de surveillance magique autour des passages et convois discrets reliant les forges et ateliers du Sud.
+  * **Enjeu :** Comment réagiront Kaelia ou Ysoria si leurs services de renseignement découvrent l'existence de cette superpuissance à leurs frontières et la double vie d'Elkyriel ?
+
+---
+
+### ⚠️ Tension 3 : Les Dragons Résidents de l’Enclave
+* **Le Contexte :** Les dragons de l'Enclave (*Saoriel en Astréane, Mordrakh à Dhor-Kez, Rauk-Griffe à Gor-Kadar, Nymorath en Traverse sous les traits de « Maître Nymor »*) ignorent pour l'instant qu'un Dragon Véritable d'Adamantite porte la Couronne de Traverse.
+* **Pistes MJ :** 
+  * Une rencontre naturelle (lors d'un vol longue distance, d'une exploration de frontière ou d'une visite chez le collectionneur Maître Nymor à Élyria).
+  * Les réactions varieront selon leur tempérament : curiosité intellectuelle pour Nymorath, fierté hautaine pour Saoriel, férocité territoriale pour Mordrakh ou Rauk-Griffe.
+
+---
+
+### ⚠️ Tension 4 : Espionnage et Secrets d'État
+* **Le Contexte :** Les technologies exclusives de Traverse (les *Filtres de l'Érudit*, les serres adaptées, la chaîne de maintenance des golems et le réseau des dix Portails) suscitent la convoitise des guildes étrangères.
+* **Pistes MJ :** 
+  * Tentatives d'infiltration d'ingénieurs de Dhor-Kez ou d'émissaires d'Astréane cherchant à dérober un exemplaire de filtre ou les plans d'un portail.
+  * Contre-espionnage assuré par les Corbeaux de Lysandra et la Garde des Portails.
+
+---
+
+## 4. MATRICE DES CONNAISSANCES & SECRETS (ÉTÉ 1250)
+
+| Personnage / Groupe | Secret Draconique d'Elkyriel | Existence du Royaume de Traverse | Réalité du quota de flux (1/20e) | Réseau des 10 Portails Royaux | Secret des Filtres d'Etherium |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Faelia, Lysandra, Nymira, Sariel, Lysa, Liriel** | **OUI** | **OUI** | **OUI** | **OUI** | **OUI** |
+| **Vel'Shara & Ogres / Kobolds (Strate -3)** | **OUI** | **OUI** | **OUI** | **OUI** | **OUI** |
+| **Rescapés Crique Sanglante, Mornefond, Deux-Couronnes** | **OUI** | **OUI** | **OUI** | **OUI** | Connaissance pratique |
+| **Vessa Orm & Otages de Rivet-de-Givre (Gor-Kadar)** | **OUI** | **OUI** | **OUI** | **NON** | **NON** |
+| **Talyra, Sera, Siane, Myrène, Lethielle, Naela, Lirael** | **NON** (forme elfe) | **OUI** | **OUI** | **OUI** | **OUI** |
+| **Comtes de Traverse (Pell, Dhorg, Enric, Virelle, etc.)** | **NON** (forme elfe) | **OUI** | **OUI** | **OUI** | Connaissance pratique |
+| **Kharza Peau-de-Neige (Gor-Kadar)** | **NON** (soupçons/rumeurs) | **OUI** (alliée) | **OUI** (informée) | **OUI** | **NON** |
+| **Salomé d’Arqueval (Sept Clefs)** | **NON** | **OUI** | **OUI** (exécutante) | **OUI** | **NON** |
+| **Néria & Foyer de la Forge de Rivecour** | **NON** | **OUI** | **OUI** | **OUI** | **NON** |
+| **Aélis Vaer (Astréane)** | **NON** | **OUI** (voisine) | **OUI** (subit le quota) | **NON** (rumeurs) | **NON** |
+| **Dhoran Vesk (Dhor-Kez)** | **NON** | **OUI** (voisin) | **OUI** (subit le quota) | **NON** (rumeurs) | **NON** |
+| **Reine Maélis (Orsenn)** | **NON** | **OUI** (voisine) | **OUI** (subit le quota) | **NON** (rumeurs) | **NON** |
+| **Reine Kaelia (Ardélie)** | **NON** | **NON** (ignore tout) | **NON** | **NON** | **NON** |
+| **Reine Ysoria (Varethis)** | **NON** | **NON** (ignore tout) | **NON** | **NON** | **NON** |
+
+---
+
+## 5. OUTILS D'ARBITRAGE RAPIDE & RENCONTRES TYPES
+
+Profils types du bestiaire de base à mobiliser rapidement en cours de séance :
+
+| Type de détachement | Composition type d'escorte / patrouille | Profils de base à utiliser |
+| :--- | :--- | :--- |
+| **Garde des Portails (Traverse)** | 6 Soldats multiraciaux, 1 Officier, 1 Kobold Shaman | 6 **Gardes/Fantassins**, 1 **Vétéran**, 1 **Kobold — Shaman** |
+| **Garde des Veines (Traverse)** | 8 Soldats équipés de filtres, 1 Ogre Brute | 8 **Vétérans**, 1 **Ogre — Brute** |
+| **Émissaires / Éclaireurs d'Astréane** | 4 Focalistes, 2 Gardes d'escorte | 4 **Kobolds — Shamans** (humains/elfes), 2 **Gardes/Fantassins** |
+| **Détachement technique de Dhor-Kez** | 6 Ouvriers armés, 2 Ingénieurs, 1 Golem de travail | 6 **Gardes**, 2 **Vétérans**, 1 **Golem de travail** |
+| **Convoi de service d'Orsenn** | 1 Nécromancien, 12 Squelettes, 6 Zombies | 1 **Indigène — Shaman**, 12 **Squelettes**, 6 **Zombies** |
+| **Patrouille de frontière de Gor-Kadar** | 8 Guerriers orques, 2 Paroles de guerre | 8 **Gardes/Fantassins**, 2 **Vétérans** |
