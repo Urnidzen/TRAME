@@ -670,8 +670,8 @@
             "NAIN_FÉMININ": "portraits/portrait_femme_nain.png",
             "ORQUE_MASCULIN": "portraits/portrait_homme_orque.png",
             "ORQUE_FÉMININ": "portraits/portrait_femme_orque.png",
-            "DRAGON_MASCULIN": "portraits/portrait_homme_dragon.png",
-            "DRAGON_FÉMININ": "portraits/portrait_femme_dragon.png",
+            "DRAGON NOBLE_MASCULIN": "portraits/portrait_homme_dragon.png",
+            "DRAGON NOBLE_FÉMININ": "portraits/portrait_femme_dragon.png",
             "PAGURE_MASCULIN": "portraits/portrait_homme_pagure.png",
             "PAGURE_FÉMININ": "portraits/portrait_femme_pagure.png",
             "OGRE_MAGE_MASCULIN": "portraits/portrait_homme_ogre_mage.png",
@@ -780,7 +780,7 @@
                 const raceSelect = find('race-select');
 
                 if (blood === "Dragon") {
-                    if (e.target.value === "DRAGON") {
+                    if (e.target.value === "DRAGON NOBLE") {
                         const w1 = find('weapon-select-1');
                         const w2 = find('weapon-select-2');
                         if (w1) w1.value = "Griffes ou Morsure";
@@ -1416,7 +1416,7 @@
             const isDragon = bloodSelect && bloodSelect.value === "Dragon";
             const isPagure = raceSelect && raceSelect.value === "PAGURE";
             
-            let isDragonTrueForm = isDragon && shapeSelect && shapeSelect.value === "DRAGON";
+            let isDragonTrueForm = isDragon && shapeSelect && shapeSelect.value === "DRAGON NOBLE";
             let isPagureSansExo = isPagure && shapeSelect && shapeSelect.value === "SANS_EXOSQUELETTE";
 
             const labelHair = find('label-hair');
