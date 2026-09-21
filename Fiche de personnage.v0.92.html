@@ -289,7 +289,7 @@
                                         <option value="ORQUE">ORQUE</option>
                                         <option value="PAGURE">PAGURE</option>
                                         <option value="OGRE_MAGE">OGRE-MAGE</option>
-                                        <option value="DRAGON" hidden>DRAGON</option>
+                                        <option value="DRAGON" hidden>DRAGON NOBLE</option>
                                     </select>
                                     <input type="hidden" data-id="original-race" value="HUMAIN">
                                 </td>
@@ -435,7 +435,7 @@
                                                         <select data-id="magical-blood-select" class="bg-transparent font-title font-bold text-[10px] uppercase border-b border-black/40 outline-none text-black cursor-pointer text-right">
                                                             <option value=""></option>
                                                             <option value="Sang d'Ogre Mage">Sang d'Ogre Mage</option>
-                                                            <option value="Dragon">Dragon</option>
+                                                            <option value="Dragon">Dragon Noble</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -732,11 +732,11 @@
             shapeSel.innerHTML = '';
 
             if (blood === "Dragon") {
-                const opts = ["DRAGON", "HUMAIN", "ELFE", "NAIN", "ORQUE", "PAGURE"];
+                const opts = ["DRAGON NOBLE", "HUMAIN", "ELFE", "NAIN", "ORQUE", "PAGURE"];
                 opts.forEach(o => {
                     const opt = document.createElement('option');
                     opt.value = o;
-                    opt.textContent = o === "DRAGON" ? "Dragon Véritable" : o.charAt(0) + o.slice(1).toLowerCase();
+                    opt.textContent = o === "DRAGON" ? "Dragon Noble" : o.charAt(0) + o.slice(1).toLowerCase();
                     shapeSel.appendChild(opt);
                 });
                 if (opts.includes(currentVal)) shapeSel.value = currentVal;
