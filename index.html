@@ -1264,6 +1264,7 @@
         });
         
         function init() {
+            TRAME_MeasureTool.init();
             renderDocumentsList();
             loadDocument(currentDoc);
             setupEventListeners();
@@ -2293,6 +2294,242 @@
             });
         }
 
+        // ===== OUTIL DE MESURE =====
+        const TRAME_MeasureTool = {
+            active: false,
+            points: [],
+            PIXELS_PER_DAY: 42, // Constante : 210px / 5 jours
+            BASE_WIDTH: 1920,
+            
+            init() {
+                this.btnToggle = document.getElementById('measureToggle');
+                this.canvas = document.getElementById('measureCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.panel = document.getElementById('measurePanel');
+                this.tooltip = document.getElementById('measureTooltip');
+                this.totalText = document.getElementById('totalDistance');
+                this.box = document.getElementById('imgLightbox');
+                this.img = this.box.querySelector('img');
+
+                // 1. Bouton d'activation (la règle)
+                this.btnToggle.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Empêche la lightbox de se fermer
+                    this.toggle();
+                });
+
+                // 2. Boutons du panneau
+                document.getElementById('btnUndoMeasure').addEventListener('click', () => this.undo());
+                document.getElementById('btnClearMeasure').addEventListener('click', () => this.clear());
+
+                // Empêcher le clic sur le panneau de fermer la lightbox
+                this.panel.addEventListener('click', (e) => e.stopPropagation());
+                this.panel.addEventListener('mousedown', (e) => e.stopPropagation());
+
+                // 3. Interactions avec le calque de dessin (la carte)
+                this.canvas.addEventListener('click', (e) => this.addPoint(e));
+                this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
+                this.canvas.addEventListener('mouseleave', () => {
+                    this.tooltip.style.display = 'none';
+                    this.draw(); // Efface la ligne temporaire
+                });
+
+                // 4. Gérer le déplacement du panneau
+                this.setupDraggable();
+                
+                // 5. Gérer les redimensionnements de l'écran
+                window.addEventListener('resize', () => {
+                    if (this.active && !this.box.hidden) {
+                        this.resizeCanvas();
+                    }
+                });
+
+                // 6. Éteindre proprement l'outil si la lightbox se ferme
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.attributeName === 'class' && !this.box.classList.contains('open')) {
+                            if (this.active) this.toggle();
+                        }
+                    });
+                });
+                observer.observe(this.box, { attributes: true });
+            },
+            
+            toggle() {
+                this.active = !this.active;
+                this.btnToggle.classList.toggle('active', this.active);
+                this.panel.style.display = this.active ? 'block' : 'none';
+                this.tooltip.style.display = 'none';
+                
+                // Active ou désactive l'interception des clics par la toile de dessin
+                this.canvas.style.pointerEvents = this.active ? 'auto' : 'none';
+                
+                if (this.active) {
+                    // Délai minimal pour s'assurer que l'image est bien affichée avant de calquer le canvas
+                    setTimeout(() => { this.resizeCanvas(); }, 50); 
+                } else {
+                    this.clear();
+                    // Rétablir la position par défaut du panneau
+                    this.panel.style.top = '60px';
+                    this.panel.style.right = '22px';
+                    this.panel.style.left = 'auto';
+                }
+            },
+            
+            resizeCanvas() {
+                // Ajuster la taille du canvas EXACTEMENT à l'image affichée
+                this.canvas.width = this.img.clientWidth;
+                this.canvas.height = this.img.clientHeight;
+                this.draw();
+            },
+
+            getScale() {
+                // Ratio mathématique (ex: si l'écran affiche l'image en 960px, le ratio est 2)
+                return this.BASE_WIDTH / this.canvas.width;
+            },
+
+            addPoint(e) {
+                e.stopPropagation(); 
+                const rect = this.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                this.points.push({x, y});
+                this.updateTotal();
+                this.draw();
+            },
+
+            onMouseMove(e) {
+                if (!this.active) return;
+                
+                // Placer l'infobulle près du curseur de la souris
+                this.tooltip.style.left = (e.clientX + 15) + 'px';
+                this.tooltip.style.top = (e.clientY + 15) + 'px';
+
+                if (this.points.length > 0) {
+                    this.tooltip.style.display = 'block';
+                    const rect = this.canvas.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+                    
+                    // Calculer la distance temporaire du segment en cours
+                    const lastPt = this.points[this.points.length - 1];
+                    const dx = mouseX - lastPt.x;
+                    const dy = mouseY - lastPt.y;
+                    const distPx = Math.hypot(dx, dy);
+                    
+                    const scale = this.getScale();
+                    const realPx = distPx * scale;
+                    const days = realPx / this.PIXELS_PER_DAY;
+                    
+                    this.tooltip.textContent = '+' + days.toFixed(1) + ' j';
+                    this.draw(mouseX, mouseY); // Dessiner la ligne temporaire
+                } else {
+                    this.tooltip.style.display = 'none';
+                }
+            },
+
+            updateTotal() {
+                if (this.points.length < 2) {
+                    this.totalText.textContent = '0';
+                    return;
+                }
+                let totalPx = 0;
+                for (let i = 1; i < this.points.length; i++) {
+                    const dx = this.points[i].x - this.points[i-1].x;
+                    const dy = this.points[i].y - this.points[i-1].y;
+                    totalPx += Math.hypot(dx, dy);
+                }
+                const scale = this.getScale();
+                const realPx = totalPx * scale;
+                const totalDays = realPx / this.PIXELS_PER_DAY;
+                this.totalText.textContent = totalDays.toFixed(1);
+            },
+
+            draw(tempX, tempY) {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                if (this.points.length === 0) return;
+
+                // Style de la ligne de voyage
+                this.ctx.lineWidth = 3;
+                this.ctx.strokeStyle = '#dc2626'; // Rouge accent TRAME
+                this.ctx.setLineDash([8, 6]); // Ligne en Pointillés
+                this.ctx.lineCap = 'round';
+                this.ctx.lineJoin = 'round';
+
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.points[0].x, this.points[0].y);
+                
+                // Tracer les segments verrouillés
+                for (let i = 1; i < this.points.length; i++) {
+                    this.ctx.lineTo(this.points[i].x, this.points[i].y);
+                }
+                
+                // Tracer le segment temporaire qui suit la souris
+                if (tempX !== undefined && tempY !== undefined) {
+                    this.ctx.lineTo(tempX, tempY);
+                }
+                
+                this.ctx.stroke();
+
+                // Dessiner les "étapes" (les points ronds)
+                this.ctx.setLineDash([]); 
+                this.ctx.fillStyle = '#f4ecd8'; 
+                this.ctx.lineWidth = 2;
+                for (let pt of this.points) {
+                    this.ctx.beginPath();
+                    this.ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+                    this.ctx.fill();
+                    this.ctx.stroke();
+                }
+            },
+
+            undo() {
+                this.points.pop();
+                this.updateTotal();
+                this.draw();
+                if (this.points.length === 0) this.tooltip.style.display = 'none';
+            },
+
+            clear() {
+                this.points = [];
+                this.updateTotal();
+                this.draw();
+                this.tooltip.style.display = 'none';
+            },
+
+            setupDraggable() {
+                const header = document.getElementById('panelDragHandle');
+                let isDragging = false;
+                let startX, startY, initialLeft, initialTop;
+
+                header.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    
+                    const rect = this.panel.getBoundingClientRect();
+                    this.panel.style.right = 'auto'; // On bascule en coordonnées absolues
+                    this.panel.style.left = rect.left + 'px';
+                    this.panel.style.top = rect.top + 'px';
+                    
+                    initialLeft = rect.left;
+                    initialTop = rect.top;
+                    e.preventDefault(); // Empêche de surligner le texte du titre
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    this.panel.style.left = (initialLeft + dx) + 'px';
+                    this.panel.style.top = (initialTop + dy) + 'px';
+                });
+
+                window.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+            }
+        };
+        
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
