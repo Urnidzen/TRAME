@@ -490,6 +490,83 @@
             line-height: 1;
         }
 
+        /* ===== OUTIL DE MESURE ===== */
+        .lb-tool {
+            position: absolute;
+            top: 16px;
+            right: 60px; /* Placé juste à gauche du bouton fermer */
+            color: #f4ecd8;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.2s;
+            line-height: 1;
+        }
+        .lb-tool:hover { opacity: 1; transform: scale(1.1); }
+        .lb-tool.active { opacity: 1; text-shadow: 0 0 10px #7c2d12; }
+
+        #measureCanvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Modifié par le Javascript quand l'outil est actif */
+            z-index: 10000;
+        }
+
+        .measure-panel {
+            position: absolute;
+            top: 60px;
+            right: 22px;
+            background: rgba(28, 25, 23, 0.95); /* Sombre, comme la lightbox */
+            border: 2px solid #7c2d12;
+            border-radius: 6px;
+            color: #f4ecd8;
+            width: 200px;
+            z-index: 10001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .panel-header {
+            background: #7c2d12;
+            padding: 6px 12px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            cursor: grab; /* Curseur "main" pour indiquer qu'on peut glisser */
+            border-radius: 4px 4px 0 0;
+            user-select: none;
+        }
+        .panel-header:active { cursor: grabbing; }
+        .panel-body { padding: 15px; }
+        .panel-body p { font-size: 1.1rem; margin-bottom: 5px; }
+        .panel-body button {
+            background: rgba(244, 236, 216, 0.1);
+            border: 1px solid #f4ecd8;
+            color: #f4ecd8;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            flex: 1;
+            transition: all 0.2s;
+        }
+        .panel-body button:hover { background: #f4ecd8; color: #1c1917; }
+
+        .measure-tooltip {
+            position: fixed;
+            background: #7c2d12;
+            color: #f4ecd8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            pointer-events: none; /* Empêche l'étiquette de bloquer la souris */
+            z-index: 10002;
+            transform: translate(15px, 15px); /* Décalé légèrement en bas à droite du curseur */
+            font-family: 'Cinzel', serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        
         /* ===== FICHES PERSONNAGES ===== */
         .sheet-container-frame {
             position: relative;
@@ -786,8 +863,28 @@
     <div id="hiddenStaging" style="position:absolute; visibility:hidden; width: 100%; pointer-events:none; top:-9999px;"></div>
 
     <div id="imgLightbox" class="img-lightbox" hidden>
+        <!-- Boutons du haut -->
+        <button type="button" id="measureToggle" class="lb-tool" aria-label="Outil de mesure" title="Activer l'outil de mesure">📏</button>
         <button type="button" class="lb-close" aria-label="Fermer">×</button>
-        <img alt="">
+        
+        <!-- L'image et son calque de dessin -->
+        <img id="lightboxImg" alt="">
+        <canvas id="measureCanvas"></canvas>
+
+        <!-- Le panneau de contrôle (caché par défaut) -->
+        <div id="measurePanel" class="measure-panel" style="display: none;">
+            <div class="panel-header" id="panelDragHandle">📐 Outil de mesure</div>
+            <div class="panel-body">
+                <p>Distance : <strong id="totalDistance">0</strong> j</p>
+                <div style="display: flex; gap: 8px; margin-top: 10px;">
+                    <button id="btnUndoMeasure">Annuler</button>
+                    <button id="btnClearMeasure">Effacer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- L'étiquette flottante du curseur (cachée par défaut) -->
+        <div id="measureTooltip" class="measure-tooltip" style="display: none;">0 j</div>
     </div>
 
     <script>
