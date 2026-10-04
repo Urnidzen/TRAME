@@ -41,6 +41,9 @@
     <script src="livret5-Bestiaire.data.v0.86.js"></script>
     <!-- Convertisseur Markdown complet -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Bibliothèques pour l'export/import ZIP et la génération de PDF en lot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
@@ -891,6 +894,12 @@
 
     <div id="hiddenStaging" style="position:absolute; visibility:hidden; width: 100%; pointer-events:none; top:-9999px;"></div>
 
+    <!-- Éléments masqués pour le traitement par lot des personnages -->
+    <input type="file" id="batchFileInput" multiple accept=".json,.zip" style="display: none;">
+    <div id="batchProcessIndicator" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 10000; background: #1c1917; color: #f4ecd8; border: 2px solid #7c2d12; border-radius: 6px; padding: 12px 18px; font-family: 'Cinzel', serif; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <span id="batchProcessText">Traitement en cours...</span>
+    </div>
+
     <div id="imgLightbox" class="img-lightbox" hidden>
         <!-- Boutons du haut -->
         <button type="button" id="measureToggle" class="lb-tool" aria-label="Outil de mesure" title="Activer l'outil de mesure">📏</button>
@@ -1308,11 +1317,26 @@
             });
         }
 
-        // MODIFICATION : Ajout des boutons d'action dans la liste des personnages
         function renderCharactersList() {
             const profiles = TRAME_Registre.getAllProfiles();
             let html = '';
-    
+
+            // Barre d'actions globales (placée juste en dessous de Fiche de Personnage et avant la liste)
+            html += `
+                <div style="display:flex; justify-content:space-between; gap:6px; padding:6px 0 10px 0; border-bottom:1px solid rgba(124,45,18,0.3); margin-bottom:8px;">
+                    <button type="button" onclick="exportAllCharactersZip()" title="Tout exporter (archive ZIP avec 1 JSON par perso)" style="flex:1; background:rgba(124,45,18,0.08); border:1px solid rgba(124,45,18,0.4); border-radius:4px; padding:4px 2px; font-size:0.75rem; font-family:'Cinzel',serif; cursor:pointer; color:#7c2d12; font-weight:bold; transition:all 0.2s;" onmouseover="this.style.background='rgba(124,45,18,0.2)'" onmouseout="this.style.background='rgba(124,45,18,0.08)'">
+                        📦 Exporter
+                    </button>
+                    <button type="button" onclick="triggerBatchImport()" title="Tout importer (fichiers JSON multiples ou ZIP)" style="flex:1; background:rgba(124,45,18,0.08); border:1px solid rgba(124,45,18,0.4); border-radius:4px; padding:4px 2px; font-size:0.75rem; font-family:'Cinzel',serif; cursor:pointer; color:#7c2d12; font-weight:bold; transition:all 0.2s;" onmouseover="this.style.background='rgba(124,45,18,0.2)'" onmouseout="this.style.background='rgba(124,45,18,0.08)'">
+                        📥 Importer
+                    </button>
+                    <button type="button" onclick="printAllCharactersZip()" title="Tout imprimer (archive ZIP avec 1 PDF par perso)" style="flex:1; background:rgba(124,45,18,0.08); border:1px solid rgba(124,45,18,0.4); border-radius:4px; padding:4px 2px; font-size:0.75rem; font-family:'Cinzel',serif; cursor:pointer; color:#7c2d12; font-weight:bold; transition:all 0.2s;" onmouseover="this.style.background='rgba(124,45,18,0.2)'" onmouseout="this.style.background='rgba(124,45,18,0.08)'">
+                        🖨️ Imprimer
+                    </button>
+                </div>
+            `;
+
+            // Liste de chaque personnage
             profiles.forEach((profile, index) => {
                 html += `
                     <div class="index-item" style="display:flex; justify-content:space-between; align-items:center; padding-right:5px; gap:8px;">
@@ -1331,7 +1355,8 @@
                 `;
             });
             
-            html += `<div class="index-item" onclick="createNewHero()" style="font-style:italic; opacity:0.8; border-bottom:1px solid rgba(0,0,0,0.2); margin-bottom:5px; padding-bottom:8px;">
+            // Conserve sa place tout en bas, après la liste des personnages
+            html += `<div class="index-item" onclick="createNewHero()" style="font-style:italic; opacity:0.8; border-top:1px solid rgba(0,0,0,0.15); margin-top:6px; padding-top:8px;">
                 <span style="color:#7c2d12; font-weight:bold; margin-right:5px;">+</span> Ajouter un nouveau personnage
             </div>`;
     
@@ -1761,6 +1786,137 @@
                 TRAME_Registre.deleteProfile(id);
                 renderDocumentsList();
                 loadDocument('fiche');
+            }
+        }
+
+        // ===== FONCTIONS D'ACTIONS GLOBALES POUR LES FICHES =====
+
+        // 1. Tout exporter (Archive ZIP de JSON)
+        async function exportAllCharactersZip() {
+            if (typeof TRAME_Registre !== 'undefined' && TRAME_Registre.exportAllAsZip) {
+                await TRAME_Registre.exportAllAsZip();
+            }
+        }
+
+        // 2. Déclencheur du Tout importer
+        function triggerBatchImport() {
+            const input = document.getElementById('batchFileInput');
+            if (input) {
+                input.value = '';
+                input.click();
+            }
+        }
+
+        // 3. Tout imprimer (Génération en arrière-plan d'une archive ZIP contenant 1 PDF par perso)
+        async function printAllCharactersZip() {
+            if (typeof JSZip === 'undefined' || typeof html2pdf === 'undefined') {
+                alert("Erreur : Les bibliothèques JSZip ou html2pdf ne sont pas disponibles.");
+                return;
+            }
+
+            const profiles = TRAME_Registre.getAllProfiles();
+            if (profiles.length === 0) {
+                alert("Aucun personnage à imprimer.");
+                return;
+            }
+
+            const indicator = document.getElementById('batchProcessIndicator');
+            const indicatorText = document.getElementById('batchProcessText');
+            if (indicator) indicator.style.display = 'block';
+
+            const zip = new JSZip();
+            const usedNames = {};
+
+            try {
+                // Iframe temporaire hors-écran pour rendre chaque fiche et la convertir
+                const tempIframe = document.createElement('iframe');
+                tempIframe.style.position = 'fixed';
+                tempIframe.style.top = '-10000px';
+                tempIframe.style.left = '-10000px';
+                tempIframe.style.width = '794px';
+                tempIframe.style.height = '1123px';
+                tempIframe.style.border = 'none';
+                document.body.appendChild(tempIframe);
+
+                for (let i = 0; i < profiles.length; i++) {
+                    const profile = profiles[i];
+                    const hasNotes = profileHasNotesPage(profile);
+
+                    if (indicatorText) {
+                        indicatorText.textContent = `Impression ${i + 1}/${profiles.length} : ${profile.name || 'Sans Nom'}...`;
+                    }
+
+                    // Charger la fiche dans l'iframe
+                    await new Promise(resolve => {
+                        tempIframe.onload = () => resolve();
+                        tempIframe.src = `Fiche de personnage.v0.92.html?uid=${profile.id}`;
+                    });
+
+                    // Attente de stabilisation du DOM et polices de la fiche
+                    await new Promise(r => setTimeout(r, 600));
+
+                    const frameDoc = tempIframe.contentDocument || tempIframe.contentWindow.document;
+                    const frameBody = frameDoc.body;
+
+                    // Masquer les boutons UI dans la capture
+                    frameDoc.querySelectorAll('.sheet-ui-controls, .header-actions').forEach(el => el.style.display = 'none');
+
+                    // Configuration html2pdf
+                    const pdfOptions = {
+                        margin: 0,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, logging: false },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    };
+
+                    // Génération du PDF de la page principale
+                    const mainContainer = frameDoc.querySelector('.page-main');
+                    let worker = html2pdf().set(pdfOptions).from(mainContainer).toPdf();
+
+                    // Si la page de notes est active, on l'ajoute au même PDF
+                    if (hasNotes) {
+                        const notesContainer = frameDoc.querySelector('.page-notes');
+                        if (notesContainer) {
+                            notesContainer.style.display = 'flex';
+                            worker = worker.get('pdf').then(pdf => {
+                                pdf.addPage();
+                            }).from(notesContainer).toContainer().toCanvas().toPdf();
+                        }
+                    }
+
+                    const pdfBlob = await worker.output('blob');
+
+                    // Nommage sécurisé
+                    let baseName = (profile.name || "Sans_Nom").trim().replace(/[/\\?%*:|"<>]/g, "-").replace(/\s+/g, "_");
+                    if (usedNames[baseName]) {
+                        usedNames[baseName]++;
+                        baseName = `${baseName}_(${usedNames[baseName]})`;
+                    } else {
+                        usedNames[baseName] = 1;
+                    }
+
+                    zip.file(`TRAME_Fiche_${baseName}.pdf`, pdfBlob);
+                }
+
+                document.body.removeChild(tempIframe);
+
+                if (indicatorText) indicatorText.textContent = "Compression de l'archive ZIP...";
+                const zipBlob = await zip.generateAsync({ type: "blob" });
+                const url = URL.createObjectURL(zipBlob);
+                const a = document.createElement("a");
+                const dateStr = new Date().toISOString().split("T")[0];
+                a.href = url;
+                a.download = `TRAME_Fiches_PDF_${dateStr}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+            } catch (err) {
+                console.error("Erreur génération PDF par lot :", err);
+                alert("Une erreur est survenue lors de l'impression globale en PDF.");
+            } finally {
+                if (indicator) indicator.style.display = 'none';
             }
         }
         
@@ -2642,6 +2798,51 @@
                     renderDocumentsList();
                 }, 300);
             });
+
+            // Écouteur de sélection pour le batch import (fichiers multiples JSON et/ou ZIP)
+            const batchInput = document.getElementById('batchFileInput');
+            if (batchInput) {
+                batchInput.addEventListener('change', async (e) => {
+                    const files = Array.from(e.target.files);
+                    if (files.length === 0) return;
+
+                    const incomingProfiles = [];
+
+                    for (const file of files) {
+                        if (file.name.endsWith('.json')) {
+                            try {
+                                const text = await file.text();
+                                const parsed = JSON.parse(text);
+                                if (parsed.content) incomingProfiles.push(parsed);
+                            } catch (err) {
+                                console.warn("Fichier JSON ignoré ou invalide :", file.name);
+                            }
+                        } else if (file.name.endsWith('.zip') && typeof JSZip !== 'undefined') {
+                            try {
+                                const zip = await JSZip.loadAsync(file);
+                                for (const relativePath in zip.files) {
+                                    if (relativePath.endsWith('.json') && !zip.files[relativePath].dir) {
+                                        const text = await zip.files[relativePath].async('text');
+                                        const parsed = JSON.parse(text);
+                                        if (parsed.content) incomingProfiles.push(parsed);
+                                    }
+                                }
+                            } catch (err) {
+                                console.warn("Archive ZIP corrompue ou illisible :", file.name);
+                            }
+                        }
+                    }
+
+                    if (incomingProfiles.length > 0) {
+                        const count = TRAME_Registre.importProfilesBatch(incomingProfiles);
+                        renderDocumentsList();
+                        if (currentDoc === 'fiche') loadDocument('fiche');
+                        alert(`${count} personnage(s) importé(s) avec succès !`);
+                    } else {
+                        alert("Aucune fiche de personnage valide trouvée dans la sélection.");
+                    }
+                });
+            }
         }
 
         // ===== OUTIL DE MESURE =====
