@@ -39,11 +39,12 @@ window.TRAME_Personnages = (function() {
         <div class="page-break"></div>
     `;
 
-    // Dictionnaire central de tous les personnages (données intégrales non résumées)
+    // Dictionnaire central de tous les personnages avec TAGS d'indexation complets
     const PNJ = {
         mila: {
             id: "perso-mila",
             nom: "Mila",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -57,6 +58,7 @@ window.TRAME_Personnages = (function() {
         lysa: {
             id: "perso-lysa",
             nom: "Lysa",
+            tags: { espece: "elfe", rangs: ["officier"], harem: true, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Elfe, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -71,6 +73,7 @@ window.TRAME_Personnages = (function() {
         liriel: {
             id: "perso-liriel",
             nom: "Liriel",
+            tags: { espece: "elfe", rangs: ["civil"], harem: true, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Elfe, féminin, 27 ans.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -86,6 +89,7 @@ window.TRAME_Personnages = (function() {
         lirael: {
             id: "perso-lirael",
             nom: "Lirael",
+            tags: { espece: "elfe", rangs: ["civil"], harem: true, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Elfe, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -100,6 +104,7 @@ window.TRAME_Personnages = (function() {
         vespera: {
             id: "perso-vespera",
             nom: "Vespera",
+            tags: { espece: "elfe", rangs: ["officier"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Elfe, féminin, 23 ans.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -113,6 +118,7 @@ window.TRAME_Personnages = (function() {
         dravenna: {
             id: "perso-dravenna",
             nom: "Dravenna",
+            tags: { espece: "orque", rangs: ["artisan", "officier"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Orque, féminin, 30 ans.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -127,6 +133,7 @@ window.TRAME_Personnages = (function() {
         seraphine: {
             id: "perso-seraphine",
             nom: "Seraphine",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_forge", "ardelie_saillans"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin, 25 ans.",
             domicile: "Forge naine de Rivecour, avec des séjours réguliers aux Saillans.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale), séjours réguliers aux Saillans.",
@@ -140,6 +147,7 @@ window.TRAME_Personnages = (function() {
         roran: {
             id: "perso-roran",
             nom: "Roran",
+            tags: { espece: "nain", rangs: ["artisan", "officier"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Nain, masculin, 27 ans.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -152,6 +160,7 @@ window.TRAME_Personnages = (function() {
         doran: {
             id: "perso-doran",
             nom: "Doran",
+            tags: { espece: "humain", rangs: ["artisan", "officier"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin, 45 ans.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -164,6 +173,7 @@ window.TRAME_Personnages = (function() {
         ancien_soldat_deux_couronnes: {
             id: "perso-ancien-soldat-de-la-villa-des-deux-couronnes",
             nom: "Ancien soldat de la villa des Deux-Couronnes",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -176,6 +186,7 @@ window.TRAME_Personnages = (function() {
         jeune_apprenti_deux_couronnes: {
             id: "perso-jeune-apprenti-de-la-villa-des-deux-couronnes",
             nom: "Jeune apprenti de la villa des Deux-Couronnes",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin, jeune adulte.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -188,6 +199,7 @@ window.TRAME_Personnages = (function() {
         voyageuse_deux_couronnes: {
             id: "perso-voyageuse-liberee-de-la-villa-des-deux-couronnes",
             nom: "Voyageuse libérée de la villa des Deux-Couronnes",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -200,6 +212,7 @@ window.TRAME_Personnages = (function() {
         trois_ouvriers_mornefond: {
             id: "perso-trois-anciens-ouvriers-des-salines-de-mornefond",
             nom: "Trois anciens ouvriers des salines de Mornefond",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humains, masculins.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -212,6 +225,7 @@ window.TRAME_Personnages = (function() {
         palefrenier_mornefond: {
             id: "perso-palefrenier-libere-de-mornefond",
             nom: "Palefrenier libéré de Mornefond",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -224,6 +238,7 @@ window.TRAME_Personnages = (function() {
         soigneuse_mornefond: {
             id: "perso-soigneuse-liberee-de-mornefond",
             nom: "Soigneuse libérée de Mornefond",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -236,6 +251,7 @@ window.TRAME_Personnages = (function() {
         anciens_captifs_trois_saules: {
             id: "perso-anciens-captifs-des-trois-saules",
             nom: "Anciens captifs des Trois-Saules",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Tous humains.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -247,6 +263,7 @@ window.TRAME_Personnages = (function() {
         toren: {
             id: "perso-toren",
             nom: "Toren",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin, d’âge moyen.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -260,6 +277,7 @@ window.TRAME_Personnages = (function() {
         femme_cheveux_noirs: {
             id: "perso-femme-aux-cheveux-noirs",
             nom: "Femme aux cheveux noirs",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -274,6 +292,7 @@ window.TRAME_Personnages = (function() {
         homme_age: {
             id: "perso-homme-age",
             nom: "Homme âgé",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin, âge avancé.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -287,6 +306,7 @@ window.TRAME_Personnages = (function() {
         jeune_homme: {
             id: "perso-jeune-homme",
             nom: "Jeune homme",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humain, masculin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -301,6 +321,7 @@ window.TRAME_Personnages = (function() {
         jeune_femme: {
             id: "perso-jeune-femme",
             nom: "Jeune femme",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -315,6 +336,7 @@ window.TRAME_Personnages = (function() {
         neria: {
             id: "perso-neria",
             nom: "Néria",
+            tags: { espece: "humain", rangs: ["civil"], harem: true, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Humaine, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -328,6 +350,7 @@ window.TRAME_Personnages = (function() {
         ronce: {
             id: "perso-ronce",
             nom: "Ronce",
+            tags: { espece: "animal", rangs: ["autre"], harem: false, secret: false, lieux: ["ardelie_forge"], domicile_id: "ardelie_forge" },
             espece_genre: "Mule, féminin.",
             domicile: "Forge naine de Rivecour.",
             domicile_complet: "Forge naine de Rivecour (Résidence principale permanente).",
@@ -339,6 +362,7 @@ window.TRAME_Personnages = (function() {
         lance_de_huit: {
             id: "perso-lance-de-huit",
             nom: "Lance de Huit",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["traverse_10e_cite", "ardelie_forge", "ardelie_aldhaven"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Huit humains, masculins.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Rotations permanentes de garde à Rivecour et Aldhaven.",
@@ -351,6 +375,7 @@ window.TRAME_Personnages = (function() {
         lysandra: {
             id: "perso-lysandra",
             nom: "Lysandra",
+            tags: { espece: "humain", rangs: ["duc", "officier"], harem: true, secret: true, lieux: ["ardelie_tour_blanche", "ardelie_forge", "traverse_elyria"], domicile_id: "ardelie_tour_blanche" },
             espece_genre: "Humaine, féminin.",
             domicile: "Tour Blanche ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria.",
             domicile_complet: "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria par le réseau des Cercles de Téléportation.",
@@ -366,6 +391,7 @@ window.TRAME_Personnages = (function() {
         reine_kaelia: {
             id: "perso-reine-kaelia-d-ardelie",
             nom: "Reine Kaelia d’Ardélie",
+            tags: { espece: "humain", rangs: ["souverain"], harem: true, secret: false, lieux: ["ardelie_rivecour_palais"], domicile_id: "ardelie_rivecour_palais" },
             espece_genre: "Humaine, féminin, d’âge mûr.",
             domicile: "Palais royal de Rivecour.",
             domicile_complet: "Palais royal de Rivecour (Résidence principale permanente).",
@@ -380,6 +406,7 @@ window.TRAME_Personnages = (function() {
         roi_aldous: {
             id: "perso-roi-aldous-d-ardelie",
             nom: "Roi Aldous d’Ardélie",
+            tags: { espece: "humain", rangs: ["souverain"], harem: false, secret: false, lieux: ["ardelie_rivecour_palais"], domicile_id: "ardelie_rivecour_palais" },
             espece_genre: "Humain, masculin, vieillissant.",
             domicile: "Palais royal de Rivecour.",
             domicile_complet: "Palais royal de Rivecour (Résidence principale permanente).",
@@ -392,6 +419,7 @@ window.TRAME_Personnages = (function() {
         silas: {
             id: "perso-silas",
             nom: "Silas",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["ardelie_rivecour_palais"], domicile_id: "ardelie_rivecour_palais" },
             espece_genre: "Humain, masculin.",
             domicile: "Rivecour.",
             domicile_complet: "Rivecour (Bureau du Trésor du Palais royal).",
@@ -404,6 +432,7 @@ window.TRAME_Personnages = (function() {
         odran_sorell: {
             id: "perso-odran-sorell",
             nom: "Odran Sorell",
+            tags: { espece: "humain", rangs: ["autre"], harem: false, secret: false, lieux: ["ardelie_rivecour_palais"], domicile_id: "ardelie_rivecour_palais" },
             espece_genre: "Humain, masculin, vieillissant.",
             domicile: "Rivecour.",
             domicile_complet: "Rivecour (Geôles du Palais royal sous garde armée).",
@@ -416,6 +445,7 @@ window.TRAME_Personnages = (function() {
         lucretia: {
             id: "perso-lucretia",
             nom: "Lucretia",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["ardelie_rivecour_senat"], domicile_id: "ardelie_rivecour_senat" },
             espece_genre: "Humaine, féminin.",
             domicile: "Rivecour.",
             domicile_complet: "Rivecour (Amphithéâtre du Sénat).",
@@ -427,6 +457,7 @@ window.TRAME_Personnages = (function() {
         valerius: {
             id: "perso-valerius",
             nom: "Valerius",
+            tags: { espece: "humain", rangs: ["noble", "artisan"], harem: false, secret: false, lieux: ["ardelie_rivecour_noble"], domicile_id: "ardelie_rivecour_noble" },
             espece_genre: "Humain, masculin.",
             domicile: "Quartier noble de Rivecour.",
             domicile_complet: "Quartier noble de Rivecour (Résidence principale permanente).",
@@ -438,6 +469,7 @@ window.TRAME_Personnages = (function() {
         livia: {
             id: "perso-livia",
             nom: "Livia",
+            tags: { espece: "humain", rangs: ["noble"], harem: false, secret: false, lieux: ["ardelie_rivecour_noble"], domicile_id: "ardelie_rivecour_noble" },
             espece_genre: "Humaine, féminin, jeune adulte.",
             domicile: "Quartier noble de Rivecour.",
             domicile_complet: "Quartier noble de Rivecour (Résidence principale permanente).",
@@ -449,6 +481,7 @@ window.TRAME_Personnages = (function() {
         apothicaire: {
             id: "perso-l-apothicaire",
             nom: "L’Apothicaire",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rivecour_marchands"], domicile_id: "ardelie_rivecour_marchands" },
             espece_genre: "Humaine, féminin.",
             domicile: "Rivecour.",
             domicile_complet: "Quartier des Marchands de Rivecour (Résidence principale permanente).",
@@ -460,6 +493,7 @@ window.TRAME_Personnages = (function() {
         marchande_deux_couronnes: {
             id: "perso-marchande-liberee-de-la-villa-des-deux-couronnes",
             nom: "Marchande libérée de la villa des Deux-Couronnes",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_rivecour_marchands"], domicile_id: "ardelie_rivecour_marchands" },
             espece_genre: "Humaine, féminin.",
             domicile: "Rivecour.",
             domicile_complet: "Rivecour (Résidence principale permanente).",
@@ -472,6 +506,7 @@ window.TRAME_Personnages = (function() {
         artisan_cuir_mornefond: {
             id: "perso-artisan-du-cuir-libere-de-mornefond",
             nom: "Artisan du cuir libéré de Mornefond",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_rivecour_marchands"], domicile_id: "ardelie_rivecour_marchands" },
             espece_genre: "Humain, masculin.",
             domicile: "Rivecour.",
             domicile_complet: "Rivecour (Résidence principale permanente).",
@@ -484,6 +519,7 @@ window.TRAME_Personnages = (function() {
         thorek: {
             id: "perso-thorek",
             nom: "Thorek",
+            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rivecour_industriel"], domicile_id: "ardelie_rivecour_industriel" },
             espece_genre: "Nain, masculin.",
             domicile: "Rivecour.",
             domicile_complet: "Rivecour (Secteur industriel souterrain).",
@@ -495,6 +531,7 @@ window.TRAME_Personnages = (function() {
         rose: {
             id: "perso-rose",
             nom: "Rose",
+            tags: { espece: "humain", rangs: ["artisan"], harem: true, secret: true, lieux: ["ardelie_saillans"], domicile_id: "ardelie_saillans" },
             espece_genre: "Humaine, féminin, environ 35 à 40 ans.",
             domicile: "Les Saillans.",
             domicile_complet: "Les Saillans (Résidence principale permanente).",
@@ -509,6 +546,7 @@ window.TRAME_Personnages = (function() {
         aldric: {
             id: "perso-aldric",
             nom: "Aldric",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: true, lieux: ["ardelie_saillans"], domicile_id: "ardelie_saillans" },
             espece_genre: "Humain, masculin, d’âge mûr.",
             domicile: "Les Saillans.",
             domicile_complet: "Les Saillans (Résidence principale permanente).",
@@ -522,6 +560,7 @@ window.TRAME_Personnages = (function() {
         lila: {
             id: "perso-lila",
             nom: "Lila",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_saillans"], domicile_id: "ardelie_saillans" },
             espece_genre: "Humaine, féminin, environ 8 ans.",
             domicile: "Les Saillans.",
             domicile_complet: "Les Saillans (Résidence principale permanente).",
@@ -533,6 +572,7 @@ window.TRAME_Personnages = (function() {
         milo: {
             id: "perso-milo",
             nom: "Milo",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_saillans"], domicile_id: "ardelie_saillans" },
             espece_genre: "Humain, masculin, environ 6 à 7 ans.",
             domicile: "Les Saillans.",
             domicile_complet: "Les Saillans (Résidence principale permanente).",
@@ -545,6 +585,7 @@ window.TRAME_Personnages = (function() {
         elara: {
             id: "perso-elara",
             nom: "Elara",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_saillans"], domicile_id: "ardelie_saillans" },
             espece_genre: "Humaine, féminin, environ 6 à 7 ans.",
             domicile: "Les Saillans.",
             domicile_complet: "Les Saillans (Résidence principale permanente).",
@@ -557,6 +598,7 @@ window.TRAME_Personnages = (function() {
         kaelen: {
             id: "perso-kaelen",
             nom: "Kaelen",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_aldhaven_port", "ardelie_saillans", "mer_jade_archipel"], domicile_id: "ardelie_aldhaven_port" },
             espece_genre: "Humain, masculin.",
             domicile: "Son navire, avec des présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.",
             domicile_complet: "Son navire, avec des présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.",
@@ -570,6 +612,7 @@ window.TRAME_Personnages = (function() {
         alden: {
             id: "perso-alden",
             nom: "Alden",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_aldhaven_port", "ardelie_saillans", "mer_jade_archipel"], domicile_id: "ardelie_aldhaven_port" },
             espece_genre: "Humain, masculin, 29 ans.",
             domicile: "Son navire, avec des présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.",
             domicile_complet: "Son navire, avec des présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.",
@@ -581,6 +624,7 @@ window.TRAME_Personnages = (function() {
         thorne: {
             id: "perso-thorne",
             nom: "Thorne",
+            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_aldhaven_forge"], domicile_id: "ardelie_aldhaven_forge" },
             espece_genre: "Nain, masculin, 38 ans.",
             domicile: "Aldhaven.",
             domicile_complet: "Aldhaven (Forge commerciale d'Aldhaven, Résidence principale permanente).",
@@ -595,6 +639,7 @@ window.TRAME_Personnages = (function() {
         maeva: {
             id: "perso-maeva",
             nom: "Maëva",
+            tags: { espece: "nain", rangs: ["civil"], harem: false, secret: true, lieux: ["ardelie_aldhaven_forge"], domicile_id: "ardelie_aldhaven_forge" },
             espece_genre: "Naine, féminin.",
             domicile: "Aldhaven.",
             domicile_complet: "Aldhaven (Forge d'Aldhaven, Résidence principale permanente).",
@@ -605,6 +650,7 @@ window.TRAME_Personnages = (function() {
         fille_thorne_maeva: {
             id: "perso-fille-de-thorne-et-maeva",
             nom: "Fille de Thorne et Maëva",
+            tags: { espece: "nain", rangs: ["civil"], harem: false, secret: false, lieux: ["ardelie_aldhaven_forge"], domicile_id: "ardelie_aldhaven_forge" },
             espece_genre: "Naine, féminin, enfant.",
             domicile: "Aldhaven.",
             domicile_complet: "Aldhaven (Forge d'Aldhaven, Résidence principale permanente).",
@@ -615,6 +661,7 @@ window.TRAME_Personnages = (function() {
         varek: {
             id: "perso-varek",
             nom: "Varek",
+            tags: { espece: "humain", rangs: ["autre"], harem: false, secret: false, lieux: ["ardelie_marches_routes"], domicile_id: "ardelie_marches_routes" },
             espece_genre: "Humain, masculin.",
             domicile: "Routes des Marches orientales (coupe-gorge après Valdorne).",
             domicile_complet: "Routes des Marches orientales (coupe-gorge après Valdorne).",
@@ -626,6 +673,7 @@ window.TRAME_Personnages = (function() {
         charretier_deux_couronnes: {
             id: "perso-charretier-libere-de-la-villa-des-deux-couronnes",
             nom: "Charretier libéré de la villa des Deux-Couronnes",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_marches_routes"], domicile_id: "ardelie_marches_routes" },
             espece_genre: "Humain, masculin.",
             domicile: "Valdorne.",
             domicile_complet: "Valdorne (Résidence principale permanente).",
@@ -638,6 +686,7 @@ window.TRAME_Personnages = (function() {
         ouvriere_agricole_deux_couronnes: {
             id: "perso-ouvriere-agricole-liberee-de-la-villa-des-deux-couronnes",
             nom: "Ouvrière agricole libérée de la villa des Deux-Couronnes",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_marches_routes"], domicile_id: "ardelie_marches_routes" },
             espece_genre: "Humaine, féminin.",
             domicile: "Environs ruraux de Rochebrune.",
             domicile_complet: "Environs ruraux de Rochebrune (Résidence principale permanente).",
@@ -650,6 +699,7 @@ window.TRAME_Personnages = (function() {
         beran_doss: {
             id: "perso-beran-doss",
             nom: "Beran Doss",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humain, masculin, environ 50 ans.",
             domicile: "Rochebrune.",
             domicile_complet: "Rochebrune (Résidence principale).",
@@ -663,6 +713,7 @@ window.TRAME_Personnages = (function() {
         orven: {
             id: "perso-orven",
             nom: "Orven",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humain, masculin.",
             domicile: "Aucun domicile habituel actuellement établi depuis son départ de la combe de Rochebrune.",
             domicile_complet: "Aucun domicile habituel actuellement établi depuis son départ de la combe de Rochebrune.",
@@ -674,6 +725,7 @@ window.TRAME_Personnages = (function() {
         colm: {
             id: "perso-colm",
             nom: "Colm",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humain, masculin, adulte.",
             domicile: "Aucun domicile habituel actuellement établi depuis son départ de la combe de Rochebrune.",
             domicile_complet: "Aucun domicile habituel actuellement établi depuis son départ de la combe de Rochebrune.",
@@ -685,6 +737,7 @@ window.TRAME_Personnages = (function() {
         deux_carriers_mornefond: {
             id: "perso-deux-carriers-liberes-de-mornefond",
             nom: "Deux carriers libérés de Mornefond",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humains, masculins.",
             domicile: "Région de Rochebrune.",
             domicile_complet: "Région de Rochebrune (Résidence principale permanente).",
@@ -697,6 +750,7 @@ window.TRAME_Personnages = (function() {
         maeron: {
             id: "perso-maeron",
             nom: "Maeron",
+            tags: { espece: "humain", rangs: ["autre"], harem: false, secret: false, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humain, masculin, environ 40 ans.",
             domicile: "Secteur de Rochebrune et relais des Trois-Saules (Actuellement sous garde royale à Rivecour avant transfert aux salines royales).",
             domicile_complet: "Secteur de Rochebrune et relais des Trois-Saules (Actuellement sous garde royale à Rivecour avant transfert aux salines royales).",
@@ -710,6 +764,7 @@ window.TRAME_Personnages = (function() {
         joren: {
             id: "perso-joren",
             nom: "Joren",
+            tags: { espece: "humain", rangs: ["autre"], harem: false, secret: false, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humain, masculin.",
             domicile: "Secteur de Rochebrune.",
             domicile_complet: "Secteur de Rochebrune.",
@@ -720,6 +775,7 @@ window.TRAME_Personnages = (function() {
         alise: {
             id: "perso-alise",
             nom: "Alise",
+            tags: { espece: "humain", rangs: ["civil"], harem: true, secret: false, lieux: ["ardelie_rochebrune"], domicile_id: "ardelie_rochebrune" },
             espece_genre: "Humaine, féminin, 19 ans.",
             domicile: "Demeure de son père à Rochebrune.",
             domicile_complet: "Rochebrune (Demeure de son père, Résidence principale permanente).",
@@ -734,6 +790,7 @@ window.TRAME_Personnages = (function() {
         ysoria: {
             id: "perso-reine-ysoria-de-varethis",
             nom: "Reine Ysoria de Varethis",
+            tags: { espece: "humain", rangs: ["souverain"], harem: true, secret: false, lieux: ["varethis_palais"], domicile_id: "varethis_palais" },
             espece_genre: "Humaine, féminin, 28 ans.",
             domicile: "Palais royal de Karsenne.",
             domicile_complet: "Palais royal de Karsenne (Résidence principale permanente).",
@@ -748,6 +805,7 @@ window.TRAME_Personnages = (function() {
         meleandre: {
             id: "perso-prince-meleandre-de-varethis",
             nom: "Prince Méléandre de Varethis",
+            tags: { espece: "humain", rangs: ["souverain", "noble"], harem: false, secret: false, lieux: ["varethis_palais"], domicile_id: "varethis_palais" },
             espece_genre: "Humain, masculin, adulte.",
             domicile: "Palais royal de Karsenne.",
             domicile_complet: "Palais royal de Karsenne (Résidence principale permanente).",
@@ -762,6 +820,7 @@ window.TRAME_Personnages = (function() {
         gautier_valcroix: {
             id: "perso-connetable-gautier-de-valcroix",
             nom: "Connétable Gautier de Valcroix",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_palais"], domicile_id: "varethis_palais" },
             espece_genre: "Humain, masculin.",
             domicile: "Karsenne.",
             domicile_complet: "Karsenne (Résidence principale permanente).",
@@ -773,6 +832,7 @@ window.TRAME_Personnages = (function() {
         renaud_vaulnes: {
             id: "perso-renaud-de-vaulnes",
             nom: "Renaud de Vaulnes",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_palais"], domicile_id: "varethis_palais" },
             espece_genre: "Humain, masculin.",
             domicile: "Non établi ; il réside en Varethis.",
             domicile_complet: "Non établi ; il réside en Varethis.",
@@ -783,6 +843,7 @@ window.TRAME_Personnages = (function() {
         chanceliere_varethis: {
             id: "perso-chanceliere-de-varethis",
             nom: "Chancelière de Varethis",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_palais"], domicile_id: "varethis_palais" },
             espece_genre: "Humaine, féminin.",
             domicile: "Karsenne.",
             domicile_complet: "Karsenne (Résidence principale permanente).",
@@ -793,6 +854,7 @@ window.TRAME_Personnages = (function() {
         maera: {
             id: "perso-maera",
             nom: "Maëra",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_palais"], domicile_id: "varethis_palais" },
             espece_genre: "Humaine, féminin.",
             domicile: "Karsenne (Palais royal de Karsenne ou environnement immédiat).",
             domicile_complet: "Karsenne (Palais royal de Karsenne ou environnement immédiat).",
@@ -806,6 +868,7 @@ window.TRAME_Personnages = (function() {
         solenne_varin: {
             id: "perso-solenne-varin",
             nom: "Solenne Varin",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["varethis_parfumerie"], domicile_id: "varethis_parfumerie" },
             espece_genre: "Humaine, féminin, environ 50 ans.",
             domicile: "Maison et parfumerie de maître Leirykle, dans le quartier des artisans de Karsenne.",
             domicile_complet: "Maison et parfumerie de maître Leirykle, dans le quartier des artisans de Karsenne (Résidence principale permanente).",
@@ -817,6 +880,7 @@ window.TRAME_Personnages = (function() {
         kordran_fergivre: {
             id: "perso-kordran-fergivre",
             nom: "Kordran Fergivre",
+            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: false, lieux: ["varethis_parfumerie"], domicile_id: "varethis_parfumerie" },
             espece_genre: "Nain, masculin.",
             domicile: "Maison et parfumerie de maître Leirykle, dans le quartier des artisans de Karsenne.",
             domicile_complet: "Maison et parfumerie de maître Leirykle, dans le quartier des artisans de Karsenne (Résidence principale permanente).",
@@ -829,6 +893,7 @@ window.TRAME_Personnages = (function() {
         selyne_var: {
             id: "perso-selyne-var",
             nom: "Selyne Var",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_corbeaux"], domicile_id: "varethis_corbeaux" },
             espece_genre: "Humaine, féminin, environ 30 ans.",
             domicile: "Karsenne (Varethis).",
             domicile_complet: "Karsenne (Varethis, quartier des artisans, Résidence principale permanente).",
@@ -843,6 +908,7 @@ window.TRAME_Personnages = (function() {
         eliane_var: {
             id: "perso-eliane-var-dite-aline-varet",
             nom: "Eliane Var, dite Aline Varet",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: false, lieux: ["varethis_clairval"], domicile_id: "varethis_clairval" },
             espece_genre: "Humaine, féminin, environ 20 ans.",
             domicile: "Domaine de Clairval (Varethis).",
             domicile_complet: "Domaine de Clairval (Varethis, Résidence principale permanente).",
@@ -856,6 +922,7 @@ window.TRAME_Personnages = (function() {
         lieutenant_brenor: {
             id: "perso-lieutenant-brenor",
             nom: "Lieutenant Brenor",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_trois_bornes"], domicile_id: "varethis_trois_bornes" },
             espece_genre: "Humain, masculin.",
             domicile: "Fort de la Passe des Trois Bornes.",
             domicile_complet: "Fort de la Passe des Trois Bornes (Résidence principale permanente).",
@@ -868,6 +935,7 @@ window.TRAME_Personnages = (function() {
         capitaine_caldrin: {
             id: "perso-capitaine-caldrin",
             nom: "Capitaine Caldrin",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["varethis_trois_bornes"], domicile_id: "varethis_trois_bornes" },
             espece_genre: "Humain, masculin.",
             domicile: "Fort de la Passe des Trois Bornes.",
             domicile_complet: "Fort de la Passe des Trois Bornes (Résidence principale permanente).",
@@ -879,6 +947,7 @@ window.TRAME_Personnages = (function() {
         voyageur_mornefond: {
             id: "perso-voyageur-libere-de-mornefond",
             nom: "Voyageur libéré de Mornefond",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: true, lieux: ["varethis_ailleurs"], domicile_id: "varethis_ailleurs" },
             espece_genre: "Humain, masculin.",
             domicile: "Varethis.",
             domicile_complet: "Varethis (sans domicile plus précis établi).",
@@ -891,6 +960,7 @@ window.TRAME_Personnages = (function() {
         kharza_peau_de_neige: {
             id: "perso-kharza-peau-de-neige",
             nom: "Kharza Peau-de-Neige",
+            tags: { espece: "orque", rangs: ["souverain"], harem: false, secret: false, lieux: ["gorkadar_kadar_rauk"], domicile_id: "gorkadar_kadar_rauk" },
             espece_genre: "Orque, féminin, 35 ans.",
             domicile: "Palais du puy de stone à Kadar-Rauk, capitale du Royaume Orque de Gor-Kadar.",
             domicile_complet: "Palais du puy de stone à Kadar-Rauk, capitale du Royaume Orque de Gor-Kadar (Résidence principale permanente).",
@@ -903,6 +973,7 @@ window.TRAME_Personnages = (function() {
         rhazka_cendre_claire: {
             id: "perso-rhazka-cendre-claire",
             nom: "Rhazka Cendre-Claire",
+            tags: { espece: "orque", rangs: ["officier"], harem: false, secret: false, lieux: ["gorkadar_haut_bois", "ardelie_tour_blanche"], domicile_id: "gorkadar_haut_bois" },
             espece_genre: "Orque, féminin, 31 ans.",
             domicile: "Haut-Bois / Tour Blanche.",
             domicile_complet: "Haut-Bois (Gor-Kadar) / Tour Blanche (Immensité Grise).",
@@ -914,6 +985,7 @@ window.TRAME_Personnages = (function() {
         vessa_orm: {
             id: "perso-vessa-orm",
             nom: "Vessa Orm",
+            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: true, lieux: ["gorkadar_sources_rauk"], domicile_id: "gorkadar_sources_rauk" },
             espece_genre: "Naine, féminin, 71 ans.",
             domicile: "Sources de Rauk.",
             domicile_complet: "Sources de Rauk (Gor-Kadar, Résidence surveillée permanente).",
@@ -925,6 +997,7 @@ window.TRAME_Personnages = (function() {
         captifs_rivet_givre: {
             id: "perso-captifs-de-rivet-de-givre-32-ouvriers-civils-et-42-gardes",
             nom: "Captifs de Rivet-de-Givre (32 ouvriers civils et 42 gardes)",
+            tags: { espece: "humain", rangs: ["artisan", "officier"], harem: false, secret: true, lieux: ["gorkadar_sources_rauk"], domicile_id: "gorkadar_sources_rauk" },
             espece_genre: "Nains et humains, masculins et féminins (74 personnes au total).",
             domicile: "Sources de Rauk.",
             domicile_complet: "Sources de Rauk (Gor-Kadar, Résidence surveillée permanente).",
@@ -936,6 +1009,7 @@ window.TRAME_Personnages = (function() {
         isilvrya: {
             id: "perso-isilvrya",
             nom: "Isilvrya",
+            tags: { espece: "dragon", rangs: ["autre"], harem: false, secret: true, lieux: ["gorkadar_hautes_lames"], domicile_id: "gorkadar_hautes_lames" },
             espece_genre: "Dragonne Bestiale, féminin.",
             domicile: "Cimes sauvages des Hautes-Lames, au nord des Sources de Rauk (Gor-Kadar).",
             domicile_complet: "Cimes sauvages des Hautes-Lames, au nord des Sources de Rauk (Gor-Kadar).",
@@ -948,6 +1022,7 @@ window.TRAME_Personnages = (function() {
         aelis_vaer: {
             id: "perso-aelis-vaer",
             nom: "Aélis Vaer",
+            tags: { espece: "humain", rangs: ["souverain"], harem: true, secret: false, lieux: ["astreane_lumerys"], domicile_id: "astreane_lumerys" },
             espece_genre: "Humaine, féminin.",
             domicile: "Lumérys (Astréane).",
             domicile_complet: "Lumérys (Astréane, Résidence principale permanente).",
@@ -958,6 +1033,7 @@ window.TRAME_Personnages = (function() {
         sevra_noll: {
             id: "perso-sevra-noll",
             nom: "Sévra Noll",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["astreane_lumerys"], domicile_id: "astreane_lumerys" },
             espece_genre: "Humaine, féminin.",
             domicile: "Lumérys (Astréane).",
             domicile_complet: "Lumérys (Astréane, Résidence principale permanente).",
@@ -968,6 +1044,7 @@ window.TRAME_Personnages = (function() {
         ilysthera: {
             id: "perso-ilysthera",
             nom: "Ilysthéra",
+            tags: { espece: "dragon", rangs: ["autre"], harem: true, secret: true, lieux: ["astreane_lumerys"], domicile_id: "astreane_lumerys" },
             espece_genre: "Dragonne Noble, féminin.",
             domicile: "Observatoire sommital de Lumérys (Astréane).",
             domicile_complet: "Observatoire sommital de Lumérys (Astréane, Résidence principale permanente).",
@@ -980,6 +1057,7 @@ window.TRAME_Personnages = (function() {
         leonie_varc: {
             id: "perso-leonie-varc",
             nom: "Léonie Varc",
+            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: false, lieux: ["dhorkez_kez_bruma"], domicile_id: "dhorkez_kez_bruma" },
             espece_genre: "Naine, féminin.",
             domicile: "Kez-Bruma (Dhor-Kez).",
             domicile_complet: "Kez-Bruma (Dhor-Kez, Résidence principale permanente).",
@@ -990,6 +1068,7 @@ window.TRAME_Personnages = (function() {
         dhoran_vesk: {
             id: "perso-dhoran-vesk",
             nom: "Dhoran Vesk",
+            tags: { espece: "nain", rangs: ["autre"], harem: false, secret: false, lieux: ["dhorkez_kez_bruma"], domicile_id: "dhorkez_kez_bruma" },
             espece_genre: "Nain, masculin.",
             domicile: "Mines de fond de Dhor-Kez.",
             domicile_complet: "Mines de fond de Dhor-Kez (Bagne minier perpétuel).",
@@ -1001,6 +1080,7 @@ window.TRAME_Personnages = (function() {
         kaldrielle: {
             id: "perso-kaldrielle",
             nom: "Kaldrielle",
+            tags: { espece: "dragon", rangs: ["autre"], harem: false, secret: true, lieux: ["dhorkez_kez_bruma"], domicile_id: "dhorkez_kez_bruma" },
             espece_genre: "Dragonne Bestiale, féminin.",
             domicile: "Carrières géothermiques au nord-est de Kez-Bruma (Dhor-Kez).",
             domicile_complet: "Carrières géothermiques au nord-est de Kez-Bruma (Dhor-Kez).",
@@ -1013,6 +1093,7 @@ window.TRAME_Personnages = (function() {
         maelis_orsenn: {
             id: "perso-maelis-d-orsenn",
             nom: "Reine Maélis d’Orsenn",
+            tags: { espece: "humain", rangs: ["souverain"], harem: true, secret: false, lieux: ["orsenn_capitale"], domicile_id: "orsenn_capitale" },
             espece_genre: "Humaine, féminin, 42 ans.",
             domicile: "Palais royal d'Orsenn.",
             domicile_complet: "Palais royal d'Orsenn (Résidence principale permanente).",
@@ -1024,6 +1105,7 @@ window.TRAME_Personnages = (function() {
         elkyriel: {
             id: "perso-elkyriel-personnage-joueur",
             nom: "Elkyriel (Personnage Joueur)",
+            tags: { espece: "dragon", rangs: ["souverain"], harem: false, secret: true, lieux: ["traverse_elyria", "ardelie_forge", "traverse_10e_cite"], domicile_id: "traverse_elyria" },
             espece_genre: "Dragon Noble, masculin.",
             domicile: "Palais impérial d’Élyria (avec séjours réguliers à la Forge de Rivecour et à la Forteresse-Monde).",
             domicile_complet: "Palais impérial d’Élyria (Résidence principale), Forge de Rivecour et Forteresse-Monde.",
@@ -1075,6 +1157,7 @@ window.TRAME_Personnages = (function() {
         faelia: {
             id: "perso-faelia",
             nom: "Faelia",
+            tags: { espece: "elfe", rangs: ["duc", "officier"], harem: true, secret: true, lieux: ["traverse_elyria", "mer_jade_archipel"], domicile_id: "traverse_elyria" },
             espece_genre: "Elfe, féminin.",
             domicile: "Palais royal d’Élyria.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
@@ -1090,6 +1173,7 @@ window.TRAME_Personnages = (function() {
         talyra: {
             id: "perso-talyra",
             nom: "Talyra",
+            tags: { espece: "elfe", rangs: ["duc"], harem: true, secret: false, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Elfe, féminin.",
             domicile: "Palais royal d’Élyria.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
@@ -1104,6 +1188,7 @@ window.TRAME_Personnages = (function() {
         eryx: {
             id: "perso-eryx",
             nom: "Eryx",
+            tags: { espece: "humain", rangs: ["duc", "officier"], harem: false, secret: false, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Humain, masculin.",
             domicile: "Palais royal d’Élyria.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
@@ -1119,6 +1204,7 @@ window.TRAME_Personnages = (function() {
         nymira: {
             id: "perso-nymira",
             nom: "Nymira",
+            tags: { espece: "elfe", rangs: ["duc", "officier"], harem: true, secret: true, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Elfe, féminin, 26 ans.",
             domicile: "Palais royal d’Élyria.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
@@ -1134,6 +1220,7 @@ window.TRAME_Personnages = (function() {
         mirelle_auvray: {
             id: "perso-mirelle-auvray-2",
             nom: "Mirelle Auvray",
+            tags: { espece: "humain", rangs: ["duc", "officier"], harem: false, secret: false, lieux: ["traverse_elyria", "varethis_parfumerie"], domicile_id: "traverse_elyria" },
             espece_genre: "Humaine, féminin, 33 ans.",
             domicile: "Palais royal d’Élyria ; visites périodiques à Karsenne.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente) ; visites périodiques à Karsenne.",
@@ -1147,6 +1234,7 @@ window.TRAME_Personnages = (function() {
         goran: {
             id: "perso-goran",
             nom: "Goran",
+            tags: { espece: "humain", rangs: ["duc", "officier"], harem: false, secret: false, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Humain, masculin.",
             domicile: "Palais royal d’Élyria / Grand Quartier Général de la Garde.",
             domicile_complet: "Palais royal d’Élyria / Grand Quartier Général de la Garde (Résidence principale permanente).",
@@ -1160,6 +1248,7 @@ window.TRAME_Personnages = (function() {
         myrene: {
             id: "perso-myrene",
             nom: "Myrène",
+            tags: { espece: "elfe", rangs: ["autre"], harem: true, secret: false, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Elfe, féminin.",
             domicile: "Palais royal d’Élyria.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
@@ -1172,6 +1261,7 @@ window.TRAME_Personnages = (function() {
         lethielle: {
             id: "perso-lethielle",
             nom: "Lethielle",
+            tags: { espece: "elfe", rangs: ["autre"], harem: true, secret: false, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Elfe, féminin.",
             domicile: "Palais royal d’Élyria.",
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
@@ -1185,6 +1275,7 @@ window.TRAME_Personnages = (function() {
         nathalysse: {
             id: "perso-nathalysse",
             nom: "Nathalysse (Dame Thalysse de Mirande)",
+            tags: { espece: "dragon", rangs: ["noble", "artisan"], harem: true, secret: true, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Dragonne Noble, féminin.",
             domicile: "Élyria.",
             domicile_complet: "Élyria (Résidence principale permanente).",
@@ -1197,6 +1288,7 @@ window.TRAME_Personnages = (function() {
         olan_vespre: {
             id: "perso-olan-vespre",
             nom: "Olan Vespre",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["traverse_elyria_autorites"], domicile_id: "traverse_elyria_autorites" },
             espece_genre: "Humain, masculin.",
             domicile: "Élyria.",
             domicile_complet: "Élyria (Résidence principale permanente).",
@@ -1207,6 +1299,7 @@ window.TRAME_Personnages = (function() {
         salome_d_arqueval: {
             id: "perso-salome-d-arqueval",
             nom: "Salomé d’Arqueval",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: false, lieux: ["traverse_elyria_autorites"], domicile_id: "traverse_elyria_autorites" },
             espece_genre: "Humaine, féminin.",
             domicile: "Maison des Sept Clefs, Élyria.",
             domicile_complet: "Maison des Sept Clefs, Élyria (Résidence principale permanente).",
@@ -1217,6 +1310,7 @@ window.TRAME_Personnages = (function() {
         mireva: {
             id: "perso-mireva",
             nom: "Mireva",
+            tags: { espece: "humain", rangs: ["artisan"], harem: true, secret: false, lieux: ["traverse_quais_elyria"], domicile_id: "traverse_quais_elyria" },
             espece_genre: "Humaine, féminin.",
             domicile: "Quais d’Élyria.",
             domicile_complet: "Quais d’Élyria (Résidence principale permanente).",
@@ -1228,6 +1322,7 @@ window.TRAME_Personnages = (function() {
         pell: {
             id: "perso-pell-calde",
             nom: "Pell",
+            tags: { espece: "nain", rangs: ["comte"], harem: false, secret: false, lieux: ["traverse_calde", "traverse_elyria"], domicile_id: "traverse_calde" },
             espece_genre: "Nain, masculin.",
             domicile: "Calde-sur-Rive ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Calde-sur-Rive (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1242,6 +1337,7 @@ window.TRAME_Personnages = (function() {
         dhorg: {
             id: "perso-dhorg-clair-verger",
             nom: "Dhorg",
+            tags: { espece: "orque", rangs: ["comte"], harem: false, secret: false, lieux: ["traverse_clair_verger", "traverse_elyria"], domicile_id: "traverse_clair_verger" },
             espece_genre: "Orque, masculin.",
             domicile: "Clair-Verger ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Clair-Verger (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1256,6 +1352,7 @@ window.TRAME_Personnages = (function() {
         sera: {
             id: "perso-sera-grands-vergers",
             nom: "Sera",
+            tags: { espece: "humain", rangs: ["comte"], harem: true, secret: false, lieux: ["traverse_grands_vergers", "traverse_elyria"], domicile_id: "traverse_grands_vergers" },
             espece_genre: "Humaine, féminin.",
             domicile: "Grands-Vergers ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Grands-Vergers (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1270,6 +1367,7 @@ window.TRAME_Personnages = (function() {
         enric: {
             id: "perso-enric-asten",
             nom: "Enric",
+            tags: { espece: "humain", rangs: ["comte"], harem: false, secret: false, lieux: ["traverse_asten", "traverse_elyria"], domicile_id: "traverse_asten" },
             espece_genre: "Humain, masculin.",
             domicile: "Asten ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Asten (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1284,6 +1382,7 @@ window.TRAME_Personnages = (function() {
         maura: {
             id: "perso-maura-haute-rive",
             nom: "Maura",
+            tags: { espece: "humain", rangs: ["comte"], harem: false, secret: false, lieux: ["traverse_haute_rive", "traverse_elyria"], domicile_id: "traverse_haute_rive" },
             espece_genre: "Humaine, féminin, 32 ans.",
             domicile: "Haute-Rive ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Haute-Rive (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1298,6 +1397,7 @@ window.TRAME_Personnages = (function() {
         lise: {
             id: "perso-lise-haute-rive",
             nom: "Lise",
+            tags: { espece: "humain", rangs: ["baron"], harem: false, secret: false, lieux: ["traverse_haute_rive", "traverse_elyria"], domicile_id: "traverse_haute_rive" },
             espece_genre: "Humaine, féminin, 20 ans.",
             domicile: "Haute-Rive ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Haute-Rive (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1312,6 +1412,7 @@ window.TRAME_Personnages = (function() {
         siane: {
             id: "perso-siane-bois-serein",
             nom: "Siane",
+            tags: { espece: "elfe", rangs: ["comte"], harem: true, secret: false, lieux: ["traverse_bois_serein", "traverse_elyria"], domicile_id: "traverse_bois_serein" },
             espece_genre: "Elfe, féminin.",
             domicile: "Bois-Serein ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Bois-Serein (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1326,6 +1427,7 @@ window.TRAME_Personnages = (function() {
         naela: {
             id: "perso-naela-bois-serein",
             nom: "Naela",
+            tags: { espece: "elfe", rangs: ["baron"], harem: false, secret: false, lieux: ["traverse_bois_serein", "traverse_elyria"], domicile_id: "traverse_bois_serein" },
             espece_genre: "Elfe, féminin.",
             domicile: "Bois-Serein ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Bois-Serein (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1340,6 +1442,7 @@ window.TRAME_Personnages = (function() {
         ysel: {
             id: "perso-ysel-rive-noire",
             nom: "Ysel",
+            tags: { espece: "humain", rangs: ["comte"], harem: false, secret: false, lieux: ["traverse_rive_noire", "traverse_elyria"], domicile_id: "traverse_rive_noire" },
             espece_genre: "Humaine, féminin.",
             domicile: "Rive-Noire ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Rive-Noire (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1354,6 +1457,7 @@ window.TRAME_Personnages = (function() {
         rhea: {
             id: "perso-rhea-rive-noire",
             nom: "Rhea",
+            tags: { espece: "humain", rangs: ["baron", "officier"], harem: false, secret: false, lieux: ["traverse_rive_noire", "traverse_elyria"], domicile_id: "traverse_rive_noire" },
             espece_genre: "Humaine, féminin.",
             domicile: "Rive-Noire ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Rive-Noire (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1368,6 +1472,7 @@ window.TRAME_Personnages = (function() {
         virelle_senn: {
             id: "perso-virelle-senn",
             nom: "Virelle Senn",
+            tags: { espece: "humain", rangs: ["comte", "artisan"], harem: false, secret: false, lieux: ["traverse_puits_veyr", "traverse_elyria"], domicile_id: "traverse_puits_veyr" },
             espece_genre: "Humaine, féminin.",
             domicile: "Puits de Veyr ; présence régulière au Palais d’Élyria.",
             domicile_complet: "Puits de Veyr (Résidence principale permanente) ; présence régulière au Palais d’Élyria.",
@@ -1381,6 +1486,7 @@ window.TRAME_Personnages = (function() {
         vel_shara: {
             id: "perso-vel-shara",
             nom: "Vel’Shara",
+            tags: { espece: "ogre", rangs: ["comte", "artisan"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo", "mer_jade_archipel"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Ogre-Mage, féminin.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1396,6 +1502,7 @@ window.TRAME_Personnages = (function() {
         armand_vellec: {
             id: "perso-armand-vellec",
             nom: "Armand Vellec",
+            tags: { espece: "humain", rangs: ["officier"], harem: false, secret: false, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo", "varethis_parfumerie"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Humain, masculin.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise) / Quartier général de la Garde des Veines à Calde-sur-Rive.",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise) / Quartier général de la Garde des Veines à Calde ; visites occasionnelles à Karsenne.",
@@ -1409,6 +1516,7 @@ window.TRAME_Personnages = (function() {
         sariel: {
             id: "perso-sariel",
             nom: "Sariel",
+            tags: { espece: "elfe", rangs: ["officier"], harem: true, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo", "mer_jade_archipel"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Elfe, féminin, 24 ans.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1423,6 +1531,7 @@ window.TRAME_Personnages = (function() {
         eirik: {
             id: "perso-eirik",
             nom: "Eirik",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Humain, masculin, 33 ans.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1434,6 +1543,7 @@ window.TRAME_Personnages = (function() {
         borin: {
             id: "perso-borin",
             nom: "Borin",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Humain, masculin, 51 ans.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1445,6 +1555,7 @@ window.TRAME_Personnages = (function() {
         thalira: {
             id: "perso-thalira",
             nom: "Thalira",
+            tags: { espece: "humain", rangs: ["artisan"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Humaine, féminin, 31 ans.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1457,6 +1568,7 @@ window.TRAME_Personnages = (function() {
         liora: {
             id: "perso-liora",
             nom: "Liora",
+            tags: { espece: "elfe", rangs: ["artisan"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Elfe, féminin, 34 ans.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1469,6 +1581,7 @@ window.TRAME_Personnages = (function() {
         autres_captifs_crique: {
             id: "perso-autres-captifs-liberes-de-la-crique-sanglante",
             nom: "Autres captifs libérés de la Crique Sanglante",
+            tags: { espece: "elfe", rangs: ["civil"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Elfes et humains.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -1481,6 +1594,7 @@ window.TRAME_Personnages = (function() {
         liberes_manoir: {
             id: "perso-liberes-du-manoir-des-epines-noires",
             nom: "Libérés du Manoir des Épines Noires",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Vingt-trois personnes de plusieurs espèces.",
             domicile: "Forteresse-Monde, Strate -3 (Sariel et 21 autres) ; Lirael à la Forge de Rivecour.",
             domicile_complet: "Forteresse-Monde, Strate -3 (Sariel et 21 autres personnes) ; Lirael réside à la Forge de Rivecour.",
@@ -1492,6 +1606,7 @@ window.TRAME_Personnages = (function() {
         anciens_esclaves_fers_noirs: {
             id: "perso-anciens-esclaves-liberes-des-fers-noirs",
             nom: "Anciens esclaves libérés des Fers Noirs",
+            tags: { espece: "humain", rangs: ["civil"], harem: false, secret: true, lieux: ["traverse_10e_cite", "ardelie_forteresse_geo"], domicile_id: "traverse_10e_cite" },
             espece_genre: "Plus de trente humains, elfes et nains.",
             domicile: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
             domicile_complet: "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise).",
@@ -2197,126 +2312,73 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 3 : Par Titres & Statuts Politiques
-     * Affiche l'intégralité des fiches complètes ordonnées selon leur statut social et politique.
-     */
-    /**
-     * VUE 3 : Par Titres & Statuts Politiques
-     * Affiche l'intégralité des fiches complètes ordonnées selon leur statut social et politique.
+     * VUE 3 : Par Titres & Statuts Politiques (Automatisé par Tags)
      */
     function buildTitreView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Personnages par Titres &amp; Statuts Politiques</h2>\n`;
 
-        html += `<h3 id="titres-souverains">Souverains Régnants &amp; Régents</h3>\n`;
-        [PNJ.elkyriel, PNJ.kaelia, PNJ.aldous, PNJ.ysoria, PNJ.kharza_peau_de_neige, PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.meleandre].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
+        const categories = [
+            { id: "titres-souverains", titre: "Souverains Régnants &amp; Régents", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('souverain') },
+            { id: "titres-ducs", titre: "Ducs &amp; Conseil Impérial des Sceaux", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('duc') },
+            { id: "titres-comtes", titre: "Comtes &amp; Barons des Cités de Traverse", filter: p => p.tags && p.tags.rangs && (p.tags.rangs.includes('comte') || p.tags.rangs.includes('baron')) },
+            { id: "titres-militaires", titre: "Officiers Militaires, Sécurité &amp; Renseignement", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('officier') },
+            { id: "titres-artisans", titre: "Artisans Maîtres, Négociants &amp; Logistique", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('artisan') }
+        ];
 
-        html += `<div class="page-break"></div><h3 id="titres-ducs">Ducs &amp; Conseil Impérial des Sceaux</h3>\n`;
-        [PNJ.faelia, PNJ.goran, PNJ.lysandra, PNJ.talyra, PNJ.eryx, PNJ.mirelle_auvray, PNJ.nymira].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="titres-comtes">Comtes &amp; Barons des Cités de Traverse</h3>\n`;
-        [PNJ.vel_shara, PNJ.pell, PNJ.dhorg, PNJ.sera, PNJ.enric, PNJ.maura, PNJ.lise, PNJ.siane, PNJ.naela, PNJ.ysel, PNJ.rhea, PNJ.virelle_senn].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="titres-militaires">Officiers Militaires, Sécurité &amp; Renseignement</h3>\n`;
-        [PNJ.armand_vellec, PNJ.lance_de_huit, PNJ.sariel, PNJ.selyne_var, PNJ.sevra_noll, PNJ.olan_vespre, PNJ.gautier_valcroix, PNJ.capitaine_caldrin, PNJ.lieutenant_brenor].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="titres-artisans">Artisans Maîtres, Négociants &amp; Logistique</h3>\n`;
-        [PNJ.thorne, PNJ.solenne_varin, PNJ.kordran_fergivre, PNJ.dravenna, PNJ.mila, PNJ.kaelen, PNJ.leonie_varc, PNJ.thorek, PNJ.salome_d_arqueval].forEach(p => {
-            html += renderCard(p, 'h4');
+        const allP = Object.values(PNJ);
+        categories.forEach((cat, idx) => {
+            const list = allP.filter(cat.filter);
+            if (list.length > 0) {
+                if (idx > 0) html += `<div class="page-break"></div>`;
+                html += `<h3 id="${cat.id}">${cat.titre}</h3>\n`;
+                list.forEach(p => { html += renderCard(p, 'h4'); });
+            }
         });
 
         return html;
     }
 
     /**
-     * VUE 4 : Par Espèces
-     * Affiche l'intégralité des fiches complètes ordonnées par race / espèce.
+     * VUE 4 : Par Espèces (Automatisé par Tags)
      */
     function buildEspeceView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Personnages par Espèces</h2>\n`;
 
-        html += `<h3 id="espece-dragons">Dragons (Nobles &amp; Bestiaux)</h3>\n`;
-        [PNJ.elkyriel, PNJ.nathalysse, PNJ.ilysthera, PNJ.kaldrielle, PNJ.isilvrya].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
+        const especes = [
+            { id: "espece-dragons", titre: "Dragons (Nobles &amp; Bestiaux)", filter: p => p.tags && p.tags.espece === 'dragon' },
+            { id: "espece-elfes", titre: "Elfes", filter: p => p.tags && p.tags.espece === 'elfe' },
+            { id: "espece-humains", titre: "Humains", filter: p => p.tags && p.tags.espece === 'humain' },
+            { id: "espece-nains", titre: "Nains", filter: p => p.tags && p.tags.espece === 'nain' },
+            { id: "espece-orques", titre: "Orques", filter: p => p.tags && p.tags.espece === 'orque' },
+            { id: "espece-ogres", titre: "Ogres-Mages", filter: p => p.tags && p.tags.espece === 'ogre' },
+            { id: "espece-animaux", titre: "Animaux", filter: p => p.tags && p.tags.espece === 'animal' }
+        ];
 
-        html += `<div class="page-break"></div><h3 id="espece-elfes">Elfes</h3>\n`;
-        [PNJ.faelia, PNJ.talyra, PNJ.lysa, PNJ.liriel, PNJ.lirael, PNJ.nymira, PNJ.sariel, PNJ.vespera, PNJ.siane, PNJ.naela, PNJ.myrene, PNJ.lethielle, PNJ.liora].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="espece-humains">Humains</h3>\n`;
-        [PNJ.lysandra, PNJ.rose, PNJ.reine_kaelia, PNJ.roi_aldous, PNJ.ysoria, PNJ.meleandre, PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.goran, PNJ.eryx, PNJ.mirelle_auvray, PNJ.sera, PNJ.enric, PNJ.maura, PNJ.lise, PNJ.ysel, PNJ.rhea, PNJ.virelle_senn, PNJ.mila, PNJ.seraphine, PNJ.solenne_varin, PNJ.selyne_var, PNJ.eliane_var, PNJ.armand_vellec, PNJ.kaelen, PNJ.alden, PNJ.doran, PNJ.eirik, PNJ.borin, PNJ.thalira, PNJ.aldric, PNJ.lila, PNJ.milo, PNJ.elara, PNJ.alise, PNJ.neria, PNJ.mireva, PNJ.maera, PNJ.lance_de_huit, PNJ.silas, PNJ.lucretia, PNJ.valerius, PNJ.livia, PNJ.olan_vespre, PNJ.salome_d_arqueval, PNJ.sevra_noll, PNJ.toren, PNJ.odran_sorell, PNJ.maeron, PNJ.beran_doss, PNJ.orven, PNJ.colm, PNJ.capitaine_caldrin, PNJ.lieutenant_brenor].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="espece-nains">Nains</h3>\n`;
-        [PNJ.pell, PNJ.thorne, PNJ.maeva, PNJ.fille_thorne_maeva, PNJ.roran, PNJ.thorek, PNJ.kordran_fergivre, PNJ.leonie_varc, PNJ.dhoran_vesk, PNJ.vessa_orm].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="espece-orques">Orques</h3>\n`;
-        [PNJ.kharza_peau_de_neige, PNJ.rhazka_cendre_claire, PNJ.dhorg, PNJ.dravenna].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="espece-ogres">Ogres-Mages</h3>\n`;
-        [PNJ.vel_shara].forEach(p => {
-            html += renderCard(p, 'h4');
-        });
-
-        html += `<div class="page-break"></div><h3 id="espece-animaux">Animaux</h3>\n`;
-        [PNJ.ronce].forEach(p => {
-            html += renderCard(p, 'h4');
+        const allP = Object.values(PNJ);
+        especes.forEach((esp, idx) => {
+            const list = allP.filter(esp.filter);
+            if (list.length > 0) {
+                if (idx > 0) html += `<div class="page-break"></div>`;
+                html += `<h3 id="${esp.id}">${esp.titre}</h3>\n`;
+                list.forEach(p => { html += renderCard(p, 'h4'); });
+            }
         });
 
         return html;
     }
 
     /**
-     * VUE 5 : Cercle Intime & Harem libre
-     * Affiche l'intégralité des fiches complètes de toutes les compagnes et amantes.
+     * VUE 5 : Cercle Intime & Harem libre (Automatisé par Tags)
      */
     function buildHaremView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Cercle Intime &amp; Harem libre d’Elkyriel</h2>\n`;
         html += `<div class="card-start"><div class="rule-item"><p>Toutes les fiches complètes des compagnes, amantes et figures du foyer partagé d'Elkyriel, répertoriées sans filtre ni renvoi abrégé :</p></div></div>\n`;
 
-        const haremList = [
-            PNJ.faelia,
-            PNJ.rose,
-            PNJ.lysandra,
-            PNJ.talyra,
-            PNJ.sera,
-            PNJ.siane,
-            PNJ.nymira,
-            PNJ.sariel,
-            PNJ.lysa,
-            PNJ.liriel,
-            PNJ.lirael,
-            PNJ.myrene,
-            PNJ.lethielle,
-            PNJ.nathalysse,
-            PNJ.ilysthera,
-            PNJ.maelis_orsenn,
-            PNJ.aelis_vaer,
-            PNJ.reine_kaelia,
-            PNJ.ysoria,
-            PNJ.alise,
-            PNJ.neria,
-            PNJ.mireva
-        ];
-
-        haremList.forEach(p => {
+        const list = Object.values(PNJ).filter(p => p.tags && p.tags.harem === true);
+        list.forEach(p => {
             html += renderCard(p, 'h4');
         });
 
@@ -2324,39 +2386,21 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 6 : Secret Draconique
-     * Sépare et affiche les fiches complètes de ceux qui savent et de ceux qui ignorent.
+     * VUE 6 : Secret Draconique (Automatisé par Tags)
      */
     function buildSecretView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Secret Draconique</h2>\n`;
 
-        html += `<h3 id="secret-savent">Ceux qui savent qu'Elkyriel est un Dragon Noble</h3>\n`;
-        const savent = [
-            PNJ.faelia, PNJ.lysandra, PNJ.lysa, PNJ.nymira, PNJ.sariel, PNJ.liriel, PNJ.lirael, PNJ.rose, PNJ.aldric,
-            PNJ.thorne, PNJ.maeva, PNJ.alden, PNJ.roran, PNJ.doran, PNJ.seraphine, PNJ.vespera, PNJ.eirik, PNJ.borin, PNJ.thalira, PNJ.liora,
-            PNJ.vel_shara, PNJ.nathalysse, PNJ.ilysthera, PNJ.kaldrielle, PNJ.isilvrya, PNJ.vessa_orm, PNJ.captifs_rivet_givre,
-            PNJ.ancien_soldat_deux_couronnes, PNJ.jeune_apprenti_deux_couronnes, PNJ.voyageuse_deux_couronnes,
-            PNJ.trois_ouvriers_mornefond, PNJ.palefrenier_mornefond, PNJ.soigneuse_mornefond, PNJ.deux_carriers_mornefond,
-            PNJ.voyageur_mornefond, PNJ.autres_captifs_crique, PNJ.liberes_manoir, PNJ.anciens_esclaves_fers_noirs
-        ];
-        savent.forEach(p => {
-            html += renderCard(p, 'h4');
-        });
+        const allP = Object.values(PNJ);
+        const savent = allP.filter(p => p.tags && p.tags.secret === true);
+        const ignorent = allP.filter(p => !p.tags || p.tags.secret !== true);
 
-        html += `<div class="page-break"></div><h3 id="secret-ignorent">Ceux qui ignorent sa véritable nature draconique</h3>\n`;
-        const ignorent = [
-            PNJ.talyra, PNJ.sera, PNJ.siane, PNJ.naela, PNJ.myrene, PNJ.lethielle, PNJ.ysel, PNJ.rhea, PNJ.maura, PNJ.lise, PNJ.neria, PNJ.mireva,
-            PNJ.eryx, PNJ.mirelle_auvray, PNJ.goran, PNJ.pell, PNJ.dhorg, PNJ.enric, PNJ.virelle_senn, PNJ.olan_vespre, PNJ.salome_d_arqueval,
-            PNJ.kaelen, PNJ.anciens_captifs_trois_saules, PNJ.toren, PNJ.femme_cheveux_noirs, PNJ.homme_age, PNJ.jeune_homme, PNJ.jeune_femme,
-            PNJ.kharza_peau_de_neige, PNJ.rhazka_cendre_claire, PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.sevra_noll, PNJ.leonie_varc, PNJ.dhoran_vesk,
-            PNJ.reine_kaelia, PNJ.roi_aldous, PNJ.silas, PNJ.lucretia, PNJ.valerius, PNJ.livia, PNJ.ysoria, PNJ.meleandre, PNJ.gautier_valcroix,
-            PNJ.maera, PNJ.alise, PNJ.selyne_var, PNJ.eliane_var, PNJ.solenne_varin, PNJ.kordran_fergivre, PNJ.armand_vellec, PNJ.lance_de_huit,
-            PNJ.thorek, PNJ.apothicaire, PNJ.beran_doss, PNJ.orven, PNJ.colm, PNJ.maeron, PNJ.odran_sorell, PNJ.capitaine_caldrin, PNJ.lieutenant_brenor
-        ];
-        ignorent.forEach(p => {
-            html += renderCard(p, 'h4');
-        });
+        html += `<h3 id="secret-savent">Ceux qui savent qu'Elkyriel est un Dragon Noble (${savent.length})</h3>\n`;
+        savent.forEach(p => { html += renderCard(p, 'h4'); });
+
+        html += `<div class="page-break"></div><h3 id="secret-ignorent">Ceux qui ignorent sa véritable nature draconique (${ignorent.length})</h3>\n`;
+        ignorent.forEach(p => { html += renderCard(p, 'h4'); });
 
         return html;
     }
@@ -2375,9 +2419,9 @@ window.TRAME_Personnages = (function() {
 
         return html;
     }
-
+    
     /**
-     * Générateur d'Index pour la Sidebar (selon la vue active)
+     * Générateur d'Index dynamique pour la Sidebar
      */
     function getIndex(viewMode) {
         const mode = viewMode || 'region';
@@ -2410,17 +2454,14 @@ window.TRAME_Personnages = (function() {
         }
 
         if (mode === 'harem') {
-            const list = [
-                PNJ.faelia, PNJ.rose, PNJ.lysandra, PNJ.talyra, PNJ.sera, PNJ.siane, PNJ.nymira, PNJ.sariel,
-                PNJ.lysa, PNJ.liriel, PNJ.lirael, PNJ.myrene, PNJ.lethielle, PNJ.nathalysse, PNJ.ilysthera,
-                PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.reine_kaelia, PNJ.ysoria, PNJ.alise, PNJ.neria, PNJ.mireva
-            ];
+            const list = Object.values(PNJ).filter(p => p.tags && p.tags.harem === true);
             return list.map(p => ({ id: p.id, title: p.nom, level: 1 }));
         }
 
         if (mode === 'secret') {
+            const countSavent = Object.values(PNJ).filter(p => p.tags && p.tags.secret === true).length;
             return [
-                { id: "secret-savent", title: "Ceux qui savent (37)", level: 1 },
+                { id: "secret-savent", title: `Ceux qui savent (${countSavent})`, level: 1 },
                 { id: "secret-ignorent", title: "Ceux qui ignorent", level: 1 }
             ];
         }
@@ -2488,7 +2529,7 @@ window.TRAME_Personnages = (function() {
             { id: "sous-orsenn-orsenn", title: "Orsenn", level: 3 }
         ];
     }
-    
+
     /**
      * Point d'entrée pour index.html
      */
