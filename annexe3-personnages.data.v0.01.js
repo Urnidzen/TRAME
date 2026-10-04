@@ -2525,7 +2525,7 @@ window.TRAME_Personnages = (function() {
             { id: "sous-secteur-industriel-souterrain", title: "Secteur industriel", level: 3, tag: "ardelie_rivecour_industriel" },
             
             { id: "lieu-aldhaven", title: "Aldhaven", level: 2 },
-            { id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", level: 3, tag: "ardelie_aldhaven_forge" },
+            { id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", level: 3, tag: ["ardelie_aldhaven_forge", "ardelie_aldhaven"] },
             { id: "sous-port-et-navire-aldhaven", title: "Port et navire", level: 3, tag: "ardelie_aldhaven_port" },
             
             { id: "lieu-les-saillans", title: "Les Saillans", level: 2, tag: "ardelie_saillans" },
@@ -2535,8 +2535,8 @@ window.TRAME_Personnages = (function() {
             { id: "lieu-souterrains-immensite-forteresse-monde", title: "Forteresse-Monde (Souterrains)", level: 3, tag: "ardelie_forteresse_geo" },
             
             { id: "lieu-mer-de-jade-et-archipel", title: "Mer de Jade & Archipel", level: 2 },
-            { id: "sous-archipel-navire-kaelen", title: "Navire d’Elkyriel", level: 3, tag: "mer_jade_archipel" },
-            { id: "sous-archipel-debouche-portail-grand-air", title: "Débouché Portail du Grand Air", level: 3 },
+            { id: "sous-archipel-navire-kaelen", title: "Navire d’Elkyriel", level: 3, tag: "ardelie_aldhaven_port" },
+            { id: "sous-archipel-debouche-portail-grand-air", title: "Débouché Portail du Grand Air", level: 3, tag: "mer_jade_archipel" },
             
             { id: "lieu-marches-orientales", title: "Marches orientales", level: 2 },
             { id: "sous-routes-des-marches-orientales", title: "Routes & Valdorne", level: 3, tag: "ardelie_marches_routes" },
@@ -2588,12 +2588,11 @@ window.TRAME_Personnages = (function() {
         const allP = Object.values(PNJ);
 
         structureGeographique.forEach(loc => {
-            // 1. Ajouter le lieu géographique dans l'arborescence
             indexList.push({ id: loc.id, title: loc.title, level: loc.level });
 
-            // 2. Si le lieu est associé à un tag, injecter automatiquement ses personnages
             if (loc.tag) {
-                const occupants = allP.filter(p => p.tags && p.tags.lieux && p.tags.lieux.includes(loc.tag));
+                const tagsCherches = Array.isArray(loc.tag) ? loc.tag : [loc.tag];
+                const occupants = allP.filter(p => p.tags && p.tags.lieux && tagsCherches.some(t => p.tags.lieux.includes(t)));
                 occupants.forEach(p => {
                     indexList.push({ id: p.id, title: p.nom, level: loc.level + 1 });
                 });
@@ -2601,6 +2600,8 @@ window.TRAME_Personnages = (function() {
         });
 
         return indexList;
+    }
+ 
     /**
      * Point d'entrée pour index.html
      */
