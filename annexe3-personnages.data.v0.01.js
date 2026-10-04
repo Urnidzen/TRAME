@@ -128,7 +128,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Grande Écuyère des Domaines Extérieurs ; membre de l’Escouade d’intervention de la Forge.",
             physique: "Peau vert mousse et corps puissant, sculpté par le combat.",
             caractere: "Fière, directe et franche.",
-            histoire: "Contrairement aux guerriers de Traverse qui s'enferment dans des cités de pierre, Dravenna a trouvé sa liberté et sa rédemption dans les grands espaces et les plaines d'Ardélie. Après des années de boucherie subies dans les fosses de gladiateurs, le bruit des armes la dégoûte. Élever, dresser et soigner les destriers caparaçonnés est devenu sa véritable passion et sa thérapie. Elle a expressément refusé un titre de cour ou un commandement de garnison en Traverse pour rester auprès de ses chevaux. Elle est la maîtresse incontestée de l'élevage équestre d'Ardélie, fournissant les montures d'exception aux messagers et aux mercenaires de Goran, tout en constituant avec les gardes de la Lance de Huit le bouclier défensif de la Forge de Rivecour en cas d'attaque extérieure. Motivations actuelles : prendre soin des chevaux, préserver son sanctuaire de liberté en pleine nature, et accompagner ponctuellement Elkyriel lors de ses expéditions.",
+            histoire: "Contrairement aux guerriers de Traverse qui s'enferment dans des cités de pierre, Dravenna a trouvé sa liberté et sa rédemption dans les grands espaces et les plaines d'Ardélie. Après des années de boucherie subies dans les fosses de gladiateurs, le bruit des armes la dégoûte. Élever, dresser et soigner les destriers caparaçonnés est devenu sa véritable passion et son havre de paix. Elle a expressément refusé un titre de cour ou un commandement de garnison en Traverse pour rester auprès de ses chevaux. Elle est la maîtresse incontestée de l'élevage équestre d'Ardélie, fournissant les montures d'exception aux messagers et aux mercenaires de Goran, tout en constituant avec les gardes de la Lance de Huit le bouclier défensif de la Forge de Rivecour en cas d'attaque extérieure. Motivations actuelles : prendre soin des chevaux, préserver son sanctuaire de liberté en pleine nature, et accompagner ponctuellement Elkyriel lors de ses expéditions.",
             rapport_elkyriel: "Voir REF-ELKYRIEL."
         },
         seraphine: {
@@ -382,10 +382,10 @@ window.TRAME_Personnages = (function() {
             domicile_complet: "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria par le réseau des Cercles de Téléportation.",
             condition_anterieure: "Fille du Patron, cloîtrée par lui dans la Tour Blanche depuis son plus jeune âge.",
             secret_draconique: "Sait qu'Elkyriel est un Dragon Noble (gardienne et complice du secret).",
-            fonction: "Duchesse ; Voix des Ombres. Directrice des Corbeaux et stratège du renseignement impérial.",
+            fonction: "Duchesse ; Voix des Ombres. Directrice des Corbeaux et gardienne des secrets de l'Empire.",
             physique: "Peau blanche, yeux violets et longue chevelure noire de jais. Elle porte généralement des robes vaporeuses soulignant sa silhouette fine. Sa voix est cristalline.",
             caractere: "Mystique, intense et dépourvue de morale conventionnelle.",
-            histoire: "Fondatrice et directrice d’un réseau d’espionnage dont les membres sont appelés les Corbeaux. Lysandra est l'oreille, l'œil et l'instinct d'Elkyriel. N'ayant aucune affinité pour l'art occulte de la nécromancie, elle n'exerce aucune fonction technique ni logistique sur les dix mille corps de labeur d'Orsenn. En revanche, en tant que Voix des Ombres, elle exerce une autorité de contre-espionnage et de haute sécurité d'État sur les maîtres-scelleurs et nécromanciens étrangers détachés en Traverse : fichés, surveillés et encadrés par ses Corbeaux, aucun d'eux ne peut conspirer contre la Couronne sans être neutralisé par son réseau. Projet actuel à Karsenne : l’implantation des Corbeaux à Karsenne est en place ; Selyne Var en centralise les informations depuis le quartier des artisans. Capacités magiques : Lysandra a appris à lancer des sorts. Elle connaît notamment Langage animal, qu’elle utilise pour communiquer directement avec les véritables corbeaux qu’elle dresse. Ceux-ci peuvent ainsi lui servir de messagers et de témoins capables de lui rapporter leurs observations. Le lancement du sort n’est pas immédiat et nécessite un délai déterminé par un d6. Focalisateur : elle emploie un chapelet pour lancer ses sorts. Vénération supposée : Lysandra n’a jamais précisé si l’usage de ce chapelet correspond à une véritable dévotion ni à qui celle-ci s’adresserait. Ses proches supposent qu’elle vénère Elkyriel, sans qu’elle l’ait explicitement confirmé.",
+            histoire: "Fondatrice et directrice d’un réseau d’espionnage dont les membres sont appelés les Corbeaux. Lysandra est l'oreille, l'œil et l'instinct d'Elkyriel. N'ayant aucune affinité pour l'art occulte de la nécromancie, elle n'exerce aucune fonction technique ni logistique sur les dix mille corps de labeur d'Orsenn. En revanche, en tant que Voix des Ombres, elle veille à la sûreté du royaume et à la traque des espions, gardant un œil vigilant sur les maîtres-scelleurs et nécromanciens étrangers détachés en Traverse : inscrits dans les registres noirs, épiés et cernés par ses Corbeaux, aucun d'eux ne peut conspirer contre la Couronne sans être neutralisé par son réseau. Projet actuel à Karsenne : l’implantation des Corbeaux à Karsenne est en place ; Selyne Var en centralise les informations depuis le quartier des artisans. Capacités magiques : Lysandra a appris à lancer des sorts. Elle connaît notamment Langage animal, qu’elle utilise pour communiquer directement avec les véritables corbeaux qu’elle dresse. Ceux-ci peuvent ainsi lui servir de messagers et de témoins capables de lui rapporter leurs observations. Focalisateur : elle emploie un chapelet pour lancer ses sorts. Vénération supposée : Lysandra n’a jamais précisé si l’usage de ce chapelet correspond à une véritable dévotion ni à qui celle-ci s’adresserait. Ses proches supposent qu’elle vénère Elkyriel, sans qu’elle l’ait explicitement confirmé.",
             rapport_elkyriel: "Voir REF-ELKYRIEL. Amante et partenaire de confiance pour le renseignement.",
             rapports_autres: "Rapport à Faelia : amante et complice. Rapport à Eryx : relation exclusivement professionnelle. Eryx était historiquement son meilleur Corbeau ; leur collaboration repose sur une confiance ancienne et un respect mutuel."
         },
@@ -440,8 +440,8 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Ancien Grand Chancelier d’Ardélie et serviteur de longue date de l’État. Il supervisait les actes sensibles, les correspondances diplomatiques, les chiffres, les itinéraires et les archivistes autorisés.",
             physique: "Cheveux gris coupés courts, visage étroit, tenue impeccable et mains toujours gantées de cuir noir. Sa voix reste basse et mesurée, même lorsqu’il menace.",
-            caractere: "Austère, méthodique, avare de paroles et soucieux de cloisonner ses activités.",
-            histoire: "Nécromancien demeuré humain, il préparait sa lichification au prix de centaines ou milliers de vies. Il organisa l’enlèvement de Méléandre, la falsification d’actes royaux, une opération de faux drapeau et une guerre destinée à lui fournir morts, blessés et captifs. Il compromit Maël Corven avant de le faire assassiner et relever comme zombie. Situation actuelle : destitué, privé de ses privilèges et condamné à mort. Il demeure détenu sous garde royale pour des interrogatoires complémentaires avant son exécution."
+            caractere: "Austère, méthodique, avare de paroles et gardant chacun de ses secrets hermétiquement séparé des autres.",
+            histoire: "Nécromancien demeuré humain, il préparait sa lichification au prix de centaines ou milliers de vies. Il organisa l’enlèvement de Méléandre, la falsification d’actes royaux, un complot sous fausse bannière et une guerre destinée à lui fournir morts, blessés et captifs. Il compromit Maël Corven avant de le faire assassiner et relever comme zombie. Situation actuelle : destitué, privé de ses privilèges et condamné à mort. Il demeure détenu sous garde royale pour des interrogatoires complémentaires avant son exécution."
         },
         lucretia: {
             id: "perso-lucretia",
@@ -520,14 +520,14 @@ window.TRAME_Personnages = (function() {
         thorek: {
             id: "perso-thorek",
             nom: "Thorek",
-            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rivecour_industriel"], domicile_id: "ardelie_rivecour_industriel" },
+            tags: { espece: "nain", rangs: ["artisan"], harem: false, secret: false, lieux: ["ardelie_rivecour_marchands"], domicile_id: "ardelie_rivecour_marchands" },
             espece_genre: "Nain, masculin.",
             domicile: "Rivecour.",
-            domicile_complet: "Rivecour (Secteur industriel souterrain).",
+            domicile_complet: "Rivecour (Quartier des Marchands, Comptoir de Thorek).",
             secret_draconique: "Ignore sa nature de Dragon Noble.",
-            fonction: "Forgeron industriel, fournisseur d’Elkyriel en métaux rares.",
+            fonction: "Fournisseur de minerais en tout genre : communs, rares et même exceptionnels.",
             histoire: "Surnom : La Gueule de Pierre.",
-            rapport_elkyriel: "Leur contrat secret garantit l’approvisionnement d’une tonne de Fer Diamantin et de Mithril."
+            rapport_elkyriel: "Leur contrat secret garantit l’approvisionnement en minerais d'exceptions."
         },
         rose: {
             id: "perso-rose",
@@ -875,7 +875,7 @@ window.TRAME_Personnages = (function() {
             domicile_complet: "Maison et parfumerie de maître Leirykle, dans le quartier des artisans de Karsenne (Résidence principale permanente).",
             condition_anterieure: "Réduite en esclavage pour dettes, puis achetée et immédiatement affranchie par Leirykle.",
             secret_draconique: "Sait que Leirykle est Elkyriel, mais ignore sa nature de Dragon Noble.",
-            fonction: "Responsable technique, herboriste et distillatrice en chef de la parfumerie. Ayant pris la direction quotidienne de l'établissement suite à la promotion de Mirelle Auvray en Traverse, elle supervise les cueillettes, les compositions florales, l'accueil courant de la clientèle aisée et la vente des pièces de cristal façonnées par Kordran.",
+            fonction: "Herboriste et distillatrice en chef de la parfumerie. Ayant pris la direction quotidienne de l'établissement suite à la promotion de Mirelle Auvray en Traverse, elle supervise les cueillettes, les compositions florales, l'accueil courant de la clientèle aisée et la vente des pièces de cristal façonnées par Kordran.",
             rapport_elkyriel: "Reconnaissance, soulagement et confiance professionnelle envers celui qui lui a rendu sa liberté et permet à son savoir-faire de retrouver une valeur reconnue."
         },
         kordran_fergivre: {
@@ -887,7 +887,7 @@ window.TRAME_Personnages = (function() {
             domicile_complet: "Maison et parfumerie de maître Leirykle, dans le quartier des artisans de Karsenne (Résidence principale permanente).",
             condition_anterieure: "Condamné puis réduit en esclavage après avoir refusé de participer à la fabrication de faux sceaux ; acheté et immédiatement affranchi par Leirykle.",
             secret_draconique: "Sait que Leirykle est Elkyriel, mais ignore sa nature de Dragon Noble.",
-            fonction: "Artisan du cristal et maître de l’identité visuelle de la parfumerie. Il produit, souffle, taille et décore le cristal afin de créer des flacons de luxe et d’autres œuvres d'art pour la haute société de Varethis.",
+            fonction: "Maître verrier et artisan du cristal de la parfumerie. Il produit, souffle, taille et décore le cristal afin de créer des flacons de luxe et d’autres œuvres d'art pour la haute société de Varethis.",
             caractere: "Fier de son métier, attentif à la qualité des matières et hostile à l’usage criminel de son art.",
             rapport_elkyriel: "Reconnaissance et respect d’artisan envers celui qui l’a libéré et lui transmet un nouveau savoir-faire sans lui retirer la maîtrise de ses propres créations."
         },
@@ -898,11 +898,11 @@ window.TRAME_Personnages = (function() {
             espece_genre: "Humaine, féminin, environ 30 ans.",
             domicile: "Karsenne (Varethis).",
             domicile_complet: "Karsenne (Varethis, quartier des artisans, Résidence principale permanente).",
-            condition_anterieure: "Opératrice logistique de la villa des Deux-Couronnes, recrutée sous la contrainte par le réseau d’Odran.",
+            condition_anterieure: "Intendante des convois et du matériel de la villa des Deux-Couronnes, recrutée sous la contrainte par le réseau d’Odran.",
             secret_draconique: "Ignore sa nature de Dragon Noble.",
-            fonction: "Directrice et coordinatrice de la cellule des Corbeaux de Varethis depuis le quartier des artisans de Karsenne ; coordination de la sécurité discrète entourant la parfumerie de maître Leirykle et son Cercle de téléportation.",
+            fonction: "Maîtresse de la cellule des Corbeaux de Varethis depuis le quartier des artisans de Karsenne ; coordination de la sécurité discrète entourant la parfumerie de maître Leirykle et son Cercle de téléportation.",
             physique: "Grande et mince, visage étroit et fatigué, teint pâle et mains tachées d’encre. Ses très longs cheveux châtains sont généralement attachés bas dans son dos. Ses yeux sont gris. Son maintien précis et contrôlé se fissure lorsqu’elle perd la maîtrise d’une situation.",
-            histoire: "Le réseau d’Odran avait enlevé sa sœur cadette Eliane puis menaçait de s’en prendre à elle afin de contraindre Selyne à préparer des ordres, répartir du matériel et transmettre des instructions. Capturée lors de la destruction de la villa, Selyne révéla finalement son identité et coopéra avec les autorités. Elkyriel a depuis retrouvé Eliane vivante, libre et employée au domaine de Clairval sous le nom d’Aline Varet. Après avoir retrouvé sa sœur libre à Clairval, Selyne a mis ses talents d'administratrice logistique au service de Lysandra.",
+            histoire: "Le réseau d’Odran avait enlevé sa sœur cadette Eliane puis menaçait de s’en prendre à elle afin de contraindre Selyne à préparer des ordres, répartir du matériel et transmettre des instructions. Capturée lors de la destruction de la villa, Selyne révéla finalement son identité et coopéra avec les autorités. Elkyriel a depuis retrouvé Eliane vivante, libre et employée au domaine de Clairval sous le nom d’Aline Varet. Après avoir retrouvé sa sœur libre à Clairval, Selyne a mis son remarquable sens de l'intendance et des écritures au service de Lysandra.",
             rapport_elkyriel: "Voir REF-ELKYRIEL. La crainte initiale éprouvée envers celui qui l’avait libérée a laissé place à une confiance prudente et à une profonde reconnaissance après qu’il a tenu sa promesse de rechercher Eliane et lui a personnellement rapporté sa lettre.",
             rapports_autres: "Rapport à Eliane Var : sœur aînée profondément attachée à sa cadette. Leur séparation et la croyance qu’Eliane demeurait captive ont gouverné tous ses choix depuis sa libération."
         },
@@ -1039,7 +1039,7 @@ window.TRAME_Personnages = (function() {
             domicile: "Lumérys (Astréane).",
             domicile_complet: "Lumérys (Astréane, Résidence principale permanente).",
             secret_draconique: "Ignore sa nature de Dragon Noble.",
-            fonction: "Officière générale, commandante de la milice des Veilleurs de Verre pour la sécurité publique et la protection du peuple Sans-Étincelle.",
+            fonction: "Capitaine générale, à la tête de la milice des Veilleurs de Verre pour le maintien de l'ordre et la protection du peuple Sans-Étincelle.",
             rapport_elkyriel: "Ralliée et soumise à l'autorité impériale après la leçon des quais de Nacrelac."
         },
         ilysthera: {
@@ -1167,7 +1167,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Duchesse ; Maréchale de la Couronne. Cheffe suprême de la Cavalerie des Wyvernes (60 cavalières d'élite) et Première dame du harem libre d'Élyria (considérée comme première épouse).",
             physique: "Visage ovale aux traits elfiques affinés, peau hâlée et satinée parsemée de taches de rousseur sur le nez, iris dorés et longue chevelure rousse descendant jusqu’aux genoux, souvent portée en tresses complexes ornées de fleurs séchées. Silhouette svelte et athlétique aux formes généreuses. Son parfum évoque la forêt. Garde-robe : harnois complet pour le combat et les déplacements dangereux ; robes légères taillées dans des matières précieuses dans les lieux sûrs. Elle refuse les pantalons et les sous-vêtements et assume volontiers sa nudité dans l’intimité.",
             caractere: "Entreprenante, directe et franche. Elle assume sa beauté et sait employer l’attention qu’elle suscite.",
-            histoire: "Combattante d'exception et arcaniste martiale. Faelia n'a pas vocation à s'embourber dans la logistique lourde de l'infanterie d'un royaume de 20 000 soldats, tâche qu'elle laisse à l'expérience militaire éprouvée du Connétable Goran. Son domaine d'excellence est l'arme aérienne de choc et la terreur des cieux : elle commande directement les 60 cavalières d'élite montées sur wyvernes lors des batailles majeures et inspire les troupes par sa présence flamboyante. Pour préserver son temps politique et intime au Palais impérial, elle a délégué les soins quotidiens et le nourrissage des 180 wyvernes de l'Archipel des Tempêtes à une Châtellenie des Volières formée par elle, n'y intervenant que pour les soumissions rituelles des bêtes majeures et l'adoubement des cavalières. Au palais, elle veille à l'harmonie et à la concorde du harem impérial, respectée sans rivalité par toutes les autres compagnes. Capacités particulières : connaît Langage animal et le lance par magie innée, sans focalisateur.",
+            histoire: "Combattante d'exception et arcaniste, Faelia laisse la gestion de l'infanterie à l'expérience de Goran. Son rôle est de frapper depuis les airs : lors des batailles, elle mène elle-même la charge des soixante cavalières sur wyvernes et sème la panique chez l'ennemi. L'élevage et l'entretien des cent quatre-vingts wyvernes dans l'archipel sont laissés à des dresseurs. Faelia ne s'y rend que pour dompter les bêtes les plus rétives et adouber les nouvelles cavalières. Première dame auprès d'Elkyriel, elle veille sur la maisonnée du palais. Grâce à sa magie naturelle, elle peut comprendre et parler d'instinct aux animaux.",
             rapport_elkyriel: "Voir REF-ELKYRIEL. Première compagne, amante, partenaire de combat et première du harem libre. Sa confiance envers lui est absolue et sa loyauté aveugle.",
             rapports_autres: "Rapport à Rose : amante, attirée par son calme et ses formes généreuses. Rapport à Lysa : forte attirance physique ; attitude possessive et protectrice depuis son sauvetage. Rapport à Lysandra : amante et complice de confiance. Rapport à Nymira : attirance réciproque et relation intime. Sexualité : bisexuelle et libertine. Elle ne désire qu'Elkyriel parmi les hommes et reste libre d'entretenir des relations avec des femmes."
         },
@@ -1195,10 +1195,10 @@ window.TRAME_Personnages = (function() {
             domicile_complet: "Palais royal d’Élyria (Résidence principale permanente).",
             condition_anterieure: "Maître de logistique et agent d'élite des Corbeaux de Lysandra.",
             secret_draconique: "Ignore sa nature de Dragon Noble.",
-            fonction: "Grand Intendant du Royaume et Grand Sénéchal d’Élyria (Président du Conseil Magistral de la capitale et chef du gouvernement civil).",
+            fonction: "Grand Intendant du Royaume et Grand Sénéchal d’Élyria. Premier magistrat de la capitale et intendant des affaires civiles de la Couronne.",
             physique: "Homme âgé et distingué. Ses yeux ont retrouvé la vue grâce à la magie de restauration d’Elkyriel. Présence sobre et discrète.",
             caractere: "Distingué, discret, méthodique et incorruptible.",
-            histoire: "Ayant surmonté la cécité et les pires souffrances dans la fange d'Ardélie avant d'être miraculeusement guéri par Elkyriel, Eryx a développé une sérénité et une distinction imperturbables. Rompu à la gestion des réseaux secrets, il est l'administrateur idéal pour réguler une métropole marchande comme Élyria. Il préside le Conseil Magistral, maintenant l'ordre public via le prévôt Olan Vespre, validant les décrets avec Nymira et harmonisant les budgets avec Mirelle Auvray. Sa droiture absolue et son refus des privilèges nobles lui ont valu le respect unanime des corporations et du peuple. Il a entièrement passé le relais de la gestion domestique de la Forge de Rivecour à Mila pour se consacrer à la capitale impériale.",
+            histoire: "Miraculeusement guéri de sa cécité par Elkyriel après de rudes épreuves en Ardélie, Eryx en a tiré un calme et une distinction inaltérables. Rompu aux rouages secrets de l'État, il gouverne la cité marchande d'Élyria avec une rigueur exemplaire. Il préside le collège des magistrats, fait veiller sur la paix des rues par le prévôt Olan Vespre, promulgue les édits avec Nymira et règle les dépenses du royaume avec Mirelle Auvray. Son intégrité et son refus des privilèges lui valent le respect des corporations et des humbles. Il a confié la tenue de la Forge de Rivecour à Mila pour se vouer tout entier à la capitale.",
             rapport_elkyriel: "Voir REF-ELKYRIEL. Dévotion absolue.",
             rapports_autres: "Rapport à Lysandra : collaborateur historique de confiance mutuelle, sans lien sentimental."
         },
@@ -1229,7 +1229,7 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Trésorière Générale du Royaume et membre du Conseil des Sceaux.",
             caractere: "Méthodique, professionnelle, incorruptible et ferme.",
-            histoire: "Victime dans son passé de l'usure et des montages financiers malhonnêtes qui l'avaient privée de sa liberté, Mirelle a une haine viscérale de la fraude et du gaspillage. Lors de l'installation de la parfumerie de Karsenne, sa rigueur comptable infaillible a impressionné Elkyriel. À l'été 1249, chargée d'auditer les coffres corrompus de la Maison des Sept Clefs, elle a traqué le moindre vol avec une efficacité redoutable. Élevée au rang de Trésorière Générale de Traverse, elle ne calcule pas chaque centime en personne : elle règne sur la Chambre des Comptes d'Élyria, contrôlant les impôts des Comtés, la solde des armées et les déblocages de fonds impériaux. Elle a confié la boutique de Karsenne à Solenne Varin pour se consacrer pleinement au Trésor impérial.",
+            histoire: "Victime dans son passé de l'usure et des artifices de créances trompeurs qui l'avaient privée de sa liberté, Mirelle a une haine viscérale de la fraude et du gaspillage. Lors de l'installation de la parfumerie de Karsenne, sa rigueur comptable infaillible a impressionné Elkyriel. À l'été 1249, chargée d'éplucher et d'inspecter les livres de la Maison des Sept Clefs, elle a traqué le moindre vol avec une efficacité redoutable. Élevée au rang de Trésorière Générale de Traverse, elle ne calcule pas chaque centime en personne : elle règne sur la Chambre des Comptes d'Élyria, contrôlant les impôts des Comtés, la solde des armées et les dépenses du Trésor impérial. Elle a confié la boutique de Karsenne à Solenne Varin pour se consacrer pleinement au Trésor impérial.",
             rapport_elkyriel: "Profonde reconnaissance et loyauté absolue."
         },
         goran: {
@@ -1243,7 +1243,7 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Duc ; Connétable des Marches. Organisateur en chef et commandant de l'armée de terre (Garde de la Traverse, 20 000 soldats), commandant de la Lance de Huit et de l'Escouade d'intervention.",
             physique: "Visage taillé à la serpe, silhouette imposante, regard perçant et corps marqué de multiples cicatrices de guerre.",
-            histoire: "Goran est le père bâtisseur de l'armée impériale. Dès 1248, il a su faire manœuvrer de concert des humains, des nains, des elfes, des orques et des ogres sous la livrée du marteau et de l'enclume, créant un esprit de corps universel basé sur la discipline et la fraternité d'armes. À la tête de la Garde de Traverse, il a standardisé les armures naines, rédigé les règlements et fortifié les frontières. Pour se consacrer à cette immense machine militaire, il a délégué le détachement mercenaire d'Ardélie (250-300 hommes) à un capitaine de camp aux Roches-Noires, et confié la protection de la parfumerie de Karsenne à la cellule de Selyne Var. Il vit au milieu de ses troupes et refuse les parures inutiles.",
+            histoire: "Vétéran aguerri, Goran a forgé l'armée impériale. Il a réussi l'exploit de faire combattre côte à côte des humains, des nains, des elfes, des orques et des ogres sous la même bannière du marteau et de l'enclume, leur imposant une discipline de fer et en les dotant d'un équipement de grande qualité. Entièrement absorbé par le commandement de ses vingt mille soldats et la garde des frontières, il a laissé ses anciens mercenaires d'Ardélie à un lieutenant aux Roches-Noires, et la garde de Karsenne aux hommes de Selyne Var. Homme de terrain rustique, il vit au milieu de ses troupes et méprise les fards de la cour.",
             rapport_elkyriel: "Fraternité d'armes indéfectible et loyauté absolue envers Elkyriel et Faelia."
         },
         myrene: {
@@ -1294,7 +1294,7 @@ window.TRAME_Personnages = (function() {
             domicile: "Élyria.",
             domicile_complet: "Élyria (Résidence principale permanente).",
             secret_draconique: "Ignore sa nature de Dragon Noble.",
-            fonction: "Prévôt d’Élyria, chargé de la police judiciaire ordinaire sous la tutelle du Grand Sénéchal Eryx. Ses dettes ont été effacées par la Couronne.",
+            fonction: "Prévôt d’Élyria, chargé de la justice ordinaire, de la surveillance des rues et de la répression des méfaits sous la tutelle du Grand Sénéchal Eryx. Ses dettes ont été effacées par la Couronne.",
             rapport_elkyriel: "Soumis et obéissant."
         },
         salome_d_arqueval: {
@@ -1331,7 +1331,7 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Comte de Calde-sur-Rive.",
             physique: "Nain compact et massif, ossature dense, barbe noire et argent baguée de métal, mains de débardeur.",
-            histoire: "Pell a combattu aux côtés d'Elkyriel dans la cuve du Nœud de Calde en mai 1249 : il a mesuré le danger mortel des mutations d'Etherium et compris le caractère sacré de l'infrastructure. Nain d'instinct minéral, il sent la roche vivre et sait inspecter une vanne haute pression. Avant d'être Comte, il a déchargé les péniches du Lac Mirant pendant quinze ans : les mariniers, dockers et pêcheurs le considèrent comme l'un des leurs. Son rôle est de verrouiller physiquement les accès secrets du Nœud souterrain avec sa garnison, tandis qu'il délègue la haute thermodynamique à une confrérie d'ingénieurs nains et arcanistes royaux, et la navigation lacustre à la Capitainerie du Lac Mirant.",
+            histoire: "Pell a combattu aux côtés d'Elkyriel dans la cuve du Nœud de Calde en mai 1249 : il a mesuré le danger mortel des altérations de l'Etherium et compris l'importance vitale des lieux. Nain d'instinct minéral, il sent la roche vivre et sait repérer une vanne prête à céder. Avant d'être Comte, il a déchargé les péniches du Lac Mirant pendant quinze ans : les mariniers, débardeurs et pêcheurs le considèrent comme l'un des leurs. Avec sa garnison, il garde fermement les accès secrets du Nœud souterrain, laissant les secrets des flux et de la vapeur aux maîtres ingénieurs nains et arcanistes royaux, et la conduite des eaux à la Capitainerie du Lac Mirant.",
             rapport_elkyriel: "Compagnon d’armes indéfectible et vassal direct.",
             rapports_autres: "Camarade de route et de maison de Talyra et Sera."
         },
@@ -1481,7 +1481,7 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Comtesse du Puits de Veyr et Grande Armatrice de la flotte confisquée.",
             physique: "Femme d’âge mûr vive et élégante, mise patricienne raffinée.",
-            histoire: "Seule issue de la haute bourgeoisie patricienne parmi les comtes, Virelle apporte à la Couronne la maîtrise indispensable des codes aristocratiques, des contrats maritimes et du grand négoce. C'était elle qui, dans l'ombre de son époux déchu, gérait la valeur des navires et les assurances de fret. Ayant publiquement brisé son mariage pour dénoncer les complots de Jorund, sa rupture avec l'ordre ancien est totale. Elle gère la flotte et la cité-puits avec brio, déléguant les manœuvres à un Conseil de capitaines d'honneur et la mécanique verticale à un Collège de maîtres ingénieurs.",
+            histoire: "Seule issue de la haute bourgeoisie patricienne parmi les comtes, Virelle apporte à la Couronne la maîtrise indispensable des codes aristocratiques, des contrats maritimes et du grand négoce. C'était elle qui, dans l'ombre de son époux déchu, estimait la valeur des navires et les contrats sur les cargaisons. [...] Elle gère la flotte et la cité-puits avec brio, confiant les manœuvres à un Conseil de capitaines d'honneur et l'entretien des grands treuils et monte-charges à un Collège de maîtres ingénieurs.",
             rapport_elkyriel: "Vassale directe, gratitude politique immense."
         },
         vel_shara: {
@@ -1858,7 +1858,6 @@ window.TRAME_Personnages = (function() {
             { h: 4, id: "sous-senat", title: "Sénat de Rivecour", tag: "ardelie_rivecour_senat" },
             { h: 4, id: "sous-quartier-noble", title: "Quartier noble de Rivecour", tag: "ardelie_rivecour_noble" },
             { h: 4, id: "sous-quartier-des-marchands", title: "Quartier des Marchands de Rivecour", tag: "ardelie_rivecour_marchands" },
-            { h: 4, id: "sous-secteur-industriel-souterrain", title: "Secteur industriel souterrain de Rivecour", tag: "ardelie_rivecour_industriel" },
 
             { h: 3, id: "lieu-aldhaven", title: "Aldhaven" },
             { h: 4, id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", tag: "ardelie_aldhaven_forge", tagSecondaire: "ardelie_aldhaven" },
@@ -2183,7 +2182,6 @@ window.TRAME_Personnages = (function() {
             { id: "sous-senat", title: "Sénat", level: 3, tag: "ardelie_rivecour_senat" },
             { id: "sous-quartier-noble", title: "Quartier noble", level: 3, tag: "ardelie_rivecour_noble" },
             { id: "sous-quartier-des-marchands", title: "Quartier des Marchands", level: 3, tag: "ardelie_rivecour_marchands" },
-            { id: "sous-secteur-industriel-souterrain", title: "Secteur industriel", level: 3, tag: "ardelie_rivecour_industriel" },
             
             { id: "lieu-aldhaven", title: "Aldhaven", level: 2 },
             { id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", level: 3, tag: ["ardelie_aldhaven_forge", "ardelie_aldhaven"] },
