@@ -961,7 +961,7 @@
         let loreUnlocked = sessionStorage.getItem('lore_unlocked') === 'true';
         let loreExpanded = false;
         let currentAnnexe3View = null;
-        let currentLivret5View = 'type'; // Vue active du Bestiaire ('type' ou 'dangerosite')
+        let currentLivret5View = null;
 
         const LEGAL_HTML = `
             <div class="legal-notice">
@@ -1859,10 +1859,18 @@
                 // Traitement spécialisé pour le Livret 5 (Bestiaire)
                 if (docId === 'livret5' && window.TRAME_Bestiaire) {
                     const dynamicCont = docElement.getElementById('bestiaire-dynamic-container');
+                    const viewToRender = currentLivret5View || 'type';
                     if (dynamicCont) {
-                        dynamicCont.innerHTML = TRAME_Bestiaire.renderView(currentLivret5View);
+                        dynamicCont.innerHTML = TRAME_Bestiaire.renderView(viewToRender);
+                        // Déballage (unwrap) : sort les enfants du conteneur pour que la pagination 
+                        // découpe chaque fiche sur sa propre double-page et rende chaque ID accessible
+                        const parent = dynamicCont.parentNode;
+                        while (dynamicCont.firstChild) {
+                            parent.insertBefore(dynamicCont.firstChild, dynamicCont);
+                        }
+                        parent.removeChild(dynamicCont);
                     }
-                    currentIndex = TRAME_Bestiaire.getIndex(currentLivret5View);
+                    currentIndex = TRAME_Bestiaire.getIndex(viewToRender);
                 } else {
                     const indexScript = docElement.getElementById('doc-index');
                     currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
@@ -1922,14 +1930,14 @@
         // MENU DYNAMIQUE DU LIVRET 5 (BESTIAIRE)
         function renderLivret5Menu() {
             if (!window.TRAME_Bestiaire || !currentIndex) return '';
-
+        
             // 1. Éléments du Guide (Level 1 et 2 avant "Créatures")
             const guideItems = currentIndex.filter(item => {
                 return item.id !== 'section-creatures' && (item.level === 1 || (item.level === 2 && !item.id.startsWith('section-') && !item.id.startsWith('danger-')));
             });
-
+        
             let html = '';
-
+        
             // Rendu de la section Guide
             guideItems.forEach((item, idx, arr) => {
                 const originalId = item.id;
@@ -1937,7 +1945,7 @@
                 const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 const nextItem = arr[idx + 1];
                 const hasChildren = item.level && nextItem && nextItem.level > item.level;
-
+        
                 let isVisible = item.level === 1;
                 if (item.level > 1) {
                     for (let j = idx - 1; j >= 0; j--) {
@@ -1948,11 +1956,11 @@
                         if (arr[j].level < item.level - 1) break;
                     }
                 }
-
+        
                 const displayStyle = isVisible ? 'flex' : 'none';
                 const isItemExpanded = expandedSections.has(originalId);
                 const paddingLeft = item.level ? (8 + (item.level - 1) * 12) : 8;
-
+        
                 html += `
                     <div class="index-item ${isItemExpanded ? 'expanded' : ''}"
                          data-section="${originalId}"
@@ -1963,7 +1971,7 @@
                     </div>
                 `;
             });
-
+        
             // 2. Racine "2. Créatures"
             const isCreaturesExpanded = expandedSections.has('section-creatures');
             html += `
@@ -1975,12 +1983,12 @@
                     <span style="flex:1;">Créatures</span>
                 </div>
             `;
-
+        
             // 3. Sous-onglets exclusifs Type & Dangerosité
             if (isCreaturesExpanded) {
                 const isTypeActive = currentLivret5View === 'type';
                 const isDangerActive = currentLivret5View === 'dangerosite';
-
+        
                 // Onglet TYPE
                 html += `
                     <div class="index-item ${isTypeActive ? 'expanded' : ''}"
@@ -1989,7 +1997,7 @@
                         <span>🏷️ Type</span>
                     </div>
                 `;
-
+        
                 // Contenu sous Type
                 if (isTypeActive) {
                     const typeItems = currentIndex.filter(item => item.level >= 2 && !guideItems.some(g => g.id === item.id));
@@ -2000,7 +2008,7 @@
                         const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                         const nextItem = arr[idx + 1];
                         const hasChildren = item.level && nextItem && nextItem.level > item.level;
-
+        
                         let isVisible = item.level === 2;
                         if (item.level > 2) {
                             for (let j = idx - 1; j >= 0; j--) {
@@ -2011,11 +2019,11 @@
                                 if (arr[j].level < item.level - 1) break;
                             }
                         }
-
+        
                         const displayStyle = isVisible ? 'flex' : 'none';
                         const isItemExpanded = expandedSections.has(originalId);
                         const paddingLeft = (item.level - 2) * 12 + 6;
-
+        
                         html += `
                             <div class="index-item ${isItemExpanded ? 'expanded' : ''}"
                                  data-section="${originalId}"
@@ -2028,7 +2036,7 @@
                     });
                     html += `</div>`;
                 }
-
+        
                 // Onglet DANGEROSITÉ
                 html += `
                     <div class="index-item ${isDangerActive ? 'expanded' : ''}"
@@ -2037,7 +2045,7 @@
                         <span>⚠️ Dangerosité</span>
                     </div>
                 `;
-
+        
                 // Contenu sous Dangerosité
                 if (isDangerActive) {
                     const dangerItems = currentIndex.filter(item => item.level >= 2 && !guideItems.some(g => g.id === item.id));
@@ -2048,7 +2056,7 @@
                         const safeTitle = String(item.title || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                         const nextItem = arr[idx + 1];
                         const hasChildren = item.level && nextItem && nextItem.level > item.level;
-
+        
                         let isVisible = item.level === 2;
                         if (item.level > 2) {
                             for (let j = idx - 1; j >= 0; j--) {
@@ -2059,11 +2067,11 @@
                                 if (arr[j].level < item.level - 1) break;
                             }
                         }
-
+        
                         const displayStyle = isVisible ? 'flex' : 'none';
                         const isItemExpanded = expandedSections.has(originalId);
                         const paddingLeft = (item.level - 2) * 12 + 6;
-
+        
                         html += `
                             <div class="index-item ${isItemExpanded ? 'expanded' : ''}"
                                  data-section="${originalId}"
@@ -2077,17 +2085,36 @@
                     html += `</div>`;
                 }
             }
-
+        
             return html;
         }
-
+        
         async function setLivret5View(viewMode, targetId) {
+            // Si l'onglet cliqué est déjà ouvert, on le referme sans fermer "Créatures"
+            if (currentLivret5View === viewMode && !targetId) {
+                currentLivret5View = null;
+                renderDocumentsList();
+                return;
+            }
+        
             currentLivret5View = viewMode;
             expandedSections.add('section-creatures');
+        
+            // Réinitialise les sous-sections ouvertes pour éviter les conflits d'ID entre Type et Dangerosité
+            const aConserver = new Set(['section-creatures']);
+            expandedSections.forEach(id => {
+                if (id.startsWith('guide-') || id === 'section-creatures') {
+                    aConserver.add(id);
+                }
+            });
+            expandedSections = aConserver;
+        
             if (currentDoc === 'livret5') {
                 await loadDocument('livret5');
                 if (targetId) {
-                    setTimeout(() => scrollToElement(targetId), 200);
+                    setTimeout(() => scrollToElement(targetId), 250);
+                } else {
+                    scrollToElement('section-creatures');
                 }
             }
         }
