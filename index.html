@@ -1873,7 +1873,9 @@
 
         function renderAnnexe3Menu() {
             if (!window.TRAME_Personnages) return '';
-            const views = [
+            const sections = [
+                { id: 'presentation', label: '📜 Présentation', isDocSection: true, targetId: 'section-presentation' },
+                { id: 'ref_elkyriel', label: '👑 REF-ELKYRIEL', isDocSection: true, targetId: 'section-ref-elkyriel-rapports-a-elkyriel' },
                 { id: 'region', label: '🗺️ Par Régions & Fiefs' },
                 { id: 'alpha', label: '🔤 Index Alphabétique (A-Z)' },
                 { id: 'titre', label: '👑 Par Titres & Statuts' },
@@ -1883,22 +1885,37 @@
                 { id: 'morts', label: '⚰️ Personnages Morts' }
             ];
 
-            let html = '<div style="display:flex; flex-direction:column; gap:4px; margin-bottom:8px;">';
-            views.forEach(v => {
-                const isCurrent = currentAnnexe3View === v.id;
+            let html = '<div style="display:flex; flex-direction:column; gap:2px;">';
+
+            sections.forEach(sec => {
+                if (sec.isDocSection) {
+                    html += `
+                        <div class="index-item" style="padding-left:8px; cursor:pointer;" onclick="event.stopPropagation(); scrollToElement('${sec.targetId}')">
+                            <span>${sec.label}</span>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const isOpen = currentAnnexe3View === sec.id;
+                let subItemsHtml = '';
+                if (isOpen && currentIndex && currentIndex.length > 0) {
+                    subItemsHtml = `<div style="margin-top:2px; margin-left:8px; padding-left:8px; border-left:2px solid rgba(124,45,18,0.3);">
+                        ${renderIndexAccordion()}
+                    </div>`;
+                }
+
                 html += `
-                    <div onclick="event.stopPropagation(); setAnnexe3View('${v.id}')"
-                         style="padding:5px 8px; font-size:0.8rem; cursor:pointer; border-radius:3px; background:${isCurrent ? 'rgba(124,45,18,0.2)' : 'rgba(0,0,0,0.03)'}; font-weight:${isCurrent ? 'bold' : 'normal'}; color:${isCurrent ? '#7c2d12' : '#1c1917'};">
-                        ${v.label}
+                    <div class="index-item ${isOpen ? 'expanded' : ''}"
+                         style="padding:6px 8px; font-size:0.85rem; cursor:pointer; border-radius:4px; font-weight:${isOpen ? 'bold' : 'normal'}; color:${isOpen ? '#7c2d12' : '#1c1917'}; background:${isOpen ? 'rgba(124,45,18,0.1)' : 'transparent'};"
+                         onclick="event.stopPropagation(); setAnnexe3View('${sec.id}')">
+                        <span>${sec.label}</span>
                     </div>
+                    ${subItemsHtml}
                 `;
             });
+
             html += '</div>';
-
-            html += `<div style="margin-top:6px; border-top:1px solid rgba(0,0,0,0.1); padding-top:6px;">
-                ${renderIndexAccordion()}
-            </div>`;
-
             return html;
         }
 
@@ -1915,6 +1932,11 @@
                 renderDocumentsList();
                 if (targetId) {
                     setTimeout(() => scrollToElement(targetId), 200);
+                } else {
+                    const firstSpread = document.querySelector('.book-spread');
+                    if (firstSpread) {
+                        document.getElementById('mainContainer').scrollTo({ top: firstSpread.offsetTop, behavior: 'smooth' });
+                    }
                 }
             }
         }
