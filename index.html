@@ -1763,18 +1763,30 @@
             input.click();
         }
 
-        // AJOUT : Fonction pour imprimer un personnage depuis la sidebar
         function printCharacter(id) {
-            // Ouvrir la fiche dans un nouvel onglet et lancer l'impression
             const profile = TRAME_Registre.getProfile(id);
             if (!profile) return;
-            
-            const printWindow = window.open(`Fiche de personnage.v0.92.html?uid=${id}`, '_blank');
-            printWindow.onload = () => {
+
+            // Utilise une iframe cachée temporaire : aucune page/onglet ne s'ouvre
+            const printIframe = document.createElement('iframe');
+            printIframe.style.position = 'fixed';
+            printIframe.style.top = '-9999px';
+            printIframe.style.left = '-9999px';
+            printIframe.style.width = '794px';
+            printIframe.style.height = '1123px';
+            printIframe.src = `Fiche de personnage.v0.92.html?uid=${id}`;
+
+            printIframe.onload = () => {
                 setTimeout(() => {
-                    printWindow.print();
-                }, 1000);
+                    printIframe.contentWindow.focus();
+                    printIframe.contentWindow.print();
+                    setTimeout(() => {
+                        document.body.removeChild(printIframe);
+                    }, 2000);
+                }, 500);
             };
+
+            document.body.appendChild(printIframe);
         }
 
         function deleteCharacter(id) {
