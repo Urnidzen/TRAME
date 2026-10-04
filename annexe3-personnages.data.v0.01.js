@@ -1838,8 +1838,13 @@ window.TRAME_Personnages = (function() {
         return html;
     }
 
+    // Fonction utilitaire de tri alphabétique français
+    function trierParNom(liste) {
+        return liste.sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
+    }
+
     /**
-     * VUE 1 : Classement par Régions & Fiefs (100% Dynamique par Tags)
+     * VUE 1 : Classement par Régions & Fiefs (Trié A-Z)
      */
     function buildRegionView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
@@ -1916,10 +1921,8 @@ window.TRAME_Personnages = (function() {
         ];
 
         lieux.forEach(item => {
-            // Titre du lieu
             html += `<h${item.h} id="${item.id}">${item.title}</h${item.h}>\n`;
 
-            // Texte de présentation éventuel du lieu
             if (item.intro) {
                 html += `<div class="card-start"></div><div class="rule-item"><p>${item.intro}</p></div><div class="card-end"></div>\n`;
             }
@@ -1927,8 +1930,8 @@ window.TRAME_Personnages = (function() {
             if (item.tag) {
                 const tagList = [item.tag, item.tagSecondaire].filter(Boolean);
 
-                // 1. Présence principale (domicile_id correspond au lieu)
-                const principaux = allP.filter(p => p.tags && tagList.includes(p.tags.domicile_id));
+                // 1. Présence principale triée de A à Z
+                const principaux = trierParNom(allP.filter(p => p.tags && tagList.includes(p.tags.domicile_id)));
                 if (principaux.length > 0) {
                     html += `<h5>Présence principale</h5>\n`;
                     principaux.forEach(p => {
@@ -1936,13 +1939,13 @@ window.TRAME_Personnages = (function() {
                     });
                 }
 
-                // 2. Présence secondaire (le lieu est dans tags.lieux mais le domicile est ailleurs)
-                const secondaires = allP.filter(p => {
+                // 2. Présence secondaire triée de A à Z
+                const secondaires = trierParNom(allP.filter(p => {
                     if (!p.tags || !p.tags.lieux) return false;
                     const estPresent = tagList.some(t => p.tags.lieux.includes(t));
                     const estDomicilieIci = tagList.includes(p.tags.domicile_id);
                     return estPresent && !estDomicilieIci;
-                });
+                }));
 
                 if (secondaires.length > 0) {
                     html += `<h5>Présence secondaire</h5>\n`;
@@ -1972,7 +1975,7 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 3 : Par Titres & Statuts Politiques (Automatisé par Tags)
+     * VUE 3 : Par Titres & Statuts Politiques (Trié A-Z)
      */
     function buildTitreView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
@@ -1988,7 +1991,7 @@ window.TRAME_Personnages = (function() {
 
         const allP = Object.values(PNJ);
         categories.forEach((cat, idx) => {
-            const list = allP.filter(cat.filter);
+            const list = trierParNom(allP.filter(cat.filter));
             if (list.length > 0) {
                 if (idx > 0) html += `<div class="page-break"></div>`;
                 html += `<h3 id="${cat.id}">${cat.titre}</h3>\n`;
@@ -2000,7 +2003,7 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 4 : Par Espèces (Automatisé par Tags)
+     * VUE 4 : Par Espèces (Trié A-Z)
      */
     function buildEspeceView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
@@ -2018,7 +2021,7 @@ window.TRAME_Personnages = (function() {
 
         const allP = Object.values(PNJ);
         especes.forEach((esp, idx) => {
-            const list = allP.filter(esp.filter);
+            const list = trierParNom(allP.filter(esp.filter));
             if (list.length > 0) {
                 if (idx > 0) html += `<div class="page-break"></div>`;
                 html += `<h3 id="${esp.id}">${esp.titre}</h3>\n`;
@@ -2030,14 +2033,14 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 5 : Cercle Intime & Harem libre (Automatisé par Tags)
+     * VUE 5 : Cercle Intime & Harem libre (Trié A-Z)
      */
     function buildHaremView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Cercle Intime &amp; Harem libre d’Elkyriel</h2>\n`;
         html += `<div class="card-start"><div class="rule-item"><p>Toutes les fiches complètes des compagnes, amantes et figures du foyer partagé d'Elkyriel, répertoriées sans filtre ni renvoi abrégé :</p></div></div>\n`;
 
-        const list = Object.values(PNJ).filter(p => p.tags && p.tags.harem === true);
+        const list = trierParNom(Object.values(PNJ).filter(p => p.tags && p.tags.harem === true));
         list.forEach(p => {
             html += renderCard(p, 'h4');
         });
@@ -2046,15 +2049,15 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 6 : Secret Draconique (Automatisé par Tags)
+     * VUE 6 : Secret Draconique (Trié A-Z)
      */
     function buildSecretView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Secret Draconique</h2>\n`;
 
         const allP = Object.values(PNJ);
-        const savent = allP.filter(p => p.tags && p.tags.secret === true);
-        const ignorent = allP.filter(p => !p.tags || p.tags.secret !== true);
+        const savent = trierParNom(allP.filter(p => p.tags && p.tags.secret === true));
+        const ignorent = trierParNom(allP.filter(p => !p.tags || p.tags.secret !== true));
 
         html += `<h3 id="secret-savent">Ceux qui savent qu'Elkyriel est un Dragon Noble (${savent.length})</h3>\n`;
         savent.forEach(p => { html += renderCard(p, 'h4'); });
@@ -2064,16 +2067,17 @@ window.TRAME_Personnages = (function() {
 
         return html;
     }
-
+ 
     /**
-     * VUE 7 : Personnages Morts
+     * VUE 7 : Personnages Morts (Trié A-Z)
      */
     function buildMortsView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Personnages Morts</h2>\n`;
         html += `<div class="card-start"><div class="rule-item"><p>Registre des figures et adversaires décédés ou détruits au cours des événements :</p></div></div>\n`;
 
-        Object.values(MORTS).forEach(d => {
+        const mortsTries = trierParNom(Object.values(MORTS));
+        mortsTries.forEach(d => {
             html += renderDeadCard(d);
         });
 
@@ -2081,16 +2085,18 @@ window.TRAME_Personnages = (function() {
     }
     
     /**
-     * Générateur d'Index dynamique pour la Sidebar
+     * Générateur d'Index dynamique pour la Sidebar (Trié A-Z)
      */
     function getIndex(viewMode) {
         const mode = viewMode || 'region';
+        const allP = Object.values(PNJ);
 
+        // 1. Index Alphabétique général (A-Z)
         if (mode === 'alpha') {
-            const list = Object.values(PNJ).sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
-            return list.map(p => ({ id: p.id, title: p.nom, level: 1 }));
+            return trierParNom(allP).map(p => ({ id: p.id, title: p.nom, level: 1 }));
         }
 
+        // 2. Par Titres & Statuts (A-Z sous chaque rang)
         if (mode === 'titre') {
             const categories = [
                 { id: "titres-souverains", title: "Souverains & Régents", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('souverain') },
@@ -2101,10 +2107,8 @@ window.TRAME_Personnages = (function() {
             ];
 
             const indexList = [];
-            const allP = Object.values(PNJ);
-
             categories.forEach(cat => {
-                const list = allP.filter(cat.filter);
+                const list = trierParNom(allP.filter(cat.filter));
                 if (list.length > 0) {
                     indexList.push({ id: cat.id, title: `${cat.title} (${list.length})`, level: 1 });
                     list.forEach(p => {
@@ -2112,10 +2116,10 @@ window.TRAME_Personnages = (function() {
                     });
                 }
             });
-
             return indexList;
         }
 
+        // 3. Par Espèces (A-Z sous chaque espèce)
         if (mode === 'espece') {
             const especes = [
                 { id: "espece-dragons", title: "Dragons", filter: p => p.tags && p.tags.espece === 'dragon' },
@@ -2128,10 +2132,8 @@ window.TRAME_Personnages = (function() {
             ];
 
             const indexList = [];
-            const allP = Object.values(PNJ);
-
             especes.forEach(esp => {
-                const list = allP.filter(esp.filter);
+                const list = trierParNom(allP.filter(esp.filter));
                 if (list.length > 0) {
                     indexList.push({ id: esp.id, title: `${esp.title} (${list.length})`, level: 1 });
                     list.forEach(p => {
@@ -2139,22 +2141,21 @@ window.TRAME_Personnages = (function() {
                     });
                 }
             });
-
             return indexList;
         }
 
+        // 4. Cercle Intime & Harem (A-Z)
         if (mode === 'harem') {
-            const list = Object.values(PNJ).filter(p => p.tags && p.tags.harem === true);
+            const list = trierParNom(allP.filter(p => p.tags && p.tags.harem === true));
             return list.map(p => ({ id: p.id, title: p.nom, level: 1 }));
         }
 
+        // 5. Secret Draconique (A-Z sous chaque groupe)
         if (mode === 'secret') {
-            const allP = Object.values(PNJ);
-            const savent = allP.filter(p => p.tags && p.tags.secret === true);
-            const ignorent = allP.filter(p => !p.tags || p.tags.secret !== true);
+            const savent = trierParNom(allP.filter(p => p.tags && p.tags.secret === true));
+            const ignorent = trierParNom(allP.filter(p => !p.tags || p.tags.secret !== true));
 
             const indexList = [];
-
             indexList.push({ id: "secret-savent", title: `Ceux qui savent (${savent.length})`, level: 1 });
             savent.forEach(p => {
                 indexList.push({ id: p.id, title: p.nom, level: 2 });
@@ -2168,11 +2169,12 @@ window.TRAME_Personnages = (function() {
             return indexList;
         }
 
+        // 6. Personnages Morts (A-Z)
         if (mode === 'morts') {
-            return Object.values(MORTS).map(d => ({ id: d.id, title: d.nom, level: 1 }));
+            return trierParNom(Object.values(MORTS)).map(d => ({ id: d.id, title: d.nom, level: 1 }));
         }
 
-        // Mode Région : Arborescence géographique dynamique basée sur les tags.lieux
+        // 7. Mode Régions & Fiefs (A-Z sous chaque lieu)
         const structureGeographique = [
             { id: "royaume-ardelie", title: "1. Royaume d’Ardélie", level: 1 },
             { id: "lieu-rivecour", title: "Rivecour", level: 2 },
@@ -2244,14 +2246,12 @@ window.TRAME_Personnages = (function() {
         ];
 
         const indexList = [];
-        const allP = Object.values(PNJ);
-
         structureGeographique.forEach(loc => {
             indexList.push({ id: loc.id, title: loc.title, level: loc.level });
 
             if (loc.tag) {
                 const tagsCherches = Array.isArray(loc.tag) ? loc.tag : [loc.tag];
-                const occupants = allP.filter(p => p.tags && p.tags.lieux && tagsCherches.some(t => p.tags.lieux.includes(t)));
+                const occupants = trierParNom(allP.filter(p => p.tags && p.tags.lieux && tagsCherches.some(t => p.tags.lieux.includes(t))));
                 occupants.forEach(p => {
                     indexList.push({ id: p.id, title: p.nom, level: loc.level + 1 });
                 });
