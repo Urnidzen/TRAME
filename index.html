@@ -1920,6 +1920,14 @@
         }
 
         async function setAnnexe3View(viewMode, targetId) {
+            // Si l'onglet est déjà ouvert, on le referme (toggle)
+            if (currentAnnexe3View === viewMode && !targetId) {
+                currentAnnexe3View = null;
+                currentIndex = [];
+                renderDocumentsList();
+                return;
+            }
+
             currentAnnexe3View = viewMode;
             if (window.TRAME_Personnages) {
                 const html = TRAME_Personnages.renderView(viewMode);
