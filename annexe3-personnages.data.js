@@ -2200,31 +2200,35 @@ window.TRAME_Personnages = (function() {
      * VUE 3 : Par Titres & Statuts Politiques
      * Affiche l'intégralité des fiches complètes ordonnées selon leur statut social et politique.
      */
+    /**
+     * VUE 3 : Par Titres & Statuts Politiques
+     * Affiche l'intégralité des fiches complètes ordonnées selon leur statut social et politique.
+     */
     function buildTitreView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Personnages par Titres &amp; Statuts Politiques</h2>\n`;
 
-        html += `<h3>Souverains Régnants &amp; Régents</h3>\n`;
+        html += `<h3 id="titres-souverains">Souverains Régnants &amp; Régents</h3>\n`;
         [PNJ.elkyriel, PNJ.kaelia, PNJ.aldous, PNJ.ysoria, PNJ.kharza_peau_de_neige, PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.meleandre].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Ducs &amp; Conseil Impérial des Sceaux</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="titres-ducs">Ducs &amp; Conseil Impérial des Sceaux</h3>\n`;
         [PNJ.faelia, PNJ.goran, PNJ.lysandra, PNJ.talyra, PNJ.eryx, PNJ.mirelle_auvray, PNJ.nymira].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Comtes &amp; Barons des Cités de Traverse</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="titres-comtes">Comtes &amp; Barons des Cités de Traverse</h3>\n`;
         [PNJ.vel_shara, PNJ.pell, PNJ.dhorg, PNJ.sera, PNJ.enric, PNJ.maura, PNJ.lise, PNJ.siane, PNJ.naela, PNJ.ysel, PNJ.rhea, PNJ.virelle_senn].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Officiers Militaires, Sécurité &amp; Renseignement</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="titres-militaires">Officiers Militaires, Sécurité &amp; Renseignement</h3>\n`;
         [PNJ.armand_vellec, PNJ.lance_de_huit, PNJ.sariel, PNJ.selyne_var, PNJ.sevra_noll, PNJ.olan_vespre, PNJ.gautier_valcroix, PNJ.capitaine_caldrin, PNJ.lieutenant_brenor].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Artisans Maîtres, Négociants &amp; Logistique</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="titres-artisans">Artisans Maîtres, Négociants &amp; Logistique</h3>\n`;
         [PNJ.thorne, PNJ.solenne_varin, PNJ.kordran_fergivre, PNJ.dravenna, PNJ.mila, PNJ.kaelen, PNJ.leonie_varc, PNJ.thorek, PNJ.salome_d_arqueval].forEach(p => {
             html += renderCard(p, 'h4');
         });
@@ -2240,37 +2244,37 @@ window.TRAME_Personnages = (function() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Personnages par Espèces</h2>\n`;
 
-        html += `<h3>Dragons (Nobles &amp; Bestiaux)</h3>\n`;
+        html += `<h3 id="espece-dragons">Dragons (Nobles &amp; Bestiaux)</h3>\n`;
         [PNJ.elkyriel, PNJ.nathalysse, PNJ.ilysthera, PNJ.kaldrielle, PNJ.isilvrya].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Elfes</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="espece-elfes">Elfes</h3>\n`;
         [PNJ.faelia, PNJ.talyra, PNJ.lysa, PNJ.liriel, PNJ.lirael, PNJ.nymira, PNJ.sariel, PNJ.vespera, PNJ.siane, PNJ.naela, PNJ.myrene, PNJ.lethielle, PNJ.liora].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Humains</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="espece-humains">Humains</h3>\n`;
         [PNJ.lysandra, PNJ.rose, PNJ.reine_kaelia, PNJ.roi_aldous, PNJ.ysoria, PNJ.meleandre, PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.goran, PNJ.eryx, PNJ.mirelle_auvray, PNJ.sera, PNJ.enric, PNJ.maura, PNJ.lise, PNJ.ysel, PNJ.rhea, PNJ.virelle_senn, PNJ.mila, PNJ.seraphine, PNJ.solenne_varin, PNJ.selyne_var, PNJ.eliane_var, PNJ.armand_vellec, PNJ.kaelen, PNJ.alden, PNJ.doran, PNJ.eirik, PNJ.borin, PNJ.thalira, PNJ.aldric, PNJ.lila, PNJ.milo, PNJ.elara, PNJ.alise, PNJ.neria, PNJ.mireva, PNJ.maera, PNJ.lance_de_huit, PNJ.silas, PNJ.lucretia, PNJ.valerius, PNJ.livia, PNJ.olan_vespre, PNJ.salome_d_arqueval, PNJ.sevra_noll, PNJ.toren, PNJ.odran_sorell, PNJ.maeron, PNJ.beran_doss, PNJ.orven, PNJ.colm, PNJ.capitaine_caldrin, PNJ.lieutenant_brenor].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Nains</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="espece-nains">Nains</h3>\n`;
         [PNJ.pell, PNJ.thorne, PNJ.maeva, PNJ.fille_thorne_maeva, PNJ.roran, PNJ.thorek, PNJ.kordran_fergivre, PNJ.leonie_varc, PNJ.dhoran_vesk, PNJ.vessa_orm].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Orques</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="espece-orques">Orques</h3>\n`;
         [PNJ.kharza_peau_de_neige, PNJ.rhazka_cendre_claire, PNJ.dhorg, PNJ.dravenna].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Ogres-Mages</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="espece-ogres">Ogres-Mages</h3>\n`;
         [PNJ.vel_shara].forEach(p => {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Animaux</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="espece-animaux">Animaux</h3>\n`;
         [PNJ.ronce].forEach(p => {
             html += renderCard(p, 'h4');
         });
@@ -2313,7 +2317,7 @@ window.TRAME_Personnages = (function() {
         ];
 
         haremList.forEach(p => {
-            html += renderCard(p, 'h3');
+            html += renderCard(p, 'h4');
         });
 
         return html;
@@ -2327,7 +2331,7 @@ window.TRAME_Personnages = (function() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
         html += `<h2>Secret Draconique</h2>\n`;
 
-        html += `<h3>Ceux qui savent qu'Elkyriel est un Dragon Noble</h3>\n`;
+        html += `<h3 id="secret-savent">Ceux qui savent qu'Elkyriel est un Dragon Noble</h3>\n`;
         const savent = [
             PNJ.faelia, PNJ.lysandra, PNJ.lysa, PNJ.nymira, PNJ.sariel, PNJ.liriel, PNJ.lirael, PNJ.rose, PNJ.aldric,
             PNJ.thorne, PNJ.maeva, PNJ.alden, PNJ.roran, PNJ.doran, PNJ.seraphine, PNJ.vespera, PNJ.eirik, PNJ.borin, PNJ.thalira, PNJ.liora,
@@ -2340,7 +2344,7 @@ window.TRAME_Personnages = (function() {
             html += renderCard(p, 'h4');
         });
 
-        html += `<div class="page-break"></div><h3>Ceux qui ignorent sa véritable nature draconique</h3>\n`;
+        html += `<div class="page-break"></div><h3 id="secret-ignorent">Ceux qui ignorent sa véritable nature draconique</h3>\n`;
         const ignorent = [
             PNJ.talyra, PNJ.sera, PNJ.siane, PNJ.naela, PNJ.myrene, PNJ.lethielle, PNJ.ysel, PNJ.rhea, PNJ.maura, PNJ.lise, PNJ.neria, PNJ.mireva,
             PNJ.eryx, PNJ.mirelle_auvray, PNJ.goran, PNJ.pell, PNJ.dhorg, PNJ.enric, PNJ.virelle_senn, PNJ.olan_vespre, PNJ.salome_d_arqueval,
@@ -2484,7 +2488,7 @@ window.TRAME_Personnages = (function() {
             { id: "sous-orsenn-orsenn", title: "Orsenn", level: 3 }
         ];
     }
-
+    
     /**
      * Point d'entrée pour index.html
      */
