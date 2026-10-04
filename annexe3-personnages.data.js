@@ -2376,36 +2376,28 @@ window.TRAME_Personnages = (function() {
 
         if (mode === 'alpha') {
             const list = Object.values(PNJ).sort((a, b) => a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' }));
-            return [
-                { id: "section-presentation", title: "Présentation", level: 1 },
-                { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
-                ...list.map(p => ({ id: p.id, title: p.nom, level: 2 }))
-            ];
+            return list.map(p => ({ id: p.id, title: p.nom, level: 1 }));
         }
 
         if (mode === 'titre') {
             return [
-                { id: "section-presentation", title: "Présentation", level: 1 },
-                { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
-                { id: "titres-souverains", title: "Souverains & Régents", level: 2 },
-                { id: "titres-ducs", title: "Ducs & Conseil des Sceaux", level: 2 },
-                { id: "titres-comtes", title: "Comtes & Barons", level: 2 },
-                { id: "titres-militaires", title: "Officiers & Renseignement", level: 2 },
-                { id: "titres-artisans", title: "Artisans & Logistique", level: 2 }
+                { id: "titres-souverains", title: "Souverains & Régents", level: 1 },
+                { id: "titres-ducs", title: "Ducs & Conseil des Sceaux", level: 1 },
+                { id: "titres-comtes", title: "Comtes & Barons", level: 1 },
+                { id: "titres-militaires", title: "Officiers & Renseignement", level: 1 },
+                { id: "titres-artisans", title: "Artisans & Logistique", level: 1 }
             ];
         }
 
         if (mode === 'espece') {
             return [
-                { id: "section-presentation", title: "Présentation", level: 1 },
-                { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
-                { id: "espece-dragons", title: "Dragons", level: 2 },
-                { id: "espece-elfes", title: "Elfes", level: 2 },
-                { id: "espece-humains", title: "Humains", level: 2 },
-                { id: "espece-nains", title: "Nains", level: 2 },
-                { id: "espece-orques", title: "Orques", level: 2 },
-                { id: "espece-ogres", title: "Ogres-Mages", level: 2 },
-                { id: "espece-animaux", title: "Animaux", level: 2 }
+                { id: "espece-dragons", title: "Dragons", level: 1 },
+                { id: "espece-elfes", title: "Elfes", level: 1 },
+                { id: "espece-humains", title: "Humains", level: 1 },
+                { id: "espece-nains", title: "Nains", level: 1 },
+                { id: "espece-orques", title: "Orques", level: 1 },
+                { id: "espece-ogres", title: "Ogres-Mages", level: 1 },
+                { id: "espece-animaux", title: "Animaux", level: 1 }
             ];
         }
 
@@ -2415,46 +2407,43 @@ window.TRAME_Personnages = (function() {
                 PNJ.lysa, PNJ.liriel, PNJ.lirael, PNJ.myrene, PNJ.lethielle, PNJ.nathalysse, PNJ.ilysthera,
                 PNJ.maelis_orsenn, PNJ.aelis_vaer, PNJ.reine_kaelia, PNJ.ysoria, PNJ.alise, PNJ.neria, PNJ.mireva
             ];
-            return [
-                { id: "section-presentation", title: "Présentation", level: 1 },
-                { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
-                ...list.map(p => ({ id: p.id, title: p.nom, level: 2 }))
-            ];
+            return list.map(p => ({ id: p.id, title: p.nom, level: 1 }));
         }
 
         if (mode === 'secret') {
             return [
-                { id: "section-presentation", title: "Présentation", level: 1 },
-                { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
-                { id: "secret-savent", title: "Ceux qui savent", level: 2 },
-                { id: "secret-ignorent", title: "Ceux qui ignorent", level: 2 }
+                { id: "secret-savent", title: "Ceux qui savent (37)", level: 1 },
+                { id: "secret-ignorent", title: "Ceux qui ignorent", level: 1 }
             ];
         }
 
         if (mode === 'morts') {
-            return [
-                { id: "section-presentation", title: "Présentation", level: 1 },
-                { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
-                ...Object.values(MORTS).map(d => ({ id: d.id, title: d.nom, level: 2 }))
-            ];
+            return Object.values(MORTS).map(d => ({ id: d.id, title: d.nom, level: 1 }));
         }
 
-        // Par défaut : Mode Région (Arborescence fidèle)
+        // Mode Région : Arborescence géographique hiérarchique fidèle
         return [
-            { id: "section-presentation", title: "Présentation", level: 1 },
-            { id: "section-ref-elkyriel-rapports-a-elkyriel", title: "REF-ELKYRIEL", level: 1 },
             { id: "royaume-ardelie", title: "1. Royaume d’Ardélie", level: 1 },
             { id: "lieu-rivecour", title: "Rivecour", level: 2 },
-            { id: "lieu-la-forge-naine-de-rivecour", title: "Forge naine", level: 3 },
+            { id: "lieu-la-forge-naine-de-rivecour", title: "La Forge naine", level: 3 },
             { id: "sous-palais-royal", title: "Palais royal", level: 3 },
+            { id: "sous-senat", title: "Sénat", level: 3 },
+            { id: "sous-quartier-noble", title: "Quartier noble", level: 3 },
+            { id: "sous-quartier-des-marchands", title: "Quartier des Marchands", level: 3 },
+            { id: "sous-secteur-industriel-souterrain", title: "Secteur industriel", level: 3 },
             { id: "lieu-aldhaven", title: "Aldhaven", level: 2 },
+            { id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", level: 3 },
+            { id: "sous-port-et-navire-aldhaven", title: "Port et navire", level: 3 },
             { id: "lieu-les-saillans", title: "Les Saillans", level: 2 },
             { id: "lieu-immensite-grise", title: "L’Immensité Grise", level: 2 },
             { id: "lieu-tour-blanche", title: "Tour Blanche", level: 3 },
             { id: "lieu-souterrains-immensite-forteresse-monde", title: "Forteresse-Monde (Souterrains)", level: 3 },
             { id: "lieu-mer-de-jade-et-archipel", title: "Mer de Jade & Archipel", level: 2 },
+            { id: "sous-archipel-navire-kaelen", title: "Navire d’Elkyriel", level: 3 },
             { id: "sous-archipel-debouche-portail-grand-air", title: "Débouché Portail du Grand Air", level: 3 },
             { id: "lieu-marches-orientales", title: "Marches orientales", level: 2 },
+            { id: "sous-routes-des-marches-orientales", title: "Routes & Valdorne", level: 3 },
+            { id: "sous-rochebrune", title: "Rochebrune", level: 3 },
             { id: "royaume-varethis", title: "2. Royaume de Varethis", level: 1 },
             { id: "lieu-karsenne", title: "Karsenne", level: 2 },
             { id: "lieu-palais-royal-de-karsenne", title: "Palais royal", level: 3 },
@@ -2462,17 +2451,33 @@ window.TRAME_Personnages = (function() {
             { id: "lieu-selyne-var-cellule-des-corbeaux", title: "Cellule des Corbeaux", level: 3 },
             { id: "lieu-domaine-de-clairval", title: "Domaine de Clairval", level: 2 },
             { id: "lieu-passe-des-trois-bornes", title: "Passe des Trois Bornes", level: 2 },
-            { id: "empire-cinq-trones", title: "3. Empire de l'Enclave des Cinq Trônes", level: 1 },
+            { id: "lieu-ailleurs-en-varethis", title: "Ailleurs en Varethis", level: 2 },
+            { id: "empire-cinq-trones", title: "3. Empire des Cinq Trônes", level: 1 },
             { id: "empire-royaume-traverse", title: "Royaume de Traverse", level: 2 },
             { id: "lieu-palais-royal-d-elyria", title: "Élyria (Capitale & Palais)", level: 3 },
+            { id: "lieu-elyria-autorites-civiles-commerciales", title: "Autorités Civiles & Commerciales", level: 3 },
+            { id: "lieu-quais-d-elyria", title: "Quais d’Élyria", level: 3 },
             { id: "section-comtes-urbains-traverse", title: "Les Comtés Urbains", level: 3 },
+            { id: "lieu-calde-sur-rive", title: "Calde-sur-Rive", level: 4 },
+            { id: "lieu-clair-verger", title: "Clair-Verger", level: 4 },
+            { id: "lieu-grands-vergers", title: "Grands-Vergers", level: 4 },
+            { id: "lieu-asten", title: "Asten", level: 4 },
+            { id: "lieu-haute-rive", title: "Haute-Rive", level: 4 },
+            { id: "lieu-bois-serein", title: "Bois-Serein", level: 4 },
+            { id: "lieu-rive-noire", title: "Rive-Noire", level: 4 },
+            { id: "lieu-puits-de-veyr", title: "Puits de Veyr", level: 4 },
             { id: "lieu-traverse-10e-cite-forteresse-monde", title: "10e Cité (Forteresse-Monde)", level: 3 },
             { id: "empire-royaume-gor-kadar", title: "Royaume de Gor-Kadar", level: 2 },
             { id: "lieu-kadar-rauk", title: "Kadar-Rauk", level: 3 },
+            { id: "lieu-haut-bois", title: "Haut-Bois", level: 3 },
             { id: "lieu-sources-de-rauk", title: "Sources de Rauk", level: 3 },
+            { id: "lieu-hautes-lames-gor-kadar", title: "Cimes des Hautes-Lames", level: 3 },
             { id: "empire-royaume-astreane", title: "Concordat d'Astréane", level: 2 },
+            { id: "sous-astreane-lumerys", title: "Lumérys", level: 3 },
             { id: "empire-royaume-dhor-kez", title: "Ligues de Dhor-Kez", level: 2 },
-            { id: "empire-royaume-orsenn", title: "Royaume d'Orsenn", level: 2 }
+            { id: "sous-dhor-kez-kez-bruma", title: "Kez-Bruma & Carrières", level: 3 },
+            { id: "empire-royaume-orsenn", title: "Royaume d'Orsenn", level: 2 },
+            { id: "sous-orsenn-orsenn", title: "Orsenn", level: 3 }
         ];
     }
 
