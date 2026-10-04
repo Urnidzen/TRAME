@@ -1500,6 +1500,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Travaux de déblayage, reconstruction et subsistance dans la colonie.",
             rapport_elkyriel: "Voir REF-ELKYRIEL."
         }
+    };
 
         // Dictionnaire des Personnages Morts (texte d'origine scrupuleusement conservé mot pour mot)
     const MORTS = {
