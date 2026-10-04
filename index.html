@@ -1817,8 +1817,10 @@
             });
         }
         
-        async function loadDocument(docId) {
-            expandedSections.clear();
+        async function loadDocument(docId, preserveExpanded = false) {
+            if (!preserveExpanded) {
+                expandedSections.clear();
+            }
             document.querySelectorAll('style[id^="injected-style-"]').forEach(el => el.remove());
             const doc = documents.find(d => d.id === docId);
             if (!doc) return;
@@ -2090,7 +2092,7 @@
         }
         
         async function setLivret5View(viewMode, targetId) {
-            // Si l'onglet cliqué est déjà ouvert, on le referme sans fermer "Créatures"
+            // Si l'onglet cliqué est déjà ouvert, on le referme sans refermer "Créatures"
             if (currentLivret5View === viewMode && !targetId) {
                 currentLivret5View = null;
                 renderDocumentsList();
@@ -2100,17 +2102,18 @@
             currentLivret5View = viewMode;
             expandedSections.add('section-creatures');
         
-            // Réinitialise les sous-sections ouvertes pour éviter les conflits d'ID entre Type et Dangerosité
+            // Conserve "Créatures" et le guide, mais vide les catégories de l'autre mode
             const aConserver = new Set(['section-creatures']);
             expandedSections.forEach(id => {
-                if (id.startsWith('guide-') || id === 'section-creatures') {
+                if (!id.startsWith('section-') && !id.startsWith('danger-')) {
                     aConserver.add(id);
                 }
             });
             expandedSections = aConserver;
         
             if (currentDoc === 'livret5') {
-                await loadDocument('livret5');
+                // Le paramètre "true" empêche loadDocument d'écraser expandedSections
+                await loadDocument('livret5', true);
                 if (targetId) {
                     setTimeout(() => scrollToElement(targetId), 250);
                 } else {
