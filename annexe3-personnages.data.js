@@ -1625,10 +1625,14 @@ window.TRAME_Personnages = (function() {
      * Moteur de rendu unifié d'une fiche personnage
      * Conserve strictement tous les champs d'origine sans rien inventer
      */
+    /**
+     * Moteur de rendu unifié d'une fiche personnage
+     * Conserve strictement tous les champs d'origine sans rien inventer
+     */
     function renderCard(p, customTitleLevel, customLocationLabel) {
         if (!p) return '';
-        const hTag = customTitleLevel || 'h4';
-        let html = `<${hTag} id="${p.id}">${p.nom}</${hTag}>\n<div class="card-start"></div>\n`;
+        const hTag = customTitleLevel || 'h6';
+        let html = `<${hTag} id="${p.id}" class="pnj-title">${p.nom}</${hTag}>\n<div class="card-start"></div>\n`;
 
         if (p.espece_genre) {
             html += `    <div class="rule-item"><p class="pseudo-li"><strong>Espèce et genre :</strong> ${p.espece_genre}</p></div>\n`;
@@ -1692,7 +1696,7 @@ window.TRAME_Personnages = (function() {
      */
     function renderDeadCard(d) {
         if (!d) return '';
-        let html = `<h4 id="${d.id}">${d.nom}</h4>\n<div class="card-start"></div>\n`;
+        let html = `<h6 id="${d.id}" class="pnj-title">${d.nom}</h6>\n<div class="card-start"></div>\n`;
 
         if (d.composition) {
             html += `    <div class="rule-item"><p class="pseudo-li"><strong>Composition :</strong> ${d.composition}</p></div>\n`;
@@ -1737,7 +1741,7 @@ window.TRAME_Personnages = (function() {
         <h3 id="lieu-rivecour">Rivecour</h3>
 
         <h4 id="lieu-la-forge-naine-de-rivecour">La Forge naine de Rivecour</h4>
-        <h4 id="pres-presence-principale-forge-rivecour">Présence principale</h4>
+        <h5 id="pres-presence-principale-forge-rivecour">Présence principale</h5>
         `;
 
         html += renderCard(PNJ.mila);
@@ -1764,13 +1768,13 @@ window.TRAME_Personnages = (function() {
         html += renderCard(PNJ.neria);
         html += renderCard(PNJ.ronce);
 
-        html += `<h4 id="pres-presence-secondaire-forge-rivecour">Présence secondaire</h4>\n`;
-        html += renderCard(PNJ.lance_de_huit, 'h4', "Forteresse-Monde (Strate -3, sous l'Immensité Grise — 10e Cité de Traverse). Présence permanente à la Forge naine de Rivecour assurée par une rotation fixe de deux chevaliers.");
-        html += renderCard(PNJ.lysandra, 'h4', "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria par le réseau des Cercles de Téléportation.");
+        html += `<h5 id="pres-presence-secondaire-forge-rivecour">Présence secondaire</h5>\n`;
+        html += renderCard(PNJ.lance_de_huit, null, "Forteresse-Monde (Strate -3, sous l'Immensité Grise — 10e Cité de Traverse). Présence permanente à la Forge naine de Rivecour assurée par une rotation fixe de deux chevaliers.");
+        html += renderCard(PNJ.lysandra, null, "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria par le réseau des Cercles de Téléportation.");
 
         html += `
         <h4 id="sous-palais-royal">Palais royal de Rivecour</h4>
-        <h4 id="pres-presence-principale-palais-rivecour">Présence principale</h4>
+        <h5 id="pres-presence-principale-palais-rivecour">Présence principale</h5>
         `;
         html += renderCard(PNJ.reine_kaelia);
         html += renderCard(PNJ.roi_aldous);
@@ -1779,20 +1783,20 @@ window.TRAME_Personnages = (function() {
 
         html += `
         <h4 id="sous-senat">Sénat de Rivecour</h4>
-        <h4 id="pres-presence-principale-senat">Présence principale</h4>
+        <h5 id="pres-presence-principale-senat">Présence principale</h5>
         `;
         html += renderCard(PNJ.lucretia);
 
         html += `
         <h4 id="sous-quartier-noble">Quartier noble de Rivecour</h4>
-        <h4 id="pres-presence-principale-quartier-noble">Présence principale</h4>
+        <h5 id="pres-presence-principale-quartier-noble">Présence principale</h5>
         `;
         html += renderCard(PNJ.valerius);
         html += renderCard(PNJ.livia);
 
         html += `
         <h4 id="sous-quartier-des-marchands">Quartier des Marchands de Rivecour</h4>
-        <h4 id="pres-presence-principale-quartier-marchands">Présence principale</h4>
+        <h5 id="pres-presence-principale-quartier-marchands">Présence principale</h5>
         `;
         html += renderCard(PNJ.apothicaire);
         html += renderCard(PNJ.marchande_deux_couronnes);
@@ -1800,7 +1804,7 @@ window.TRAME_Personnages = (function() {
 
         html += `
         <h4 id="sous-secteur-industriel-souterrain">Secteur industriel souterrain de Rivecour</h4>
-        <h4 id="pres-presence-principale-secteur-industriel">Présence principale</h4>
+        <h5 id="pres-presence-principale-secteur-industriel">Présence principale</h5>
         `;
         html += renderCard(PNJ.thorek);
 
@@ -1808,25 +1812,25 @@ window.TRAME_Personnages = (function() {
         <h3 id="lieu-aldhaven">Aldhaven</h3>
 
         <h4 id="sous-forge-d-aldhaven">Forge d’Aldhaven</h4>
-        <h4 id="pres-presence-principale-forge-aldhaven">Présence principale</h4>
+        <h5 id="pres-presence-principale-forge-aldhaven">Présence principale</h5>
         `;
         html += renderCard(PNJ.thorne);
         html += renderCard(PNJ.maeva);
         html += renderCard(PNJ.fille_thorne_maeva);
 
-        html += `<h4 id="pres-presence-secondaire-forge-aldhaven">Présence secondaire</h4>\n`;
-        html += renderCard(PNJ.lance_de_huit, 'h4', "Forteresse-Monde (Strate -3, sous l'Immensité Grise — 10e Cité de Traverse). Présence permanente à la Forge d'Aldhaven assurée par une rotation fixe de deux chevaliers.");
+        html += `<h5 id="pres-presence-secondaire-forge-aldhaven">Présence secondaire</h5>\n`;
+        html += renderCard(PNJ.lance_de_huit, null, "Forteresse-Monde (Strate -3, sous l'Immensité Grise — 10e Cité de Traverse). Présence permanente à la Forge d'Aldhaven assurée par une rotation fixe de deux chevaliers.");
 
         html += `
         <h4 id="sous-port-et-navire-aldhaven">Port et navire d’Aldhaven</h4>
-        <h4 id="pres-presence-principale-port-aldhaven">Présence principale</h4>
+        <h5 id="pres-presence-principale-port-aldhaven">Présence principale</h5>
         `;
         html += renderCard(PNJ.kaelen);
         html += renderCard(PNJ.alden);
 
         html += `
         <h3 id="lieu-les-saillans">Les Saillans</h3>
-        <h4 id="pres-presence-principale-saillans">Présence principale</h4>
+        <h5 id="pres-presence-principale-saillans">Présence principale</h5>
         `;
         html += renderCard(PNJ.rose);
         html += renderCard(PNJ.aldric);
@@ -1834,21 +1838,21 @@ window.TRAME_Personnages = (function() {
         html += renderCard(PNJ.milo);
         html += renderCard(PNJ.elara);
 
-        html += `<h4 id="pres-presence-secondaire-saillans">Présence secondaire</h4>\n`;
-        html += renderCard(PNJ.seraphine, 'h4', "Forge naine de Rivecour (Résidence principale), avec séjours réguliers aux Saillans.");
-        html += renderCard(PNJ.kaelen, 'h4', "Son navire, avec présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.");
-        html += renderCard(PNJ.alden, 'h4', "Son navire, avec présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.");
+        html += `<h5 id="pres-presence-secondaire-saillans">Présence secondaire</h5>\n`;
+        html += renderCard(PNJ.seraphine, null, "Forge naine de Rivecour (Résidence principale), avec séjours réguliers aux Saillans.");
+        html += renderCard(PNJ.kaelen, null, "Son navire, avec présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.");
+        html += renderCard(PNJ.alden, null, "Son navire, avec présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.");
 
         html += `
         <h3 id="lieu-immensite-grise">L’Immensité Grise</h3>
 
         <h4 id="lieu-tour-blanche">Tour Blanche</h4>
-        <h4 id="pres-presence-principale-tour-blanche">Présence principale</h4>
+        <h5 id="pres-presence-principale-tour-blanche">Présence principale</h5>
         `;
         html += renderCard(PNJ.lysandra);
 
-        html += `<h4 id="pres-presence-secondaire-tour-blanche">Présence secondaire</h4>\n`;
-        html += renderCard(PNJ.rhazka_cendre_claire, 'h4', "Haut-Bois (Gor-Kadar) / Tour Blanche (Immensité Grise). Ambassadrice permanente de Gor-Kadar.");
+        html += `<h5 id="pres-presence-secondaire-tour-blanche">Présence secondaire</h5>\n`;
+        html += renderCard(PNJ.rhazka_cendre_claire, null, "Haut-Bois (Gor-Kadar) / Tour Blanche (Immensité Grise). Ambassadrice permanente de Gor-Kadar.");
 
         // PREMIÈRE ENTRÉE FORTERESSE-MONDE (Géologique / Immensité Grise)
         html += `
@@ -1856,7 +1860,7 @@ window.TRAME_Personnages = (function() {
         <div class="card-start"></div>
             <div class="rule-item"><p><strong>Situation géographique physique :</strong> Bien que gouvernée politiquement comme la 10e Cité du Royaume de Traverse et reliée par le Portail du Grand Air à l'Archipel des Tempêtes, la Forteresse-Monde est une structure minérale antique enfouie verticalement sous les steppes de l'Immensité Grise (accessible depuis la surface par le Cratère du Syndicat).</p></div>
         <div class="card-end"></div>
-        <h4 id="pres-presence-principale-forteresse-immensite">Présence principale</h4>
+        <h5 id="pres-presence-principale-forteresse-immensite">Présence principale</h5>
         `;
         html += renderCard(PNJ.lance_de_huit);
         html += renderCard(PNJ.vel_shara);
@@ -1874,7 +1878,7 @@ window.TRAME_Personnages = (function() {
         html += `
         <h3 id="lieu-mer-de-jade-et-archipel">La Mer de Jade &amp; Archipel des Tempêtes</h3>
         <h4 id="sous-archipel-navire-kaelen">Navigation &amp; Navire d'Elkyriel</h4>
-        <h4 id="pres-presence-principale-mer-jade">Présence principale</h4>
+        <h5 id="pres-presence-principale-mer-jade">Présence principale</h5>
         `;
         html += renderCard(PNJ.kaelen);
         html += renderCard(PNJ.alden);
@@ -1885,16 +1889,16 @@ window.TRAME_Personnages = (function() {
         <div class="card-start"></div>
             <div class="rule-item"><p><strong>Liaison directe permanente :</strong> L'extrémité insulaire du Portail du Grand Air s'ouvre sur les falaises de l'Archipel des Tempêtes, reliant sans interruption les eaux tropicales à l'arche monumentale de basalte de la Strate -3 de la Forteresse-Monde. Ce portail assure un flux thermique continu d'air marin et de clarté solaire vers la cité souterraine.</p></div>
         <div class="card-end"></div>
-        <h4 id="pres-presence-secondaire-archipel-portail">Présence secondaire (Liaisons et Transits réguliers)</h4>
+        <h5 id="pres-presence-secondaire-archipel-portail">Présence secondaire (Liaisons et Transits réguliers)</h5>
         `;
-        html += renderCard(PNJ.faelia, 'h4', "Palais royal d’Élyria (Résidence principale) ; séjours et inspections régulières dans l'Archipel des Tempêtes pour le commandement de la Cavalerie des Wyvernes.");
-        html += renderCard(PNJ.vel_shara, 'h4', "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Accès direct régulier au littoral de l'Archipel des Tempêtes via le Portail du Grand Air pour ses collectes d'ingrédients alchimiques exotiques et marins.");
-        html += renderCard(PNJ.sariel, 'h4', "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Passages réguliers dans les jungles de l'Archipel des Tempêtes via le Portail du Grand Air pour l'approvisionnement en cuirs de wyverne nécessaires à l'équipement des Spectres de la Pierre.");
+        html += renderCard(PNJ.faelia, null, "Palais royal d’Élyria (Résidence principale) ; séjours et inspections régulières dans l'Archipel des Tempêtes pour le commandement de la Cavalerie des Wyvernes.");
+        html += renderCard(PNJ.vel_shara, null, "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Accès direct régulier au littoral de l'Archipel des Tempêtes via le Portail du Grand Air pour ses collectes d'ingrédients alchimiques exotiques et marins.");
+        html += renderCard(PNJ.sariel, null, "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Passages réguliers dans les jungles de l'Archipel des Tempêtes via le Portail du Grand Air pour l'approvisionnement en cuirs de wyverne nécessaires à l'équipement des Spectres de la Pierre.");
 
         html += `
         <h3 id="lieu-marches-orientales">Les Marches orientales</h3>
         <h4 id="sous-routes-des-marches-orientales">Routes des Marches orientales &amp; Valdorne</h4>
-        <h4 id="pres-presence-principale-routes-marches">Présence principale</h4>
+        <h5 id="pres-presence-principale-routes-marches">Présence principale</h5>
         `;
         html += renderCard(PNJ.varek);
         html += renderCard(PNJ.charretier_deux_couronnes);
@@ -1902,7 +1906,7 @@ window.TRAME_Personnages = (function() {
 
         html += `
         <h4 id="sous-rochebrune">Rochebrune</h4>
-        <h4 id="pres-presence-principale-rochebrune">Présence principale</h4>
+        <h5 id="pres-presence-principale-rochebrune">Présence principale</h5>
         `;
         html += renderCard(PNJ.beran_doss);
         html += renderCard(PNJ.orven);
@@ -1923,7 +1927,7 @@ window.TRAME_Personnages = (function() {
 
         <h3 id="lieu-karsenne">Karsenne</h3>
         <h4 id="lieu-palais-royal-de-karsenne">Palais royal de Karsenne</h4>
-        <h4 id="pres-presence-principale-palais-karsenne">Présence principale</h4>
+        <h5 id="pres-presence-principale-palais-karsenne">Présence principale</h5>
         `;
         html += renderCard(PNJ.ysoria);
         html += renderCard(PNJ.meleandre);
@@ -1931,42 +1935,42 @@ window.TRAME_Personnages = (function() {
         html += renderCard(PNJ.renaud_vaulnes);
         html += renderCard(PNJ.chanceliere_varethis);
 
-        html += `<h4 id="pres-presence-secondaire-palais-karsenne">Présence secondaire</h4>\n`;
+        html += `<h5 id="pres-presence-secondaire-palais-karsenne">Présence secondaire</h5>\n`;
         html += renderCard(PNJ.maera);
 
         html += `
         <h4 id="sous-parfumerie-de-maitre-leirykle">Parfumerie de maître Leirykle</h4>
-        <h4 id="pres-presence-principale-parfumerie">Présence principale</h4>
+        <h5 id="pres-presence-principale-parfumerie">Présence principale</h5>
         `;
         html += renderCard(PNJ.solenne_varin);
         html += renderCard(PNJ.kordran_fergivre);
 
-        html += `<h4 id="pres-presence-secondaire-parfumerie">Présence secondaire</h4>\n`;
-        html += renderCard(PNJ.armand_vellec, 'h4', "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise) / Quartier général de la Garde des Veines à Calde ; visites occasionnelles et discrètes à Karsenne lors des passages d'Elkyriel.");
-        html += renderCard(PNJ.mirelle_auvray, 'h4', "Palais royal d’Élyria (Résidence principale permanente) ; visites périodiques à Karsenne.");
+        html += `<h5 id="pres-presence-secondaire-parfumerie">Présence secondaire</h5>\n`;
+        html += renderCard(PNJ.armand_vellec, null, "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise) / Quartier général de la Garde des Veines à Calde ; visites occasionnelles et discrètes à Karsenne lors des passages d'Elkyriel.");
+        html += renderCard(PNJ.mirelle_auvray, null, "Palais royal d’Élyria (Résidence principale permanente) ; visites périodiques à Karsenne.");
 
         html += `
         <h4 id="lieu-selyne-var-cellule-des-corbeaux">Cellule des Corbeaux de Karsenne</h4>
-        <h4 id="pres-presence-principale-corbeaux-karsenne">Présence principale</h4>
+        <h5 id="pres-presence-principale-corbeaux-karsenne">Présence principale</h5>
         `;
         html += renderCard(PNJ.selyne_var);
 
         html += `
         <h3 id="lieu-domaine-de-clairval">Domaine de Clairval</h3>
-        <h4 id="pres-presence-principale-clairval">Présence principale</h4>
+        <h5 id="pres-presence-principale-clairval">Présence principale</h5>
         `;
         html += renderCard(PNJ.eliane_var);
 
         html += `
         <h3 id="lieu-passe-des-trois-bornes">Passe des Trois Bornes (Frontière)</h3>
-        <h4 id="pres-presence-principale-passe-trois-bornes">Présence principale</h4>
+        <h5 id="pres-presence-principale-passe-trois-bornes">Présence principale</h5>
         `;
         html += renderCard(PNJ.lieutenant_brenor);
         html += renderCard(PNJ.capitaine_caldrin);
 
         html += `
         <h3 id="lieu-ailleurs-en-varethis">Ailleurs en Varethis</h3>
-        <h4 id="pres-presence-principale-ailleurs-varethis">Présence principale</h4>
+        <h5 id="pres-presence-principale-ailleurs-varethis">Présence principale</h5>
         `;
         html += renderCard(PNJ.voyageur_mornefond);
 
@@ -1982,7 +1986,7 @@ window.TRAME_Personnages = (function() {
         <h3 id="empire-royaume-traverse">Royaume de Traverse (Cœur de l'Empire)</h3>
 
         <h4 id="lieu-palais-royal-d-elyria">Élyria (Capitale Impériale &amp; Palais)</h4>
-        <h4 id="pres-presence-principale-palais-elyria">Présence principale</h4>
+        <h5 id="pres-presence-principale-palais-elyria">Présence principale</h5>
         `;
         html += renderCard(PNJ.elkyriel);
         html += renderCard(PNJ.faelia);
@@ -1995,29 +1999,29 @@ window.TRAME_Personnages = (function() {
         html += renderCard(PNJ.lethielle);
         html += renderCard(PNJ.nathalysse);
 
-        html += `<h4 id="pres-presence-secondaire-elyria">Présence secondaire (Séjours et Présences régulières à la Cour)</h4>\n`;
-        html += renderCard(PNJ.lysandra, 'h4', "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria.");
-        html += renderCard(PNJ.sera, 'h4', "Grands-Vergers (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.pell, 'h4', "Calde-sur-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.dhorg, 'h4', "Clair-Verger (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.enric, 'h4', "Asten (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.siane, 'h4', "Bois-Serein (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.naela, 'h4', "Bois-Serein (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.ysel, 'h4', "Rive-Noire (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.rhea, 'h4', "Rive-Noire (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.maura, 'h4', "Haute-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.lise, 'h4', "Haute-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += `<h5 id="pres-presence-secondaire-elyria">Présence secondaire (Séjours et Présences régulières à la Cour)</h5>\n`;
+        html += renderCard(PNJ.lysandra, null, "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria.");
+        html += renderCard(PNJ.sera, null, "Grands-Vergers (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.pell, null, "Calde-sur-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.dhorg, null, "Clair-Verger (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.enric, null, "Asten (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.siane, null, "Bois-Serein (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.naela, null, "Bois-Serein (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.ysel, null, "Rive-Noire (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.rhea, null, "Rive-Noire (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.maura, null, "Haute-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
+        html += renderCard(PNJ.lise, null, "Haute-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
 
         html += `
         <h4 id="lieu-elyria-autorites-civiles-commerciales">Élyria (Autorités Civiles &amp; Commerciales)</h4>
-        <h4 id="pres-presence-principale-elyria-civile">Présence principale</h4>
+        <h5 id="pres-presence-principale-elyria-civile">Présence principale</h5>
         `;
         html += renderCard(PNJ.olan_vespre);
         html += renderCard(PNJ.salome_d_arqueval);
 
         html += `
         <h4 id="lieu-quais-d-elyria">Quais d’Élyria</h4>
-        <h4 id="pres-presence-principale-quais">Présence principale</h4>
+        <h5 id="pres-presence-principale-quais">Présence principale</h5>
         `;
         html += renderCard(PNJ.mireva);
 
@@ -2080,7 +2084,7 @@ window.TRAME_Personnages = (function() {
         <div class="card-start"></div>
             <div class="rule-item"><p><strong>Statut politique impérial :</strong> Intégrée officiellement comme la dixième cité du Royaume de Traverse et gouvernée par la Comtesse Vel'Shara, la Forteresse-Monde est reliée à la Place Royale d'Élyria et aux neuf autres cités par le réseau des arches magiques permanentes de Traverse. Elle est établie physiquement dans les strates géologiques sous l'Immensité Grise et communique avec l'Archipel des Tempêtes par le Portail du Grand Air.</p></div>
         <div class="card-end"></div>
-        <h4 id="pres-presence-principale-forteresse-traverse">Présence principale</h4>
+        <h5 id="pres-presence-principale-forteresse-traverse">Présence principale</h5>
         `;
         html += renderCard(PNJ.lance_de_huit);
         html += renderCard(PNJ.vel_shara);
