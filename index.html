@@ -1560,45 +1560,56 @@
         }
         
         function toggleIndexItem(id, hasChildren) {
-            // Toujours scroller vers la section
-            scrollToElement(id);
-            
-            // Si l'élément a des enfants, toggle son état développé
-            if (hasChildren) {
-                if (expandedSections.has(id)) {
-                    // 1. On ferme le parent
-                    expandedSections.delete(id);
-                    
-                    // 2. On cherche et on ferme tous ses descendants
-                    let foundParent = false;
-                    let parentLevel = 0;
-                    
-                    for (let i = 0; i < currentIndex.length; i++) {
-                        const item = currentIndex[i];
-                        
-                        if (item.id === id) {
-                            foundParent = true;
-                            parentLevel = item.level;
-                            continue; // On passe à l'élément suivant
-                        }
-                        
-                        if (foundParent) {
-                            if (item.level > parentLevel) {
-                                // C'est un descendant (niveau inférieur), on force sa fermeture
-                                expandedSections.delete(item.id);
-                            } else {
-                                // On est tombé sur le prochain titre de même niveau (ou plus haut), on arrête
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    // Si on l'ouvre, on l'ajoute simplement
-                    expandedSections.add(id);
-                }
-                renderDocumentsList(); // Re-render pour mettre à jour la visibilité
-            }
-        }
+          scrollToElement(id);
+          
+          if (hasChildren) {
+              if (expandedSections.has(id)) {
+                  // Si on clique sur un onglet déjà ouvert, on le referme avec tous ses descendants
+                  fermerSectionEtDescendants(id);
+              } else {
+                  // 1. Trouver le niveau de l'élément cliqué
+                  const currentItem = currentIndex.find(item => item.id === id);
+                  const currentLevel = currentItem ? currentItem.level : 1;
+
+                  // 2. Refermer tous les autres onglets ouverts qui sont au même niveau (ou plus profond)
+                  const aFermer = [];
+                  expandedSections.forEach(openId => {
+                      const openItem = currentIndex.find(item => item.id === openId);
+                      if (openItem && openItem.level >= currentLevel) {
+                          aFermer.push(openId);
+                      }
+                  });
+                  aFermer.forEach(openId => fermerSectionEtDescendants(openId));
+
+                  // 3. Ouvrir l'onglet cliqué
+                  expandedSections.add(id);
+              }
+              renderDocumentsList();
+          }
+      }
+
+      // Fonction utilitaire pour refermer récursivement
+      function fermerSectionEtDescendants(id) {
+          expandedSections.delete(id);
+          let foundParent = false;
+          let parentLevel = 0;
+          
+          for (let i = 0; i < currentIndex.length; i++) {
+              const item = currentIndex[i];
+              if (item.id === id) {
+                  foundParent = true;
+                  parentLevel = item.level;
+                  continue;
+              }
+              if (foundParent) {
+                  if (item.level > parentLevel) {
+                      expandedSections.delete(item.id);
+                  } else {
+                      break;
+                  }
+              }
+          }
+      }
 
         function profileHasNotesPage(profile) {
             const val = profile && profile.content && profile.content['notes-page-enabled'];
