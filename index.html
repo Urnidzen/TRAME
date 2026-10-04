@@ -41,8 +41,9 @@
     <script src="livret5-Bestiaire.data.v0.86.js"></script>
     <!-- Convertisseur Markdown complet -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Bibliothèque pour les archives ZIP (export et import de lots de fiches) -->
+    <!-- Bibliothèques pour le ZIP et la génération PDF directe -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
@@ -1815,15 +1816,79 @@
             }
         }
 
-        // 3. Tout imprimer : lance l'impression globale du chapitre fiches
-        function printAllCharacters() {
-            if (currentDoc !== 'fiche') {
-                selectDocument('fiche').then(() => {
-                    setTimeout(() => window.print(), 500);
-                });
-            } else {
-                window.print();
+        // 3. Tout imprimer : génère un ZIP contenant 1 fichier PDF par personnage
+        async function printAllCharacters() {
+            if (typeof JSZip === 'undefined' || typeof html2pdf === 'undefined') {
+                alert("Erreur : bibliothèque JSZip ou html2pdf manquante.");
+                return;
             }
+
+            const profiles = TRAME_Registre.getAllProfiles();
+            if (profiles.length === 0) {
+                alert("Aucun personnage à imprimer.");
+                return;
+            }
+
+            const zip = new JSZip();
+            const usedNames = {};
+
+            // Création d'une iframe hors-champ pour charger chaque fiche individuellement
+            const tempIframe = document.createElement('iframe');
+            tempIframe.style.position = 'fixed';
+            tempIframe.style.top = '-9999px';
+            tempIframe.style.left = '-9999px';
+            tempIframe.style.width = '794px';
+            tempIframe.style.height = '1123px';
+            document.body.appendChild(tempIframe);
+
+            for (let i = 0; i < profiles.length; i++) {
+                const profile = profiles[i];
+
+                await new Promise(resolve => {
+                    tempIframe.onload = () => resolve();
+                    tempIframe.src = `Fiche de personnage.v0.92.html?uid=${profile.id}`;
+                });
+
+                // Pause de stabilisation du rendu et des polices
+                await new Promise(r => setTimeout(r, 400));
+
+                const frameDoc = tempIframe.contentDocument || tempIframe.contentWindow.document;
+                
+                // Masquer les boutons d'action sur la feuille
+                frameDoc.querySelectorAll('.header-actions, .sheet-ui-controls').forEach(el => el.style.display = 'none');
+
+                const targetEl = frameDoc.querySelector('.layout-wrapper') || frameDoc.body;
+
+                const pdfBlob = await html2pdf().set({
+                    margin: 0,
+                    image: { type: 'jpeg', quality: 0.95 },
+                    html2canvas: { scale: 1.5, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                }).from(targetEl).output('blob');
+
+                let safeName = (profile.name || "Sans_Nom").trim().replace(/[/\\?%*:|"<>]/g, "-").replace(/\s+/g, "_");
+                if (usedNames[safeName]) {
+                    usedNames[safeName]++;
+                    safeName = `${safeName}_(${usedNames[safeName]})`;
+                } else {
+                    usedNames[safeName] = 1;
+                }
+
+                zip.file(`TRAME_Fiche_${safeName}.pdf`, pdfBlob);
+            }
+
+            document.body.removeChild(tempIframe);
+
+            const zipBlob = await zip.generateAsync({ type: "blob" });
+            const url = URL.createObjectURL(zipBlob);
+            const a = document.createElement("a");
+            const dateStr = new Date().toISOString().split("T")[0];
+            a.href = url;
+            a.download = `TRAME_Fiches_PDF_${dateStr}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
         
         async function selectDocument(docId) {
