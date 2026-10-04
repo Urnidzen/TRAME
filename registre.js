@@ -1,6 +1,6 @@
 /**
  * TRAME REGISTRE - SYSTEME DE SAUVEGARDE CENTRALISÉ
- * Version Corrigée : Synchronisation multi-iframes
+ * Version Étendue : Traitement par lot, export/import ZIP et gestion des doublons
  */
 
 const TRAME_Registre = {
@@ -21,7 +21,6 @@ const TRAME_Registre = {
 
     /**
      * Force la relecture du LocalStorage pour synchroniser l'état
-     * CRUCIAL : Doit être appelé avant toute modification pour éviter les écrasements
      */
     reload: function() {
         const store = localStorage.getItem(this.STORAGE_KEY);
@@ -41,7 +40,7 @@ const TRAME_Registre = {
      * Récupère la liste complète des profils
      */
     getAllProfiles: function() {
-        this.reload(); // On s'assure d'avoir la dernière version
+        this.reload();
         return [...this.data.profiles];
     },
 
@@ -49,27 +48,26 @@ const TRAME_Registre = {
      * Récupère un profil spécifique
      */
     getProfile: function(id) {
-        this.reload(); // On s'assure d'avoir la dernière version
+        this.reload();
         return this.data.profiles.find(p => p.id === id) || null;
     },
 
     /**
      * Crée une nouvelle page vierge dans le registre
      */
-    createProfile: function() {
-        this.reload(); // IMPORTANT : Recharger avant d'ajouter
+    createProfile: function(name) {
+        this.reload();
         
-        const newId = "p_" + Date.now(); 
+        const newId = "p_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6); 
         const newProfile = {
             id: newId,
-            name: "Nouveau Personnage",
+            name: name || "Nouveau Personnage",
             timestamp: Date.now(),
             content: {} 
         };
 
         this.data.profiles.push(newProfile);
         this.save();
-        console.log("[TRAME Registre] Profil créé :", newId);
         return newId;
     },
 
@@ -77,7 +75,7 @@ const TRAME_Registre = {
      * Met à jour les données d'un profil
      */
     updateProfile: function(id, contentData, name) {
-        this.reload(); // IMPORTANT : Recharger avant de modifier quoi que ce soit
+        this.reload();
 
         const profile = this.data.profiles.find(p => p.id === id);
         if (profile) {
@@ -86,7 +84,6 @@ const TRAME_Registre = {
             profile.timestamp = Date.now();
             this.save();
         } else {
-            // Cas rare où le profil a été supprimé entre temps
             console.warn("[TRAME Registre] Profil introuvable pour mise à jour :", id);
         }
     },
@@ -95,13 +92,12 @@ const TRAME_Registre = {
      * Supprime définitivement un profil
      */
     deleteProfile: function(id) {
-        this.reload(); // IMPORTANT : Recharger avant de supprimer
+        this.reload();
 
         const index = this.data.profiles.findIndex(p => p.id === id);
         if (index > -1) {
             this.data.profiles.splice(index, 1);
             this.save();
-            console.log("[TRAME Registre] Profil supprimé :", id);
             return true;
         }
         return false;
@@ -119,23 +115,145 @@ const TRAME_Registre = {
             alert("Attention : Impossible de sauvegarder (Quota dépassé ?)");
         }
     },
-    
+
     /**
-     * Export Global (Backup)
+     * Nettoie une chaîne pour en faire un nom de fichier valide
      */
-    exportGlobalBackup: function() {
+    sanitizeFilename: function(name) {
+        return (name || "Sans_Nom")
+            .trim()
+            .replace(/[/\\?%*:|"<>]/g, "-")
+            .replace(/\s+/g, "_");
+    },
+
+    /**
+     * Export groupé : télécharge une archive ZIP contenant un fichier JSON par personnage
+     */
+    exportAllAsZip: async function() {
         this.reload();
-        const dataStr = JSON.stringify(this.data, null, 2);
-        const blob = new Blob([dataStr], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        if (typeof JSZip === "undefined") {
+            alert("Erreur : la bibliothèque JSZip n'est pas chargée.");
+            return;
+        }
+
+        const profiles = this.getAllProfiles();
+        if (profiles.length === 0) {
+            alert("Aucun personnage à exporter.");
+            return;
+        }
+
+        const zip = new JSZip();
+        const usedNames = {};
+
+        profiles.forEach(profile => {
+            let baseName = this.sanitizeFilename(profile.name);
+            if (usedNames[baseName]) {
+                usedNames[baseName]++;
+                baseName = `${baseName}_(${usedNames[baseName]})`;
+            } else {
+                usedNames[baseName] = 1;
+            }
+
+            const fileName = `TRAME_Heros_${baseName}.json`;
+            zip.file(fileName, JSON.stringify(profile, null, 2));
+        });
+
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement("a");
+        const dateStr = new Date().toISOString().split("T")[0];
         a.href = url;
-        const date = new Date().toISOString().split('T')[0];
-        a.download = `TRAME_Registre_Complet_${date}.json`;
+        a.download = `TRAME_Personnages_JSON_${dateStr}.zip`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    },
+
+    /**
+     * Import multiple de profils avec résolution des doublons (Option B)
+     * @param {Array<{name: string, content: object}>} incomingProfiles 
+     */
+    importProfilesBatch: function(incomingProfiles) {
+        this.reload();
+        let importedCount = 0;
+        let applyAllChoice = null; // 'replace', 'copy', 'ignore'
+
+        for (const item of incomingProfiles) {
+            if (!item || !item.content) continue;
+
+            const charName = (item.name || item.content["char-name"] || "Sans Nom").trim();
+            const existing = this.data.profiles.find(p => p.name.trim().toLowerCase() === charName.toLowerCase());
+
+            if (existing) {
+                let choice = applyAllChoice;
+
+                if (!choice) {
+                    const answer = prompt(
+                        `Le personnage « ${charName} » existe déjà.\n` +
+                        `Tapez :\n` +
+                        `- 1 pour ÉCRASER l'existant\n` +
+                        `- 2 pour CRÉER UNE COPIE\n` +
+                        `- 3 pour IGNORER ce fichier\n` +
+                        `- 1! ou 2! pour APPLIQUER À TOUS les suivants`,
+                        "2"
+                    );
+
+                    if (answer === null) continue; // Annulation de cet élément
+
+                    const cleanAnswer = answer.trim();
+                    if (cleanAnswer === "1!") {
+                        applyAllChoice = "replace";
+                        choice = "replace";
+                    } else if (cleanAnswer === "2!") {
+                        applyAllChoice = "copy";
+                        choice = "copy";
+                    } else if (cleanAnswer === "1") {
+                        choice = "replace";
+                    } else if (cleanAnswer === "3") {
+                        choice = "ignore";
+                    } else {
+                        choice = "copy";
+                    }
+                }
+
+                if (choice === "replace") {
+                    existing.content = item.content;
+                    existing.name = charName;
+                    existing.timestamp = Date.now();
+                    importedCount++;
+                } else if (choice === "copy") {
+                    let copyIndex = 2;
+                    let candidateName = `${charName} (Copie)`;
+                    while (this.data.profiles.some(p => p.name.trim().toLowerCase() === candidateName.toLowerCase())) {
+                        candidateName = `${charName} (Copie ${copyIndex})`;
+                        copyIndex++;
+                    }
+                    const newId = "p_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6);
+                    this.data.profiles.push({
+                        id: newId,
+                        name: candidateName,
+                        timestamp: Date.now(),
+                        content: Object.assign({}, item.content, { "char-name": candidateName })
+                    });
+                    importedCount++;
+                }
+                // Si 'ignore', on passe au suivant
+            } else {
+                // Pas de doublon : ajout direct
+                const newId = "p_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6);
+                this.data.profiles.push({
+                    id: newId,
+                    name: charName,
+                    timestamp: Date.now(),
+                    content: item.content
+                });
+                importedCount++;
+            }
+        }
+
+        this.save();
+        return importedCount;
     }
 };
 
