@@ -37,6 +37,7 @@
     <script>tailwind.config={content:[],theme:{extend:{}}}</script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@400;500;600;700" rel="stylesheet">
     <script src="registre.js"></script>
+    <script src="annexe3-personnages.data.js"></script>
     <!-- Convertisseur Markdown complet -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
@@ -934,6 +935,7 @@
 
         let loreUnlocked = sessionStorage.getItem('lore_unlocked') === 'true';
         let loreExpanded = false;
+        let currentAnnexe3View = 'region';
 
         const LEGAL_HTML = `
             <div class="legal-notice">
@@ -1498,9 +1500,14 @@
             const loreDocs = documents.filter(d => d.isLore);
             return loreDocs.map(doc => {
                 const isSubActive = doc.id === currentDoc;
-                const accordion = (isSubActive && expandedId === doc.id && currentIndex && currentIndex.length > 0)
-                    ? `<div style="margin-top:4px; margin-left:8px; padding-left:8px; border-left:2px solid rgba(0,0,0,0.12);">${renderIndexAccordion()}</div>`
-                    : '';
+                let accordion = '';
+                if (isSubActive && expandedId === doc.id) {
+                    if (doc.id === 'lore_personnages' && window.TRAME_Personnages) {
+                        accordion = `<div style="margin-top:4px; margin-left:8px; padding-left:8px; border-left:2px solid rgba(0,0,0,0.12);">${renderAnnexe3Menu()}</div>`;
+                    } else if (currentIndex && currentIndex.length > 0) {
+                        accordion = `<div style="margin-top:4px; margin-left:8px; padding-left:8px; border-left:2px solid rgba(0,0,0,0.12);">${renderIndexAccordion()}</div>`;
+                    }
+                }
                 return `
                     <div class="index-item ${isSubActive ? 'expanded' : ''}"
                          style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; border-radius: 4px; transition: all 0.2s; margin-bottom: 4px; padding-left: 15px; font-weight: ${isSubActive ? '600' : 'normal'}; display: flex; flex-direction: column; align-items: stretch; gap: 6px;"
@@ -1793,6 +1800,17 @@
                 return;
             }
 
+            if (docId === 'lore_personnages' && window.TRAME_Personnages) {
+                const html = TRAME_Personnages.renderView(currentAnnexe3View);
+                currentIndex = TRAME_Personnages.getIndex(currentAnnexe3View);
+                rawContentCache = cleanHtmlContent(html);
+                await document.fonts.ready;
+                paginateContent(rawContentCache);
+                bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
+                renderDocumentsList();
+                return;
+            }
+
             try {
                 const response = await fetch(doc.file);
                 const html = await response.text();
@@ -1853,6 +1871,54 @@
             }
         }
 
+        function renderAnnexe3Menu() {
+            if (!window.TRAME_Personnages) return '';
+            const views = [
+                { id: 'region', label: '🗺️ Par Régions & Fiefs' },
+                { id: 'alpha', label: '🔤 Index Alphabétique (A-Z)' },
+                { id: 'titre', label: '👑 Par Titres & Statuts' },
+                { id: 'espece', label: '🧬 Par Espèces' },
+                { id: 'harem', label: '💖 Cercle Intime & Harem' },
+                { id: 'secret', label: '🐉 Secret Draconique' },
+                { id: 'morts', label: '⚰️ Personnages Morts' }
+            ];
+
+            let html = '<div style="display:flex; flex-direction:column; gap:4px; margin-bottom:8px;">';
+            views.forEach(v => {
+                const isCurrent = currentAnnexe3View === v.id;
+                html += `
+                    <div onclick="event.stopPropagation(); setAnnexe3View('${v.id}')"
+                         style="padding:5px 8px; font-size:0.8rem; cursor:pointer; border-radius:3px; background:${isCurrent ? 'rgba(124,45,18,0.2)' : 'rgba(0,0,0,0.03)'}; font-weight:${isCurrent ? 'bold' : 'normal'}; color:${isCurrent ? '#7c2d12' : '#1c1917'};">
+                        ${v.label}
+                    </div>
+                `;
+            });
+            html += '</div>';
+
+            html += `<div style="margin-top:6px; border-top:1px solid rgba(0,0,0,0.1); padding-top:6px;">
+                ${renderIndexAccordion()}
+            </div>`;
+
+            return html;
+        }
+
+        async function setAnnexe3View(viewMode, targetId) {
+            currentAnnexe3View = viewMode;
+            if (window.TRAME_Personnages) {
+                const html = TRAME_Personnages.renderView(viewMode);
+                currentIndex = TRAME_Personnages.getIndex(viewMode);
+                rawContentCache = cleanHtmlContent(html);
+                await document.fonts.ready;
+                paginateContent(rawContentCache);
+                bindImageLightbox(document.getElementById('bookSpreadsWrapper'));
+                expandedSections.clear();
+                renderDocumentsList();
+                if (targetId) {
+                    setTimeout(() => scrollToElement(targetId), 200);
+                }
+            }
+        }
+        
         function cleanHtmlContent(html) {
             const div = document.createElement('div');
             div.innerHTML = html;
