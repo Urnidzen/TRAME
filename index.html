@@ -947,7 +947,7 @@
             { id: 'lore_mj5', file: 'lore/Livret6-MJ-Partie5.v5.03.md', icon: '🌅', title: 'Livret 6.5 : CAS Transition', subtitle: 'Première rencontre', isLore: true },
             { id: 'lore_mj6', file: 'lore/Livret6-MJ-Partie6.v5.04.md', icon: '🧮', title: 'Livret 6.6 : Résolution IA', subtitle: 'Moteur de calcul', isLore: true },
             { id: 'lore_ia7', file: 'lore/Livret7-IA.v0.03.md', icon: '🤖', title: 'Livret 7 : Automatisation IA', subtitle: 'Protocoles Mode A / B', isLore: true },
-            { id: 'fiche', file: 'Fiche de personnage.v0.92.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
+            { id: 'fiche', file: 'Fiche de personnage.v0.93.html', icon: '📝', title: 'Fiche de Personnage', subtitle: 'Interactive' },
             { id: 'contact', file: 'contact.html', icon: '💬', title: 'Contact & Discussions', subtitle: "Échangez sur le TRAME" }
         ];
 
@@ -1775,7 +1775,7 @@
             printIframe.style.left = '-9999px';
             printIframe.style.width = '794px';
             printIframe.style.height = '1123px';
-            printIframe.src = `Fiche de personnage.v0.92.html?uid=${id}`;
+            printIframe.src = `Fiche de personnage.v0.93.html?uid=${id}`;
 
             printIframe.onload = () => {
                 setTimeout(() => {
@@ -1846,7 +1846,7 @@
 
                 await new Promise(resolve => {
                     tempIframe.onload = () => resolve();
-                    tempIframe.src = `Fiche de personnage.v0.92.html?uid=${profile.id}`;
+                    tempIframe.src = `Fiche de personnage.v0.93.html?uid=${profile.id}`;
                 });
 
                 // Pause de stabilisation du rendu et des polices
