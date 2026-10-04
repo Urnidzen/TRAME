@@ -1,5 +1,6 @@
 /**
  * TRAME - Annexe 3 : Personnages
+  * Version : v0.01
  * Base de données exhaustive et moteur de rendu dynamique
  * État de référence : Automne 1250
  */
@@ -2432,25 +2433,55 @@ window.TRAME_Personnages = (function() {
         }
 
         if (mode === 'titre') {
-            return [
-                { id: "titres-souverains", title: "Souverains & Régents", level: 1 },
-                { id: "titres-ducs", title: "Ducs & Conseil des Sceaux", level: 1 },
-                { id: "titres-comtes", title: "Comtes & Barons", level: 1 },
-                { id: "titres-militaires", title: "Officiers & Renseignement", level: 1 },
-                { id: "titres-artisans", title: "Artisans & Logistique", level: 1 }
+            const categories = [
+                { id: "titres-souverains", title: "Souverains & Régents", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('souverain') },
+                { id: "titres-ducs", title: "Ducs & Conseil des Sceaux", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('duc') },
+                { id: "titres-comtes", title: "Comtes & Barons", filter: p => p.tags && p.tags.rangs && (p.tags.rangs.includes('comte') || p.tags.rangs.includes('baron')) },
+                { id: "titres-militaires", title: "Officiers & Renseignement", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('officier') },
+                { id: "titres-artisans", title: "Artisans & Logistique", filter: p => p.tags && p.tags.rangs && p.tags.rangs.includes('artisan') }
             ];
+
+            const indexList = [];
+            const allP = Object.values(PNJ);
+
+            categories.forEach(cat => {
+                const list = allP.filter(cat.filter);
+                if (list.length > 0) {
+                    indexList.push({ id: cat.id, title: `${cat.title} (${list.length})`, level: 1 });
+                    list.forEach(p => {
+                        indexList.push({ id: p.id, title: p.nom, level: 2 });
+                    });
+                }
+            });
+
+            return indexList;
         }
 
         if (mode === 'espece') {
-            return [
-                { id: "espece-dragons", title: "Dragons", level: 1 },
-                { id: "espece-elfes", title: "Elfes", level: 1 },
-                { id: "espece-humains", title: "Humains", level: 1 },
-                { id: "espece-nains", title: "Nains", level: 1 },
-                { id: "espece-orques", title: "Orques", level: 1 },
-                { id: "espece-ogres", title: "Ogres-Mages", level: 1 },
-                { id: "espece-animaux", title: "Animaux", level: 1 }
+            const especes = [
+                { id: "espece-dragons", title: "Dragons", filter: p => p.tags && p.tags.espece === 'dragon' },
+                { id: "espece-elfes", title: "Elfes", filter: p => p.tags && p.tags.espece === 'elfe' },
+                { id: "espece-humains", title: "Humains", filter: p => p.tags && p.tags.espece === 'humain' },
+                { id: "espece-nains", title: "Nains", filter: p => p.tags && p.tags.espece === 'nain' },
+                { id: "espece-orques", title: "Orques", filter: p => p.tags && p.tags.espece === 'orque' },
+                { id: "espece-ogres", title: "Ogres-Mages", filter: p => p.tags && p.tags.espece === 'ogre' },
+                { id: "espece-animaux", title: "Animaux", filter: p => p.tags && p.tags.espece === 'animal' }
             ];
+
+            const indexList = [];
+            const allP = Object.values(PNJ);
+
+            especes.forEach(esp => {
+                const list = allP.filter(esp.filter);
+                if (list.length > 0) {
+                    indexList.push({ id: esp.id, title: `${esp.title} (${list.length})`, level: 1 });
+                    list.forEach(p => {
+                        indexList.push({ id: p.id, title: p.nom, level: 2 });
+                    });
+                }
+            });
+
+            return indexList;
         }
 
         if (mode === 'harem') {
@@ -2459,77 +2490,117 @@ window.TRAME_Personnages = (function() {
         }
 
         if (mode === 'secret') {
-            const countSavent = Object.values(PNJ).filter(p => p.tags && p.tags.secret === true).length;
-            return [
-                { id: "secret-savent", title: `Ceux qui savent (${countSavent})`, level: 1 },
-                { id: "secret-ignorent", title: "Ceux qui ignorent", level: 1 }
-            ];
+            const allP = Object.values(PNJ);
+            const savent = allP.filter(p => p.tags && p.tags.secret === true);
+            const ignorent = allP.filter(p => !p.tags || p.tags.secret !== true);
+
+            const indexList = [];
+
+            indexList.push({ id: "secret-savent", title: `Ceux qui savent (${savent.length})`, level: 1 });
+            savent.forEach(p => {
+                indexList.push({ id: p.id, title: p.nom, level: 2 });
+            });
+
+            indexList.push({ id: "secret-ignorent", title: `Ceux qui ignorent (${ignorent.length})`, level: 1 });
+            ignorent.forEach(p => {
+                indexList.push({ id: p.id, title: p.nom, level: 2 });
+            });
+
+            return indexList;
         }
 
         if (mode === 'morts') {
             return Object.values(MORTS).map(d => ({ id: d.id, title: d.nom, level: 1 }));
         }
 
-        // Mode Région : Arborescence géographique hiérarchique fidèle
-        return [
+        // Mode Région : Arborescence géographique dynamique basée sur les tags.lieux
+        const structureGeographique = [
             { id: "royaume-ardelie", title: "1. Royaume d’Ardélie", level: 1 },
             { id: "lieu-rivecour", title: "Rivecour", level: 2 },
-            { id: "lieu-la-forge-naine-de-rivecour", title: "La Forge naine", level: 3 },
-            { id: "sous-palais-royal", title: "Palais royal", level: 3 },
-            { id: "sous-senat", title: "Sénat", level: 3 },
-            { id: "sous-quartier-noble", title: "Quartier noble", level: 3 },
-            { id: "sous-quartier-des-marchands", title: "Quartier des Marchands", level: 3 },
-            { id: "sous-secteur-industriel-souterrain", title: "Secteur industriel", level: 3 },
+            { id: "lieu-la-forge-naine-de-rivecour", title: "La Forge naine", level: 3, tag: "ardelie_forge" },
+            { id: "sous-palais-royal", title: "Palais royal", level: 3, tag: "ardelie_rivecour_palais" },
+            { id: "sous-senat", title: "Sénat", level: 3, tag: "ardelie_rivecour_senat" },
+            { id: "sous-quartier-noble", title: "Quartier noble", level: 3, tag: "ardelie_rivecour_noble" },
+            { id: "sous-quartier-des-marchands", title: "Quartier des Marchands", level: 3, tag: "ardelie_rivecour_marchands" },
+            { id: "sous-secteur-industriel-souterrain", title: "Secteur industriel", level: 3, tag: "ardelie_rivecour_industriel" },
+            
             { id: "lieu-aldhaven", title: "Aldhaven", level: 2 },
-            { id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", level: 3 },
-            { id: "sous-port-et-navire-aldhaven", title: "Port et navire", level: 3 },
-            { id: "lieu-les-saillans", title: "Les Saillans", level: 2 },
+            { id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", level: 3, tag: "ardelie_aldhaven_forge" },
+            { id: "sous-port-et-navire-aldhaven", title: "Port et navire", level: 3, tag: "ardelie_aldhaven_port" },
+            
+            { id: "lieu-les-saillans", title: "Les Saillans", level: 2, tag: "ardelie_saillans" },
+            
             { id: "lieu-immensite-grise", title: "L’Immensité Grise", level: 2 },
-            { id: "lieu-tour-blanche", title: "Tour Blanche", level: 3 },
-            { id: "lieu-souterrains-immensite-forteresse-monde", title: "Forteresse-Monde (Souterrains)", level: 3 },
+            { id: "lieu-tour-blanche", title: "Tour Blanche", level: 3, tag: "ardelie_tour_blanche" },
+            { id: "lieu-souterrains-immensite-forteresse-monde", title: "Forteresse-Monde (Souterrains)", level: 3, tag: "ardelie_forteresse_geo" },
+            
             { id: "lieu-mer-de-jade-et-archipel", title: "Mer de Jade & Archipel", level: 2 },
-            { id: "sous-archipel-navire-kaelen", title: "Navire d’Elkyriel", level: 3 },
+            { id: "sous-archipel-navire-kaelen", title: "Navire d’Elkyriel", level: 3, tag: "mer_jade_archipel" },
             { id: "sous-archipel-debouche-portail-grand-air", title: "Débouché Portail du Grand Air", level: 3 },
+            
             { id: "lieu-marches-orientales", title: "Marches orientales", level: 2 },
-            { id: "sous-routes-des-marches-orientales", title: "Routes & Valdorne", level: 3 },
-            { id: "sous-rochebrune", title: "Rochebrune", level: 3 },
+            { id: "sous-routes-des-marches-orientales", title: "Routes & Valdorne", level: 3, tag: "ardelie_marches_routes" },
+            { id: "sous-rochebrune", title: "Rochebrune", level: 3, tag: "ardelie_rochebrune" },
+            
             { id: "royaume-varethis", title: "2. Royaume de Varethis", level: 1 },
             { id: "lieu-karsenne", title: "Karsenne", level: 2 },
-            { id: "lieu-palais-royal-de-karsenne", title: "Palais royal", level: 3 },
-            { id: "sous-parfumerie-de-maitre-leirykle", title: "Parfumerie de Leirykle", level: 3 },
-            { id: "lieu-selyne-var-cellule-des-corbeaux", title: "Cellule des Corbeaux", level: 3 },
-            { id: "lieu-domaine-de-clairval", title: "Domaine de Clairval", level: 2 },
-            { id: "lieu-passe-des-trois-bornes", title: "Passe des Trois Bornes", level: 2 },
-            { id: "lieu-ailleurs-en-varethis", title: "Ailleurs en Varethis", level: 2 },
+            { id: "lieu-palais-royal-de-karsenne", title: "Palais royal", level: 3, tag: "varethis_palais" },
+            { id: "sous-parfumerie-de-maitre-leirykle", title: "Parfumerie de Leirykle", level: 3, tag: "varethis_parfumerie" },
+            { id: "lieu-selyne-var-cellule-des-corbeaux", title: "Cellule des Corbeaux", level: 3, tag: "varethis_corbeaux" },
+            { id: "lieu-domaine-de-clairval", title: "Domaine de Clairval", level: 2, tag: "varethis_clairval" },
+            { id: "lieu-passe-des-trois-bornes", title: "Passe des Trois Bornes", level: 2, tag: "varethis_trois_bornes" },
+            { id: "lieu-ailleurs-en-varethis", title: "Ailleurs en Varethis", level: 2, tag: "varethis_ailleurs" },
+            
             { id: "empire-cinq-trones", title: "3. Empire des Cinq Trônes", level: 1 },
             { id: "empire-royaume-traverse", title: "Royaume de Traverse", level: 2 },
-            { id: "lieu-palais-royal-d-elyria", title: "Élyria (Capitale & Palais)", level: 3 },
-            { id: "lieu-elyria-autorites-civiles-commerciales", title: "Autorités Civiles & Commerciales", level: 3 },
-            { id: "lieu-quais-d-elyria", title: "Quais d’Élyria", level: 3 },
+            { id: "lieu-palais-royal-d-elyria", title: "Élyria (Capitale & Palais)", level: 3, tag: "traverse_elyria" },
+            { id: "lieu-elyria-autorites-civiles-commerciales", title: "Autorités Civiles & Commerciales", level: 3, tag: "traverse_elyria_autorites" },
+            { id: "lieu-quais-d-elyria", title: "Quais d’Élyria", level: 3, tag: "traverse_quais_elyria" },
+            
             { id: "section-comtes-urbains-traverse", title: "Les Comtés Urbains", level: 3 },
-            { id: "lieu-calde-sur-rive", title: "Calde-sur-Rive", level: 4 },
-            { id: "lieu-clair-verger", title: "Clair-Verger", level: 4 },
-            { id: "lieu-grands-vergers", title: "Grands-Vergers", level: 4 },
-            { id: "lieu-asten", title: "Asten", level: 4 },
-            { id: "lieu-haute-rive", title: "Haute-Rive", level: 4 },
-            { id: "lieu-bois-serein", title: "Bois-Serein", level: 4 },
-            { id: "lieu-rive-noire", title: "Rive-Noire", level: 4 },
-            { id: "lieu-puits-de-veyr", title: "Puits de Veyr", level: 4 },
-            { id: "lieu-traverse-10e-cite-forteresse-monde", title: "10e Cité (Forteresse-Monde)", level: 3 },
+            { id: "lieu-calde-sur-rive", title: "Calde-sur-Rive", level: 4, tag: "traverse_calde" },
+            { id: "lieu-clair-verger", title: "Clair-Verger", level: 4, tag: "traverse_clair_verger" },
+            { id: "lieu-grands-vergers", title: "Grands-Vergers", level: 4, tag: "traverse_grands_vergers" },
+            { id: "lieu-asten", title: "Asten", level: 4, tag: "traverse_asten" },
+            { id: "lieu-haute-rive", title: "Haute-Rive", level: 4, tag: "traverse_haute_rive" },
+            { id: "lieu-bois-serein", title: "Bois-Serein", level: 4, tag: "traverse_bois_serein" },
+            { id: "lieu-rive-noire", title: "Rive-Noire", level: 4, tag: "traverse_rive_noire" },
+            { id: "lieu-puits-de-veyr", title: "Puits de Veyr", level: 4, tag: "traverse_puits_veyr" },
+            { id: "lieu-traverse-10e-cite-forteresse-monde", title: "10e Cité (Forteresse-Monde)", level: 3, tag: "traverse_10e_cite" },
+            
             { id: "empire-royaume-gor-kadar", title: "Royaume de Gor-Kadar", level: 2 },
-            { id: "lieu-kadar-rauk", title: "Kadar-Rauk", level: 3 },
-            { id: "lieu-haut-bois", title: "Haut-Bois", level: 3 },
-            { id: "lieu-sources-de-rauk", title: "Sources de Rauk", level: 3 },
-            { id: "lieu-hautes-lames-gor-kadar", title: "Cimes des Hautes-Lames", level: 3 },
+            { id: "lieu-kadar-rauk", title: "Kadar-Rauk", level: 3, tag: "gorkadar_kadar_rauk" },
+            { id: "lieu-haut-bois", title: "Haut-Bois", level: 3, tag: "gorkadar_haut_bois" },
+            { id: "lieu-sources-de-rauk", title: "Sources de Rauk", level: 3, tag: "gorkadar_sources_rauk" },
+            { id: "lieu-hautes-lames-gor-kadar", title: "Cimes des Hautes-Lames", level: 3, tag: "gorkadar_hautes_lames" },
+            
             { id: "empire-royaume-astreane", title: "Concordat d'Astréane", level: 2 },
-            { id: "sous-astreane-lumerys", title: "Lumérys", level: 3 },
+            { id: "sous-astreane-lumerys", title: "Lumérys", level: 3, tag: "astreane_lumerys" },
+            
             { id: "empire-royaume-dhor-kez", title: "Ligues de Dhor-Kez", level: 2 },
-            { id: "sous-dhor-kez-kez-bruma", title: "Kez-Bruma & Carrières", level: 3 },
+            { id: "sous-dhor-kez-kez-bruma", title: "Kez-Bruma & Carrières", level: 3, tag: "dhorkez_kez_bruma" },
+            
             { id: "empire-royaume-orsenn", title: "Royaume d'Orsenn", level: 2 },
-            { id: "sous-orsenn-orsenn", title: "Orsenn", level: 3 }
+            { id: "sous-orsenn-orsenn", title: "Orsenn", level: 3, tag: "orsenn_capitale" }
         ];
-    }
 
+        const indexList = [];
+        const allP = Object.values(PNJ);
+
+        structureGeographique.forEach(loc => {
+            // 1. Ajouter le lieu géographique dans l'arborescence
+            indexList.push({ id: loc.id, title: loc.title, level: loc.level });
+
+            // 2. Si le lieu est associé à un tag, injecter automatiquement ses personnages
+            if (loc.tag) {
+                const occupants = allP.filter(p => p.tags && p.tags.lieux && p.tags.lieux.includes(loc.tag));
+                occupants.forEach(p => {
+                    indexList.push({ id: p.id, title: p.nom, level: loc.level + 1 });
+                });
+            }
+        });
+
+        return indexList;
     /**
      * Point d'entrée pour index.html
      */
