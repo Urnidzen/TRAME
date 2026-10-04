@@ -1106,7 +1106,7 @@ window.TRAME_Personnages = (function() {
         elkyriel: {
             id: "perso-elkyriel-personnage-joueur",
             nom: "Elkyriel (Personnage Joueur)",
-            tags: { espece: "dragon", rangs: ["souverain"], harem: false, secret: true, lieux: ["traverse_elyria", "ardelie_forge", "traverse_10e_cite"], domicile_id: "traverse_elyria" },
+            tags: { espece: "dragon", rangs: ["souverain"], harem: false, secret: true, lieux: ["traverse_elyria"], domicile_id: "traverse_elyria" },
             espece_genre: "Dragon Noble, masculin.",
             domicile: "Palais impérial d’Élyria (avec séjours réguliers à la Forge de Rivecour et à la Forteresse-Monde).",
             domicile_complet: "Palais impérial d’Élyria (Résidence principale), Forge de Rivecour et Forteresse-Monde.",
@@ -1839,464 +1839,123 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
-     * VUE 1 : Classement par Régions & Fiefs
-     * Respecte l'arborescence des 3 Royaumes, les 3 entrées de la Forteresse-Monde
-     * et l'affichage complet des présences secondaires sur place.
+     * VUE 1 : Classement par Régions & Fiefs (100% Dynamique par Tags)
      */
     function buildRegionView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
+        const allP = Object.values(PNJ);
 
-        html += `
-        <h2 id="royaume-ardelie">1. Royaume d’Ardélie</h2>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Royaume occidental bordé par la Mer de Jade, traversé d'est en ouest par l'axe fluvial reliant Rivecour à Aldhaven. La royauté et les cours ignorent l'existence de l'Empire de Traverse et considèrent Elkyriel comme un Seigneur Mercenaire indépendant.</p>
-            </div>
-        <div class="card-end"></div>
+        const lieux = [
+            { h: 2, id: "royaume-ardelie", title: "1. Royaume d’Ardélie", intro: "Royaume occidental bordé par la Mer de Jade, traversé d'est en ouest par l'axe fluvial reliant Rivecour à Aldhaven. La royauté et les cours ignorent l'existence de l'Empire de Traverse et considèrent Elkyriel comme un Seigneur Mercenaire indépendant." },
+            { h: 3, id: "lieu-rivecour", title: "Rivecour" },
+            { h: 4, id: "lieu-la-forge-naine-de-rivecour", title: "La Forge naine de Rivecour", tag: "ardelie_forge" },
+            { h: 4, id: "sous-palais-royal", title: "Palais royal de Rivecour", tag: "ardelie_rivecour_palais" },
+            { h: 4, id: "sous-senat", title: "Sénat de Rivecour", tag: "ardelie_rivecour_senat" },
+            { h: 4, id: "sous-quartier-noble", title: "Quartier noble de Rivecour", tag: "ardelie_rivecour_noble" },
+            { h: 4, id: "sous-quartier-des-marchands", title: "Quartier des Marchands de Rivecour", tag: "ardelie_rivecour_marchands" },
+            { h: 4, id: "sous-secteur-industriel-souterrain", title: "Secteur industriel souterrain de Rivecour", tag: "ardelie_rivecour_industriel" },
 
-        <h3 id="lieu-rivecour">Rivecour</h3>
+            { h: 3, id: "lieu-aldhaven", title: "Aldhaven" },
+            { h: 4, id: "sous-forge-d-aldhaven", title: "Forge d’Aldhaven", tag: "ardelie_aldhaven_forge", tagSecondaire: "ardelie_aldhaven" },
+            { h: 4, id: "sous-port-et-navire-aldhaven", title: "Port et navire d’Aldhaven", tag: "ardelie_aldhaven_port" },
 
-        <h4 id="lieu-la-forge-naine-de-rivecour">La Forge naine de Rivecour</h4>
-        <h5 id="pres-presence-principale-forge-rivecour">Présence principale</h5>
-        `;
+            { h: 3, id: "lieu-les-saillans", title: "Les Saillans", tag: "ardelie_saillans" },
 
-        html += renderCard(PNJ.mila);
-        html += renderCard(PNJ.lysa);
-        html += renderCard(PNJ.liriel);
-        html += renderCard(PNJ.lirael);
-        html += renderCard(PNJ.vespera);
-        html += renderCard(PNJ.dravenna);
-        html += renderCard(PNJ.seraphine);
-        html += renderCard(PNJ.roran);
-        html += renderCard(PNJ.doran);
-        html += renderCard(PNJ.ancien_soldat_deux_couronnes);
-        html += renderCard(PNJ.jeune_apprenti_deux_couronnes);
-        html += renderCard(PNJ.voyageuse_deux_couronnes);
-        html += renderCard(PNJ.trois_ouvriers_mornefond);
-        html += renderCard(PNJ.palefrenier_mornefond);
-        html += renderCard(PNJ.soigneuse_mornefond);
-        html += renderCard(PNJ.anciens_captifs_trois_saules);
-        html += renderCard(PNJ.toren);
-        html += renderCard(PNJ.femme_cheveux_noirs);
-        html += renderCard(PNJ.homme_age);
-        html += renderCard(PNJ.jeune_homme);
-        html += renderCard(PNJ.jeune_femme);
-        html += renderCard(PNJ.neria);
-        html += renderCard(PNJ.ronce);
+            { h: 3, id: "lieu-immensite-grise", title: "L’Immensité Grise" },
+            { h: 4, id: "lieu-tour-blanche", title: "Tour Blanche", tag: "ardelie_tour_blanche" },
+            { h: 4, id: "lieu-souterrains-immensite-forteresse-monde", title: "Souterrains de l’Immensité Grise (Forteresse-Monde)", tag: "ardelie_forteresse_geo", intro: "<strong>Situation géographique physique :</strong> Bien que gouvernée politiquement comme la 10e Cité du Royaume de Traverse et reliée par le Portail du Grand Air à l'Archipel des Tempêtes, la Forteresse-Monde est une structure minérale antique enfouie verticalement sous les steppes de l'Immensité Grise (accessible depuis la surface par le Cratère du Syndicat)." },
 
-        html += `<h5 id="pres-presence-secondaire-forge-rivecour">Présence secondaire</h5>\n`;
-        html += renderCard(PNJ.lance_de_huit, null, "Forteresse-Monde (Strate -3, sous l'Immensité Grise — 10e Cité de Traverse). Présence permanente à la Forge naine de Rivecour assurée par une rotation fixe de deux chevaliers.");
-        html += renderCard(PNJ.lysandra, null, "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria par le réseau des Cercles de Téléportation.");
+            { h: 3, id: "lieu-mer-de-jade-et-archipel", title: "La Mer de Jade & Archipel des Tempêtes" },
+            { h: 4, id: "sous-archipel-navire-kaelen", title: "Navigation & Navire d'Elkyriel", tag: "ardelie_aldhaven_port" },
+            { h: 4, id: "sous-archipel-debouche-portail-grand-air", title: "Débouché du Portail du Grand Air (Liaison Forteresse-Monde)", tag: "mer_jade_archipel", intro: "<strong>Liaison directe permanente :</strong> L'extrémité insulaire du Portail du Grand Air s'ouvre sur les falaises de l'Archipel des Tempêtes, reliant sans interruption les eaux tropicales à l'arche monumentale de basalte de la Strate -3 de la Forteresse-Monde. Ce portail assure un flux thermique continu d'air marin et de clarté solaire vers la cité souterraine." },
 
-        html += `
-        <h4 id="sous-palais-royal">Palais royal de Rivecour</h4>
-        <h5 id="pres-presence-principale-palais-rivecour">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.reine_kaelia);
-        html += renderCard(PNJ.roi_aldous);
-        html += renderCard(PNJ.silas);
-        html += renderCard(PNJ.odran_sorell);
+            { h: 3, id: "lieu-marches-orientales", title: "Les Marches orientales" },
+            { h: 4, id: "sous-routes-des-marches-orientales", title: "Routes des Marches orientales & Valdorne", tag: "ardelie_marches_routes" },
+            { h: 4, id: "sous-rochebrune", title: "Rochebrune", tag: "ardelie_rochebrune" },
 
-        html += `
-        <h4 id="sous-senat">Sénat de Rivecour</h4>
-        <h5 id="pres-presence-principale-senat">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.lucretia);
+            { h: 2, id: "royaume-varethis", title: "2. Royaume de Varethis", intro: "Royaume humain établi dans une haute vallée froide à l'est du massif montagneux frontalier. La royauté et les grands seigneurs de Varethis ignorent l'existence de l'Empire de Traverse et considèrent Elkyriel comme un Seigneur Mercenaire indépendant." },
+            { h: 3, id: "lieu-karsenne", title: "Karsenne" },
+            { h: 4, id: "lieu-palais-royal-de-karsenne", title: "Palais royal de Karsenne", tag: "varethis_palais" },
+            { h: 4, id: "sous-parfumerie-de-maitre-leirykle", title: "Parfumerie de maître Leirykle", tag: "varethis_parfumerie" },
+            { h: 4, id: "lieu-selyne-var-cellule-des-corbeaux", title: "Cellule des Corbeaux de Karsenne", tag: "varethis_corbeaux" },
+            { h: 3, id: "lieu-domaine-de-clairval", title: "Domaine de Clairval", tag: "varethis_clairval" },
+            { h: 3, id: "lieu-passe-des-trois-bornes", title: "Passe des Trois Bornes (Frontière)", tag: "varethis_trois_bornes" },
+            { h: 3, id: "lieu-ailleurs-en-varethis", title: "Ailleurs en Varethis", tag: "varethis_ailleurs" },
 
-        html += `
-        <h4 id="sous-quartier-noble">Quartier noble de Rivecour</h4>
-        <h5 id="pres-presence-principale-quartier-noble">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.valerius);
-        html += renderCard(PNJ.livia);
+            { h: 2, id: "empire-cinq-trones", title: "3. Empire de l'Enclave des Cinq Trônes", intro: "Vaste espace continental unifié sous l'autorité souveraine de <strong>Sa Majesté Impériale Elkyriel-Aethelvahr</strong>, articulé autour du réseau magique et thermique des Veines Chaudes et de l'Etherium. L'Empire fédère cinq nations : le Royaume de Traverse (siège impérial direct), le Royaume Orque de Gor-Kadar, le Concordat d'Astréane, les Ligues de Dhor-Kez et le Royaume d'Orsenn." },
+            { h: 3, id: "empire-royaume-traverse", title: "Royaume de Traverse (Cœur de l'Empire)" },
+            { h: 4, id: "lieu-palais-royal-d-elyria", title: "Élyria (Capitale Impériale & Palais)", tag: "traverse_elyria" },
+            { h: 4, id: "lieu-elyria-autorites-civiles-commerciales", title: "Élyria (Autorités Civiles & Commerciales)", tag: "traverse_elyria_autorites" },
+            { h: 4, id: "lieu-quais-d-elyria", title: "Quais d’Élyria", tag: "traverse_quais_elyria" },
 
-        html += `
-        <h4 id="sous-quartier-des-marchands">Quartier des Marchands de Rivecour</h4>
-        <h5 id="pres-presence-principale-quartier-marchands">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.apothicaire);
-        html += renderCard(PNJ.marchande_deux_couronnes);
-        html += renderCard(PNJ.artisan_cuir_mornefond);
+            { h: 4, id: "section-comtes-urbains-traverse", title: "Les Comtés Urbains de Traverse" },
+            { h: 4, id: "lieu-calde-sur-rive", title: "Calde-sur-Rive", tag: "traverse_calde" },
+            { h: 4, id: "lieu-clair-verger", title: "Clair-Verger", tag: "traverse_clair_verger" },
+            { h: 4, id: "lieu-grands-vergers", title: "Grands-Vergers", tag: "traverse_grands_vergers" },
+            { h: 4, id: "lieu-asten", title: "Asten", tag: "traverse_asten" },
+            { h: 4, id: "lieu-haute-rive", title: "Haute-Rive", tag: "traverse_haute_rive" },
+            { h: 4, id: "lieu-bois-serein", title: "Bois-Serein", tag: "traverse_bois_serein" },
+            { h: 4, id: "lieu-rive-noire", title: "Rive-Noire", tag: "traverse_rive_noire" },
+            { h: 4, id: "lieu-puits-de-veyr", title: "Puits de Veyr", tag: "traverse_puits_veyr" },
+            { h: 4, id: "lieu-traverse-10e-cite-forteresse-monde", title: "10e Cité de Traverse (Forteresse-Monde)", tag: "traverse_10e_cite", intro: "<strong>Statut politique impérial :</strong> Intégrée officiellement comme la dixième cité du Royaume de Traverse et gouvernée par la Comtesse Vel'Shara, la Forteresse-Monde est reliée à la Place Royale d'Élyria et aux neuf autres cités par le réseau des arches magiques permanentes de Traverse. Elle est établie physiquement dans les strates géologiques sous l'Immensité Grise et communique avec l'Archipel des Tempêtes par le Portail du Grand Air." },
 
-        html += `
-        <h4 id="sous-secteur-industriel-souterrain">Secteur industriel souterrain de Rivecour</h4>
-        <h5 id="pres-presence-principale-secteur-industriel">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.thorek);
+            { h: 3, id: "empire-royaume-gor-kadar", title: "Royaume Orque de Gor-Kadar", intro: "Royaume d'altitude exclusivement orque établi sur les hauts plateaux septentrionaux, gouverné par la démocratie des Kraals et le Cercle des Paroles. Royaume frère de sang, allié et intégré à la structure de l'Empire des Cinq Trônes." },
+            { h: 4, id: "lieu-kadar-rauk", title: "Kadar-Rauk (Capitale)", tag: "gorkadar_kadar_rauk" },
+            { h: 4, id: "lieu-haut-bois", title: "Haut-Bois", tag: "gorkadar_haut_bois" },
+            { h: 4, id: "lieu-sources-de-rauk", title: "Sources de Rauk", tag: "gorkadar_sources_rauk" },
+            { h: 4, id: "lieu-hautes-lames-gor-kadar", title: "Cimes des Hautes-Lames", tag: "gorkadar_hautes_lames" },
 
-        html += `
-        <h3 id="lieu-aldhaven">Aldhaven</h3>
+            { h: 3, id: "empire-royaume-astreane", title: "Concordat d'Astréane", intro: "Royaume magique du nord articulé autour de la manipulation des cristaux et de la lumière. L'esclavage et la servitude pour dettes y sont totalement abolis sous la tutelle impériale d'Elkyriel." },
+            { h: 4, id: "sous-astreane-lumerys", title: "Lumérys (Capitale)", tag: "astreane_lumerys" },
 
-        <h4 id="sous-forge-d-aldhaven">Forge d’Aldhaven</h4>
-        <h5 id="pres-presence-principale-forge-aldhaven">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.thorne);
-        html += renderCard(PNJ.maeva);
-        html += renderCard(PNJ.fille_thorne_maeva);
+            { h: 3, id: "empire-royaume-dhor-kez", title: "Ligues de Dhor-Kez", intro: "Confédération naine et industrieuse de grands ateliers métallurgiques, de forages et de fonderies. Le pouvoir oligarchique des Conclaves a été brisé et placé sous tutelle impériale au profit des Ateliers Liés." },
+            { h: 4, id: "sous-dhor-kez-kez-bruma", title: "Kez-Bruma (Capitale) & Carrières", tag: "dhorkez_kez_bruma" },
 
-        html += `<h5 id="pres-presence-secondaire-forge-aldhaven">Présence secondaire</h5>\n`;
-        html += renderCard(PNJ.lance_de_huit, null, "Forteresse-Monde (Strate -3, sous l'Immensité Grise — 10e Cité de Traverse). Présence permanente à la Forge d'Aldhaven assurée par une rotation fixe de deux chevaliers.");
+            { h: 3, id: "empire-royaume-orsenn", title: "Royaume d'Orsenn", intro: "Royaume des plaines basses fluviales où la nécromancie légale régit la Loi des corps. La royauté vivante a été restaurée dans sa plénitude après la destruction des Quatre Liches par Elkyriel." },
+            { h: 4, id: "sous-orsenn-orsenn", title: "Orsenn (Capitale)", tag: "orsenn_capitale" }
+        ];
 
-        html += `
-        <h4 id="sous-port-et-navire-aldhaven">Port et navire d’Aldhaven</h4>
-        <h5 id="pres-presence-principale-port-aldhaven">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.kaelen);
-        html += renderCard(PNJ.alden);
+        lieux.forEach(item => {
+            // Titre du lieu
+            html += `<h${item.h} id="${item.id}">${item.title}</h${item.h}>\n`;
 
-        html += `
-        <h3 id="lieu-les-saillans">Les Saillans</h3>
-        <h5 id="pres-presence-principale-saillans">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.rose);
-        html += renderCard(PNJ.aldric);
-        html += renderCard(PNJ.lila);
-        html += renderCard(PNJ.milo);
-        html += renderCard(PNJ.elara);
+            // Texte de présentation éventuel du lieu
+            if (item.intro) {
+                html += `<div class="card-start"></div><div class="rule-item"><p>${item.intro}</p></div><div class="card-end"></div>\n`;
+            }
 
-        html += `<h5 id="pres-presence-secondaire-saillans">Présence secondaire</h5>\n`;
-        html += renderCard(PNJ.seraphine, null, "Forge naine de Rivecour (Résidence principale), avec séjours réguliers aux Saillans.");
-        html += renderCard(PNJ.kaelen, null, "Son navire, avec présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.");
-        html += renderCard(PNJ.alden, null, "Son navire, avec présences périodiques à Aldhaven, aux Saillans et dans l’Archipel des Tempêtes.");
+            if (item.tag) {
+                const tagList = [item.tag, item.tagSecondaire].filter(Boolean);
 
-        html += `
-        <h3 id="lieu-immensite-grise">L’Immensité Grise</h3>
+                // 1. Présence principale (domicile_id correspond au lieu)
+                const principaux = allP.filter(p => p.tags && tagList.includes(p.tags.domicile_id));
+                if (principaux.length > 0) {
+                    html += `<h5>Présence principale</h5>\n`;
+                    principaux.forEach(p => {
+                        html += renderCard(p);
+                    });
+                }
 
-        <h4 id="lieu-tour-blanche">Tour Blanche</h4>
-        <h5 id="pres-presence-principale-tour-blanche">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.lysandra);
+                // 2. Présence secondaire (le lieu est dans tags.lieux mais le domicile est ailleurs)
+                const secondaires = allP.filter(p => {
+                    if (!p.tags || !p.tags.lieux) return false;
+                    const estPresent = tagList.some(t => p.tags.lieux.includes(t));
+                    const estDomicilieIci = tagList.includes(p.tags.domicile_id);
+                    return estPresent && !estDomicilieIci;
+                });
 
-        html += `<h5 id="pres-presence-secondaire-tour-blanche">Présence secondaire</h5>\n`;
-        html += renderCard(PNJ.rhazka_cendre_claire, null, "Haut-Bois (Gor-Kadar) / Tour Blanche (Immensité Grise). Ambassadrice permanente de Gor-Kadar.");
-
-        // PREMIÈRE ENTRÉE FORTERESSE-MONDE (Géologique / Immensité Grise)
-        html += `
-        <h4 id="lieu-souterrains-immensite-forteresse-monde">Souterrains de l’Immensité Grise (Forteresse-Monde)</h4>
-        <div class="card-start"></div>
-            <div class="rule-item"><p><strong>Situation géographique physique :</strong> Bien que gouvernée politiquement comme la 10e Cité du Royaume de Traverse et reliée par le Portail du Grand Air à l'Archipel des Tempêtes, la Forteresse-Monde est une structure minérale antique enfouie verticalement sous les steppes de l'Immensité Grise (accessible depuis la surface par le Cratère du Syndicat).</p></div>
-        <div class="card-end"></div>
-        <h5 id="pres-presence-principale-forteresse-immensite">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.lance_de_huit);
-        html += renderCard(PNJ.vel_shara);
-        html += renderCard(PNJ.armand_vellec);
-        html += renderCard(PNJ.sariel);
-        html += renderCard(PNJ.eirik);
-        html += renderCard(PNJ.borin);
-        html += renderCard(PNJ.thalira);
-        html += renderCard(PNJ.liora);
-        html += renderCard(PNJ.autres_captifs_crique);
-        html += renderCard(PNJ.liberes_manoir);
-        html += renderCard(PNJ.anciens_esclaves_fers_noirs);
-
-        // MER DE JADE & ARCHIPEL (Avec débouché Portail)
-        html += `
-        <h3 id="lieu-mer-de-jade-et-archipel">La Mer de Jade &amp; Archipel des Tempêtes</h3>
-        <h4 id="sous-archipel-navire-kaelen">Navigation &amp; Navire d'Elkyriel</h4>
-        <h5 id="pres-presence-principale-mer-jade">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.kaelen);
-        html += renderCard(PNJ.alden);
-
-        // TROISIÈME ENTRÉE FORTERESSE-MONDE (Débouché maritime Portail du Grand Air)
-        html += `
-        <h4 id="sous-archipel-debouche-portail-grand-air">Débouché du Portail du Grand Air (Liaison Forteresse-Monde)</h4>
-        <div class="card-start"></div>
-            <div class="rule-item"><p><strong>Liaison directe permanente :</strong> L'extrémité insulaire du Portail du Grand Air s'ouvre sur les falaises de l'Archipel des Tempêtes, reliant sans interruption les eaux tropicales à l'arche monumentale de basalte de la Strate -3 de la Forteresse-Monde. Ce portail assure un flux thermique continu d'air marin et de clarté solaire vers la cité souterraine.</p></div>
-        <div class="card-end"></div>
-        <h5 id="pres-presence-secondaire-archipel-portail">Présence secondaire (Liaisons et Transits réguliers)</h5>
-        `;
-        html += renderCard(PNJ.faelia, null, "Palais royal d’Élyria (Résidence principale) ; séjours et inspections régulières dans l'Archipel des Tempêtes pour le commandement de la Cavalerie des Wyvernes.");
-        html += renderCard(PNJ.vel_shara, null, "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Accès direct régulier au littoral de l'Archipel des Tempêtes via le Portail du Grand Air pour ses collectes d'ingrédients alchimiques exotiques et marins.");
-        html += renderCard(PNJ.sariel, null, "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise). Passages réguliers dans les jungles de l'Archipel des Tempêtes via le Portail du Grand Air pour l'approvisionnement en cuirs de wyverne nécessaires à l'équipement des Spectres de la Pierre.");
-
-        html += `
-        <h3 id="lieu-marches-orientales">Les Marches orientales</h3>
-        <h4 id="sous-routes-des-marches-orientales">Routes des Marches orientales &amp; Valdorne</h4>
-        <h5 id="pres-presence-principale-routes-marches">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.varek);
-        html += renderCard(PNJ.charretier_deux_couronnes);
-        html += renderCard(PNJ.ouvriere_agricole_deux_couronnes);
-
-        html += `
-        <h4 id="sous-rochebrune">Rochebrune</h4>
-        <h5 id="pres-presence-principale-rochebrune">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.beran_doss);
-        html += renderCard(PNJ.orven);
-        html += renderCard(PNJ.colm);
-        html += renderCard(PNJ.deux_carriers_mornefond);
-        html += renderCard(PNJ.maeron);
-        html += renderCard(PNJ.joren);
-        html += renderCard(PNJ.alise);
-
-        html += `
-        <div class="page-break"></div>
-        <h2 id="royaume-varethis">2. Royaume de Varethis</h2>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Royaume humain établi dans une haute vallée froide à l'est du massif montagneux frontalier. La royauté et les grands seigneurs de Varethis ignorent l'existence de l'Empire de Traverse et considèrent Elkyriel comme un Seigneur Mercenaire indépendant.</p>
-            </div>
-        <div class="card-end"></div>
-
-        <h3 id="lieu-karsenne">Karsenne</h3>
-        <h4 id="lieu-palais-royal-de-karsenne">Palais royal de Karsenne</h4>
-        <h5 id="pres-presence-principale-palais-karsenne">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.ysoria);
-        html += renderCard(PNJ.meleandre);
-        html += renderCard(PNJ.gautier_valcroix);
-        html += renderCard(PNJ.renaud_vaulnes);
-        html += renderCard(PNJ.chanceliere_varethis);
-
-        html += `<h5 id="pres-presence-secondaire-palais-karsenne">Présence secondaire</h5>\n`;
-        html += renderCard(PNJ.maera);
-
-        html += `
-        <h4 id="sous-parfumerie-de-maitre-leirykle">Parfumerie de maître Leirykle</h4>
-        <h5 id="pres-presence-principale-parfumerie">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.solenne_varin);
-        html += renderCard(PNJ.kordran_fergivre);
-
-        html += `<h5 id="pres-presence-secondaire-parfumerie">Présence secondaire</h5>\n`;
-        html += renderCard(PNJ.armand_vellec, null, "Forteresse-Monde, Strate -3 (10e Cité de Traverse, sous l'Immensité Grise) / Quartier général de la Garde des Veines à Calde ; visites occasionnelles et discrètes à Karsenne lors des passages d'Elkyriel.");
-        html += renderCard(PNJ.mirelle_auvray, null, "Palais royal d’Élyria (Résidence principale permanente) ; visites périodiques à Karsenne.");
-
-        html += `
-        <h4 id="lieu-selyne-var-cellule-des-corbeaux">Cellule des Corbeaux de Karsenne</h4>
-        <h5 id="pres-presence-principale-corbeaux-karsenne">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.selyne_var);
-
-        html += `
-        <h3 id="lieu-domaine-de-clairval">Domaine de Clairval</h3>
-        <h5 id="pres-presence-principale-clairval">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.eliane_var);
-
-        html += `
-        <h3 id="lieu-passe-des-trois-bornes">Passe des Trois Bornes (Frontière)</h3>
-        <h5 id="pres-presence-principale-passe-trois-bornes">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.lieutenant_brenor);
-        html += renderCard(PNJ.capitaine_caldrin);
-
-        html += `
-        <h3 id="lieu-ailleurs-en-varethis">Ailleurs en Varethis</h3>
-        <h5 id="pres-presence-principale-ailleurs-varethis">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.voyageur_mornefond);
-
-        html += `
-        <div class="page-break"></div>
-        <h2 id="empire-cinq-trones">3. Empire de l'Enclave des Cinq Trônes</h2>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Vaste espace continental unifié sous l'autorité souveraine de <strong>Sa Majesté Impériale Elkyriel-Aethelvahr</strong>, articulé autour du réseau magique et thermique des Veines Chaudes et de l'Etherium. L'Empire fédère cinq nations : le Royaume de Traverse (siège impérial direct), le Royaume Orque de Gor-Kadar, le Concordat d'Astréane, les Ligues de Dhor-Kez et le Royaume d'Orsenn.</p>
-            </div>
-        <div class="card-end"></div>
-
-        <h3 id="empire-royaume-traverse">Royaume de Traverse (Cœur de l'Empire)</h3>
-
-        <h4 id="lieu-palais-royal-d-elyria">Élyria (Capitale Impériale &amp; Palais)</h4>
-        <h5 id="pres-presence-principale-palais-elyria">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.elkyriel);
-        html += renderCard(PNJ.faelia);
-        html += renderCard(PNJ.talyra);
-        html += renderCard(PNJ.eryx);
-        html += renderCard(PNJ.nymira);
-        html += renderCard(PNJ.mirelle_auvray);
-        html += renderCard(PNJ.goran);
-        html += renderCard(PNJ.myrene);
-        html += renderCard(PNJ.lethielle);
-        html += renderCard(PNJ.nathalysse);
-
-        html += `<h5 id="pres-presence-secondaire-elyria">Présence secondaire (Séjours et Présences régulières à la Cour)</h5>\n`;
-        html += renderCard(PNJ.lysandra, null, "Tour Blanche (Résidence principale) ; séjours réguliers à la Forge naine de Rivecour et au Palais royal d’Élyria.");
-        html += renderCard(PNJ.sera, null, "Grands-Vergers (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.pell, null, "Calde-sur-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.dhorg, null, "Clair-Verger (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.enric, null, "Asten (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.siane, null, "Bois-Serein (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.naela, null, "Bois-Serein (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.ysel, null, "Rive-Noire (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.rhea, null, "Rive-Noire (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.maura, null, "Haute-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
-        html += renderCard(PNJ.lise, null, "Haute-Rive (Résidence principale) ; présence régulière au Palais d’Élyria.");
-
-        html += `
-        <h4 id="lieu-elyria-autorites-civiles-commerciales">Élyria (Autorités Civiles &amp; Commerciales)</h4>
-        <h5 id="pres-presence-principale-elyria-civile">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.olan_vespre);
-        html += renderCard(PNJ.salome_d_arqueval);
-
-        html += `
-        <h4 id="lieu-quais-d-elyria">Quais d’Élyria</h4>
-        <h5 id="pres-presence-principale-quais">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.mireva);
-
-        html += `
-        <h4 id="section-comtes-urbains-traverse">Les Comtés Urbains de Traverse</h4>
-
-        <h4 id="lieu-calde-sur-rive">Calde-sur-Rive</h4>
-        <h5 id="pres-presence-principale-calde">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.pell);
-
-        html += `
-        <h4 id="lieu-clair-verger">Clair-Verger</h4>
-        <h5 id="pres-presence-principale-clair-verger">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.dhorg);
-
-        html += `
-        <h4 id="lieu-grands-vergers">Grands-Vergers</h4>
-        <h5 id="pres-presence-principale-grands-vergers">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.sera);
-
-        html += `
-        <h4 id="lieu-asten">Asten</h4>
-        <h5 id="pres-presence-principale-asten">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.enric);
-
-        html += `
-        <h4 id="lieu-haute-rive">Haute-Rive</h4>
-        <h5 id="pres-presence-principale-haute-rive">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.maura);
-        html += renderCard(PNJ.lise);
-
-        html += `
-        <h4 id="lieu-bois-serein">Bois-Serein</h4>
-        <h5 id="pres-presence-principale-bois-serein">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.siane);
-        html += renderCard(PNJ.naela);
-
-        html += `
-        <h4 id="lieu-rive-noire">Rive-Noire</h4>
-        <h5 id="pres-presence-principale-rive-noire">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.ysel);
-        html += renderCard(PNJ.rhea);
-
-        html += `
-        <h4 id="lieu-puits-de-veyr">Puits de Veyr</h4>
-        <h5 id="pres-presence-principale-puits-de-veyr">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.virelle_senn);
-
-        // DEUXIÈME ENTRÉE FORTERESSE-MONDE (Politique / 10e Cité de Traverse)
-        html += `
-        <h4 id="lieu-traverse-10e-cite-forteresse-monde">10e Cité de Traverse (Forteresse-Monde)</h4>
-        <div class="card-start"></div>
-            <div class="rule-item"><p><strong>Statut politique impérial :</strong> Intégrée officiellement comme la dixième cité du Royaume de Traverse et gouvernée par la Comtesse Vel'Shara, la Forteresse-Monde est reliée à la Place Royale d'Élyria et aux neuf autres cités par le réseau des arches magiques permanentes de Traverse. Elle est établie physiquement dans les strates géologiques sous l'Immensité Grise et communique avec l'Archipel des Tempêtes par le Portail du Grand Air.</p></div>
-        <div class="card-end"></div>
-        <h5 id="pres-presence-principale-forteresse-traverse">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.lance_de_huit);
-        html += renderCard(PNJ.vel_shara);
-        html += renderCard(PNJ.armand_vellec);
-        html += renderCard(PNJ.sariel);
-        html += renderCard(PNJ.eirik);
-        html += renderCard(PNJ.borin);
-        html += renderCard(PNJ.thalira);
-        html += renderCard(PNJ.liora);
-        html += renderCard(PNJ.autres_captifs_crique);
-        html += renderCard(PNJ.liberes_manoir);
-        html += renderCard(PNJ.anciens_esclaves_fers_noirs);
-
-        html += `
-        <div class="page-break"></div>
-        <h3 id="empire-royaume-gor-kadar">Royaume Orque de Gor-Kadar</h3>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Royaume d'altitude exclusivement orque établi sur les hauts plateaux septentrionaux, gouverné par la démocratie des Kraals et le Cercle des Paroles. Royaume frère de sang, allié et intégré à la structure de l'Empire des Cinq Trônes.</p>
-            </div>
-        <div class="card-end"></div>
-
-        <h4 id="lieu-kadar-rauk">Kadar-Rauk (Capitale)</h4>
-        <h5 id="sous-palais-du-puy-de-stone">Palais du puy de stone</h5>
-        <h5 id="pres-presence-principale-kadar-rauk">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.kharza_peau_de_neige);
-
-        html += `
-        <h4 id="lieu-haut-bois">Haut-Bois</h4>
-        <h5 id="pres-presence-principale-haut-bois">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.rhazka_cendre_claire);
-
-        html += `
-        <h4 id="lieu-sources-de-rauk">Sources de Rauk</h4>
-        <h5 id="pres-presence-principale-sources-rauk">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.vessa_orm);
-        html += renderCard(PNJ.captifs_rivet_givre);
-
-        html += `
-        <h4 id="lieu-hautes-lames-gor-kadar">Cimes des Hautes-Lames</h4>
-        <h5 id="pres-presence-principale-hautes-lames">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.isilvrya);
-
-        html += `
-        <div class="page-break"></div>
-        <h3 id="empire-royaume-astreane">Concordat d'Astréane</h3>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Royaume magique du nord articulé autour de la manipulation des cristaux et de la lumière. L'esclavage et la servitude pour dettes y sont totalement abolis sous la tutelle impériale d'Elkyriel.</p>
-            </div>
-        <div class="card-end"></div>
-
-        <h4 id="sous-astreane-lumerys">Lumérys (Capitale)</h4>
-        <h5 id="pres-presence-principale-astreane">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.aelis_vaer);
-        html += renderCard(PNJ.sevra_noll);
-        html += renderCard(PNJ.ilysthera);
-
-        html += `
-        <div class="page-break"></div>
-        <h3 id="empire-royaume-dhor-kez">Ligues de Dhor-Kez</h3>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Confédération naine et industrieuse de grands ateliers métallurgiques, de forages et de fonderies. Le pouvoir oligarchique des Conclaves a été brisé et placé sous tutelle impériale au profit des Ateliers Liés.</p>
-            </div>
-        <div class="card-end"></div>
-
-        <h4 id="sous-dhor-kez-kez-bruma">Kez-Bruma (Capitale) &amp; Carrières</h4>
-        <h5 id="pres-presence-principale-dhor-kez">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.leonie_varc);
-        html += renderCard(PNJ.dhoran_vesk);
-        html += renderCard(PNJ.kaldrielle);
-
-        html += `
-        <div class="page-break"></div>
-        <h3 id="empire-royaume-orsenn">Royaume d'Orsenn</h3>
-        <div class="card-start"></div>
-            <div class="rule-item">
-                <p>Royaume des plaines basses fluviales où la nécromancie légale régit la Loi des corps. La royauté vivante a été restaurée dans sa plénitude après la destruction des Quatre Liches par Elkyriel.</p>
-            </div>
-        <div class="card-end"></div>
-
-        <h4 id="sous-orsenn-orsenn">Orsenn (Capitale)</h4>
-        <h5 id="pres-presence-principale-orsenn">Présence principale</h5>
-        `;
-        html += renderCard(PNJ.maelis_orsenn);
+                if (secondaires.length > 0) {
+                    html += `<h5>Présence secondaire</h5>\n`;
+                    secondaires.forEach(p => {
+                        html += renderCard(p);
+                    });
+                }
+            }
+        });
 
         return html;
     }
-
+ 
     /**
      * VUE 2 : Index Alphabétique (A-Z)
      * Affiche l'ensemble des fiches complètes triées alphabétiquement par leur nom.
