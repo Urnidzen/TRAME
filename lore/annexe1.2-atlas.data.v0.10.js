@@ -144,109 +144,100 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
 
     /**
      * Index hiérarchique dynamique pour la barre latérale (Sidebar)
+     * Structure logique : 3 Grands Blocs Géopolitiques
      */
     function getIndex() {
         return [
-            { id: "section-vue-ensemble", title: "1. Vue d'ensemble de la région", level: 1 },
+            // --- INTRODUCTION & VUE D'ENSEMBLE ---
+            { id: "section-vue-ensemble", title: "Vue d'ensemble", level: 1 },
             { id: "section-geographie-generale", title: "Géographie générale & repères", level: 2 },
             { id: "section-referentiel-trajets", title: "Référentiel des trajets", level: 2 },
             { id: "section-climat-milieux", title: "Climat & grands milieux", level: 2 },
             { id: "section-faune-populations", title: "Faune & populations", level: 2 },
 
-            { id: "section-aldhaven", title: "2. Aldhaven", level: 1 },
-            { id: "section-aldhaven-localisation", title: "Localisation & environnement", level: 2 },
-            { id: "section-aldhaven-quartiers", title: "Les Quartiers", level: 2 },
-            { id: "section-aldhaven-presences", title: "Présences Notables", level: 2 },
-            { id: "section-aldhaven-implantations", title: "Implantations d'Elkyriel", level: 2 },
+            // ==========================================
+            // 1. ROYAUME D'ARDÉLIE
+            // ==========================================
+            { id: "section-rivecour", title: "1. Royaume d'Ardélie", level: 1 },
+            
+            // Rivecour
+            { id: "section-rivecour-localisation", title: "Rivecour (Capitale)", level: 2 },
+            { id: "section-rivecour-structure", title: "Géographie & Structure", level: 3 },
+            { id: "section-rivecour-points-interet", title: "Points d'Intérêt", level: 3 },
+            { id: "section-rivecour-presences", title: "Présences Notables", level: 3 },
+            { id: "section-forge-naine-rivecour", title: "La Forge naine de Rivecour", level: 3 },
+            { id: "section-cercles-teleportation", title: "Réseau des Cercles", level: 3 },
 
-            { id: "section-saillans", title: "3. Les Saillans", level: 1 },
-            { id: "section-saillans-localisation", title: "Localisation & environnement", level: 2 },
-            { id: "section-saillans-topographie", title: "Topographie & Architecture", level: 2 },
-            { id: "section-saillans-economie", title: "Économie & Isolement", level: 2 },
-            { id: "section-saillans-presences", title: "Présences Notables", level: 2 },
-            { id: "section-saillans-cercle", title: "Cercle de téléportation", level: 2 },
+            // Aldhaven
+            { id: "section-aldhaven", title: "Aldhaven", level: 2 },
+            { id: "section-aldhaven-quartiers", title: "Les Quartiers", level: 3 },
+            { id: "section-aldhaven-presences", title: "Présences Notables", level: 3 },
+            { id: "section-aldhaven-implantations", title: "Implantations d'Elkyriel", level: 3 },
 
-            { id: "section-immensite-grise", title: "4. L'Immensité Grise", level: 1 },
-            { id: "section-immensite-situation", title: "Situation géographique", level: 2 },
-            { id: "section-immensite-geologie", title: "Géologie & Repères", level: 2 },
-            { id: "section-forteresse-du-patron", title: "Forteresse du Patron", level: 2 },
-            { id: "section-cratere-syndicat", title: "Cratère du Syndicat", level: 2 },
-            { id: "section-immensite-peuples", title: "Peuples & Présences", level: 2 },
+            // Les Saillans
+            { id: "section-saillans", title: "Les Saillans", level: 2 },
+            { id: "section-saillans-topographie", title: "Topographie & Isolement", level: 3 },
+            { id: "section-saillans-presences", title: "Présences Notables", level: 3 },
 
-            { id: "section-mer-de-jade", title: "5. La Mer de Jade", level: 1 },
-            { id: "section-mer-de-jade-situation", title: "Situation géographique", level: 2 },
-            { id: "section-archipel-des-tempetes", title: "L'Archipel des Tempêtes", level: 2 },
-            { id: "section-wyvernes-archipel", title: "Colonie des Wyvernes", level: 2 },
-            { id: "section-dangers-navigation-mer-jade", title: "Dangers & Navigation", level: 2 },
-            { id: "section-routes-maritimes", title: "Routes Maritimes", level: 2 },
-            { id: "section-mer-de-jade-presences", title: "Présences Notables", level: 2 },
+            // L'Immensité Grise
+            { id: "section-immensite-grise", title: "L'Immensité Grise", level: 2 },
+            { id: "section-tour-blanche", title: "La Tour Blanche", level: 3 },
+            { id: "section-forteresse-du-patron", title: "Forteresse du Patron", level: 3 },
+            { id: "section-cratere-syndicat", title: "Cratère du Syndicat", level: 3 },
+            { id: "section-relais-roches-noires", title: "Relais des Roches-Noires", level: 3 },
 
-            { id: "section-rivecour", title: "6. Rivecour", level: 1 },
-            { id: "section-rivecour-localisation", title: "Localisation & environnement", level: 2 },
-            { id: "section-rivecour-structure", title: "Géographie & Structure", level: 2 },
-            { id: "section-rivecour-points-interet", title: "Points d'Intérêt", level: 2 },
-            { id: "section-rivecour-presences", title: "Présences Notables", level: 2 },
-            { id: "section-rivecour-presences-importantes", title: "Présences importantes", level: 2 },
-            { id: "section-rivecour-implantations", title: "Implantations d'Elkyriel", level: 2 },
+            // Mer de Jade & Archipel
+            { id: "section-mer-de-jade", title: "Mer de Jade & Archipel", level: 2 },
+            { id: "section-archipel-des-tempetes", title: "Archipel des Tempêtes", level: 3 },
+            { id: "section-wyvernes-archipel", title: "Colonie des Wyvernes", level: 3 },
+            { id: "section-routes-maritimes", title: "Routes Maritimes & Dangers", level: 3 },
 
-            { id: "section-forge-naine-rivecour", title: "6.1. La Forge naine de Rivecour", level: 1 },
-            { id: "section-forge-architecture", title: "Architecture & Salles", level: 2 },
-            { id: "section-cercles-teleportation", title: "Réseau des 7 Cercles", level: 2 },
-            { id: "section-portail-grand-air", title: "Portail du Grand Air", level: 2 },
-            { id: "section-forge-residents", title: "Résidents rattachés", level: 2 },
-            { id: "section-forge-presences-regulieres", title: "Présences régulières", level: 2 },
-            { id: "section-forge-communaute-historique", title: "Communauté historique", level: 2 },
-            { id: "section-forge-particularites", title: "Sécurité & Fonctionnement", level: 2 },
+            // Marches Orientales
+            { id: "section-marches-orientales", title: "Les Marches orientales", level: 2 },
+            { id: "section-valdorne", title: "Valdorne", level: 3 },
+            { id: "section-rochebrune", title: "Rochebrune", level: 3 },
+            { id: "section-pont-casse", title: "Pont-Cassé & Lieux isolés", level: 3 },
+            { id: "section-deux-couronnes-secteur", title: "Deux-Couronnes", level: 3 },
+            { id: "section-salines-mornefond", title: "Salines de Mornefond", level: 3 },
 
-            { id: "section-forteresse-monde", title: "7. Forteresse-Monde (10e Cité)", level: 1 },
-            { id: "section-forteresse-nomenclature", title: "Principe de Nomenclature", level: 2 },
-            { id: "section-forteresse-liaison-verticale", title: "Liaisons verticales", level: 2 },
-            { id: "section-forteresse-protection-thermique", title: "Protection Thermique (Strate -4)", level: 2 },
-            { id: "section-structure-verticale-detaillee", title: "Grand tableau des Strates 0 à -5", level: 2 },
-            { id: "section-forteresse-precisions-structurelles", title: "Précisions structurelles", level: 2 },
-            { id: "section-colonie-strate-3", title: "Cité fortifiée (Strate -3)", level: 2 },
-            { id: "section-forteresse-mines-production", title: "Mines & Production", level: 2 },
-            { id: "section-population-forces-forteresse", title: "Population & Armées", level: 2 },
+            // Axe Sud-Ouest
+            { id: "section-axe-sud-ouest", title: "Axe Sud-Ouest", level: 2 },
+            { id: "section-sanglier-gris", title: "Relais du Sanglier Gris", level: 3 },
+            { id: "section-manoir-epines-noires", title: "Manoir des Épines Noires", level: 3 },
 
-            { id: "section-relais-roches-noires", title: "8. Le Relais des Roches-Noires", level: 1 },
-            { id: "section-relais-structure", title: "Structure & Organisation", level: 2 },
-            { id: "section-relais-fonction", title: "Fonction & Neutralité", level: 2 },
-            { id: "section-grand-tableau", title: "Le Grand Tableau", level: 2 },
+            // ==========================================
+            // 2. ROYAUME DE VARETHIS
+            // ==========================================
+            { id: "section-passe-trois-bornes-varethis", title: "2. Royaume de Varethis", level: 1 },
+            { id: "section-passe-trois-bornes-varethis", title: "Passe des Trois Bornes (Frontière)", level: 2 },
+            { id: "section-passe-trois-bornes-varethis", title: "Karsenne (Capitale)", level: 2 },
+            { id: "section-passe-trois-bornes-varethis", title: "Parfumerie de maître Leirykle", level: 3 },
+            { id: "section-passe-trois-bornes-varethis", title: "Palais royal de Karsenne", level: 3 },
+            { id: "section-passe-trois-bornes-varethis", title: "Domaine de Clairval", level: 2 },
 
-            { id: "section-tour-blanche", title: "9. La Tour Blanche", level: 1 },
-            { id: "section-tour-blanche-localisation", title: "Localisation & environnement", level: 2 },
-            { id: "section-tour-blanche-fonction-passee", title: "Fonction passée & architecture", level: 2 },
-            { id: "section-tour-blanche-souterrains-oasis", title: "Souterrains & Oasis", level: 2 },
-            { id: "section-tour-blanche-statut-actuel", title: "Statut actuel & Corbeaux", level: 2 },
+            // ==========================================
+            // 3. EMPIRE DE L'ENCLAVE DES CINQ TRÔNES
+            // ==========================================
+            { id: "section-empire-enclave", title: "3. Empire des Cinq Trônes", level: 1 },
+            
+            // Accès et frontières
+            { id: "section-hautes-lames", title: "Les Hautes-Lames & Accès", level: 2 },
 
-            { id: "section-marches-orientales", title: "10. Marches orientales & Varethis", level: 1 },
-            { id: "section-marches-organisation", title: "10.1. Organisation géographique", level: 2 },
-            { id: "section-rochebrune", title: "10.2. Rochebrune", level: 2 },
-            { id: "section-valdorne", title: "10.3. Valdorne", level: 2 },
-            { id: "section-carriere-beran", title: "10.4. Carrière de Beran", level: 2 },
-            { id: "section-batisse-orven-colm", title: "10.5. Bâtisse d'Orven & Colm", level: 2 },
-            { id: "section-trois-saules", title: "10.6. Grange des Trois-Saules", level: 2 },
-            { id: "section-pont-casse", title: "10.7. Pont-Cassé de la Veyre", level: 2 },
-            { id: "section-bergerie-sous-roche", title: "10.8. Bergerie sous Roche", level: 2 },
-            { id: "section-moulin-brumecendre", title: "10.9. Moulin de Brumecendre", level: 2 },
-            { id: "section-deux-couronnes-secteur", title: "10.10. Deux-Couronnes", level: 2 },
-            { id: "section-salines-mornefond", title: "10.11. Salines de Mornefond", level: 2 },
-            { id: "section-passe-trois-bornes-varethis", title: "10.12. Passe & Karsenne", level: 2 },
+            // Traverse (Cœur)
+            { id: "section-royaume-traverse", title: "Royaume de Traverse (Cœur)", level: 2 },
+            { id: "section-royaume-traverse", title: "Élyria (Capitale Impériale)", level: 3 },
+            { id: "section-royaume-traverse", title: "Les Cités de Traverse", level: 3 },
+            { id: "section-forteresse-monde", title: "Forteresse-Monde (10e Cité)", level: 3 },
+            { id: "section-population-forces-forteresse", title: "Forces & Armées de Traverse", level: 3 },
 
-            { id: "section-axe-sud-ouest", title: "11. Axe sud-ouest de Rivecour", level: 1 },
-            { id: "section-sanglier-gris", title: "11.1. Relais du Sanglier Gris", level: 2 },
-            { id: "section-manoir-epines-noires", title: "11.2. Manoir des Épines Noires", level: 2 },
-
-            { id: "section-empire-enclave", title: "12. Empire des Cinq Trônes", level: 1 },
-            { id: "section-hautes-lames", title: "12.1. Les Hautes-Lames", level: 2 },
-            { id: "section-gor-kadar", title: "12.2. Royaume de Gor-Kadar", level: 2 },
-            { id: "section-royaume-traverse", title: "12.3. Royaume de Traverse (Cœur)", level: 2 },
-            { id: "section-astreane", title: "12.4. Concordat d'Astréane", level: 2 },
-            { id: "section-dhor-kez", title: "12.5. Ligues de Dhor-Kez", level: 2 },
-            { id: "section-orsenn", title: "12.6. Royaume d'Orsenn", level: 2 }
+            // Royaumes Alliés et Vassaux
+            { id: "section-gor-kadar", title: "Royaume de Gor-Kadar", level: 2 },
+            { id: "section-astreane", title: "Concordat d'Astréane", level: 2 },
+            { id: "section-dhor-kez", title: "Ligues de Dhor-Kez", level: 2 },
+            { id: "section-orsenn", title: "Royaume d'Orsenn", level: 2 }
         ];
     }
-
+    
     // Export des méthodes publiques
     window.TRAME_Atlas.renderView = renderView;
     window.TRAME_Atlas.getIndex = getIndex;
