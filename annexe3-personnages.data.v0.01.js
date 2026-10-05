@@ -2048,10 +2048,9 @@ window.TRAME_Personnages = (function() {
 
         html += `<div class="page-break"></div>`;
 
-        // 2. Section Hors Harem (proches, compagnes ou alliées intimes hors harem officiel)
+        // 2. Section Hors Harem
         html += `<h3 id="cercle-hors-harem">Hors harem</h3>\n`;
         html += `<div class="card-start"><div class="rule-item"><p>Compagnes, alliées ou figures du cercle intime n'appartenant pas au harem libre :</p></div></div>\n`;
-        // Vous pouvez ajuster ce filtre selon les critères exacts des personnages "hors harem" mais proches (ex: Néria, les souveraines en relation secrète, etc.)
         const listHorsHarem = trierParNom(Object.values(PNJ).filter(p => p.tags && p.tags.harem === false && (p.secret_draconique || p.tags.rangs?.includes('souverain') || p.id === 'perso-neria')));
         listHorsHarem.forEach(p => {
             html += renderCard(p, 'h4');
@@ -2164,7 +2163,7 @@ window.TRAME_Personnages = (function() {
             const indexList = [];
             indexList.push({ id: "cercle-harem", title: `Harem libre (${listHarem.length})`, level: 1 });
             listHarem.forEach(p => {
-                indexList.souh({ id: p.id, title: p.nom, level: 2 }); // Note: typo à corriger en push
+                indexList.push({ id: p.id, title: p.nom, level: 2 });
             });
 
             indexList.push({ id: "cercle-hors-harem", title: `Hors harem (${listHorsHarem.length})`, level: 1 });
