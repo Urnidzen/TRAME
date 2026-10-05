@@ -1497,7 +1497,6 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             <div class="rule-item"><p class="pseudo-li"><strong>Dernier état connu :</strong> Le Baron, son intendant et sa garnison ont été tués. Les captifs ont été libérés et évacués, et les biens de valeur du domaine ont été emportés.</p></div>
             <div class="rule-item"><p class="pseudo-li"><strong>Occupation actuelle :</strong> non établie (domaine abandonné/vide).</p></div>
         <div class="card-end"></div>
-        <div class="page-break"></div>
     `;
 
 })();
