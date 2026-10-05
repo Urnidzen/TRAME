@@ -1836,14 +1836,11 @@
           
           // Liste des personnages
           profiles.forEach(p => {
-              html += \`
-                  <div style="margin-bottom: 6px;">
-                      <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
-                          <input type="checkbox" class="modal-print-cb" value="\${p.id}" checked style="cursor:pointer; width:16px; height:16px;">
-                          \${p.name || 'Sans Nom'}
-                      </label>
-                  </div>
-              \`;
+              html += '<div style="margin-bottom: 6px;">';
+              html += '<label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">';
+              html += '<input type="checkbox" class="modal-print-cb" value="' + p.id + '" checked style="cursor:pointer; width:16px; height:16px;">';
+              html += (p.name || 'Sans Nom');
+              html += '</label></div>';
           });
           
           listContainer.innerHTML = html;
@@ -1898,25 +1895,14 @@
 
           doc.write('<!DOCTYPE html><html lang="fr"><head>');
           doc.write(headContent);
-          doc.write(\`
-              <style>
-                  @media print {
-                      body { background: transparent !important; margin: 0; padding: 0; }
-                      .sheet-wrapper-direct {
-                          page-break-after: always;
-                          break-after: page;
-                      }
-                      .sheet-wrapper-direct:last-child {
-                          page-break-after: auto;
-                          break-after: auto;
-                      }
-                      .force-print-notes .page-notes {
-                          display: flex !important;
-                      }
-                  }
-              </style>
-          </head>
-          <body class="font-body text-black">\`);
+          doc.write('<style>');
+          doc.write('@media print {');
+          doc.write('  body { background: transparent !important; margin: 0; padding: 0; }');
+          doc.write('  .sheet-wrapper-direct { page-break-after: always; break-after: page; }');
+          doc.write('  .sheet-wrapper-direct:last-child { page-break-after: auto; break-after: auto; }');
+          doc.write('  .force-print-notes .page-notes { display: flex !important; }');
+          doc.write('}');
+          doc.write('</style></head><body class="font-body text-black">');
 
           profiles.forEach(profile => {
               const hasNotes = profileHasNotesPage(profile) ? ' force-print-notes' : '';
