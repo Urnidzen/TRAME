@@ -1333,14 +1333,17 @@
         // Mémoire de navigation pour le bouton retour
         let lastNavigationOrigin = null;
 
+        // 1. Mémorise la page exacte et la position de défilement
         async function navigateToDocSection(targetDocId, targetSectionId, originDocId, originElementId, originLabel) {
-            // Enregistre l'origine pour pouvoir y revenir
+            const mainContainer = document.getElementById('mainContainer');
+        
             lastNavigationOrigin = {
                 docId: originDocId || currentDoc,
-                elementId: originElementId,
+                elementId: originElementId || '',
+                scrollTop: mainContainer ? mainContainer.scrollTop : 0, // <-- ON ENREGISTRE VOTRE POSITION EXACTE
                 label: originLabel || "la fiche"
             };
-
+        
             // Affiche le bouton de retour flottant
             const returnCont = document.getElementById('docReturnContainer');
             const returnLabel = document.getElementById('docReturnLabel');
@@ -1348,13 +1351,12 @@
                 returnLabel.textContent = `← Revenir à ${lastNavigationOrigin.label}`;
                 returnCont.style.display = 'block';
             }
-
-            // Si c'est un saut vers un autre document
+        
+            // Changement de document si nécessaire
             if (currentDoc !== targetDocId) {
                 currentDoc = targetDocId;
                 expandedId = targetDocId;
                 
-                // Si on se dirige vers le Lore, on s'assure qu'il est déverrouillé/ouvert
                 const targetDocObj = documents.find(d => d.id === targetDocId);
                 if (targetDocObj && targetDocObj.isLore) {
                     loreExpanded = true;
@@ -1362,34 +1364,41 @@
                 
                 await loadDocument(targetDocId);
             }
-
-            // Attente de stabilisation du DOM puis défilement et mise en surbrillance
+        
+            // Défilement vers la cible
             setTimeout(() => {
                 scrollToElement(targetSectionId);
             }, 450);
         }
-
+        
+        // 2. Restaure l'endroit précis où vous étiez
         async function returnToOriginDoc() {
             if (!lastNavigationOrigin) return;
-
+        
             const origin = Object.assign({}, lastNavigationOrigin);
             lastNavigationOrigin = null;
-
-            // Masque le bouton de retour
+        
             const returnCont = document.getElementById('docReturnContainer');
             if (returnCont) returnCont.style.display = 'none';
-
-            // Recharge le document d'origine
+        
+            // Recharge le document d'origine si on avait changé
             if (currentDoc !== origin.docId) {
                 currentDoc = origin.docId;
                 expandedId = origin.docId;
                 await loadDocument(origin.docId);
             }
-
-            // Défilement jusqu'au personnage d'origine
+        
+            // Défilement vers l'endroit exact quitté
             setTimeout(() => {
+                const mainContainer = document.getElementById('mainContainer');
                 if (origin.elementId) {
                     scrollToElement(origin.elementId);
+                } else if (mainContainer && origin.scrollTop !== undefined) {
+                    // Remet le livre exactement sur la double-page où vous étiez
+                    mainContainer.scrollTo({
+                        top: origin.scrollTop,
+                        behavior: 'smooth'
+                    });
                 }
             }, 300);
         }
