@@ -2888,6 +2888,7 @@
 
                     if (incomingProfiles.length > 0) {
                         let importedCount = 0;
+                        let skippedCount = 0;
                         TRAME_Registre.reload();
 
                         for (const item of incomingProfiles) {
@@ -2896,7 +2897,10 @@
 
                             if (existing) {
                                 const choice = await showConflictModal(charName);
-                                if (choice === 'skip') continue;
+                                if (choice === 'skip') {
+                                    skippedCount++;
+                                    continue; // Ignore et passe au suivant sans incrémenter le succès
+                                }
                                 if (choice === 'copy') {
                                     let copyIndex = 2;
                                     let newName = charName + " (Copie)";
@@ -2909,7 +2913,7 @@
                                         id: newId,
                                         name: newName,
                                         timestamp: Date.now(),
-                                    content: Object.assign({}, item.content, { "char-name": newName })
+                                        content: Object.assign({}, item.content, { "char-name": newName })
                                     });
                                 } else {
                                     existing.content = item.content;
@@ -2931,7 +2935,13 @@
                         TRAME_Registre.save();
                         renderDocumentsList();
                         if (currentDoc === 'fiche') loadDocument('fiche');
-                        alert(importedCount + ' personnage(s) importé(s) avec succès !');
+                        
+                        // Message récapitulatif précis
+                        let message = importedCount + ' personnage(s) importé(s) avec succès !';
+                        if (skippedCount > 0) {
+                            message += '\n(' + skippedCount + ' fichier(s) ignoré(s))';
+                        }
+                        alert(message);
                     } else {
                         alert("Aucune fiche de personnage valide trouvée dans la sélection.");
                     }
