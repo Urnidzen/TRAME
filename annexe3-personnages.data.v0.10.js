@@ -1772,10 +1772,12 @@ window.TRAME_Personnages = (function() {
     /**
      * Moteur de rendu unifié d'une fiche personnage
      */
-    function renderCard(p, customTitleLevel, customLocationLabel) {
+    function renderCard(p, customTitleLevel, customLocationLabel, isSecondary) {
         if (!p) return '';
         const hTag = customTitleLevel || 'h6';
-        let html = `<${hTag} id="${p.id}" class="pnj-title">${p.nom}</${hTag}>\n<div class="card-start"></div>\n`;
+        // Si c'est une présence secondaire, on ne met pas d'ID en doublon
+        const idAttr = isSecondary ? '' : ` id="${p.id}"`;
+        let html = `<${hTag}${idAttr} class="pnj-title">${p.nom}</${hTag}>\n<div class="card-start"></div>\n`;
 
         if (p.espece_genre) {
             html += `    <div class="rule-item"><p class="pseudo-li"><strong>Espèce et genre :</strong> ${formatEspeceGenreWithLinks(p)}</p></div>\n`;
@@ -1976,7 +1978,7 @@ window.TRAME_Personnages = (function() {
                 if (secondaires.length > 0) {
                     html += `<h5>Présence secondaire</h5>\n`;
                     secondaires.forEach(p => {
-                        html += renderCard(p);
+                        html += renderCard(p, null, null, true);
                     });
                 }
             }
