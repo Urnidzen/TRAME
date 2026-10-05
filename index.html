@@ -1772,32 +1772,31 @@
                         }
 
                         const targetProfile = TRAME_Registre.getProfile(id);
+                        const currentName = targetProfile ? (targetProfile.name || "Sans Nom") : "cette fiche";
                         const incomingName = (data.name || data.content["char-name"] || "Sans Nom").trim();
 
-                        const existing = TRAME_Registre.getAllProfiles().find(p => p.id !== id && p.name.trim().toLowerCase() === incomingName.toLowerCase());
+                        // Affiche la modale uniformisée pour l'import solo
+                        const choice = await showConflictModal(incomingName);
+                        if (choice === 'skip') return;
 
-                        if (existing) {
-                            const choice = await showConflictModal(incomingName);
-                            if (choice === 'skip') return;
-                            if (choice === 'copy') {
-                                let copyIndex = 2;
-                                let newName = incomingName + " (Copie)";
-                                while (TRAME_Registre.getAllProfiles().some(p => p.name.trim().toLowerCase() === newName.toLowerCase())) {
-                                    newName = incomingName + " (Copie " + copyIndex + ")";
-                                    copyIndex++;
-                                }
-                                const newId = "p_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6);
-                                TRAME_Registre.data.profiles.push({
-                                    id: newId,
-                                    name: newName,
-                                    timestamp: Date.now(),
-                                    content: Object.assign({}, data.content, { "char-name": newName })
-                                });
-                                TRAME_Registre.save();
-                            } else {
-                                TRAME_Registre.updateProfile(id, data.content, incomingName);
+                        if (choice === 'copy') {
+                            // Créer une nouvelle fiche distincte (copie)
+                            let copyIndex = 2;
+                            let newName = incomingName + " (Copie)";
+                            while (TRAME_Registre.getAllProfiles().some(p => p.name.trim().toLowerCase() === newName.toLowerCase())) {
+                                newName = incomingName + " (Copie " + copyIndex + ")";
+                                copyIndex++;
                             }
+                            const newId = "p_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6);
+                            TRAME_Registre.data.profiles.push({
+                                id: newId,
+                                name: newName,
+                                timestamp: Date.now(),
+                                content: Object.assign({}, data.content, { "char-name": newName })
+                            });
+                            TRAME_Registre.save();
                         } else {
+                            // Écraser la fiche ciblée actuelle
                             TRAME_Registre.updateProfile(id, data.content, incomingName);
                         }
 
