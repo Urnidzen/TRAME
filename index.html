@@ -1031,10 +1031,23 @@
         async function indexDocument(doc) {
             if (searchIndex.has(doc.id)) return;
             try {
-                const response = await fetch(doc.file);
-                let rawText = await response.text();
-                
-                const html = doc.file.endsWith('.md') ? marked.parse(rawText) : rawText;
+                let html = '';
+
+                // Si c'est l'Atlas ou les Personnages, on prend directement le texte généré
+                if (doc.id === 'lore_atlas' && window.TRAME_Atlas) {
+                    html = window.TRAME_Atlas.renderView();
+                } else if (doc.id === 'lore_personnages' && window.TRAME_Personnages) {
+                    html = window.TRAME_Personnages.renderView('region');
+                } else if (doc.id === 'livret5' && window.TRAME_Bestiaire) {
+                    const response = await fetch(doc.file);
+                    const rawText = await response.text();
+                    html = rawText.replace('<div id="bestiaire-dynamic-container">', 
+                        '<div id="bestiaire-dynamic-container">' + window.TRAME_Bestiaire.renderView('type'));
+                } else {
+                    const response = await fetch(doc.file);
+                    let rawText = await response.text();
+                    html = doc.file.endsWith('.md') ? marked.parse(rawText) : rawText;
+                }
                 
                 const parser = new DOMParser();
                 const docEl = parser.parseFromString(html, 'text/html');
