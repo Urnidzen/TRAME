@@ -12,144 +12,180 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
     // Helper d'injection automatique des liens vers les Personnages et Créatures
     function enrichirTexteAtlas(texte, originElementId) {
         if (!texte) return '';
-        let t = texte;
 
-        // Table de correspondance vers les fiches de personnages (Annexe 3)
-        const pnjLinks = [
-            { nom: "Elkyriel-Aethelvahr", id: "perso-elkyriel-personnage-joueur", label: "Elkyriel-Aethelvahr" },
-            { nom: "Elkyriel", id: "perso-elkyriel-personnage-joueur", label: "Elkyriel" },
-            { nom: "Faelia", id: "perso-faelia", label: "Faelia" },
-            { nom: "Mila", id: "perso-mila", label: "Mila" },
-            { nom: "Lysa", id: "perso-lysa", label: "Lysa" },
-            { nom: "Liriel", id: "perso-liriel", label: "Liriel" },
-            { nom: "Lirael", id: "perso-lirael", label: "Lirael" },
-            { nom: "Vespera", id: "perso-vespera", label: "Vespera" },
-            { nom: "Dravenna", id: "perso-dravenna", label: "Dravenna" },
-            { nom: "Seraphine", id: "perso-seraphine", label: "Seraphine" },
-            { nom: "Roran", id: "perso-roran", label: "Roran" },
-            { nom: "Doran", id: "perso-doran", label: "Doran" },
-            { nom: "Néria", id: "perso-neria", label: "Néria" },
-            { nom: "Rose", id: "perso-rose", label: "Rose" },
-            { nom: "Aldric", id: "perso-aldric", label: "Aldric" },
-            { nom: "Lila", id: "perso-lila", label: "Lila" },
-            { nom: "Milo", id: "perso-milo", label: "Milo" },
-            { nom: "Elara", id: "perso-elara", label: "Elara" },
-            { nom: "Kaelen", id: "perso-kaelen", label: "Kaelen" },
-            { nom: "Alden", id: "perso-alden", label: "Alden" },
-            { nom: "Thorne", id: "perso-thorne", label: "Thorne" },
-            { nom: "Maëva", id: "perso-maeva", label: "Maëva" },
-            { nom: "Lysandra", id: "perso-lysandra", label: "Lysandra" },
-            { nom: "Kaelia", id: "perso-reine-kaelia-d-ardelie", label: "Kaelia" },
-            { nom: "Aldous", id: "perso-roi-aldous-d-ardelie", label: "Aldous" },
-            { nom: "Silas", id: "perso-silas", label: "Silas" },
-            { nom: "Odran Sorell", id: "perso-odran-sorell", label: "Odran Sorell" },
-            { nom: "Lucretia", id: "perso-lucretia", label: "Lucretia" },
-            { nom: "Valerius", id: "perso-valerius", label: "Valerius" },
-            { nom: "Livia", id: "perso-livia", label: "Livia" },
-            { nom: "Thorek", id: "perso-thorek", label: "Thorek" },
-            { nom: "Alise", id: "perso-alise", label: "Alise" },
-            { nom: "Ysoria", id: "perso-reine-ysoria-de-varethis", label: "Ysoria" },
-            { nom: "Méléandre", id: "perso-prince-meleandre-de-varethis", label: "Méléandre" },
-            { nom: "Maëra", id: "perso-maera", label: "Maëra" },
-            { nom: "Solenne Varin", id: "perso-solenne-varin", label: "Solenne Varin" },
-            { nom: "Kordran Fergivre", id: "perso-kordran-fergivre", label: "Kordran Fergivre" },
-            { nom: "Selyne Var", id: "perso-selyne-var", label: "Selyne Var" },
-            { nom: "Eliane Var", id: "perso-eliane-var-dite-aline-varet", label: "Eliane Var" },
-            { nom: "Aline Varet", id: "perso-eliane-var-dite-aline-varet", label: "Aline Varet" },
-            { nom: "Brenor", id: "perso-lieutenant-brenor", label: "Brenor" },
-            { nom: "Caldrin", id: "perso-capitaine-caldrin", label: "Caldrin" },
-            { nom: "Kharza Peau-de-Neige", id: "perso-kharza-peau-de-neige", label: "Kharza Peau-de-Neige" },
-            { nom: "Rhazka Cendre-Claire", id: "perso-rhazka-cendre-claire", label: "Rhazka Cendre-Claire" },
-            { nom: "Vessa Orm", id: "perso-vessa-orm", label: "Vessa Orm" },
-            { nom: "Isilvrya", id: "perso-isilvrya", label: "Isilvrya" },
-            { nom: "Aélis Vaer", id: "perso-aelis-vaer", label: "Aélis Vaer" },
-            { nom: "Sévra Noll", id: "perso-sevra-noll", label: "Sévra Noll" },
-            { nom: "Ilysthéra", id: "perso-ilysthera", label: "Ilysthéra" },
-            { nom: "Léonie Varc", id: "perso-leonie-varc", label: "Léonie Varc" },
-            { nom: "Dhoran Vesk", id: "perso-dhoran-vesk", label: "Dhoran Vesk" },
-            { nom: "Kaldrielle", id: "perso-kaldrielle", label: "Kaldrielle" },
-            { nom: "Maélis d’Orsenn", id: "perso-maelis-d-orsenn", label: "Maélis d’Orsenn" },
-            { nom: "Maélis d'Orsenn", id: "perso-maelis-d-orsenn", label: "Maélis d'Orsenn" },
-            { nom: "Maélis", id: "perso-maelis-d-orsenn", label: "Maélis" },
-            { nom: "Talyra", id: "perso-talyra", label: "Talyra" },
-            { nom: "Eryx", id: "perso-eryx", label: "Eryx" },
-            { nom: "Nymira", id: "perso-nymira", label: "Nymira" },
-            { nom: "Mirelle Auvray", id: "perso-mirelle-auvray-2", label: "Mirelle Auvray" },
-            { nom: "Goran", id: "perso-goran", label: "Goran" },
-            { nom: "Myrène", id: "perso-myrene", label: "Myrène" },
-            { nom: "Lethielle", id: "perso-lethielle", label: "Lethielle" },
-            { nom: "Nathalysse", id: "perso-nathalysse", label: "Nathalysse" },
-            { nom: "Dame Thalysse de Mirande", id: "perso-nathalysse", label: "Dame Thalysse de Mirande" },
-            { nom: "Olan Vespre", id: "perso-olan-vespre", label: "Olan Vespre" },
-            { nom: "Salomé d’Arqueval", id: "perso-salome-d-arqueval", label: "Salomé d’Arqueval" },
-            { nom: "Mireva", id: "perso-mireva", label: "Mireva" },
-            { nom: "Pell", id: "perso-pell-calde", label: "Pell" },
-            { nom: "Dhorg", id: "perso-dhorg-clair-verger", label: "Dhorg" },
-            { nom: "Sera", id: "perso-sera-grands-vergers", label: "Sera" },
-            { nom: "Enric", id: "perso-enric-asten", label: "Enric" },
-            { nom: "Maura", id: "perso-maura-haute-rive", label: "Maura" },
-            { nom: "Lise", id: "perso-lise-haute-rive", label: "Lise" },
-            { nom: "Siane", id: "perso-siane-bois-serein", label: "Siane" },
-            { nom: "Naela", id: "perso-naela-bois-serein", label: "Naela" },
-            { nom: "Ysel", id: "perso-ysel-rive-noire", label: "Ysel" },
-            { nom: "Rhea", id: "perso-rhea-rive-noire", label: "Rhea" },
-            { nom: "Virelle Senn", id: "perso-virelle-senn", label: "Virelle Senn" },
-            { nom: "Vel'Shara", id: "perso-vel-shara", label: "Vel'Shara" },
-            { nom: "Vel’Shara", id: "perso-vel-shara", label: "Vel’Shara" },
-            { nom: "Armand Vellec", id: "perso-armand-vellec", label: "Armand Vellec" },
-            { nom: "Sariel", id: "perso-sariel", label: "Sariel" },
-            { nom: "Eirik", id: "perso-eirik", label: "Eirik" },
-            { nom: "Borin", id: "perso-borin", label: "Borin" },
-            { nom: "Thalira", id: "perso-thalira", label: "Thalira" },
-            { nom: "Liora", id: "perso-liora", label: "Liora" }
+        // Table unifiée de toutes les correspondances
+        const correspondances = [
+            // PNJ
+            { nom: "Elkyriel-Aethelvahr", id: "perso-elkyriel-personnage-joueur", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Elkyriel", id: "perso-elkyriel-personnage-joueur", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Faelia", id: "perso-faelia", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Mila", id: "perso-mila", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lysa", id: "perso-lysa", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Liriel", id: "perso-liriel", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lirael", id: "perso-lirael", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Vespera", id: "perso-vespera", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Dravenna", id: "perso-dravenna", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Seraphine", id: "perso-seraphine", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Roran", id: "perso-roran", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Doran", id: "perso-doran", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Néria", id: "perso-neria", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Rose", id: "perso-rose", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Aldric", id: "perso-aldric", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lila", id: "perso-lila", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Milo", id: "perso-milo", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Elara", id: "perso-elara", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Kaelen", id: "perso-kaelen", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Alden", id: "perso-alden", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Thorne", id: "perso-thorne", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Maëva", id: "perso-maeva", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lysandra", id: "perso-lysandra", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Kaelia", id: "perso-reine-kaelia-d-ardelie", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Aldous", id: "perso-roi-aldous-d-ardelie", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Silas", id: "perso-silas", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Odran Sorell", id: "perso-odran-sorell", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lucretia", id: "perso-lucretia", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Valerius", id: "perso-valerius", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Livia", id: "perso-livia", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Thorek", id: "perso-thorek", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Alise", id: "perso-alise", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Ysoria", id: "perso-reine-ysoria-de-varethis", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Méléandre", id: "perso-prince-meleandre-de-varethis", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Maëra", id: "perso-maera", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Solenne Varin", id: "perso-solenne-varin", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Kordran Fergivre", id: "perso-kordran-fergivre", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Selyne Var", id: "perso-selyne-var", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Eliane Var", id: "perso-eliane-var-dite-aline-varet", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Aline Varet", id: "perso-eliane-var-dite-aline-varet", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Brenor", id: "perso-lieutenant-brenor", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Caldrin", id: "perso-capitaine-caldrin", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Kharza Peau-de-Neige", id: "perso-kharza-peau-de-neige", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Rhazka Cendre-Claire", id: "perso-rhazka-cendre-claire", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Vessa Orm", id: "perso-vessa-orm", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Isilvrya", id: "perso-isilvrya", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Aélis Vaer", id: "perso-aelis-vaer", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Sévra Noll", id: "perso-sevra-noll", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Ilysthéra", id: "perso-ilysthera", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Léonie Varc", id: "perso-leonie-varc", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Dhoran Vesk", id: "perso-dhoran-vesk", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Kaldrielle", id: "perso-kaldrielle", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Maélis d'Orsenn", id: "perso-maelis-d-orsenn", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Maélis d’Orsenn", id: "perso-maelis-d-orsenn", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Maélis", id: "perso-maelis-d-orsenn", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Talyra", id: "perso-talyra", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Eryx", id: "perso-eryx", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Nymira", id: "perso-nymira", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Mirelle Auvray", id: "perso-mirelle-auvray-2", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Goran", id: "perso-goran", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Myrène", id: "perso-myrene", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lethielle", id: "perso-lethielle", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Nathalysse", id: "perso-nathalysse", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Dame Thalysse de Mirande", id: "perso-nathalysse", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Olan Vespre", id: "perso-olan-vespre", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Salomé d’Arqueval", id: "perso-salome-d-arqueval", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Mireva", id: "perso-mireva", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Pell", id: "perso-pell-calde", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Dhorg", id: "perso-dhorg-clair-verger", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Sera", id: "perso-sera-grands-vergers", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Enric", id: "perso-enric-asten", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Maura", id: "perso-maura-haute-rive", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Lise", id: "perso-lise-haute-rive", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Siane", id: "perso-siane-bois-serein", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Naela", id: "perso-naela-bois-serein", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Ysel", id: "perso-ysel-rive-noire", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Rhea", id: "perso-rhea-rive-noire", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Virelle Senn", id: "perso-virelle-senn", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Vel'Shara", id: "perso-vel-shara", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Vel’Shara", id: "perso-vel-shara", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Armand Vellec", id: "perso-armand-vellec", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Sariel", id: "perso-sariel", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Eirik", id: "perso-eirik", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Borin", id: "perso-borin", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Thalira", id: "perso-thalira", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+            { nom: "Liora", id: "perso-liora", doc: "lore_personnages", info: "Consulter la fiche du personnage" },
+
+            // Bestiaire
+            { nom: "Dragonne Bestiale", id: "creature-dragon-bestial", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Dragon Bestial", id: "creature-dragon-bestial", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Dragonne Noble", id: "creature-dragon-noble", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Dragon Noble", id: "creature-dragon-noble", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Golems de guerre", id: "creature-golem-de-guerre", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Golem de guerre", id: "creature-golem-de-guerre", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Serpents de Mer", id: "creature-serpent-de-mer-geant", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Serpent de Mer", id: "creature-serpent-de-mer-geant", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Wyvernes", id: "creature-dragon-wyverne", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Wyverne", id: "creature-dragon-wyverne", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Dragons", id: "section-dragons", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Dragon", id: "section-dragons", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Golems", id: "section-golems", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Golem", id: "section-golems", doc: "livret5", info: "Consulter dans le Bestiaire" },
+            { nom: "Pagures", id: "section-pagures", doc: "livret2", info: "Consulter dans le Bestiaire" },
+            { nom: "Pagure", id: "section-pagures", doc: "livret2", info: "Consulter dans le Bestiaire" }
         ];
 
-        // Table de correspondance vers le Bestiaire (Livret 5)
-        const bestiaireLinks = [
-            { nom: "Dragonne Bestiale", id: "creature-dragon-bestial" },
-            { nom: "Dragon Bestial", id: "creature-dragon-bestial" },
-            { nom: "Dragonne Noble", id: "creature-dragon-noble" },
-            { nom: "Dragon Noble", id: "creature-dragon-noble" },
-            { nom: "Golems de guerre", id: "creature-golem-de-guerre" },
-            { nom: "Golem de guerre", id: "creature-golem-de-guerre" },
-            { nom: "Serpents de Mer", id: "creature-serpent-de-mer-geant" },
-            { nom: "Serpent de Mer", id: "creature-serpent-de-mer-geant" },
-            { nom: "Wyvernes", id: "creature-dragon-wyverne" },
-            { nom: "Wyverne", id: "creature-dragon-wyverne" },
-            { nom: "Dragons", id: "section-dragons" },
-            { nom: "Dragon", id: "section-dragons" },
-            { nom: "Golems", id: "section-golems" },
-            { nom: "Golem", id: "section-golems" },
-            { nom: "Pagures", id: "section-pagures", doc: "livret2" },
-            { nom: "Pagure", id: "section-pagures", doc: "livret2" }
-        ];
+        // 1. Trier par longueur décroissante (les expressions composées sont prioritaires)
+        correspondances.sort((a, b) => b.nom.length - a.nom.length);
 
-        // Fonction de remplacement sécurisée : ne remplace jamais à l'intérieur d'une balise HTML déjà posée
-        function remplacerTexteHorsBalises(texteSource, listeObjets, typeLien) {
-            // Trie par longueur décroissante pour traiter les expressions composées avant les mots simples
-            const listeTriee = [...listeObjets].sort((a, b) => b.nom.length - a.nom.length);
+        // 2. Construire la liste des motifs pour la recherche en une seule passe
+        const dictionnaire = new Map();
+        const motifs = correspondances.map(c => {
+            dictionnaire.set(c.nom.toLowerCase(), c);
+            return c.nom.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        });
 
-            listeTriee.forEach(item => {
-                const docCible = item.doc || (typeLien === 'pnj' ? 'lore_personnages' : 'livret5');
-                const infoBulle = typeLien === 'pnj' ? 'Consulter la fiche du personnage' : 'Consulter dans le Bestiaire';
-                const nomEchappe = item.nom.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Regex stricte : respecte les mots complets, tirets et apostrophes
+        const masterRegex = new RegExp(`(?<![\\wÀ-ÿ])(${motifs.join('|')})(?![\\wÀ-ÿ])`, 'gi');
 
-                // Regex qui vérifie que le mot n'est pas déjà dans un tag HTML <...>
-                const regex = new RegExp(`(?<!<[^>]*)(\\b${nomEchappe}\\b)(?![^<]*>)`, 'g');
+        // 3. Traiter uniquement les textes purs (nœuds de texte), sans jamais toucher au HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(`<div>${texte}</div>`, 'text/html');
+        const root = doc.body.firstElementChild;
 
-                texteSource = texteSource.replace(regex, `<span onclick="navigateToDocSection('${docCible}', '${item.id}', 'lore_atlas', '${originElementId || ''}', 'l\\'Atlas')" style="color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;" title="${infoBulle}">$1 🔍</span>`);
-            });
-
-            return texteSource;
+        const walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while ((node = walker.nextNode())) {
+            // Ignorer le texte qui se trouve déjà dans un lien ou un bouton
+            if (node.parentElement && node.parentElement.closest('a, span[onclick], button')) continue;
+            if (node.nodeValue && masterRegex.test(node.nodeValue)) {
+                textNodes.push(node);
+            }
         }
 
-        // 1. Remplacement des PNJ
-        t = remplacerTexteHorsBalises(t, pnjLinks, 'pnj');
+        // 4. Remplacement propre
+        textNodes.forEach(textNode => {
+            masterRegex.lastIndex = 0;
+            const originalText = textNode.nodeValue;
+            const fragment = doc.createDocumentFragment();
+            let lastIdx = 0;
 
-        // 2. Remplacement des Créatures
-        t = remplacerTexteHorsBalises(t, bestiaireLinks, 'bestiaire');
+            originalText.replace(masterRegex, (match, p1, offset) => {
+                if (offset > lastIdx) {
+                    fragment.appendChild(doc.createTextNode(originalText.substring(lastIdx, offset)));
+                }
 
-        return t;
+                const item = dictionnaire.get(match.toLowerCase());
+                if (item) {
+                    const span = doc.createElement('span');
+                    span.setAttribute('onclick', `navigateToDocSection('${item.doc}', '${item.id}', 'lore_atlas', '${originElementId || ''}', 'l\\'Atlas')`);
+                    span.setAttribute('style', 'color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;');
+                    span.setAttribute('title', item.info);
+                    span.textContent = `${match} 🔍`;
+                    fragment.appendChild(span);
+                } else {
+                    fragment.appendChild(doc.createTextNode(match));
+                }
+
+                lastIdx = offset + match.length;
+            });
+
+            if (lastIdx < originalText.length) {
+                fragment.appendChild(doc.createTextNode(originalText.substring(lastIdx)));
+            }
+
+            textNode.parentNode.replaceChild(fragment, textNode);
+        });
+
+        return root.innerHTML;
     }
 
     // Export du helper pour les deux fichiers de données
