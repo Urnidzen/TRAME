@@ -1737,8 +1737,40 @@ window.TRAME_Personnages = (function() {
         }
     };
     /**
+     * Transforme automatiquement le nom de l'espèce en lien cliquable avec loupe 🔍
+     */
+    function formatEspeceGenreWithLinks(p) {
+        if (!p || !p.espece_genre) return '';
+        let txt = p.espece_genre;
+        const safeName = (p.nom || '').replace(/'/g, "\\'");
+
+        // Table des correspondances vers Livret 2 ou Livret 5
+        const links = [
+            { regex: /\b(Elfes et humains)\b/gi, doc: 'livret2', sec: 'section-especes-communes' },
+            { regex: /\b(Dragonne Noble|Dragon Noble)\b/gi, doc: 'livret5', sec: 'section-creatures' },
+            { regex: /\b(Dragonne Bestiale|Dragon Bestial)\b/gi, doc: 'livret5', sec: 'section-creatures' },
+            { regex: /\b(Ogres-Mages|Ogre-Mage)\b/gi, doc: 'livret2', sec: 'section-ogres-mages' },
+            { regex: /\b(Pagures|Pagure)\b/gi, doc: 'livret2', sec: 'section-pagures' },
+            { regex: /\b(Elfe|Elfes)\b/gi, doc: 'livret2', sec: 'section-elfes' },
+            { regex: /\b(Nains|Naine|Nain)\b/gi, doc: 'livret2', sec: 'section-nains' },
+            { regex: /\b(Orques|Orque)\b/gi, doc: 'livret2', sec: 'section-orques' },
+            { regex: /\b(Humains|Humaines|Humaine|Humain)\b/gi, doc: 'livret2', sec: 'section-humains' }
+        ];
+
+        for (const item of links) {
+            if (item.regex.test(txt)) {
+                txt = txt.replace(item.regex, (match) => {
+                    return `<span onclick="navigateToDocSection('${item.doc}', '${item.sec}', 'lore_personnages', '${p.id}', '${safeName}')" style="color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;" title="Voir la description dans le Codex">${match} 🔍</span>`;
+                });
+                break;
+            }
+        }
+
+        return txt;
+    }
+
+    /**
      * Moteur de rendu unifié d'une fiche personnage
-     * Conserve strictement tous les champs d'origine sans rien inventer
      */
     function renderCard(p, customTitleLevel, customLocationLabel) {
         if (!p) return '';
@@ -1746,7 +1778,7 @@ window.TRAME_Personnages = (function() {
         let html = `<${hTag} id="${p.id}" class="pnj-title">${p.nom}</${hTag}>\n<div class="card-start"></div>\n`;
 
         if (p.espece_genre) {
-            html += `    <div class="rule-item"><p class="pseudo-li"><strong>Espèce et genre :</strong> ${p.espece_genre}</p></div>\n`;
+            html += `    <div class="rule-item"><p class="pseudo-li"><strong>Espèce et genre :</strong> ${formatEspeceGenreWithLinks(p)}</p></div>\n`;
         }
 
         const loc = customLocationLabel || p.domicile_complet || p.domicile;
