@@ -41,9 +41,6 @@
     <script src="livret5-Bestiaire.data.v0.86.js"></script>
     <!-- Convertisseur Markdown complet -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Bibliothèques pour le ZIP et la génération PDF directe -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
@@ -1816,80 +1813,80 @@
             }
         }
 
-        // 3. Tout imprimer : génère un ZIP contenant 1 fichier PDF par personnage
-        async function printAllCharacters() {
-            if (typeof JSZip === 'undefined' || typeof html2pdf === 'undefined') {
-                alert("Erreur : bibliothèque JSZip ou html2pdf manquante.");
-                return;
-            }
+        // 3. Tout imprimer : Compile toutes les fiches en un seul document pour impression native
+      async function printAllCharacters() {
+          const profiles = TRAME_Registre.getAllProfiles();
+          if (profiles.length === 0) {
+              alert("Aucun personnage à imprimer.");
+              return;
+          }
 
-            const profiles = TRAME_Registre.getAllProfiles();
-            if (profiles.length === 0) {
-                alert("Aucun personnage à imprimer.");
-                return;
-            }
+          // 1. Récupération du gabarit de la fiche de personnage
+          const response = await fetch('Fiche de personnage.v0.93.html');
+          const htmlText = await response.text();
 
-            const zip = new JSZip();
-            const usedNames = {};
+          // 2. Séparation de la structure (En-tête / Corps)
+          const parser = new DOMParser();
+          const docTemplate = parser.parseFromString(htmlText, 'text/html');
+          const headContent = docTemplate.head.innerHTML;
+          const bodyContent = docTemplate.body.innerHTML;
 
-            // Création d'une iframe hors-champ pour charger chaque fiche individuellement
-            const tempIframe = document.createElement('iframe');
-            tempIframe.style.position = 'fixed';
-            tempIframe.style.top = '-9999px';
-            tempIframe.style.left = '-9999px';
-            tempIframe.style.width = '794px';
-            tempIframe.style.height = '1123px';
-            document.body.appendChild(tempIframe);
+          // 3. Création de l'iframe de compilation invisible
+          const printIframe = document.createElement('iframe');
+          printIframe.style.position = 'fixed';
+          printIframe.style.top = '-9999px';
+          printIframe.style.left = '-9999px';
+          printIframe.style.width = '794px';
+          printIframe.style.height = '1123px';
+          document.body.appendChild(printIframe);
 
-            for (let i = 0; i < profiles.length; i++) {
-                const profile = profiles[i];
+          const doc = printIframe.contentWindow.document;
+          doc.open();
 
-                await new Promise(resolve => {
-                    tempIframe.onload = () => resolve();
-                    tempIframe.src = `Fiche de personnage.v0.93.html?uid=${profile.id}`;
-                });
+          // 4. Écriture de l'en-tête commun avec règles d'impression
+          doc.write('<!DOCTYPE html><html lang="fr"><head>');
+          doc.write(headContent);
+          doc.write(`
+              <style>
+                  /* Forcer les sauts de page propres entre chaque personnage */
+                  @media print {
+                      body { background: transparent !important; margin: 0; padding: 0; }
+                      .sheet-wrapper-direct {
+                          page-break-after: always;
+                          break-after: page;
+                      }
+                      .sheet-wrapper-direct:last-child {
+                          page-break-after: auto;
+                          break-after: auto;
+                      }
+                  }
+              </style>
+          </head>
+          <body class="font-body text-black">`);
 
-                // Pause de stabilisation du rendu et des polices
-                await new Promise(r => setTimeout(r, 400));
+          // 5. Injection de chaque personnage dans son propre conteneur isolé
+          profiles.forEach(profile => {
+              doc.write(\`<div class="sheet-wrapper-direct" data-uid="\${profile.id}">\`);
+              doc.write(bodyContent);
+              doc.write('</div>');
+          });
 
-                const frameDoc = tempIframe.contentDocument || tempIframe.contentWindow.document;
-                
-                // Masquer les boutons d'action sur la feuille
-                frameDoc.querySelectorAll('.header-actions, .sheet-ui-controls').forEach(el => el.style.display = 'none');
+          doc.write('</body></html>');
+          doc.close();
 
-                const targetEl = frameDoc.querySelector('.layout-wrapper') || frameDoc.body;
-
-                const pdfBlob = await html2pdf().set({
-                    margin: 0,
-                    image: { type: 'jpeg', quality: 0.95 },
-                    html2canvas: { scale: 1.5, useCORS: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                }).from(targetEl).output('blob');
-
-                let safeName = (profile.name || "Sans_Nom").trim().replace(/[/\\?%*:|"<>]/g, "-").replace(/\s+/g, "_");
-                if (usedNames[safeName]) {
-                    usedNames[safeName]++;
-                    safeName = `${safeName}_(${usedNames[safeName]})`;
-                } else {
-                    usedNames[safeName] = 1;
-                }
-
-                zip.file(`TRAME_Fiche_${safeName}.pdf`, pdfBlob);
-            }
-
-            document.body.removeChild(tempIframe);
-
-            const zipBlob = await zip.generateAsync({ type: "blob" });
-            const url = URL.createObjectURL(zipBlob);
-            const a = document.createElement("a");
-            const dateStr = new Date().toISOString().split("T")[0];
-            a.href = url;
-            a.download = `TRAME_Fiches_PDF_${dateStr}.zip`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+          // 6. Attente du calcul des scripts (portraits, données, etc.) puis impression
+          printIframe.onload = () => {
+              setTimeout(() => {
+                  printIframe.contentWindow.focus();
+                  printIframe.contentWindow.print();
+                  
+                  // Nettoyage de la mémoire après impression
+                  setTimeout(() => {
+                      document.body.removeChild(printIframe);
+                  }, 5000);
+              }, 1500); // Pause de 1.5s pour s'assurer que toutes les fiches sont stabilisées
+          };
+      }
         
         async function selectDocument(docId) {
             const doc = documents.find(d => d.id === docId);
