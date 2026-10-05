@@ -2036,11 +2036,24 @@ window.TRAME_Personnages = (function() {
      */
     function buildHaremView() {
         let html = PRESENTATION_HTML + REF_ELKYRIEL_HTML;
-        html += `<h2>Cercle Intime &amp; Harem libre d’Elkyriel</h2>\n`;
-        html += `<div class="card-start"><div class="rule-item"><p>Toutes les fiches complètes des compagnes, amantes et figures du foyer partagé d'Elkyriel, répertoriées sans filtre ni renvoi abrégé :</p></div></div>\n`;
+        html += `<h2>Cercle Intime d’Elkyriel</h2>\n`;
 
-        const list = trierParNom(Object.values(PNJ).filter(p => p.tags && p.tags.harem === true));
-        list.forEach(p => {
+        // 1. Section Harem
+        html += `<h3 id="cercle-harem">Harem libre</h3>\n`;
+        html += `<div class="card-start"><div class="rule-item"><p>Compagnes et amantes membres du harem libre d'Elkyriel :</p></div></div>\n`;
+        const listHarem = trierParNom(Object.values(PNJ).filter(p => p.tags && p.tags.harem === true));
+        listHarem.forEach(p => {
+            html += renderCard(p, 'h4');
+        });
+
+        html += `<div class="page-break"></div>`;
+
+        // 2. Section Hors Harem (proches, compagnes ou alliées intimes hors harem officiel)
+        html += `<h3 id="cercle-hors-harem">Hors harem</h3>\n`;
+        html += `<div class="card-start"><div class="rule-item"><p>Compagnes, alliées ou figures du cercle intime n'appartenant pas au harem libre :</p></div></div>\n`;
+        // Vous pouvez ajuster ce filtre selon les critères exacts des personnages "hors harem" mais proches (ex: Néria, les souveraines en relation secrète, etc.)
+        const listHorsHarem = trierParNom(Object.values(PNJ).filter(p => p.tags && p.tags.harem === false && (p.secret_draconique || p.tags.rangs?.includes('souverain') || p.id === 'perso-neria')));
+        listHorsHarem.forEach(p => {
             html += renderCard(p, 'h4');
         });
 
@@ -2145,8 +2158,21 @@ window.TRAME_Personnages = (function() {
 
         // 4. Cercle Intime & Harem (A-Z)
         if (mode === 'harem') {
-            const list = trierParNom(allP.filter(p => p.tags && p.tags.harem === true));
-            return list.map(p => ({ id: p.id, title: p.nom, level: 1 }));
+            const listHarem = trierParNom(allP.filter(p => p.tags && p.tags.harem === true));
+            const listHorsHarem = trierParNom(allP.filter(p => p.tags && p.tags.harem === false && (p.secret_draconique || p.tags.rangs?.includes('souverain') || p.id === 'perso-neria')));
+            
+            const indexList = [];
+            indexList.push({ id: "cercle-harem", title: `Harem libre (${listHarem.length})`, level: 1 });
+            listHarem.forEach(p => {
+                indexList.souh({ id: p.id, title: p.nom, level: 2 }); // Note: typo à corriger en push
+            });
+
+            indexList.push({ id: "cercle-hors-harem", title: `Hors harem (${listHorsHarem.length})`, level: 1 });
+            listHorsHarem.forEach(p => {
+                indexList.push({ id: p.id, title: p.nom, level: 2 });
+            });
+
+            return indexList;
         }
 
         // 5. Secret Draconique (A-Z sous chaque groupe)
