@@ -1914,30 +1914,33 @@
             printIframe.style.height = '1123px';
             printIframe.src = `Fiche de personnage.v0.93.html?uid=${id}`;
 
-            printIframe.onload = () => {
-                setTimeout(() => {
-                    printIframe.contentWindow.focus();
-                    
-                    // Nettoyage propre quand l'impression est finie ou annulée
-                    printIframe.contentWindow.onafterprint = () => {
-                        if (printIframe.parentNode) {
-                            document.body.removeChild(printIframe);
-                        }
-                    };
+            // 1. On prépare l'écouteur d'impression AVANT de fermer le document
+          printIframe.onload = () => {
+              setTimeout(() => {
+                  printIframe.contentWindow.focus();
+                  
+                  // Fermeture propre après impression
+                  printIframe.contentWindow.onafterprint = () => {
+                      if (printIframe.parentNode) {
+                          document.body.removeChild(printIframe);
+                      }
+                  };
 
-                    printIframe.contentWindow.print();
-                    
-                    // Sécurité de secours au cas où onafterprint ne se déclenche pas
-                    setTimeout(() => {
-                        if (printIframe.parentNode) {
-                            document.body.removeChild(printIframe);
-                        }
-                    }, 60000);
-                }, 500);
-            };
+                  printIframe.contentWindow.print();
+                  
+                  // Sécurité : délai de secours à 60s
+                  setTimeout(() => {
+                      if (printIframe.parentNode) {
+                          document.body.removeChild(printIframe);
+                      }
+                  }, 60000);
+              }, 1000); 
+          };
 
-            document.body.appendChild(printIframe);
-        }
+          // 2. On écrit le contenu et on ferme le document
+          doc.write('</body></html>');
+          doc.close();
+      }
 
         function deleteCharacter(id) {
             if(confirm("Êtes-vous certain de vouloir supprimer ce personnage ? Cette action est irréversible.")) {
