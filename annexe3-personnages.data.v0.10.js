@@ -1,6 +1,6 @@
 /**
  * TRAME - Annexe 3 : Personnages
- * Version : v0.02
+ * Version : v0.10
  * Base de données exhaustive et moteur de rendu dynamique
  * État de référence : Automne 1250
  */
