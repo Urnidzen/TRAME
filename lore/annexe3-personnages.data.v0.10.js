@@ -1770,6 +1770,102 @@ window.TRAME_Personnages = (function() {
     }
 
     /**
+     * Transforme automatiquement le nom du lieu de domicile en lien cliquable vers l'Atlas avec loupe 🔍
+     */
+    function formatLieuWithLinks(p, texteLieu) {
+        if (!texteLieu) return '';
+        let txt = texteLieu;
+        const safePnjName = (p.nom || '').replace(/'/g, "\\'");
+
+        // Table de correspondance vers les ancres de l'Atlas (Annexe 1)
+        // Les noms les plus longs et précis sont placés en premier
+        const atlasLieux = [
+            { nom: "Forge naine de Rivecour", id: "section-forge-naine-rivecour" },
+            { nom: "Palais royal de Rivecour", id: "section-rivecour-points-interet" },
+            { nom: "Forge commerciale d'Aldhaven", id: "section-aldhaven" },
+            { nom: "Forge d'Aldhaven", id: "section-aldhaven" },
+            { nom: "Quartier des Marchands de Rivecour", id: "section-rivecour-points-interet" },
+            { nom: "Quartier des Marchands", id: "section-rivecour-points-interet" },
+            { nom: "Quartier noble de Rivecour", id: "section-rivecour-structure" },
+            { nom: "Amphithéâtre du Sénat", id: "section-rivecour-points-interet" },
+            { nom: "Bureau du Trésor", id: "section-rivecour-presences" },
+            { nom: "Geôles du Palais royal", id: "section-rivecour-presences" },
+            { nom: "Grange des Trois-Saules", id: "section-marches-orientales" },
+            { nom: "Trois-Saules", id: "section-marches-orientales" },
+            { nom: "Bergerie sous Roche", id: "section-marches-orientales" },
+            { nom: "Salines de Mornefond", id: "section-marches-orientales" },
+            { nom: "Mornefond", id: "section-marches-orientales" },
+            { nom: "Manoir des Épines Noires", id: "section-axe-sud-ouest" },
+            { nom: "Relais des Roches-Noires", id: "section-immensite-grise" },
+            { nom: "Sanglier Gris", id: "section-axe-sud-ouest" },
+            { nom: "Tour Blanche", id: "section-immensite-grise" },
+            { nom: "Forteresse-Monde", id: "section-forteresse-monde" },
+            { nom: "Archipel des Tempêtes", id: "section-mer-de-jade" },
+            { nom: "Crique Sanglante", id: "section-mer-de-jade" },
+            { nom: "Les Saillans", id: "section-saillans" },
+            { nom: "Saillans", id: "section-saillans" },
+            { nom: "Rivecour", id: "section-rivecour" },
+            { nom: "Aldhaven", id: "section-aldhaven" },
+            { nom: "Immensité Grise", id: "section-immensite-grise" },
+            { nom: "Valdorne", id: "section-marches-orientales" },
+            { nom: "Rochebrune", id: "section-marches-orientales" },
+            { nom: "Deux-Couronnes", id: "section-marches-orientales" },
+
+            // Varethis
+            { nom: "Palais royal de Karsenne", id: "section-karsenne" },
+            { nom: "parfumerie de maître Leirykle", id: "section-parfumerie-leirykle" },
+            { nom: "parfumerie Leirykle", id: "section-parfumerie-leirykle" },
+            { nom: "Passe des Trois Bornes", id: "section-trois-bornes" },
+            { nom: "Domaine de Clairval", id: "section-domaine-clairval" },
+            { nom: "Clairval", id: "section-domaine-clairval" },
+            { nom: "Karsenne", id: "section-karsenne" },
+            { nom: "Varethis", id: "royaume-varethis" },
+
+            // Empire
+            { nom: "Palais impérial d’Élyria", id: "section-traverse-cites" },
+            { nom: "Palais royal d’Élyria", id: "section-traverse-cites" },
+            { nom: "Palais d’Élyria", id: "section-traverse-cites" },
+            { nom: "Maison des Sept Clefs", id: "section-traverse-cites" },
+            { nom: "Quais d’Élyria", id: "section-traverse-cites" },
+            { nom: "Élyria", id: "section-traverse-cites" },
+            { nom: "Calde-sur-Rive", id: "section-traverse-cites" },
+            { nom: "Clair-Verger", id: "section-traverse-cites" },
+            { nom: "Grands-Vergers", id: "section-traverse-cites" },
+            { nom: "Asten", id: "section-traverse-cites" },
+            { nom: "Haute-Rive", id: "section-traverse-cites" },
+            { nom: "Bois-Serein", id: "section-traverse-cites" },
+            { nom: "Rive-Noire", id: "section-traverse-cites" },
+            { nom: "Puits de Veyr", id: "section-traverse-cites" },
+            { nom: "Nœud de Calde", id: "section-royaume-traverse" },
+            { nom: "Hautes-Lames", id: "section-hautes-lames" },
+            { nom: "Kadar-Rauk", id: "section-gor-kadar" },
+            { nom: "Sources de Rauk", id: "section-gor-kadar" },
+            { nom: "Haut-Bois", id: "section-gor-kadar" },
+            { nom: "Gor-Kadar", id: "section-gor-kadar" },
+            { nom: "Lumérys", id: "section-astreane" },
+            { nom: "Nacrelac", id: "section-astreane" },
+            { nom: "Astréane", id: "section-astreane" },
+            { nom: "Kez-Bruma", id: "section-dhor-kez" },
+            { nom: "Dhor-Kez", id: "section-dhor-kez" },
+            { nom: "Palais royal d'Orsenn", id: "section-orsenn" },
+            { nom: "Orsenn", id: "section-orsenn" }
+        ];
+
+        for (const item of atlasLieux) {
+            const escaped = item.nom.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`\\b(${escaped})\\b`, 'i');
+            if (regex.test(txt)) {
+                txt = txt.replace(regex, (match) => {
+                    return `<span onclick="navigateToDocSection('lore_atlas', '${item.id}', 'lore_personnages', '${p.id}', '${safePnjName}')" style="color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;" title="Voir la description dans l'Atlas">${match} 🔍</span>`;
+                });
+                break; // Ne remplace que le lieu principal pour éviter les imbrications
+            }
+        }
+
+        return txt;
+    }
+    
+    /**
      * Moteur de rendu unifié d'une fiche personnage
      */
     function renderCard(p, customTitleLevel, customLocationLabel) {
@@ -1783,7 +1879,7 @@ window.TRAME_Personnages = (function() {
 
         const loc = customLocationLabel || p.domicile_complet || p.domicile;
         if (loc) {
-            html += `    <div class="rule-item"><p class="pseudo-li"><strong>Domicile habituel &amp; Fréquentation :</strong> ${loc}</p></div>\n`;
+            html += `    <div class="rule-item"><p class="pseudo-li"><strong>Domicile habituel &amp; Fréquentation :</strong> ${formatLieuWithLinks(p, loc)}</p></div>\n`;
         }
 
         if (p.condition_anterieure) {
