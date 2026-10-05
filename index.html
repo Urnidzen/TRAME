@@ -1856,7 +1856,7 @@
 
           // 5. Injection de chaque personnage dans son propre conteneur isolé
           profiles.forEach(profile => {
-              doc.write(\`<div class="sheet-wrapper-direct" data-uid="\${profile.id}">\`);
+              doc.write('<div class="sheet-wrapper-direct" data-uid="' + profile.id + '">');
               doc.write(bodyContent);
               doc.write('</div>');
           });
