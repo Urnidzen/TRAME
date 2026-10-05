@@ -69,6 +69,7 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             { nom: "Dhoran Vesk", id: "perso-dhoran-vesk", label: "Dhoran Vesk" },
             { nom: "Kaldrielle", id: "perso-kaldrielle", label: "Kaldrielle" },
             { nom: "Maélis d’Orsenn", id: "perso-maelis-d-orsenn", label: "Maélis d’Orsenn" },
+            { nom: "Maélis d'Orsenn", id: "perso-maelis-d-orsenn", label: "Maélis d'Orsenn" },
             { nom: "Maélis", id: "perso-maelis-d-orsenn", label: "Maélis" },
             { nom: "Talyra", id: "perso-talyra", label: "Talyra" },
             { nom: "Eryx", id: "perso-eryx", label: "Eryx" },
@@ -93,6 +94,7 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             { nom: "Ysel", id: "perso-ysel-rive-noire", label: "Ysel" },
             { nom: "Rhea", id: "perso-rhea-rive-noire", label: "Rhea" },
             { nom: "Virelle Senn", id: "perso-virelle-senn", label: "Virelle Senn" },
+            { nom: "Vel'Shara", id: "perso-vel-shara", label: "Vel'Shara" },
             { nom: "Vel’Shara", id: "perso-vel-shara", label: "Vel’Shara" },
             { nom: "Armand Vellec", id: "perso-armand-vellec", label: "Armand Vellec" },
             { nom: "Sariel", id: "perso-sariel", label: "Sariel" },
@@ -102,36 +104,50 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             { nom: "Liora", id: "perso-liora", label: "Liora" }
         ];
 
-        pnjLinks.forEach(p => {
-            const regex = new RegExp(`\\b(${p.nom})\\b`, 'g');
-            t = t.replace(regex, `<span onclick="navigateToDocSection('lore_personnages', '${p.id}', 'lore_atlas', '${originElementId || ''}', 'l\\'Atlas')" style="color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;" title="Consulter la fiche du personnage">$1 🔍</span>`);
-        });
-
         // Table de correspondance vers le Bestiaire (Livret 5)
         const bestiaireLinks = [
-            { nom: "Wyvernes", id: "creature-dragon-wyverne" },
-            { nom: "Wyverne", id: "creature-dragon-wyverne" },
-            { nom: "Dragon Noble", id: "creature-dragon-noble" },
-            { nom: "Dragonne Noble", id: "creature-dragon-noble" },
-            { nom: "Dragon Bestial", id: "creature-dragon-bestial" },
             { nom: "Dragonne Bestiale", id: "creature-dragon-bestial" },
-            { nom: "Dragon", id: "section-dragons" },
-            { nom: "Dragons", id: "section-dragons" },
-            { nom: "Serpents de Mer", id: "creature-serpent-de-mer-geant" },
-            { nom: "Serpent de Mer", id: "creature-serpent-de-mer-geant" },
-            { nom: "Pagures", id: "section-pagures", doc: "livret2" },
-            { nom: "Pagure", id: "section-pagures", doc: "livret2" },
+            { nom: "Dragon Bestial", id: "creature-dragon-bestial" },
+            { nom: "Dragonne Noble", id: "creature-dragon-noble" },
+            { nom: "Dragon Noble", id: "creature-dragon-noble" },
             { nom: "Golems de guerre", id: "creature-golem-de-guerre" },
             { nom: "Golem de guerre", id: "creature-golem-de-guerre" },
+            { nom: "Serpents de Mer", id: "creature-serpent-de-mer-geant" },
+            { nom: "Serpent de Mer", id: "creature-serpent-de-mer-geant" },
+            { nom: "Wyvernes", id: "creature-dragon-wyverne" },
+            { nom: "Wyverne", id: "creature-dragon-wyverne" },
+            { nom: "Dragons", id: "section-dragons" },
+            { nom: "Dragon", id: "section-dragons" },
             { nom: "Golems", id: "section-golems" },
-            { nom: "Golem", id: "section-golems" }
+            { nom: "Golem", id: "section-golems" },
+            { nom: "Pagures", id: "section-pagures", doc: "livret2" },
+            { nom: "Pagure", id: "section-pagures", doc: "livret2" }
         ];
 
-        bestiaireLinks.forEach(b => {
-            const regex = new RegExp(`\\b(${b.nom})\\b`, 'g');
-            const targetDoc = b.doc || 'livret5';
-            t = t.replace(regex, `<span onclick="navigateToDocSection('${targetDoc}', '${b.id}', 'lore_atlas', '${originElementId || ''}', 'l\\'Atlas')" style="color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;" title="Consulter dans le Bestiaire">$1 🔍</span>`);
-        });
+        // Fonction de remplacement sécurisée : ne remplace jamais à l'intérieur d'une balise HTML déjà posée
+        function remplacerTexteHorsBalises(texteSource, listeObjets, typeLien) {
+            // Trie par longueur décroissante pour traiter les expressions composées avant les mots simples
+            const listeTriee = [...listeObjets].sort((a, b) => b.nom.length - a.nom.length);
+
+            listeTriee.forEach(item => {
+                const docCible = item.doc || (typeLien === 'pnj' ? 'lore_personnages' : 'livret5');
+                const infoBulle = typeLien === 'pnj' ? 'Consulter la fiche du personnage' : 'Consulter dans le Bestiaire';
+                const nomEchappe = item.nom.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+                // Regex qui vérifie que le mot n'est pas déjà dans un tag HTML <...>
+                const regex = new RegExp(`(?<!<[^>]*)(\\b${nomEchappe}\\b)(?![^<]*>)`, 'g');
+
+                texteSource = texteSource.replace(regex, `<span onclick="navigateToDocSection('${docCible}', '${item.id}', 'lore_atlas', '${originElementId || ''}', 'l\\'Atlas')" style="color:#7c2d12; text-decoration:underline; cursor:pointer; font-weight:bold;" title="${infoBulle}">$1 🔍</span>`);
+            });
+
+            return texteSource;
+        }
+
+        // 1. Remplacement des PNJ
+        t = remplacerTexteHorsBalises(t, pnjLinks, 'pnj');
+
+        // 2. Remplacement des Créatures
+        t = remplacerTexteHorsBalises(t, bestiaireLinks, 'bestiaire');
 
         return t;
     }
@@ -1497,6 +1513,7 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             <div class="rule-item"><p class="pseudo-li"><strong>Dernier état connu :</strong> Le Baron, son intendant et sa garnison ont été tués. Les captifs ont été libérés et évacués, et les biens de valeur du domaine ont été emportés.</p></div>
             <div class="rule-item"><p class="pseudo-li"><strong>Occupation actuelle :</strong> non établie (domaine abandonné/vide).</p></div>
         <div class="card-end"></div>
+        <div class="page-break"></div>
     `;
 
 })();
