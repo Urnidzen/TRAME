@@ -68,7 +68,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Aspirante Corbeau, messagère discrète et spécialiste des drogues sous la tutelle de Lysandra.",
             physique: "Traits délicats, lèvres rose carmin, peau de porcelaine et longue chevelure violet profond. Silhouette élancée aux formes très généreuses. Garde-robe : tenues d’apparat et soieries légères héritées de sa formation de courtisane.",
             histoire: "Courtisane de luxe ; connaissance approfondie des drogues. Libérée une première fois par Elkyriel, elle drogua son ancien maître afin de survivre. Le navire de contrebande qui l’emportait fit naufrage ; capturée par les Pirates des Brumes, elle fut ensuite délivrée du navire amiral de Vargo.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime ; compagne du harem libre.",
             rapports_autres: "Rapport à Faelia : attraction intense, fascination et sentiment de sécurité."
         },
         liriel: {
@@ -84,7 +84,7 @@ window.TRAME_Personnages = (function() {
             physique: "Cheveux argentés et silhouette très généreuse.",
             caractere: "Très timide, facilement impressionnée et encore peu sûre d’elle, mais capable d’efforts visibles pour surmonter sa peur.",
             histoire: "Captive des Pirates des Brumes, libérée de la Crique Sanglante par Elkyriel et réunie avec sa sœur jumelle.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime ; compagne du harem libre.",
             rapports_autres: "Sœur jumelle de Lirael, retrouvée après leurs captivités respectives. Rapport à Faelia : forte attirance. Très intimidée par elle et se sentant inférieure à elle, Liriel cherche néanmoins à explorer timidement ce désir."
         },
         lirael: {
@@ -99,7 +99,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Musique et chant ; aide à Liriel et Mila.",
             caractere: "Calme en apparence, profondément marquée par sa servitude, silencieuse et observatrice.",
             histoire: "Motivations actuelles : se reconstruire après ses années de servitude, protéger et soutenir sa sœur jumelle Liriel, et exprimer sa gratitude envers Elkyriel.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime. Elle exprime ses sentiments avec davantage de réserve que sa sœur.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime ; compagne du harem libre. Elle exprime ses sentiments avec davantage de réserve que sa sœur.",
             rapports_autres: "Sœur jumelle de Liriel qu’elle protège et soutient."
         },
         vespera: {
@@ -386,7 +386,7 @@ window.TRAME_Personnages = (function() {
             physique: "Peau blanche, yeux violets et longue chevelure noire de jais. Elle porte généralement des robes vaporeuses soulignant sa silhouette fine. Sa voix est cristalline.",
             caractere: "Mystique, intense et dépourvue de morale conventionnelle.",
             histoire: "Fondatrice et directrice d’un réseau d’espionnage dont les membres sont appelés les Corbeaux. Lysandra est l'oreille, l'œil et l'instinct d'Elkyriel. N'ayant aucune affinité pour l'art occulte de la nécromancie, elle n'exerce aucune fonction technique ni logistique sur les dix mille corps de labeur d'Orsenn. En revanche, en tant que Voix des Ombres, elle veille à la sûreté du royaume et à la traque des espions, gardant un œil vigilant sur les maîtres-scelleurs et nécromanciens étrangers détachés en Traverse : inscrits dans les registres noirs, épiés et cernés par ses Corbeaux, aucun d'eux ne peut conspirer contre la Couronne sans être neutralisé par son réseau. Projet actuel à Karsenne : l’implantation des Corbeaux à Karsenne est en place ; Selyne Var en centralise les informations depuis le quartier des artisans. Capacités magiques : Lysandra a appris à lancer des sorts. Elle connaît notamment Langage animal, qu’elle utilise pour communiquer directement avec les véritables corbeaux qu’elle dresse. Ceux-ci peuvent ainsi lui servir de messagers et de témoins capables de lui rapporter leurs observations. Focalisateur : elle emploie un chapelet pour lancer ses sorts. Vénération supposée : Lysandra n’a jamais précisé si l’usage de ce chapelet correspond à une véritable dévotion ni à qui celle-ci s’adresserait. Ses proches supposent qu’elle vénère Elkyriel, sans qu’elle l’ait explicitement confirmé.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Amante et partenaire de confiance pour le renseignement.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Amante, compagne du harem libre et partenaire de confiance pour le renseignement.",
             rapports_autres: "Rapport à Faelia : amante et complice. Rapport à Eryx : relation exclusivement professionnelle. Eryx était historiquement son meilleur Corbeau ; leur collaboration repose sur une confiance ancienne et un respect mutuel."
         },
         reine_kaelia: {
@@ -541,7 +541,7 @@ window.TRAME_Personnages = (function() {
             physique: "Longs cheveux châtains parsemés de mèches grises, yeux gris doux et patients, taches de rousseur sur le nez et les pommettes. Silhouette solide de travailleuse, taille fine, hanches rondes et poitrine lourde. Elle porte souvent un tablier de boulangère.",
             caractere: "Calme, généreuse et apaisante.",
             histoire: "Elle quitta Aldhaven avec Aldric et les enfants pour s’établir aux Saillans.",
-            rapport_elkyriel: "Amante et refuge affectif. La bonté de Rose et de Lila a profondément influencé sa manière de protéger les personnes abandonnées. Elle accepte ses autres relations.",
+            rapport_elkyriel: "Amante, compagne du harem libre et refuge affectif. La bonté de Rose et de Lila a profondément influencé sa manière de protéger les personnes abandonnées. Elle accepte ses autres relations.",
             rapports_autres: "Rapport à Faelia : amante. Elle apprécie l’audace que Faelia l’encourage à assumer. Rapport à Aldric : ami d’enfance devenu frère d’adoption ; soutien mutuel et confiance absolue. Mère de Lila."
         },
         aldric: {
@@ -1168,7 +1168,7 @@ window.TRAME_Personnages = (function() {
             physique: "Visage ovale aux traits elfiques affinés, peau hâlée et satinée parsemée de taches de rousseur sur le nez, iris dorés et longue chevelure rousse descendant jusqu’aux genoux, souvent portée en tresses complexes ornées de fleurs séchées. Silhouette svelte et athlétique aux formes généreuses. Son parfum évoque la forêt. Garde-robe : harnois complet pour le combat et les déplacements dangereux ; robes légères taillées dans des matières précieuses dans les lieux sûrs. Elle refuse les pantalons et les sous-vêtements et assume volontiers sa nudité dans l’intimité.",
             caractere: "Entreprenante, directe et franche. Elle assume sa beauté et sait employer l’attention qu’elle suscite.",
             histoire: "Combattante d'exception et arcaniste, Faelia laisse la gestion de l'infanterie à l'expérience de Goran. Son rôle est de frapper depuis les airs : lors des batailles, elle mène elle-même la charge des soixante cavalières sur wyvernes et sème la panique chez l'ennemi. L'élevage et l'entretien des cent quatre-vingts wyvernes dans l'archipel sont laissés à des dresseurs. Faelia ne s'y rend que pour dompter les bêtes les plus rétives et adouber les nouvelles cavalières. Première dame auprès d'Elkyriel, elle veille sur la maisonnée du palais. Grâce à sa magie naturelle, elle peut comprendre et parler d'instinct aux animaux.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Première compagne, amante, partenaire de combat et première du harem libre. Sa confiance envers lui est absolue et sa loyauté aveugle.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Première compagne, amante, partenaire de combat et première dame du harem libre. Sa confiance envers lui est absolue et sa loyauté aveugle.",
             rapports_autres: "Rapport à Rose : amante, attirée par son calme et ses formes généreuses. Rapport à Lysa : forte attirance physique ; attitude possessive et protectrice depuis son sauvetage. Rapport à Lysandra : amante et complice de confiance. Rapport à Nymira : attirance réciproque et relation intime. Sexualité : bisexuelle et libertine. Elle ne désire qu'Elkyriel parmi les hommes et reste libre d'entretenir des relations avec des femmes."
         },
         talyra: {
@@ -1183,7 +1183,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Duchesse ; Cartographe Royale.",
             physique: "Éclat d’une jeune adulte elfe. Silhouette harmonieuse, svelte aux courbes généreuses. Peau bronze doré parsemée de taches de rousseur lumineuses. Iris émeraude. Très longs cheveux blond polaire descendant jusqu’aux genoux, portés en tresses complexes ornées de fleurs séchées au parfum de forêt chaude.",
             histoire: "Cartographe de terrain et archère d'élite. Talyra a révélé une compétence géographique et topographique unique lors de ses expéditions dans les cols secrets et les failles de l'Enclave. Dans un empire où le contrôle des corridors montagneux, des conduites antiques d'Etherium et des voies d'accès est une question de survie, sa science est une arme stratégique capitale. Elle dirige la Chancellerie des cartes et le corps royal des arpenteurs et géomètres de la Couronne, fixant le cadastre des dix cités et planifiant le tracé des voies pavées impériales. Totalement réconciliée avec le foyer d'Elkyriel après les doutes de juillet 1249, elle assume son rang ducal avec dignité, déléguant les arpentages de routine à ses élèves pour se consacrer aux relevés secrets de l'Empire.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Compagne et amante. Sexualité : relation intime avec Elkyriel, y compris des moments partagés avec Sera ; elle accepte les autres amantes du cercle.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Compagne du harem libre et amante. Sexualité : relation intime avec Elkyriel, y compris des moments partagés avec Sera ; elle accepte les autres amantes du cercle.",
             rapports_autres: "Rapport à Sera : camarade de route, amante dans le même cercle. Rapport à Pell : camarade de route et de maison."
         },
         eryx: {
@@ -1215,7 +1215,7 @@ window.TRAME_Personnages = (function() {
             physique: "Très longs cheveux noirs et beauté froide.",
             caractere: "Méticuleuse, réservée et précise.",
             histoire: "Talents : Savoir académique +1 ; Perception +1.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime ; compagne du harem libre.",
             rapports_autres: "Rapport à Faelia : attirance réciproque et relation intime. Rapport à Sariel : relation libertine, discrète et charnelle, sans exclusivité ni jalousie. Toutes deux restent libres. Rapport à Vel’Shara : respect intellectuel mutuel et collaboration autour des textes anciens, des cartes et des traductions."
         },
         mirelle_auvray: {
@@ -1257,7 +1257,7 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Compagne du harem libre d'Élyria.",
             physique: "Éclat d’une jeune adulte elfe. Peau hâlé satiné, taches de rousseur. Iris d’ambre. Très longs cheveux roux cuivré jusqu’aux genoux, tressés de fleurs séchées.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Amante libérée par lui."
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Amante et compagne du harem libre, libérée par lui.",
         },
         lethielle: {
             id: "perso-lethielle",
@@ -1270,7 +1270,7 @@ window.TRAME_Personnages = (function() {
             secret_draconique: "Ignore sa nature de Dragon Noble.",
             fonction: "Compagne du harem libre d'Élyria.",
             physique: "Éclat d’une jeune adulte elfe. Peau bronze doré, taches de rousseur lumineuses. Iris d’or. Très longs cheveux vert canopée jusqu’aux genoux.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Amante.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Amante et compagne du harem libre.",
             rapports_autres: "Rapport à Mireva : copine et complice."
         },
         nathalysse: {
@@ -1362,7 +1362,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Comtesse de Grands-Vergers.",
             physique: "Silhouette sèche et endurante, peau tannée, yeux gris-vert et arcade sourcilière cicatrisée. Mains d'archère.",
             histoire: "Grands-Vergers est la ville-pont maîtresse contrôlant le grand viaduc de l'Avar et abritant les immenses silos à grains de l'Empire. En tant qu'éclaireuse d'élite habituée à la surveillance des voies et aux dures privations, Sera possède l'œil aiguisé d'une sentinelle : rien ne franchit le fleuve sans son accord. Hissant la sécurité au premier rang, elle veille jalousement sur les réserves céréalières contre la pourriture, le pillage et la spéculation marchande. Elle délègue le pesage des cargaisons et la douane de pont à un Bureau des Douanes rattaché à la Trésorerie de Mirelle Auvray, commandant personnellement la garde des remparts et des archers.",
-            rapport_elkyriel: "Compagne, amante et vassale. Sexualité : relation intime avec Elkyriel, y compris des moments partagés avec Talyra ; elle accepte les autres amantes du cercle.",
+            rapport_elkyriel: "Compagne du harem libre, amante et vassale. Sexualité : relation intime avec Elkyriel, y compris des moments partagés avec Talyra ; elle accepte les autres amantes du cercle.",
             rapports_autres: "Camarade de route de Talyra et Pell."
         },
         enric: {
@@ -1422,7 +1422,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Comtesse de Bois-Serein.",
             physique: "Beauté elfique éclatante, peau de porcelaine, longs cheveux violets jusqu'aux genoux tressés de fleurs séchées, yeux violets profonds.",
             histoire: "Ayant vu sa beauté elfique magnifiée au-delà du réel par la guérison d'Elkyriel, Siane a révélé un talent prodigieux pour le tissage d'art, la mécanique des métiers et l'exploitation des fibres rares. Elle a fait de Bois-Serein la capitale textile et artisanale de l'Empire (production des soies impériales et des toiles filtrantes). Son aura inspire le respect absolu des corporations. Elle délègue le commandement militaire de la garnison et des gardes forestiers à un Prévôt d'armes nommé par Goran, et la fiscalité à la Trésorerie impériale.",
-            rapport_elkyriel: "Compagne, amante et vassale. Sexualité : relation intime avec Elkyriel ; elle accepte les autres amantes du cercle.",
+            rapport_elkyriel: "Compagne du harem libre, amante et vassale. Sexualité : relation intime avec Elkyriel ; elle accepte les autres amantes du cercle.",
             rapports_autres: "Rapport à Naela : a demandé à dormir avec elle dès son arrivée à la maison ; elles partagent la chambre."
         },
         naela: {
@@ -1526,7 +1526,7 @@ window.TRAME_Personnages = (function() {
             fonction: "Éclaireuse des tréfonds, jardinière féerique et capitaine formatrice des Spectres de la Pierre.",
             physique: "Cheveux couleur ambre tressés, yeux vert forêt, peau dorée portant de légères cicatrices claires.",
             histoire: "Talents : Aptitude féline +1 ; Survie +1. Motivations actuelles : se rendre utile, explorer le monde sauvage et honorer la liberté qu’Elkyriel lui a rendue.",
-            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime.",
+            rapport_elkyriel: "Voir REF-ELKYRIEL. Relation intime ; compagne du harem libre.",
             rapports_autres: "Rapport à Nymira : relation libertine, discrète et charnelle, sans exclusivité ni jalousie. Toutes deux restent libres."
         },
         eirik: {
