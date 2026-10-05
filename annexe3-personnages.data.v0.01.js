@@ -1747,8 +1747,8 @@ window.TRAME_Personnages = (function() {
         // Table des correspondances vers Livret 2 ou Livret 5
         const links = [
             { regex: /\b(Elfes et humains)\b/gi, doc: 'livret2', sec: 'section-especes-communes' },
-            { regex: /\b(Dragonne Noble|Dragon Noble)\b/gi, doc: 'livret5', sec: 'section-creatures' },
-            { regex: /\b(Dragonne Bestiale|Dragon Bestial)\b/gi, doc: 'livret5', sec: 'section-creatures' },
+            { regex: /\b(Dragonne Noble|Dragon Noble)\b/gi, doc: 'livret5', sec: 'creature-dragon-noble' },
+            { regex: /\b(Dragonne Bestiale|Dragon Bestial)\b/gi, doc: 'livret5', sec: 'creature-dragon-bestial' },
             { regex: /\b(Ogres-Mages|Ogre-Mage)\b/gi, doc: 'livret2', sec: 'section-ogres-mages' },
             { regex: /\b(Pagures|Pagure)\b/gi, doc: 'livret2', sec: 'section-pagures' },
             { regex: /\b(Elfe|Elfes)\b/gi, doc: 'livret2', sec: 'section-elfes' },
