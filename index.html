@@ -1804,7 +1804,7 @@
         }
 
         // 3. Tout imprimer : Compile toutes les fiches en un seul document pour impression native
-      async function printAllCharacters() {
+        async function printAllCharacters() {
           const profiles = TRAME_Registre.getAllProfiles();
           if (profiles.length === 0) {
               alert("Aucun personnage à imprimer.");
@@ -1833,21 +1833,16 @@
           const doc = printIframe.contentWindow.document;
           doc.open();
 
-          // 4. Écriture de l'en-tête commun avec règles d'impression
+          // 4. Écriture de l'en-tête commun avec règles d'impression modifiées
           doc.write('<!DOCTYPE html><html lang="fr"><head>');
           doc.write(headContent);
           doc.write(`
               <style>
-                  /* Forcer les sauts de page propres entre chaque personnage */
                   @media print {
                       body { background: transparent !important; margin: 0; padding: 0; }
-                      .sheet-wrapper-direct {
-                          page-break-after: always;
-                          break-after: page;
-                      }
-                      .sheet-wrapper-direct:last-child {
-                          page-break-after: auto;
-                          break-after: auto;
+                      /* Forcer l'affichage de la page de notes uniquement pour les fiches ciblées */
+                      .force-print-notes .page-notes {
+                          display: flex !important;
                       }
                   }
               </style>
@@ -1856,7 +1851,9 @@
 
           // 5. Injection de chaque personnage dans son propre conteneur isolé
           profiles.forEach(profile => {
-              doc.write('<div class="sheet-wrapper-direct" data-uid="' + profile.id + '">');
+              // Vérification individuelle de l'option de notes
+              const hasNotes = profileHasNotesPage(profile) ? ' force-print-notes' : '';
+              doc.write('<div class="sheet-wrapper-direct' + hasNotes + '" data-uid="' + profile.id + '">');
               doc.write(bodyContent);
               doc.write('</div>');
           });
