@@ -374,9 +374,7 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             <div class="rule-item"><p class="pseudo-li-level2">- <strong>Nathalysse :</strong> Dragonne Noble (<em>La Dame aux Mille Parchemins</em>), vivant sous l'apparence mortelle de « Dame Thalysse de Mirande », curatrice et antiquaire à Élyria, compagne et alliée impériale.</p></div>
         <div class="card-end"></div>
         <div class="page-break"></div>
-    `;
-// --- CHAPITRES 2 À 5 ---
-    window.TRAME_Atlas.PARTIE_1_HTML += `
+
         <h2 id="section-aldhaven">2. Aldhaven</h2>
         <div class="card-start"></div>
             <div class="rule-item"><p><strong>Type : grande cité humaine portuaire.</strong></p></div>
@@ -655,9 +653,7 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             </div>
         <div class="card-end"></div>
         <div class="page-break"></div>
-    `;
-// --- CHAPITRES 6 À 9 ---
-    window.TRAME_Atlas.PARTIE_1_HTML += `
+
         <h2 id="section-rivecour">6. Rivecour</h2>
         <div class="card-start"></div>
             <div class="rule-item"><p><strong>Type : grande ville humaine, capitale du royaume d'Ardélie.</strong></p></div>
@@ -1086,9 +1082,7 @@ window.TRAME_Atlas = window.TRAME_Atlas || {};
             <div class="rule-item"><p class="pseudo-li"><strong>Oasis :</strong> les Corbeaux autorisent les groupes nomades à y établir temporairement leurs campements. Les clans orques y séjournent régulièrement et commercent avec les occupants de la tour.</p></div>
         <div class="card-end"></div>
         <div class="page-break"></div>
-    `;
-// --- CHAPITRES 10 ET 11 ---
-    window.TRAME_Atlas.PARTIE_1_HTML += `
+
         <h2 id="section-marches-orientales">10. Les Marches orientales et la route de Varethis</h2>
         
         <h3 id="section-marches-organisation">10.1. Organisation géographique</h3>
