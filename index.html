@@ -1905,7 +1905,7 @@
             const profile = TRAME_Registre.getProfile(id);
             if (!profile) return;
 
-            // Utilise une iframe cachée temporaire : aucune page/onglet ne s'ouvre
+            // Utilise une iframe cachée temporaire
             const printIframe = document.createElement('iframe');
             printIframe.style.position = 'fixed';
             printIframe.style.top = '-9999px';
@@ -1917,10 +1917,22 @@
             printIframe.onload = () => {
                 setTimeout(() => {
                     printIframe.contentWindow.focus();
+                    
+                    // Nettoyage propre quand l'impression est finie ou annulée
+                    printIframe.contentWindow.onafterprint = () => {
+                        if (printIframe.parentNode) {
+                            document.body.removeChild(printIframe);
+                        }
+                    };
+
                     printIframe.contentWindow.print();
+                    
+                    // Sécurité de secours au cas où onafterprint ne se déclenche pas
                     setTimeout(() => {
-                        document.body.removeChild(printIframe);
-                    }, 2000);
+                        if (printIframe.parentNode) {
+                            document.body.removeChild(printIframe);
+                        }
+                    }, 60000);
                 }, 500);
             };
 
