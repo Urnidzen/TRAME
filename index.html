@@ -1706,9 +1706,8 @@
                     }).join('') + `</div>`;
             }
             html += `
-                <div class="index-item ${isChronoActive ? 'expanded' : ''}" style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; font-weight: ${isChronoActive ? '600' : 'normal'}; display: flex; justify-content: space-between; align-items: center;" onclick="event.stopPropagation(); chronoExpanded = !chronoExpanded; renderDocumentsList();">
+                <div class="index-item ${isChronoActive ? 'expanded' : ''}" style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; font-weight: ${isChronoActive ? '600' : 'normal'};" onclick="event.stopPropagation(); chronoExpanded = !chronoExpanded; renderDocumentsList();">
                     <span>⏳ Annexe 2 : Chronologie</span>
-                    <span style="font-size: 0.7rem; opacity: 0.7;">${chronoExpanded || isChronoActive ? '▼' : '▶'}</span>
                 </div>
                 ${chronoItems}
             `;
@@ -1760,9 +1759,8 @@
                     }).join('') + `</div>`;
             }
             html += `
-                <div class="index-item ${isMjActive ? 'expanded' : ''}" style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; font-weight: ${isMjActive ? '600' : 'normal'}; display: flex; justify-content: space-between; align-items: center;" onclick="event.stopPropagation(); mjExpanded = !mjExpanded; renderDocumentsList();">
+                <div class="index-item ${isMjActive ? 'expanded' : ''}" style="padding: 6px 10px; font-size: 0.85rem; cursor: pointer; font-weight: ${isMjActive ? '600' : 'normal'};" onclick="event.stopPropagation(); mjExpanded = !mjExpanded; renderDocumentsList();">
                     <span>⚖️ Livret 6 : Guide MJ</span>
-                    <span style="font-size: 0.7rem; opacity: 0.7;">${mjExpanded || isMjActive ? '▼' : '▶'}</span>
                 </div>
                 ${mjItems}
             `;
