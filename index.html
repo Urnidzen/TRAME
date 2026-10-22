@@ -1379,7 +1379,7 @@
                 returnCont.style.display = 'block';
             }
         
-            // Si la cible est le Bestiaire, s'assurer que la vue est initialisée
+            // Si la cible est le Bestiaire, s'assurer que la vue est prête
             if (targetDocId === 'livret5' && !currentLivret5View) {
                 currentLivret5View = 'type';
                 expandedSections.add('section-creatures');
@@ -2290,26 +2290,6 @@
                 const parser = new DOMParser();
                 const docElement = parser.parseFromString(html, 'text/html');
                 
-                // Traitement spécialisé pour le Livret 5 (Bestiaire)
-                if (docId === 'livret5' && window.TRAME_Bestiaire) {
-                    const dynamicCont = docElement.getElementById('bestiaire-dynamic-container');
-                    const viewToRender = currentLivret5View || 'type';
-                    if (dynamicCont) {
-                        dynamicCont.innerHTML = TRAME_Bestiaire.renderView(viewToRender);
-                        // Déballage (unwrap) : sort les enfants du conteneur pour que la pagination 
-                        // découpe chaque fiche sur sa propre double-page et rende chaque ID accessible
-                        const parent = dynamicCont.parentNode;
-                        while (dynamicCont.firstChild) {
-                            parent.insertBefore(dynamicCont.firstChild, dynamicCont);
-                        }
-                        parent.removeChild(dynamicCont);
-                    }
-                    currentIndex = TRAME_Bestiaire.getIndex(viewToRender);
-                } else {
-                    const indexScript = docElement.getElementById('doc-index');
-                    currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
-                }
-
                 const styles = docElement.querySelectorAll('style');
                 styles.forEach(style => {
                     const styleId = style.id || `injected-style-${docId}`;
@@ -2328,6 +2308,24 @@
                 }
 
                 tempDiv.innerHTML = bodyContent;
+
+                // Traitement spécialisé pour le Livret 5 (Bestiaire)
+                if (docId === 'livret5' && window.TRAME_Bestiaire) {
+                    const dynamicCont = tempDiv.querySelector('#bestiaire-dynamic-container');
+                    const viewToRender = currentLivret5View || 'type';
+                    if (dynamicCont) {
+                        dynamicCont.innerHTML = TRAME_Bestiaire.renderView(viewToRender);
+                        const parent = dynamicCont.parentNode;
+                        while (dynamicCont.firstChild) {
+                            parent.insertBefore(dynamicCont.firstChild, dynamicCont);
+                        }
+                        parent.removeChild(dynamicCont);
+                    }
+                    currentIndex = TRAME_Bestiaire.getIndex(viewToRender);
+                } else {
+                    const indexScript = docElement.getElementById('doc-index');
+                    currentIndex = indexScript ? JSON.parse(indexScript.textContent).index : [];
+                }
                 
                 tempDiv.querySelectorAll('script, style, link[rel="stylesheet"], meta, title, base, noscript').forEach(el => el.remove());
                 
