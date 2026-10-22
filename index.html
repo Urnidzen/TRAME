@@ -1379,6 +1379,12 @@
                 returnCont.style.display = 'block';
             }
         
+            // Si la cible est le Bestiaire, s'assurer que la vue est initialisée
+            if (targetDocId === 'livret5' && !currentLivret5View) {
+                currentLivret5View = 'type';
+                expandedSections.add('section-creatures');
+            }
+
             // Changement de document si nécessaire
             if (currentDoc !== targetDocId) {
                 currentDoc = targetDocId;
@@ -1389,13 +1395,13 @@
                     loreExpanded = true;
                 }
                 
-                await loadDocument(targetDocId);
+                await loadDocument(targetDocId, true);
             }
         
-            // Défilement vers la cible (délai suffisant pour la pagination)
+            // Défilement vers la cible
             setTimeout(() => {
                 scrollToElement(targetSectionId);
-            }, 500);
+            }, 450);
         }
         
         // 2. Restaure l'endroit précis où vous étiez
