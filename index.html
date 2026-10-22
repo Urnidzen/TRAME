@@ -1367,8 +1367,8 @@
             lastNavigationOrigin = {
                 docId: originDocId || currentDoc,
                 elementId: originElementId || '',
-                scrollTop: mainContainer ? mainContainer.scrollTop : 0, // <-- ON ENREGISTRE VOTRE POSITION EXACTE
-                label: originLabel || "la fiche"
+                scrollTop: mainContainer ? mainContainer.scrollTop : 0,
+                label: originLabel || "la page précédente"
             };
         
             // Affiche le bouton de retour flottant
@@ -1392,10 +1392,10 @@
                 await loadDocument(targetDocId);
             }
         
-            // Défilement vers la cible
+            // Défilement vers la cible (délai suffisant pour la pagination)
             setTimeout(() => {
                 scrollToElement(targetSectionId);
-            }, 450);
+            }, 500);
         }
         
         // 2. Restaure l'endroit précis où vous étiez
