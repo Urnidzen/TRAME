@@ -105,7 +105,8 @@ const TRAME_Exporteur = (function() {
 
     // 4. Modale de sélection (affiche TOUS les documents sauf fiche interactive et contact)
     function ouvrirModale() {
-        const docsExportables = window.documents.filter(d => d.id !== 'fiche' && d.id !== 'contact');
+        const liste = (typeof documents !== 'undefined') ? documents : (window.documents || []);
+        const docsExportables = liste.filter(d => d.id !== 'fiche' && d.id !== 'contact');
 
         let modale = document.getElementById('exportMarkdownModal');
         if (!modale) {
@@ -175,7 +176,8 @@ const TRAME_Exporteur = (function() {
         }
 
         fermerModale();
-        const selection = window.documents.filter(d => coches.includes(d.id));
+        const liste = (typeof documents !== 'undefined') ? documents : (window.documents || []);
+        const selection = liste.filter(d => coches.includes(d.id));
 
         if (mode === 'unique') {
             let texteGlobal = '# Sommaire de la Compilation\n\n**Documents inclus dans ce fichier :**\n';
