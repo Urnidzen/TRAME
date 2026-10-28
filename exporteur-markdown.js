@@ -103,10 +103,20 @@ const TRAME_Exporteur = (function() {
         URL.revokeObjectURL(url);
     }
 
-    // 4. Modale de sélection (affiche TOUS les documents sauf fiche interactive et contact)
+    // 4. Modale de sélection
     function ouvrirModale() {
         const liste = (typeof documents !== 'undefined') ? documents : (window.documents || []);
-        const docsExportables = liste.filter(d => d.id !== 'fiche' && d.id !== 'contact');
+
+        // Vérification du mot de passe Lore (en mémoire ou dans sessionStorage)
+        const estLoreDeverrouille = (typeof loreUnlocked !== 'undefined' && loreUnlocked) || 
+                                     (sessionStorage.getItem('lore_unlocked') === 'true');
+
+        // Filtrage : pas de fiche interactive, pas de contact, et pas de Lore si verrouillé
+        const docsExportables = liste.filter(d => {
+            if (d.id === 'fiche' || d.id === 'contact') return false;
+            if (d.isLore && !estLoreDeverrouille) return false;
+            return true;
+        });
 
         let modale = document.getElementById('exportMarkdownModal');
         if (!modale) {
@@ -135,7 +145,7 @@ const TRAME_Exporteur = (function() {
                 <div style="margin-bottom:4px;">
                     <label style="cursor:pointer; display:flex; align-items:center; gap:8px;">
                         <input type="checkbox" class="export-doc-cb" value="${doc.id}" checked style="width:16px; height:16px; cursor:pointer;">
-                        ${doc.icon} ${doc.title} <span style="opacity:0.6; font-size:0.85rem;">(${doc.subtitle})</span>
+                        <span>${doc.title}</span> <span style="opacity:0.6; font-size:0.85rem;">(${doc.subtitle})</span>
                     </label>
                 </div>
             `;
