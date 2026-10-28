@@ -48,6 +48,8 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- Bibliothèque pour les archives ZIP (Import/Export global) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Module d'exportation Markdown -->
+    <script src="exporteur-markdown.js"></script>
 
     <style>
         :root {
@@ -880,6 +882,12 @@
         <div class="sidebar">
             <div class="search-container">
                 <input type="text" id="searchInput" class="search-input" placeholder="Rechercher...">
+                <button type="button" onclick="TRAME_Exporteur.ouvrir()" 
+                        style="width: 100%; margin-top: 8px; background: rgba(124, 45, 18, 0.08); border: 1px solid rgba(124, 45, 18, 0.4); border-radius: 4px; padding: 6px; font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: bold; color: #7c2d12; cursor: pointer; transition: all 0.2s;"
+                        onmouseover="this.style.background='rgba(124, 45, 18, 0.2)'"
+                        onmouseout="this.style.background='rgba(124, 45, 18, 0.08)'">
+                    📥 Exporter en Markdown
+                </button>
             </div>
             <div id="documentsList"></div>
             <div style="margin-top: auto; padding-top: 20px; text-align: center; font-size: 0.6rem; opacity: 0.6; font-family: 'Cinzel', serif;">
