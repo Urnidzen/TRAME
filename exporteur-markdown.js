@@ -3,31 +3,37 @@
  */
 const TRAME_Exporteur = (function() {
 
-    // 1. Convertisseur HTML brut -> Markdown épuré
+    // 1. Convertisseur HTML brut -> Markdown dense et compact
     function htmlToMarkdown(htmlString) {
         if (!htmlString) return '';
 
+        // Pré-nettoyage des retours HTML et espaces insécables
+        let propre = htmlString
+            .replace(/<br\s*\/?>/gi, ' ')
+            .replace(/&nbsp;|\xa0/g, ' ')
+            .replace(/\u200b/g, '');
+
         const parser = new DOMParser();
-        const doc = parser.parseFromString(`<div>${htmlString}</div>`, 'text/html');
+        const doc = parser.parseFromString(`<div>${propre}</div>`, 'text/html');
         const root = doc.body.firstElementChild;
 
-        // Suppression des éléments d'interface web et balises parasites
-        root.querySelectorAll('script, style, .card-start, .card-end, .page-break, .legal-notice, .page-number').forEach(el => el.remove());
+        // Suppression des balises d'interface et des conteneurs vides
+        root.querySelectorAll('script, style, .card-start, .card-end, .page-break, .legal-notice, .page-number, .empty-line').forEach(el => el.remove());
 
-        // Normalisation des listes et sous-listes TRAME
+        // Normalisation stricte des listes sans interligne superflu
         root.querySelectorAll('.pseudo-li').forEach(el => {
-            el.textContent = `- ${el.textContent.trim()}`;
+            el.textContent = `\n- ${el.textContent.trim()}`;
         });
         root.querySelectorAll('.pseudo-li-level2').forEach(el => {
-            el.textContent = `  - ${el.textContent.trim()}`;
+            el.textContent = `\n  - ${el.textContent.trim()}`;
         });
 
-        // Conversion des tableaux HTML en Markdown
+        // Conversion compacte des tableaux
         root.querySelectorAll('table').forEach(table => {
-            let mdTable = '\n';
+            let mdTable = '\n\n';
             const rows = Array.from(table.querySelectorAll('tr'));
             rows.forEach((row, idx) => {
-                const cells = Array.from(row.querySelectorAll('th, td')).map(c => c.textContent.trim().replace(/\|/g, '\\|'));
+                const cells = Array.from(row.querySelectorAll('th, td')).map(c => c.textContent.trim().replace(/\s+/g, ' ').replace(/\|/g, '\\|'));
                 if (cells.length > 0) {
                     mdTable += `| ${cells.join(' | ')} |\n`;
                     if (idx === 0) {
@@ -35,21 +41,33 @@ const TRAME_Exporteur = (function() {
                     }
                 }
             });
-            const textNode = doc.createTextNode(mdTable + '\n');
+            mdTable += '\n';
+            const textNode = doc.createTextNode(mdTable);
             table.parentNode.replaceChild(textNode, table);
         });
 
-        // Conversion des titres
-        ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(tag => {
+        // Conversion des titres avec un espacement maîtrisé
+        ['h6', 'h5', 'h4', 'h3', 'h2', 'h1'].forEach(tag => {
             const level = '#'.repeat(parseInt(tag[1]));
             root.querySelectorAll(tag).forEach(el => {
-                el.textContent = `\n\n${level} ${el.textContent.trim()}\n\n`;
+                el.textContent = `\n\n${level} ${el.textContent.trim()}\n`;
             });
         });
 
+        // Post-traitement des lignes et suppression des vides consécutifs
         let texte = root.textContent;
+
+        // Élimine les tabulations et espaces multiples
         texte = texte.replace(/[ \t]+/g, ' ');
+
+        // Resserre les listes à puces (aucune ligne vide entre deux puces consécutives)
+        texte = texte.replace(/\n\s*-\s+/g, '\n- ');
+        texte = texte.replace(/\n\s*-\s+(.*?)(?=\n\s*-)/g, '\n- $1');
+        texte = texte.replace(/(-\s+.*?)\n\n+(?=-\s+)/g, '$1\n');
+
+        // Compression universelle : 2 sauts de ligne maximum (une seule ligne blanche entre deux paragraphes)
         texte = texte.replace(/\n{3,}/g, '\n\n');
+
         return texte.trim();
     }
 
