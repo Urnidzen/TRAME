@@ -46,26 +46,26 @@ const TRAME_Exporteur = (function() {
             table.parentNode.replaceChild(textNode, table);
         });
 
-        // Conversion des titres avec un espacement maîtrisé
+        // Conversion des titres
         ['h6', 'h5', 'h4', 'h3', 'h2', 'h1'].forEach(tag => {
             const level = '#'.repeat(parseInt(tag[1]));
             root.querySelectorAll(tag).forEach(el => {
-                el.textContent = `\n\n${level} ${el.textContent.trim()}\n`;
+                el.textContent = `\n\n${level} ${el.textContent.trim()}\n\n`;
             });
         });
 
-        // Post-traitement des lignes et suppression des vides consécutifs
         let texte = root.textContent;
 
-        // Élimine les tabulations et espaces multiples
+        // 1. Uniformiser les espaces et tabulations horizontales sur chaque ligne
         texte = texte.replace(/[ \t]+/g, ' ');
 
-        // Resserre les listes à puces (aucune ligne vide entre deux puces consécutives)
-        texte = texte.replace(/\n\s*-\s+/g, '\n- ');
-        texte = texte.replace(/\n\s*-\s+(.*?)(?=\n\s*-)/g, '\n- $1');
-        texte = texte.replace(/(-\s+.*?)\n\n+(?=-\s+)/g, '$1\n');
+        // 2. Nettoyer les lignes qui ne contiennent que des espaces
+        texte = texte.replace(/^[ \t]+$/gm, '');
 
-        // Compression universelle : 2 sauts de ligne maximum (une seule ligne blanche entre deux paragraphes)
+        // 3. Compacter les listes à puces (aucune ligne vide entre deux puces)
+        texte = texte.replace(/\n\s*-\s+/g, '\n- ');
+
+        // 4. Réduire toute suite de 3 sauts de ligne (ou plus) à 2 maximum
         texte = texte.replace(/\n{3,}/g, '\n\n');
 
         return texte.trim();
